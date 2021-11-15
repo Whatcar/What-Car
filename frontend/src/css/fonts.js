@@ -8,7 +8,7 @@ export const maintitle = css`
 
 export const subtitle = css`
   font-size: 32px;
-  font-weight: medium;
+  font-weight: normal;
   line-height: 48px;
 `;
 
@@ -20,12 +20,12 @@ export const body = css`
 
 export const menu = css`
   font-size: 24px;
-  font-weight: medium;
+  font-weight: normal;
   line-height: 40px;
 `;
 
 export const desc = css`
-  font-size: 12px;
+  font-size: 10px;
   font-weight: light;
   line-height: 15px;
 `;

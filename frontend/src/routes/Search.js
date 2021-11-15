@@ -1,26 +1,36 @@
 import React from "react";
 import styled from "styled-components";
-import Container from "@mui/material/Container";
+import Box from "@mui/material/Box";
+import Grid from "@mui/material/Grid";
 
-import get_emblem from "../utils/get_emblem";
-
-const emblem_list = get_emblem().map((emblem) => {
-  return <img key={`${emblem[0]}`} art={`${emblem[0]}`} src={`${emblem[1]}`} />;
-});
+import SelectBox from "../components/SelectBox";
+import { maintitle } from "../css/fonts";
 
 const Search = () => {
   return (
-    <Container>
-      hello!
-      <Box />
-    </Container>
+    <Box sx={{ flexGrow: 1 }}>
+      <Grid container spacing={0}>
+        <Grid item xs={2} />
+        <Grid item xs={8}>
+          <ContentBox>
+            <Title>어떤 차가 궁금하신가요?</Title>
+            <SelectBox />
+          </ContentBox>
+        </Grid>
+        <Grid item xs={2} />
+      </Grid>
+    </Box>
   );
 };
 
 export default Search;
 
-const Box = styled.div`
-  width: 100%;
-  height: 100%;
-  background-color: "red";
+const ContentBox = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
+
+const Title = styled.p`
+  ${maintitle}
 `;
