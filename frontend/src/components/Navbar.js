@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import navWave from '../img/wave_small.svg';
+import navWave from '../img/nav/wave_small.svg';
 import { Grid } from '@mui/material';
 import { useLocation } from 'react-router';
 import { Link } from 'react-router-dom';
-import Logo from '../img/logo.svg';
+import Logo from '../img/nav/logo.svg';
 
 const navInfo = [
   { id: 0, link: '/', title: '사진 속 차 찾기' },
