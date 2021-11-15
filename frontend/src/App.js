@@ -1,13 +1,12 @@
 import React from 'react';
-import {BrowserRouter, Route, Routes} from 'react-router-dom';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import Main from './routes/Main';
 import Result from './routes/Result';
 import Search from './routes/Search';
-import './css/Reset.css'
-import './css/App.css'
-import styled from 'styled-components'
-
+import './css/Reset.css';
+import './css/App.css';
+import styled from 'styled-components';
 
 function App() {
   return (
@@ -16,13 +15,11 @@ function App() {
         <Navbar />
         <Contents>
           <Routes>
-          <Route path='/' element={<Main />} />
-          <Route path='/result/:id' element={<Result />} />
-          <Route path='/search' element={<Search />} />
-
-        </Routes>
+            <Route path="/" element={<Main />} />
+            <Route path="/result/:id" element={<Result />} />
+            <Route path="/search" element={<Search />} />
+          </Routes>
         </Contents>
-        
       </BrowserRouter>
     </div>
   );
@@ -30,7 +27,10 @@ function App() {
 
 export default App;
 
-
 const Contents = styled.div`
-  margin-top: 7rem;
+  width: 66%;
+  margin: 10rem auto;
+  @media screen and (max-width: 480px) {
+    width: 85%;
+  }
 `;
