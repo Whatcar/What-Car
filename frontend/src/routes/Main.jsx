@@ -2,8 +2,8 @@ import React from 'react';
 import styled from 'styled-components';
 import { Button } from '@mui/material';
 
-import Intro from '../components/main/Intro';
-import HowTo from '../components/main/HowTo';
+import Intro from '../components/main/Intro.jsx';
+import HowTo from '../components/main/HowTo.jsx';
 
 export default function Main() {
   return (

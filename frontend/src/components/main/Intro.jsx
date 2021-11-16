@@ -4,7 +4,7 @@ import { Grid, Button } from '@mui/material';
 import MainImg from '../../img/main/main_img.svg';
 import { blue, black } from '../../css/colors';
 import ArrowDownwardRoundedIcon from '@mui/icons-material/ArrowDownwardRounded';
-import { MainTitle, SubTitle, Desc } from './mainStyles';
+import { MainTitle, SubTitle, Desc } from '../../css/mainStyles.jsx';
 
 export default function Intro() {
   const [imgFile, setImgFile] = useState(null);
@@ -76,7 +76,7 @@ export default function Intro() {
             이미지 검색하기
           </ImageUploadButton>
           <div style={{ textAlign: 'center', marginTop: '2rem' }}>
-            <Desc highlight top={10}>
+            <Desc highlight top={2}>
               사용법을 모르겠다면?
             </Desc>
             <ArrowDownwardRoundedIcon sx={{ color: blue.main }} />
@@ -111,5 +111,4 @@ const InputDiv = styled.div`
 
 const ImageUploadButton = styled(Button)({
   width: '100%',
-  zIndex: 0,
 });
