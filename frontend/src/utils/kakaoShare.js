@@ -11,26 +11,33 @@ export const kakaoShare = (imageUrl) => {
     if (!window.Kakao.isInitialized()) {
       window.Kakao.init(appKey);
     }
-    window.Kakao.Link.sendDefault({
-      objectType: 'feed',
-      content: {
-        title: 'WhatCar!',
+    // window.Kakao.Link.sendDefault({
+    //   objectType: 'feed',
+    //   content: {
+    //     title: 'WhatCar!',
+    //     description: '이 차 뭐징? 궁금하다면 찰칵 후 업로드!',
+    //     imageUrl: kakao,
+    //     link: {
+    //       webUrl: shareUrl,
+    //       mobileWebUrl: shareUrl,
+    //     },
+    //   },
+    //   buttons: [
+    //     {
+    //       title: '이 차 뭐징? 궁금하다면 찰칵 후 업로드!',
+    //       link: {
+    //         webUrl: shareUrl,
+    //         mobileWebUrl: shareUrl,
+    //       },
+    //     },
+    //   ],
+    // });
+    window.Kakao.Link.sendCustom({
+      templateId: 65266,
+      templateArgs: {
+        title: 'WhatCar?!',
         description: '이 차 뭐징? 궁금하다면 찰칵 후 업로드!',
-        imageUrl: kakao,
-        link: {
-          webUrl: shareUrl,
-          mobileWebUrl: shareUrl,
-        },
       },
-      buttons: [
-        {
-          title: '이 차 뭐징? 궁금하다면 찰칵 후 업로드!',
-          link: {
-            webUrl: shareUrl,
-            mobileWebUrl: shareUrl,
-          },
-        },
-      ],
     });
   } else {
     console.log('no');
