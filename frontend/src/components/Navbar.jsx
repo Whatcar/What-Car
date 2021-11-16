@@ -17,7 +17,7 @@ const navInfo = [
 export default function Navbar() {
   const location = useLocation();
   const locationNow =
-    location.pathname.split('/').length > 1
+    location.pathname.split('/').length > 2
       ? `/${location.pathname.split('/')[1]}`
       : location.pathname; // pathname의 첫번째만 저장하도록 함
 
@@ -52,6 +52,7 @@ const NavWrapper = styled.div`
   width: 100%;
   position: fixed;
   top: 0;
+  z-index: 999;
 `;
 
 const NavWave = styled.img`
@@ -97,6 +98,7 @@ const Menus = styled.div`
 const CustomLink = styled(Link)`
   text-decoration: none;
   color: ${(props) => (props.ispage ? 'white' : 'rgba(255,255,255,0.5)')};
+  font-family: 'SBAggroM';
   &:hover {
     color: rgba(255, 255, 255, 0.8);
     transition: color 0.5s ease;
