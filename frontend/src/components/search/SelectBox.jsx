@@ -1,26 +1,22 @@
-import Box from "@mui/material/Box";
-import Grid from "@mui/material/Grid";
-import { useCallback, useState } from "react";
-import SelectEmblem from "./SelectEmblem";
-import { body } from "../css/fonts";
-import styled from "styled-components";
-import SelectCheck from "./SelectCheck";
-import { TextField } from "@mui/material";
-import SelectOne from "./SelectOne";
-import SelectTwo from "./SelectTwo";
-import {
-  shape,
-  grade,
-  method,
-  fuel,
-  cost,
-  displacement,
-  fuelEfficiency,
-} from "../utils/select_list";
+import Box from '@mui/material/Box';
+import Grid from '@mui/material/Grid';
+import { useCallback, useEffect, useState } from 'react';
+import SelectEmblem from './SelectEmblem';
+import { body } from '../../css/fonts';
+import styled from 'styled-components';
+import SelectCheck from './SelectCheck';
+import { TextField } from '@mui/material';
+import SelectOne from './SelectOne';
+import SelectTwo from './SelectTwo';
 
 const SelectBox = () => {
-  const [range, setRange] = useState("전체");
-  const [name, setName] = useState("");
+  const [range, setRange] = useState('전체');
+  const [name, setName] = useState('');
+
+  useEffect(() => {
+    sessionStorage.setItem('name', name);
+  }, [name]);
+
   const handleClickRange = useCallback((e) => {
     setRange(e.target.innerText);
   }, []);
@@ -30,34 +26,34 @@ const SelectBox = () => {
   }, []);
 
   return (
-    <Box style={{ width: "100%" }}>
+    <Box style={{ width: '100%' }}>
       <Grid container spacing={1} columns={8}>
-        <Grid item xs={5} style={{ width: "100%" }}>
+        <Grid item xs={5} style={{ width: '100%' }}>
           <div>
             <Category>브랜드</Category>
             <button onClick={handleClickRange}>전체</button>
             <button onClick={handleClickRange}>국산</button>
             <button onClick={handleClickRange}>수입</button>
           </div>
-          <SelectEmblem range={range} />
+          <SelectEmblem range={range} keyName="brand" />
           <SelectTwoBox>
             <Category>가격</Category>
-            <SelectTwo select={cost} />
+            <SelectTwo keyName="cost" />
           </SelectTwoBox>
           <SelectTwoBox>
             <Category>배기량</Category>
-            <SelectTwo select={displacement} />
+            <SelectTwo keyName="displacement" />
           </SelectTwoBox>
           <SelectTwoBox>
             <Category>연비</Category>
-            <SelectTwo select={fuelEfficiency} />
+            <SelectTwo keyName="fuelEfficiency" />
           </SelectTwoBox>
         </Grid>
         <Grid item xs={3}>
           <Category>차급</Category>
-          <SelectCheck check={grade} />
+          <SelectCheck keyName="grade" />
           <Category>외형</Category>
-          <SelectCheck check={shape} />
+          <SelectCheck keyName="shape" />
           <SelectOneBox>
             <Category>모델명</Category>
             <TextField
@@ -70,11 +66,11 @@ const SelectBox = () => {
           </SelectOneBox>
           <SelectOneBox>
             <Category>구동방식</Category>
-            <SelectOne select={method} />
+            <SelectOne keyName="method" />
           </SelectOneBox>
           <SelectOneBox>
             <Category>연료</Category>
-            <SelectOne select={fuel} />
+            <SelectOne keyName={'fuel'} />
           </SelectOneBox>
         </Grid>
       </Grid>

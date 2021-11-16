@@ -1,10 +1,17 @@
-import styled from "styled-components";
-import { FormControl, Select, MenuItem } from "@mui/material";
-import { useCallback, useState } from "react";
+import styled from 'styled-components';
+import { FormControl, Select, MenuItem } from '@mui/material';
+import { useCallback, useEffect, useState } from 'react';
+import selectList from '../../data/selectList';
 
-const SelectTwo = ({ select }) => {
-  const [start, setStart] = useState("전체");
-  const [end, setEnd] = useState("");
+const SelectTwo = ({ keyName }) => {
+  const [start, setStart] = useState('전체');
+  const [end, setEnd] = useState('');
+  const select = selectList[keyName];
+
+  useEffect(() => {
+    const keyValue = `${start}~${end}`;
+    sessionStorage.setItem(keyName, keyValue);
+  }, [keyName, start, end]);
 
   const startIdx = select.findIndex((item) => item === start);
   const endList = select.slice(startIdx + 1);
@@ -14,15 +21,14 @@ const SelectTwo = ({ select }) => {
       const newStart = e.target.value;
       const newStartIdx = select.findIndex((item) => item === newStart);
       const endIdx = select.findIndex((item) => item === end);
-      if (newStartIdx === select.length - 1) {
-        setEnd("");
-      }
-      if (newStartIdx >= endIdx) {
+      if (newStartIdx === select.length - 1 || newStart === '전체') {
+        setEnd('');
+      } else if (newStartIdx >= endIdx) {
         setEnd(select[newStartIdx + 1]);
       }
       setStart(newStart);
     },
-    [end, select]
+    [end, select],
   );
 
   const handleEndChange = useCallback((e) => {
@@ -47,7 +53,7 @@ const SelectTwo = ({ select }) => {
 
   return (
     <Box>
-      <FormControl sx={{ width: "45%" }}>
+      <FormControl sx={{ width: '45%' }}>
         <Select
           labelId="select-start-label"
           id="select-start-label"
@@ -59,10 +65,7 @@ const SelectTwo = ({ select }) => {
         </Select>
       </FormControl>
       ~
-      <FormControl
-        sx={{ width: "45%" }}
-        disabled={start === "전체" ? true : false}
-      >
+      <FormControl sx={{ width: '45%' }} disabled={start === '전체' ? true : false}>
         <Select
           labelId="select-end-label"
           id="select-end-label"
@@ -79,4 +82,8 @@ const SelectTwo = ({ select }) => {
 
 export default SelectTwo;
 
-const Box = styled.div``;
+const Box = styled.div`
+  display: flex;
+  justify-content: space-between;
+  padding-right: 12px;
+`;
