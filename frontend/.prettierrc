@@ -1,8 +1,8 @@
 {
-    "useTabs": false, // 탭을 사용할 때 빈칸으로 채웁니다
-    "printWidth": 100, // 파일 최대 길이를 100칸으로 지정합니다
-    "tabWidth": 2, // 탭의 빈칸을 두칸으로 지정합니다
-    "trailingComma": "all", // 나열 항목의 마지막에 항상 쉼표(,)를 붙입니다
-    "semi": true, // 실행 줄 마지막에 항상 세미콜론(;)을 붙입니다
-    "singleQuote": true // 문자 따옴표를 작은따옴표('')로 통일합니다
+  "useTabs": false,
+  "printWidth": 100,
+  "tabWidth": 2,
+  "trailingComma": "all",
+  "semi": true,
+  "singleQuote": true
 }
