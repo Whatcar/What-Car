@@ -4,17 +4,40 @@ import styled from 'styled-components';
 import SelectBox from '../components/search/SelectBox';
 import { maintitle } from '../css/fonts';
 
-const Search = () => {
-  const handleSearchClick = () => {};
+const conditionsName = [
+  'brand',
+  'cost',
+  'displacement',
+  'fuelEfficiency',
+  'grade',
+  'shape',
+  'name',
+  'method',
+  'fuel',
+];
 
-  const handleResetClick = () => {};
+const Search = () => {
+  const handleSearchClick = (e) => {
+    const conditions = conditionsName.map((keyName) => {
+      return sessionStorage.getItem(keyName);
+    });
+    console.log(conditions);
+  };
+
+  const handleResetClick = () => {
+    sessionStorage.clear();
+    const conditions = conditionsName.map((keyName) => {
+      return sessionStorage.getItem(keyName);
+    });
+    console.log(conditions);
+  };
 
   return (
     <ContentBox>
       <Title>어떤 차가 궁금하신가요?</Title>
-      <SelectBox clickSubmit={handleSearchClick} />
-      <button>조건 검색</button>
-      <button>초기화</button>
+      <SelectBox />
+      <button onClick={handleSearchClick}>조건 검색</button>
+      <button onClick={handleResetClick}>초기화</button>
     </ContentBox>
   );
 };

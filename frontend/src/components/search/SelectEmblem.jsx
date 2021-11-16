@@ -6,7 +6,7 @@ import { useEffect, useState } from 'react';
 import setCheckedValues from '../../utils/setCheckedValues';
 import isChecked from '../../utils/isChecked';
 
-const EmblemBox = ({ range = '전체', setChecked }) => {
+const EmblemBox = ({ range = '전체', keyName }) => {
   const [values, setValues] = useState([]);
 
   useEffect(() => {
@@ -14,8 +14,8 @@ const EmblemBox = ({ range = '전체', setChecked }) => {
   }, [range]);
 
   useEffect(() => {
-    setChecked(values);
-  }, [values]);
+    sessionStorage.setItem(keyName, values);
+  }, [keyName, values]);
 
   const emblem_list = getEmblem(range).map((emblem) => {
     const name = emblem[0];
@@ -27,13 +27,16 @@ const EmblemBox = ({ range = '전체', setChecked }) => {
     };
 
     return (
-      <>
-        <Emblem key={`${range}-${name}`} checked={isChecked(name, values)}>
-          <Img art={name} src={adress} />
-          <Name>{name}</Name>
-          <input type="checkbox" value={name} onClick={handleClick}></input>
-        </Emblem>
-      </>
+      <Emblem key={`${range}-${name}-box`} checked={isChecked(name, values)}>
+        <Img key={`${range}-${name}-img`} art={name} src={adress} />
+        <Name key={`${range}-${name}-name`}>{name}</Name>
+        <input
+          key={`${range}-${name}-input`}
+          type="checkbox"
+          value={name}
+          onClick={handleClick}
+        ></input>
+      </Emblem>
     );
   });
 

@@ -8,43 +8,14 @@ import SelectCheck from './SelectCheck';
 import { TextField } from '@mui/material';
 import SelectOne from './SelectOne';
 import SelectTwo from './SelectTwo';
-import {
-  shape_list,
-  grade_list,
-  method_list,
-  fuel_list,
-  cost_list,
-  displacement_list,
-  fuelEfficiency_list,
-} from '../../data/select_list';
 
 const SelectBox = () => {
   const [range, setRange] = useState('전체');
-  const [brand, setBrand] = useState([]);
-  const [cost, setCost] = useState([]);
-  const [displacement, setDisplacement] = useState([]);
-  const [fuelEfficiency, setFuelEfficiency] = useState([]);
-  const [grade, setGrade] = useState([]);
-  const [shape, setShape] = useState([]);
   const [name, setName] = useState('');
-  const [method, setMethod] = useState('');
-  const [fuel, setFuel] = useState('');
 
-  const conditions = {
-    brand,
-    cost,
-    displacement,
-    fuelEfficiency,
-    grade,
-    shape,
-    name,
-    method,
-    fuel,
-  };
-
-  // useEffect(() => {
-  //   console.log('selected', conditions);
-  // }, [conditions]);
+  useEffect(() => {
+    sessionStorage.setItem('name', name);
+  }, [name]);
 
   const handleClickRange = useCallback((e) => {
     setRange(e.target.innerText);
@@ -64,25 +35,25 @@ const SelectBox = () => {
             <button onClick={handleClickRange}>국산</button>
             <button onClick={handleClickRange}>수입</button>
           </div>
-          <SelectEmblem range={range} setChecked={setBrand} />
+          <SelectEmblem range={range} keyName="brand" />
           <SelectTwoBox>
             <Category>가격</Category>
-            <SelectTwo select={cost_list} setChecked={setCost} />
+            <SelectTwo keyName="cost" />
           </SelectTwoBox>
           <SelectTwoBox>
             <Category>배기량</Category>
-            <SelectTwo select={displacement_list} setChecked={setDisplacement} />
+            <SelectTwo keyName="displacement" />
           </SelectTwoBox>
           <SelectTwoBox>
             <Category>연비</Category>
-            <SelectTwo select={fuelEfficiency_list} setChecked={setFuelEfficiency} />
+            <SelectTwo keyName="fuelEfficiency" />
           </SelectTwoBox>
         </Grid>
         <Grid item xs={3}>
           <Category>차급</Category>
-          <SelectCheck check={grade_list} setChecked={setGrade} />
+          <SelectCheck keyName="grade" />
           <Category>외형</Category>
-          <SelectCheck check={shape_list} setChecked={setShape} />
+          <SelectCheck keyName="shape" />
           <SelectOneBox>
             <Category>모델명</Category>
             <TextField
@@ -95,11 +66,11 @@ const SelectBox = () => {
           </SelectOneBox>
           <SelectOneBox>
             <Category>구동방식</Category>
-            <SelectOne select={method_list} setChecked={setMethod} />
+            <SelectOne keyName="method" />
           </SelectOneBox>
           <SelectOneBox>
             <Category>연료</Category>
-            <SelectOne select={fuel_list} setChecked={setFuel} />
+            <SelectOne keyName={'fuel'} />
           </SelectOneBox>
         </Grid>
       </Grid>

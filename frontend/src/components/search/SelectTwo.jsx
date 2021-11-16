@@ -1,14 +1,17 @@
 import styled from 'styled-components';
 import { FormControl, Select, MenuItem } from '@mui/material';
 import { useCallback, useEffect, useState } from 'react';
+import selectList from '../../data/selectList';
 
-const SelectTwo = ({ select, setChecked }) => {
+const SelectTwo = ({ keyName }) => {
   const [start, setStart] = useState('전체');
   const [end, setEnd] = useState('');
+  const select = selectList[keyName];
 
   useEffect(() => {
-    setChecked([start, end]);
-  }, [start, end]);
+    const keyValue = `${start}~${end}`;
+    sessionStorage.setItem(keyName, keyValue);
+  }, [keyName, start, end]);
 
   const startIdx = select.findIndex((item) => item === start);
   const endList = select.slice(startIdx + 1);
@@ -20,8 +23,7 @@ const SelectTwo = ({ select, setChecked }) => {
       const endIdx = select.findIndex((item) => item === end);
       if (newStartIdx === select.length - 1 || newStart === '전체') {
         setEnd('');
-      }
-      if (newStartIdx >= endIdx) {
+      } else if (newStartIdx >= endIdx) {
         setEnd(select[newStartIdx + 1]);
       }
       setStart(newStart);

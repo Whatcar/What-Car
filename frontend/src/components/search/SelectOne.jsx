@@ -1,19 +1,21 @@
 import styled from 'styled-components';
 import { FormControl, Select, MenuItem } from '@mui/material';
 import { useCallback, useEffect, useState } from 'react';
+import selectList from '../../data/selectList';
 
-const SelectOne = ({ select, setChecked }) => {
+const SelectOne = ({ keyName }) => {
   const [value, setValue] = useState('전체');
+  const select = selectList[keyName];
 
   useEffect(() => {
-    setChecked(value);
-  }, [value]);
+    sessionStorage.setItem(keyName, value);
+  }, [keyName, value]);
 
   const handleChange = useCallback((e) => {
     setValue(e.target.value);
   }, []);
 
-  const selectList = select.map((item) => {
+  const selectOneList = select.map((item) => {
     return (
       <MenuItem key={item} value={item}>
         {item}
@@ -30,7 +32,7 @@ const SelectOne = ({ select, setChecked }) => {
           displayEmpty
           onChange={handleChange}
         >
-          {selectList}
+          {selectOneList}
         </Select>
       </FormControl>
     </Box>

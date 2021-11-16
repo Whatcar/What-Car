@@ -1,14 +1,16 @@
 import { Checkbox, FormControlLabel } from '@mui/material';
-import { useCallback, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import styled from 'styled-components';
+import selectList from '../../data/selectList';
 import setCheckedValues from '../../utils/setCheckedValues';
 
-const SelectCheck = ({ check, setChecked }) => {
+const SelectCheck = ({ keyName }) => {
   const [values, setValues] = useState([]);
+  const check = selectList[keyName];
 
   useEffect(() => {
-    setChecked(values);
-  });
+    sessionStorage.setItem(keyName, values);
+  }, [keyName, values]);
 
   const handleClick = (e) => {
     const newValue = e.target.value;
