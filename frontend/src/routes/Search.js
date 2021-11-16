@@ -1,16 +1,20 @@
 import React from 'react';
 import styled from 'styled-components';
-import Box from '@mui/material/Box';
-import Grid from '@mui/material/Grid';
 
-import SelectBox from '../components/SelectBox';
+import SelectBox from '../components/search/SelectBox';
 import { maintitle } from '../css/fonts';
 
 const Search = () => {
+  const handleSearchClick = () => {};
+
+  const handleResetClick = () => {};
+
   return (
     <ContentBox>
       <Title>어떤 차가 궁금하신가요?</Title>
-      <SelectBox />
+      <SelectBox clickSubmit={handleSearchClick} />
+      <button>조건 검색</button>
+      <button>초기화</button>
     </ContentBox>
   );
 };

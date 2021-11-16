@@ -1,40 +1,34 @@
-import styled from "styled-components";
-import get_emblem from "../utils/get_emblem";
-import { desc } from "../css/fonts";
-import { blue } from "../css/colors";
-import { useEffect, useState } from "react";
+import styled from 'styled-components';
+import getEmblem from '../../utils/getEmblem';
+import { desc } from '../../css/fonts';
+import { blue } from '../../css/colors';
+import { useEffect, useState } from 'react';
+import setCheckedValues from '../../utils/setCheckedValues';
+import isChecked from '../../utils/isChecked';
 
-const EmblemBox = ({ range = "전체" }) => {
+const EmblemBox = ({ range = '전체', setChecked }) => {
   const [values, setValues] = useState([]);
 
   useEffect(() => {
     setValues([]);
   }, [range]);
 
-  const emblem_list = get_emblem(range).map((emblem) => {
+  useEffect(() => {
+    setChecked(values);
+  }, [values]);
+
+  const emblem_list = getEmblem(range).map((emblem) => {
     const name = emblem[0];
     const adress = emblem[1];
 
     const handleClick = (e) => {
       const newValue = e.target.value;
-      const newValueIdx = values.findIndex((item) => item === newValue);
-      console.log(newValue);
-      if (newValueIdx === -1) {
-        setValues([...values, newValue]);
-      } else {
-        const newValues = [...values];
-        newValues.splice(newValueIdx, 1);
-        setValues(newValues);
-      }
-    };
-
-    const isChecked = (name) => {
-      return values.includes(name);
+      setCheckedValues(newValue, values, setValues);
     };
 
     return (
       <>
-        <Emblem key={`${range}-${name}`} checked={isChecked(name)}>
+        <Emblem key={`${range}-${name}`} checked={isChecked(name, values)}>
           <Img art={name} src={adress} />
           <Name>{name}</Name>
           <input type="checkbox" value={name} onClick={handleClick}></input>
@@ -49,11 +43,11 @@ const EmblemBox = ({ range = "전체" }) => {
 const Box = styled.div`
   display: grid;
   grid-template-columns: repeat(6, 1fr);
-  height: 260px;
+  height: 252px;
   overflow: auto;
   padding: 4px;
-  padding-right: 16px;
-  column-gap: 6px;
+  padding-right: 12px;
+  column-gap: 4px;
   row-gap: 4px;
   justify-content: center;
   align-content: start;
@@ -67,7 +61,7 @@ const Emblem = styled.label`
   width: 100%;
   min-width: 48px;
   height: 60px;
-  border: ${(props) => (props.checked ? `1px solid ${blue.light}` : "none")};
+  box-shadow: ${(props) => (props.checked ? `${blue.light} 0 0 0 1px inset` : 'none')};
   cursor: pointer;
   > input {
     display: none;

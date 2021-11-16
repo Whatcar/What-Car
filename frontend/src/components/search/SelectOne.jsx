@@ -1,9 +1,14 @@
-import styled from "styled-components";
-import { FormControl, Select, MenuItem } from "@mui/material";
-import { useCallback, useState } from "react";
+import styled from 'styled-components';
+import { FormControl, Select, MenuItem } from '@mui/material';
+import { useCallback, useEffect, useState } from 'react';
 
-const SelectOne = ({ select }) => {
-  const [value, setValue] = useState("전체");
+const SelectOne = ({ select, setChecked }) => {
+  const [value, setValue] = useState('전체');
+
+  useEffect(() => {
+    setChecked(value);
+  }, [value]);
+
   const handleChange = useCallback((e) => {
     setValue(e.target.value);
   }, []);
@@ -17,7 +22,7 @@ const SelectOne = ({ select }) => {
   });
   return (
     <Box>
-      <FormControl fullWidth>
+      <FormControl sx={{ width: '100%' }}>
         <Select
           labelId="demo-simple-select-label"
           id="demo-simple-select"
