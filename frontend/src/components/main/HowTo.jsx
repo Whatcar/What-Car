@@ -65,7 +65,7 @@ const Steps = styled.div`
 `;
 
 const StepImg = styled.div`
-  border: 2px solid ${blue.main};
+  border: 3px solid ${blue.main};
   border-radius: 50%;
   width: 130px;
   height: 130px;

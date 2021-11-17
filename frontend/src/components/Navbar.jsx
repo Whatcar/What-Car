@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import navWave from '../img/nav/wave_small.svg';
 import { Grid } from '@mui/material';
