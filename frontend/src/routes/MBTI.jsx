@@ -17,7 +17,7 @@ export default function MBTI() {
         variant="contained"
         size="large"
         sx={{ backgroundColor: blue.main, color: 'white', width: '300px', marginTop: '2rem' }}
-        onClick={() => navigate('1')}
+        onClick={() => navigate('test')}
       >
         시작하기
       </Button>

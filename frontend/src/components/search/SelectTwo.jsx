@@ -4,8 +4,11 @@ import { useCallback, useEffect, useState } from 'react';
 import selectList from '../../data/selectList';
 
 const SelectTwo = ({ keyName }) => {
-  const [start, setStart] = useState('전체');
-  const [end, setEnd] = useState('');
+  const nowValue = sessionStorage.getItem(keyName)
+    ? sessionStorage.getItem(keyName).split('~')
+    : ['전체', ''];
+  const [start, setStart] = useState(nowValue[0]);
+  const [end, setEnd] = useState(nowValue[1]);
   const select = selectList[keyName];
 
   useEffect(() => {
@@ -19,14 +22,17 @@ const SelectTwo = ({ keyName }) => {
   const handleStartChange = useCallback(
     (e) => {
       const newStart = e.target.value;
+      let newEnd = end;
       const newStartIdx = select.findIndex((item) => item === newStart);
       const endIdx = select.findIndex((item) => item === end);
       if (newStartIdx === select.length - 1 || newStart === '전체') {
-        setEnd('');
+        newEnd = '';
       } else if (newStartIdx >= endIdx) {
-        setEnd(select[newStartIdx + 1]);
+        newEnd = select[newStartIdx + 1];
       }
       setStart(newStart);
+      setEnd(newEnd);
+      sessionStorage.setItem(keyName, [start, end]);
     },
     [end, select],
   );

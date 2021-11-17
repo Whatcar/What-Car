@@ -7,10 +7,11 @@ import Search from './routes/Search';
 import './css/Reset.css';
 import './css/App.css';
 import styled from 'styled-components';
-import MBTI from './routes/MBTI';
-import Worldcup from './routes/Worldcup';
-import Team from './routes/Team';
+import MBTI from './routes/MBTI.jsx';
+import Worldcup from './routes/Worldcup.jsx';
+import Team from './routes/Team.jsx';
 import MBTItest from './routes/MBTItest.jsx';
+import NotFound from './routes/NotFound.jsx';
 
 function App() {
   return (
@@ -23,9 +24,10 @@ function App() {
             <Route path="/result/:id" element={<Result />} />
             <Route path="/search" element={<Search />} />
             <Route path="/mbti" element={<MBTI />} />
-            <Route path="/mbti/:pageNum" element={<MBTItest />} />
+            <Route path="/mbti/test" element={<MBTItest />} />
             <Route path="/worldcup" element={<Worldcup />} />
             <Route path="/team" element={<Team />} />
+            <Route path="/*" element={<NotFound />} />
           </Routes>
         </Contents>
       </BrowserRouter>
