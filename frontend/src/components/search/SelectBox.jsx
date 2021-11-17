@@ -13,16 +13,13 @@ const SelectBox = () => {
   const [range, setRange] = useState('전체');
   const [name, setName] = useState('');
 
-  useEffect(() => {
-    sessionStorage.setItem('name', name);
-  }, [name]);
-
   const handleClickRange = useCallback((e) => {
     setRange(e.target.innerText);
   }, []);
 
   const handleChangeName = useCallback((e) => {
-    setName(e.target.value);
+    const newValue = e.target.value;
+    sessionStorage.setItem('name', newValue);
   }, []);
 
   return (
