@@ -39,4 +39,6 @@ const Members = styled.div`
   padding: 10px 0 0;
   justify-content: center;
   align-items: center;
+  max-width: 800px;
+  margin: auto;
 `;

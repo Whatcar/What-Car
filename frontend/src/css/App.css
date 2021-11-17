@@ -23,4 +23,5 @@
 
 .App {
   font-family: 'SBAggroL';
+  word-break: keep-all;
 }
