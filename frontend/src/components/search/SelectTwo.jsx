@@ -34,7 +34,7 @@ const SelectTwo = ({ keyName }) => {
       setEnd(newEnd);
       sessionStorage.setItem(keyName, [start, end]);
     },
-    [end, select],
+    [keyName, start, end, select],
   );
 
   const handleEndChange = useCallback((e) => {
