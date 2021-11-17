@@ -14,7 +14,7 @@ const SelectCheck = ({ keyName }) => {
 
   const handleClick = (e) => {
     const newValue = e.target.value;
-    setCheckedValues(newValue, values, setValues);
+    sessionStorage.setItem(keyName, newValue);
   };
 
   const checkList = check.map((shape) => {

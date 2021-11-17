@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import CarList from '../components/search/CarList';
 
 import SelectBox from '../components/search/SelectBox';
 import { maintitle } from '../css/fonts';
@@ -38,6 +39,7 @@ const Search = () => {
       <SelectBox />
       <button onClick={handleSearchClick}>조건 검색</button>
       <button onClick={handleResetClick}>초기화</button>
+      <CarList />
     </ContentBox>
   );
 };
