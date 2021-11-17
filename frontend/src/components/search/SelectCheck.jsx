@@ -1,28 +1,30 @@
 import { Checkbox, FormControlLabel } from '@mui/material';
-import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import selectList from '../../data/selectList';
-import setCheckedValues from '../../utils/setCheckedValues';
+import isChecked from '../../utils/isChecked';
+import { parseSessionArray, setCheckedValues } from '../../utils/searchCondition';
 
 const SelectCheck = ({ keyName }) => {
-  const [values, setValues] = useState([]);
+  const nowValues = parseSessionArray(keyName);
   const check = selectList[keyName];
-
-  useEffect(() => {
-    sessionStorage.setItem(keyName, values);
-  }, [keyName, values]);
 
   const handleClick = (e) => {
     const newValue = e.target.value;
-    sessionStorage.setItem(keyName, newValue);
+    setCheckedValues(newValue, keyName);
   };
 
-  const checkList = check.map((shape) => {
+  const checkList = check.map((item) => {
     return (
       <FormControlLabel
-        key={shape}
-        control={<Checkbox value={shape} defaultChecked={false} onClick={handleClick} />}
-        label={shape}
+        key={item}
+        control={
+          <Checkbox
+            value={item}
+            defaultChecked={isChecked(item, nowValues)}
+            onClick={handleClick}
+          />
+        }
+        label={item}
       />
     );
   });

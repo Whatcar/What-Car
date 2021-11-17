@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import CarList from '../components/search/CarList';
 
 import SelectBox from '../components/search/SelectBox';
 import { maintitle } from '../css/fonts';
+import { resetSessionStorage } from '../utils/searchCondition';
 
 const conditionsName = [
   'brand',
@@ -18,17 +19,18 @@ const conditionsName = [
 ];
 
 const Search = () => {
+  const conditions = {};
   const handleSearchClick = (e) => {
-    const conditions = conditionsName.map((keyName) => {
-      return sessionStorage.getItem(keyName);
+    conditionsName.forEach((keyName) => {
+      conditions[keyName] = sessionStorage.getItem(keyName);
     });
     console.log(conditions);
   };
 
   const handleResetClick = () => {
-    sessionStorage.clear();
-    const conditions = conditionsName.map((keyName) => {
-      return sessionStorage.getItem(keyName);
+    resetSessionStorage();
+    conditionsName.forEach((keyName) => {
+      conditions[keyName] = sessionStorage.getItem(keyName);
     });
     console.log(conditions);
   };
