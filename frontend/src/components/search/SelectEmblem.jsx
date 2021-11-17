@@ -3,19 +3,15 @@ import getEmblem from '../../utils/getEmblem';
 import { desc } from '../../css/fonts';
 import { blue } from '../../css/colors';
 import { useEffect, useState } from 'react';
-import setCheckedValues from '../../utils/setCheckedValues';
+import { parseSessionArray, setCheckedValues } from '../../utils/searchCondition';
 import isChecked from '../../utils/isChecked';
 
-const EmblemBox = ({ range = '전체', keyName }) => {
-  const [values, setValues] = useState([]);
+const EmblemBox = ({ range, keyName }) => {
+  const [values, setValues] = useState(parseSessionArray(keyName));
 
   useEffect(() => {
-    setValues([]);
+    setValues(parseSessionArray(keyName));
   }, [range]);
-
-  useEffect(() => {
-    sessionStorage.setItem(keyName, values);
-  }, [keyName, values]);
 
   const emblem_list = getEmblem(range).map((emblem) => {
     const name = emblem[0];
@@ -23,7 +19,8 @@ const EmblemBox = ({ range = '전체', keyName }) => {
 
     const handleClick = (e) => {
       const newValue = e.target.value;
-      setCheckedValues(newValue, values, setValues);
+      const newValues = setCheckedValues(newValue, keyName);
+      setValues(newValues);
     };
 
     return (

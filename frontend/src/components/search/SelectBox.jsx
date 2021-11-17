@@ -10,19 +10,25 @@ import SelectOne from './SelectOne';
 import SelectTwo from './SelectTwo';
 
 const SelectBox = () => {
-  const [range, setRange] = useState('전체');
-  const [name, setName] = useState('');
+  const nowName = sessionStorage.getItem('name') ? sessionStorage.getItem('name') : '';
+  const [range, setRange] = useState(sessionStorage.getItem('range'));
+  const [name, setName] = useState(nowName);
 
-  useEffect(() => {
-    sessionStorage.setItem('name', name);
-  }, [name]);
+  const isDisabled = (label) => {
+    return range === label;
+  };
 
   const handleClickRange = useCallback((e) => {
-    setRange(e.target.innerText);
+    console.log('button clicked');
+    const newRange = e.target.innerText;
+    sessionStorage.setItem('range', newRange);
+    sessionStorage.setItem('brand', '');
+    setRange(newRange);
   }, []);
 
   const handleChangeName = useCallback((e) => {
     setName(e.target.value);
+    sessionStorage.setItem('name', e.target.value);
   }, []);
 
   return (
@@ -31,9 +37,15 @@ const SelectBox = () => {
         <Grid item xs={5} style={{ width: '100%' }}>
           <div>
             <Category>브랜드</Category>
-            <button onClick={handleClickRange}>전체</button>
-            <button onClick={handleClickRange}>국산</button>
-            <button onClick={handleClickRange}>수입</button>
+            <button disabled={isDisabled('전체')} onClick={handleClickRange}>
+              전체
+            </button>
+            <button disabled={isDisabled('국산')} onClick={handleClickRange}>
+              국산
+            </button>
+            <button disabled={isDisabled('수입')} onClick={handleClickRange}>
+              수입
+            </button>
           </div>
           <SelectEmblem range={range} keyName="brand" />
           <SelectTwoBox>

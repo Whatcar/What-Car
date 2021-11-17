@@ -4,15 +4,14 @@ import { useCallback, useEffect, useState } from 'react';
 import selectList from '../../data/selectList';
 
 const SelectOne = ({ keyName }) => {
-  const [value, setValue] = useState('전체');
+  const nowValue = sessionStorage.getItem(keyName) ? sessionStorage.getItem(keyName) : '전체';
+  const [value, setValue] = useState(nowValue);
   const select = selectList[keyName];
 
-  useEffect(() => {
-    sessionStorage.setItem(keyName, value);
-  }, [keyName, value]);
-
   const handleChange = useCallback((e) => {
-    setValue(e.target.value);
+    const newValue = e.target.innerText;
+    sessionStorage.setItem(keyName, newValue);
+    setValue(newValue);
   }, []);
 
   const selectOneList = select.map((item) => {
@@ -30,7 +29,7 @@ const SelectOne = ({ keyName }) => {
           id="demo-simple-select"
           value={value}
           displayEmpty
-          onChange={handleChange}
+          onClick={handleChange}
         >
           {selectOneList}
         </Select>
