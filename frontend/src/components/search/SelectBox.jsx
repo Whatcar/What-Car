@@ -1,6 +1,6 @@
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useState } from 'react';
 import SelectEmblem from './SelectEmblem';
 import { body } from '../../css/fonts';
 import styled from 'styled-components';
@@ -13,6 +13,10 @@ const SelectBox = () => {
   const nowName = sessionStorage.getItem('name') ? sessionStorage.getItem('name') : '';
   const [range, setRange] = useState(sessionStorage.getItem('range'));
   const [name, setName] = useState(nowName);
+
+  const isDisabled = (label) => {
+    return range === label;
+  };
 
   const handleClickRange = useCallback((e) => {
     console.log('button clicked');

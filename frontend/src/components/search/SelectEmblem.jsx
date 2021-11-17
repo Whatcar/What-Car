@@ -11,7 +11,7 @@ const EmblemBox = ({ range, keyName }) => {
 
   useEffect(() => {
     setValues(parseSessionArray(keyName));
-  }, [range]);
+  }, [range, keyName]);
 
   const emblem_list = getEmblem(range).map((emblem) => {
     const name = emblem[0];
