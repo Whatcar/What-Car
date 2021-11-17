@@ -36,6 +36,7 @@ const a11yProps = (index) => {
 
 const FilterTabs = () => {
   const [value, setValue] = useState(0);
+  const [dataLength, setDataLength] = useState(0);
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -43,21 +44,30 @@ const FilterTabs = () => {
 
   return (
     <Box sx={{ width: '100%' }}>
-      <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
+      <Box
+        sx={{
+          borderBottom: 1,
+          borderColor: 'divider',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+        }}
+      >
         <Tabs value={value} onChange={handleChange} aria-label="basic tabs example">
           <Tab label="출시일순" {...a11yProps(0)} />
           <Tab label="가격순↓" {...a11yProps(1)} />
           <Tab label="연비순↓" {...a11yProps(2)} />
         </Tabs>
+        <span>총 {dataLength} 건</span>
       </Box>
       <TabPanel value={value} index={0}>
-        <CarList filter="recent" />
+        <CarList filter="recent" setDataLength={setDataLength} />
       </TabPanel>
       <TabPanel value={value} index={1}>
-        <CarList filter="cost" />
+        <CarList filter="cost" setDataLength={setDataLength} />
       </TabPanel>
       <TabPanel value={value} index={2}>
-        <CarList filter="fuelEfficiency" />
+        <CarList filter="fuelEfficiency" setDataLength={setDataLength} />
       </TabPanel>
     </Box>
   );

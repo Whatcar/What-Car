@@ -4,12 +4,14 @@ import getCarList from '../../apis/seachAPI';
 import { ImageList, ImageListItem } from '@mui/material';
 import CarHover from './CarHover';
 
-const CarList = ({ filter }) => {
+const CarList = ({ filter, setDataLength }) => {
   const [cars, setCars] = useState(null);
 
   useEffect(() => {
     getCarList().then(({ data }) => {
+      data.splice(12);
       setCars(data);
+      setDataLength(data.length);
     });
   }, []);
 
