@@ -1,7 +1,7 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import styled from 'styled-components';
-import CarList from '../components/search/CarList';
-
+import { Pagination } from '@mui/material';
+import FilterTabs from '../components/search/FilterTabs';
 import SelectBox from '../components/search/SelectBox';
 import { maintitle } from '../css/fonts';
 import { resetSessionStorage } from '../utils/searchCondition';
@@ -41,7 +41,8 @@ const Search = () => {
       <SelectBox />
       <button onClick={handleSearchClick}>조건 검색</button>
       <button onClick={handleResetClick}>초기화</button>
-      <CarList />
+      <FilterTabs />
+      <Pagination count={10} shape="rounded" />
     </ContentBox>
   );
 };
