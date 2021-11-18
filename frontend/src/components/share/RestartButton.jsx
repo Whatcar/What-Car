@@ -18,19 +18,26 @@ function RestartButton() {
     }
   };
   return (
-    <div className="restartButton">
-      <Button onClick={onRestartClick}>
-        <img className="restart" src={restart} height="32px" width="32px" />
-        다시 시작 하기
-      </Button>
-    </div>
+    <RestartBtn className="restartButton" onClick={onRestartClick}>
+      <Img className="restart" src={restart} height="32px" width="32px" />
+      <a>다시 시작 하기</a>
+    </RestartBtn>
   );
 }
 
-const Button = styled.button`
-  width: 160px;
+const RestartBtn = styled.div`
+  width: 163px;
+  height: 43px;
   background-color: #ffffff;
   font-size: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: left;
+  border: 1px solid #d9d9d9;
+`;
+const Img = styled.img`
+  padding-left: 12px;
+  padding-right: 12px;
 `;
 
 export default RestartButton;

@@ -15,18 +15,20 @@ function LinkShareButton() {
     alert('URL이 복사되었습니다.');
   };
   return (
-    <div className="linkShareButton">
-      <Button onClick={onLinkClick}>
-        <img className="link" src={link} height="32px" width="32px"></img>
-      </Button>
-    </div>
+    <LinkButton className="linkShareButton" onClick={onLinkClick}>
+      <img className="link" src={link} height="32px" width="32px"></img>
+    </LinkButton>
   );
 }
 
-const Button = styled.button`
+const LinkButton = styled.div`
   background-color: #ffffff;
-  width: 45px;
-  height: 45px;
+  width: 43px;
+  height: 43px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #d9d9d9;
 `;
 
 export default LinkShareButton;
