@@ -1,5 +1,3 @@
-import kakao from '../img/kakao.png';
-
 const { location } = window;
 const appKey = '4e57abf3232a3d33f24356209b3c9327';
 export const kakaoShare = (imageUrl) => {
