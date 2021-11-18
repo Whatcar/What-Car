@@ -3,27 +3,26 @@ import getEmblem from '../../utils/getEmblem';
 import { desc } from '../../css/fonts';
 import { blue } from '../../css/colors';
 import { useEffect, useState } from 'react';
-import setCheckedValues from '../../utils/setCheckedValues';
+import { parseSessionArray, setCheckedValues } from '../../utils/searchCondition';
 import isChecked from '../../utils/isChecked';
 
-const EmblemBox = ({ range = '전체', keyName }) => {
-  const [values, setValues] = useState([]);
+const EmblemBox = ({ range, keyName }) => {
+  const [values, setValues] = useState(parseSessionArray(keyName));
 
   useEffect(() => {
-    setValues([]);
-  }, [range]);
+    setValues(parseSessionArray(keyName));
+  }, [range, keyName]);
 
-  useEffect(() => {
-    sessionStorage.setItem(keyName, values);
-  }, [keyName, values]);
+  console.log(range);
 
-  const emblem_list = getEmblem(range).map((emblem) => {
+  const emblemList = getEmblem(range).map((emblem) => {
     const name = emblem[0];
     const adress = emblem[1];
 
     const handleClick = (e) => {
       const newValue = e.target.value;
-      setCheckedValues(newValue, values, setValues);
+      const newValues = setCheckedValues(newValue, keyName);
+      setValues(newValues);
     };
 
     return (
@@ -40,7 +39,7 @@ const EmblemBox = ({ range = '전체', keyName }) => {
     );
   });
 
-  return <Box>{emblem_list}</Box>;
+  return <Box>{emblemList}</Box>;
 };
 
 const Box = styled.div`

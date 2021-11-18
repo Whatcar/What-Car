@@ -1,15 +1,15 @@
-import { createTheme } from "@mui/material";
+import { createTheme } from '@mui/material';
 
 const muiTheme = createTheme({
   typography: {
-    fontFamily: "'Elice Digital Baeum', sans-serif",
+    fontFamily: 'SBAggroL',
   },
   palette: {
     primary: {
-      main: "#2195F2",
-      light: "#ffe54c",
-      dark: "#0068BF",
-      contrastText: "#212121",
+      main: '#2195F2',
+      light: '#ffe54c',
+      dark: '#0068BF',
+      contrastText: '#212121',
     },
   },
 });

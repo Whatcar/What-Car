@@ -1,3 +1,5 @@
+// 백엔드 스키마 ; method->drive_method, cost->price
+
 const selectList = {
   grade: ['경형', '소형', '준중형', '중형', '준대형', '대형', '스포츠카'],
   shape: ['SUV', 'RV', '벤', '세단', '왜건', '컨버터블', '해치백', '쿠페'],

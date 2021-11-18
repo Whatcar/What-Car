@@ -1,8 +1,10 @@
 import React from 'react';
 import styled from 'styled-components';
-
+import { Pagination } from '@mui/material';
+import FilterTabs from '../components/search/FilterTabs';
 import SelectBox from '../components/search/SelectBox';
 import { maintitle } from '../css/fonts';
+import { resetSessionStorage } from '../utils/searchCondition';
 
 const conditionsName = [
   'brand',
@@ -17,17 +19,18 @@ const conditionsName = [
 ];
 
 const Search = () => {
+  const conditions = {};
   const handleSearchClick = (e) => {
-    const conditions = conditionsName.map((keyName) => {
-      return sessionStorage.getItem(keyName);
+    conditionsName.forEach((keyName) => {
+      conditions[keyName] = sessionStorage.getItem(keyName);
     });
     console.log(conditions);
   };
 
   const handleResetClick = () => {
-    sessionStorage.clear();
-    const conditions = conditionsName.map((keyName) => {
-      return sessionStorage.getItem(keyName);
+    resetSessionStorage();
+    conditionsName.forEach((keyName) => {
+      conditions[keyName] = sessionStorage.getItem(keyName);
     });
     console.log(conditions);
   };
@@ -38,6 +41,8 @@ const Search = () => {
       <SelectBox />
       <button onClick={handleSearchClick}>조건 검색</button>
       <button onClick={handleResetClick}>초기화</button>
+      <FilterTabs />
+      <Pagination count={10} shape="rounded" />
     </ContentBox>
   );
 };
