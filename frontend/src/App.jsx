@@ -14,12 +14,15 @@ import MBTItest from './routes/MBTItest.jsx';
 import NotFound from './routes/NotFound.jsx';
 import { ThemeProvider } from '@mui/material';
 import muiTheme from './css/muiTheme.js';
+import WorldcupTest from './components/worldcup/WorldcupTest.jsx';
+import ScrollToTop from './routes/ScrollTop.jsx';
 
 function App() {
   return (
     <div className="App">
       <ThemeProvider theme={muiTheme}>
         <BrowserRouter>
+        <ScrollToTop />
           <Navbar />
           <Contents>
             <Routes>
@@ -29,6 +32,7 @@ function App() {
               <Route path="/mbti" element={<MBTI />} />
               <Route path="/mbti/test" element={<MBTItest />} />
               <Route path="/worldcup" element={<Worldcup />} />
+            <Route path="/worldcup/test" element={<WorldcupTest />} />
               <Route path="/team" element={<Team />} />
               <Route path="/*" element={<NotFound />} />
             </Routes>
