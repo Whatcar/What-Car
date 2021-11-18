@@ -13,11 +13,13 @@ import Team from './routes/Team.jsx';
 import MBTItest from './routes/MBTItest.jsx';
 import NotFound from './routes/NotFound.jsx';
 import WorldcupTest from './components/worldcup/WorldcupTest.jsx';
+import ScrollToTop from './routes/ScrollTop.jsx';
 
 function App() {
   return (
     <div className="App">
       <BrowserRouter>
+        <ScrollToTop />
         <Navbar />
         <Contents>
           <Routes>
