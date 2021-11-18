@@ -12,6 +12,7 @@ import Worldcup from './routes/Worldcup.jsx';
 import Team from './routes/Team.jsx';
 import MBTItest from './routes/MBTItest.jsx';
 import NotFound from './routes/NotFound.jsx';
+import WorldcupTest from './components/worldcup/WorldcupTest.jsx';
 
 function App() {
   return (
@@ -26,6 +27,7 @@ function App() {
             <Route path="/mbti" element={<MBTI />} />
             <Route path="/mbti/test" element={<MBTItest />} />
             <Route path="/worldcup" element={<Worldcup />} />
+            <Route path="/worldcup/test" element={<WorldcupTest />} />
             <Route path="/team" element={<Team />} />
             <Route path="/*" element={<NotFound />} />
           </Routes>
