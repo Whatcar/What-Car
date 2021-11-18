@@ -13,7 +13,9 @@ const EmblemBox = ({ range, keyName }) => {
     setValues(parseSessionArray(keyName));
   }, [range, keyName]);
 
-  const emblem_list = getEmblem(range).map((emblem) => {
+  console.log(range);
+
+  const emblemList = getEmblem(range).map((emblem) => {
     const name = emblem[0];
     const adress = emblem[1];
 
@@ -37,7 +39,7 @@ const EmblemBox = ({ range, keyName }) => {
     );
   });
 
-  return <Box>{emblem_list}</Box>;
+  return <Box>{emblemList}</Box>;
 };
 
 const Box = styled.div`

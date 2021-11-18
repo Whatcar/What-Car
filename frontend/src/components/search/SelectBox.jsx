@@ -10,7 +10,7 @@ import SelectOne from './SelectOne';
 import SelectTwo from './SelectTwo';
 
 const SelectBox = () => {
-  const nowRange = sessionStorage.getItem('name') ? sessionStorage.getItem('name') : '전체';
+  const nowRange = sessionStorage.getItem('range') ? sessionStorage.getItem('range') : '전체';
   const nowName = sessionStorage.getItem('name') ? sessionStorage.getItem('name') : '';
   const [range, setRange] = useState(nowRange);
   const [name, setName] = useState(nowName);
