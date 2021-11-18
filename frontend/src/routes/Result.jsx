@@ -1,11 +1,11 @@
 import React from 'react';
-import KakaoShareButton from '../components/KakaoShareButton';
+import ShareButton from '../components/share/ShareButton';
 
 export default function Result() {
   return (
     <div>
       This is Result
-      <KakaoShareButton></KakaoShareButton>
+      <ShareButton></ShareButton>
     </div>
   );
 }
