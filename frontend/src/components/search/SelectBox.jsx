@@ -10,8 +10,9 @@ import SelectOne from './SelectOne';
 import SelectTwo from './SelectTwo';
 
 const SelectBox = () => {
+  const nowRange = sessionStorage.getItem('name') ? sessionStorage.getItem('name') : '전체';
   const nowName = sessionStorage.getItem('name') ? sessionStorage.getItem('name') : '';
-  const [range, setRange] = useState(sessionStorage.getItem('range'));
+  const [range, setRange] = useState(nowRange);
   const [name, setName] = useState(nowName);
 
   const isDisabled = (label) => {
@@ -19,7 +20,6 @@ const SelectBox = () => {
   };
 
   const handleClickRange = useCallback((e) => {
-    console.log('button clicked');
     const newRange = e.target.innerText;
     sessionStorage.setItem('range', newRange);
     sessionStorage.setItem('brand', '');

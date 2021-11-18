@@ -1,7 +1,7 @@
 import emblem_img from '../data/emblem_list.json';
 import emblem_name from '../data/emblem_name.json';
 
-const get_emblem = (range) => {
+const getEmblem = (range) => {
   let names = [];
   if (range === '전체') {
     names = [...emblem_name.국산, ...emblem_name.수입];
@@ -12,4 +12,4 @@ const get_emblem = (range) => {
   return emblem;
 };
 
-export default get_emblem;
+export default getEmblem;
