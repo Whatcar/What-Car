@@ -21,4 +21,5 @@ const ShareBtn = styled.div`
   justify-content: space-between;
   width: 165px;
   padding-bottom: 2px;
+  margin: auto;
 `;
