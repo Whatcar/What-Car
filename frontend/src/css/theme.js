@@ -13,7 +13,8 @@ const fontSize = {
   L: pixelToRem(24),
   XL: pixelToRem(32),
   XXL: pixelToRem(48),
-  S: pixelToRem(12),
+  S: pixelToRem(14),
+  XS: pixelToRem(12),
 };
 
 const fontStyle = {

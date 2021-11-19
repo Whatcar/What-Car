@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Box from '@mui/material/Box';
+import { Pagination } from '@mui/material';
 import CarList from './CarList';
 
 const TabPanel = (props) => {
@@ -35,6 +36,9 @@ const a11yProps = (index) => {
 };
 
 const FilterTabs = () => {
+  const [currPage, setCurrPage] = useState('1');
+  const [currURL, setCurrURL] = useState('https://6191b2cf41928b0017690111.mockapi.io/search');
+
   const [value, setValue] = useState(0);
   const [dataLength, setDataLength] = useState(0);
 
@@ -42,10 +46,16 @@ const FilterTabs = () => {
     setValue(newValue);
   };
 
+  const handlePageChange = (_, page) => {
+    setCurrPage(page);
+    console.log(page);
+  };
+
   return (
-    <Box sx={{ width: '100%' }}>
+    <Box sx={{ width: '100%', display: 'flex', flexDirection: 'column' }}>
       <Box
         sx={{
+          width: '100%',
           borderBottom: 1,
           borderColor: 'divider',
           display: 'flex',
@@ -61,14 +71,24 @@ const FilterTabs = () => {
         <span>총 {dataLength} 건</span>
       </Box>
       <TabPanel value={value} index={0}>
-        <CarList filter="recent" setDataLength={setDataLength} />
+        <CarList api={currURL} filter="recent" setDataLength={setDataLength} />
       </TabPanel>
       <TabPanel value={value} index={1}>
-        <CarList filter="cost" setDataLength={setDataLength} />
+        <CarList api={currURL} filter="cost" setDataLength={setDataLength} />
       </TabPanel>
       <TabPanel value={value} index={2}>
-        <CarList filter="fuelEfficiency" setDataLength={setDataLength} />
+        <CarList api={currURL} filter="fuelEfficiency" setDataLength={setDataLength} />
       </TabPanel>
+      <Pagination
+        sx={{ alignSelf: 'center' }}
+        boundaryCount={1}
+        siblingCount={2}
+        color="primary"
+        count={20}
+        shape="rounded"
+        onChange={handlePageChange}
+        // getItemAriaLabel={(e) => console.log('get', e)}
+      />
     </Box>
   );
 };

@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import selectList from '../../data/selectList';
 import isChecked from '../../utils/isChecked';
 import { parseSessionArray, setCheckedValues } from '../../utils/searchCondition';
+import { styled as muiStyled } from '@mui/system';
 
 const SelectCheck = ({ keyName }) => {
   const nowValues = parseSessionArray(keyName);
@@ -16,9 +17,11 @@ const SelectCheck = ({ keyName }) => {
   const checkList = check.map((item) => {
     return (
       <FormControlLabel
+        sx={labelStyle}
         key={item}
         control={
           <Checkbox
+            sx={checkboxStyle}
             value={item}
             defaultChecked={isChecked(item, nowValues)}
             onClick={handleClick}
@@ -39,3 +42,11 @@ const Box = styled.div`
   grid-template-columns: repeat(3, 1fr);
   row-gap: 4px;
 `;
+
+const labelStyle = {
+  margin: '0.25rem 0',
+};
+
+const checkboxStyle = {
+  padding: '0',
+};

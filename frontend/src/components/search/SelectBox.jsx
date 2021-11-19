@@ -1,4 +1,3 @@
-import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import { useCallback, useState } from 'react';
 import SelectEmblem from './SelectEmblem';
@@ -34,61 +33,65 @@ const SelectBox = () => {
   return (
     <ThemeProvider theme={selectTheme}>
       <Box style={{ width: '100%' }}>
-        <Grid container spacing={1} columns={8}>
-          <Grid item xs={5} style={{ width: '100%' }}>
-            <CategoryBox>
-              <Category>브랜드</Category>
-              <RangeButtons>
-                <RangeButton disabled={isDisabled('전체')} onClick={handleClickRange}>
-                  전체
-                </RangeButton>
-                <RangeButton disabled={isDisabled('국산')} onClick={handleClickRange}>
-                  국산
-                </RangeButton>
-                <RangeButton disabled={isDisabled('수입')} onClick={handleClickRange}>
-                  수입
-                </RangeButton>
-              </RangeButtons>
-            </CategoryBox>
-            <SelectEmblem range={range} keyName="brand" />
-            <SelectTwoBox>
-              <Category>가격</Category>
-              <SelectTwo keyName="cost" />
-            </SelectTwoBox>
-            <SelectTwoBox>
-              <Category>배기량</Category>
-              <SelectTwo keyName="displacement" />
-            </SelectTwoBox>
-            <SelectTwoBox>
-              <Category>연비</Category>
-              <SelectTwo keyName="fuelEfficiency" />
-            </SelectTwoBox>
-          </Grid>
-          <Grid item xs={3}>
-            <Category>차급</Category>
-            <SelectCheck keyName="grade" />
-            <Category>외형</Category>
-            <SelectCheck keyName="shape" />
-            <SelectOneBox>
-              <Category>모델명</Category>
-              <TextField
-                id="model-name"
-                hiddenLabel
-                variant="outlined"
-                value={name}
-                onChange={handleChangeName}
-              />
-            </SelectOneBox>
-            <SelectOneBox>
-              <Category>구동방식</Category>
-              <SelectOne keyName="method" />
-            </SelectOneBox>
-            <SelectOneBox>
-              <Category>연료</Category>
-              <SelectOne keyName={'fuel'} />
-            </SelectOneBox>
-          </Grid>
-        </Grid>
+        <BrandBox>
+          <CategoryBox>
+            <Category>브랜드</Category>
+            <RangeButtons>
+              <RangeButton disabled={isDisabled('전체')} onClick={handleClickRange}>
+                전체
+              </RangeButton>
+              <RangeButton disabled={isDisabled('국산')} onClick={handleClickRange}>
+                국산
+              </RangeButton>
+              <RangeButton disabled={isDisabled('수입')} onClick={handleClickRange}>
+                수입
+              </RangeButton>
+            </RangeButtons>
+          </CategoryBox>
+          <SelectEmblem range={range} keyName="brand" />
+        </BrandBox>
+        <div>
+          <Category>차급</Category>
+          <SelectCheck keyName="grade" />
+        </div>
+        <div>
+          <Category>외형</Category>
+          <SelectCheck keyName="shape" />
+        </div>
+        <div>
+          <SelectTwoBox>
+            <Category>가격</Category>
+            <SelectTwo keyName="cost" />
+          </SelectTwoBox>
+          <SelectTwoBox>
+            <Category>배기량</Category>
+            <SelectTwo keyName="displacement" />
+          </SelectTwoBox>
+          <SelectTwoBox>
+            <Category>연비</Category>
+            <SelectTwo keyName="fuelEfficiency" />
+          </SelectTwoBox>
+        </div>
+        <div>
+          <SelectOneBox>
+            <Category>모델명</Category>
+            <TextField
+              id="model-name"
+              hiddenLabel
+              variant="outlined"
+              value={name}
+              onChange={handleChangeName}
+            />
+          </SelectOneBox>
+          <SelectOneBox>
+            <Category>구동방식</Category>
+            <SelectOne keyName="method" />
+          </SelectOneBox>
+          <SelectOneBox>
+            <Category>연료</Category>
+            <SelectOne keyName={'fuel'} />
+          </SelectOneBox>
+        </div>
       </Box>
     </ThemeProvider>
   );
@@ -99,6 +102,10 @@ export default SelectBox;
 const Category = styled.span`
   ${({ theme }) => theme.fontStyle.body}
   font-weight: bold;
+`;
+
+const SelectCheckBox = styled.div`
+  height: 260px;
 `;
 
 const SelectOneBox = styled.div`
@@ -124,6 +131,19 @@ const RangeButtons = styled.div`
 const RangeButton = styled.button`
   background-color: white;
   border: none;
-  ${({ theme }) => theme.fontStyle.body}
+  ${({ theme }) => theme.fontStyle.desc}
   color: ${(props) => (props.disabled ? props.theme.colors.blueM : '')}
+`;
+
+const Box = styled.div`
+  display: grid;
+  grid-template-columns: 5fr 3fr;
+  grid-template-rows: repeat(3, auto);
+  column-gap: 1rem;
+  row-gap: 1.5rem;
+  margin-bottom: 2rem;
+`;
+
+const BrandBox = styled.div`
+  grid-row: 1 / 3;
 `;
