@@ -16,6 +16,8 @@ import muiTheme from './css/muiTheme.js';
 import GlobalStyles from './css/GlobalStyles.js';
 import { ThemeProvider } from 'styled-components';
 import { mainTheme } from './css/theme.js';
+import WorldcupTest from './components/worldcup/WorldcupTest.jsx';
+import ScrollToTop from './routes/ScrollTop.jsx';
 
 function App() {
   return (
@@ -24,6 +26,7 @@ function App() {
       <ThemeProvider theme={mainTheme}>
         <MUIThemeProvider theme={muiTheme}>
           <BrowserRouter>
+            <ScrollToTop />
             <Navbar />
             <Contents>
               <Routes>
@@ -33,6 +36,7 @@ function App() {
                 <Route path="/mbti" element={<MBTI />} />
                 <Route path="/mbti/test" element={<MBTItest />} />
                 <Route path="/worldcup" element={<Worldcup />} />
+                <Route path="/worldcup/test" element={<WorldcupTest />} />
                 <Route path="/team" element={<Team />} />
                 <Route path="/*" element={<NotFound />} />
               </Routes>

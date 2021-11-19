@@ -14,11 +14,6 @@ def register():
         data = request.files["file"]
         if not data:
             abort(404, "파일이 존재하지 않습니다.")
-        file_location = (
-            "./static/image/"
-            + str(random.random())
-            + str(secure_filename(data.filename))
-        )
-        data.save(file_location)
+        
 
         return jsonify({"result": "success"})
