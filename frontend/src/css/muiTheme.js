@@ -1,6 +1,10 @@
 import { createTheme } from '@mui/material';
 import { mainTheme } from './theme';
 
+const wantPx = (px) => {
+  return (px / 16) * 14;
+};
+
 const muiTheme = createTheme({
   typography: {
     fontFamily: 'SBAggroL',
@@ -10,7 +14,6 @@ const muiTheme = createTheme({
       main: mainTheme.colors.blueM,
       light: mainTheme.colors.blueL,
       dark: mainTheme.colors.blueD,
-      contrastText: mainTheme.colors.black900,
     },
   },
 });
@@ -20,6 +23,9 @@ export default muiTheme;
 export const selectTheme = createTheme({
   typography: {
     fontFamily: 'SBAggroL',
-    fontSize: 12,
+    fontSize: wantPx(14),
+    button: {
+      fontSize: '1rem',
+    },
   },
 });
