@@ -1,7 +1,8 @@
 import styled from 'styled-components';
-import { FormControl, Select, MenuItem } from '@mui/material';
+import { FormControl, MenuItem } from '@mui/material';
 import { useCallback, useEffect, useState } from 'react';
 import selectList from '../../data/selectList';
+import MySelect from '../../css/MySelect';
 
 const SelectTwo = ({ keyName }) => {
   const nowValue = sessionStorage.getItem(keyName)
@@ -60,7 +61,7 @@ const SelectTwo = ({ keyName }) => {
   return (
     <Box>
       <FormControl sx={{ width: '45%' }}>
-        <Select
+        <MySelect
           labelId="select-start-label"
           id="select-start-label"
           value={start}
@@ -68,11 +69,11 @@ const SelectTwo = ({ keyName }) => {
           onChange={handleStartChange}
         >
           {selectStart}
-        </Select>
+        </MySelect>
       </FormControl>
       ~
       <FormControl sx={{ width: '45%' }} disabled={start === '전체' ? true : false}>
-        <Select
+        <MySelect
           labelId="select-end-label"
           id="select-end-label"
           value={end}
@@ -80,7 +81,7 @@ const SelectTwo = ({ keyName }) => {
           onChange={handleEndChange}
         >
           {selectEnd}
-        </Select>
+        </MySelect>
       </FormControl>
     </Box>
   );

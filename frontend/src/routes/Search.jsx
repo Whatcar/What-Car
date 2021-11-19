@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
-import { Pagination } from '@mui/material';
+import { Button, Grid } from '@mui/material';
 import FilterTabs from '../components/search/FilterTabs';
 import SelectBox from '../components/search/SelectBox';
 import { maintitle } from '../css/fonts';
@@ -39,10 +39,20 @@ const Search = () => {
     <ContentBox>
       <Title>어떤 차가 궁금하신가요?</Title>
       <SelectBox />
-      <button onClick={handleSearchClick}>조건 검색</button>
-      <button onClick={handleResetClick}>초기화</button>
+      <Grid sx={{ marginBottom: '3rem' }} container spacing={1} columns={8}>
+        <Grid item xs={2} columns={8} />
+        <Grid item xs={2} style={{ width: '100%' }}>
+          <Button sx={buttonStyle} variant="contained" disableElevation onClick={handleSearchClick}>
+            조건 검색
+          </Button>
+        </Grid>
+        <Grid item xs={2} style={{ width: '100%' }}>
+          <Button sx={buttonStyle} variant="outlined" onClick={handleResetClick}>
+            초기화
+          </Button>
+        </Grid>
+      </Grid>
       <FilterTabs />
-      <Pagination count={10} shape="rounded" />
     </ContentBox>
   );
 };
@@ -56,5 +66,11 @@ const ContentBox = styled.div`
 `;
 
 const Title = styled.p`
-  ${maintitle}
+  ${({ theme }) => theme.fontStyle.subTitle}
+  margin-bottom: 1.5rem;
 `;
+
+const buttonStyle = {
+  width: '100%',
+  fontSize: '1rem',
+};
