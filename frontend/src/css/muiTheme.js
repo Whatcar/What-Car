@@ -1,4 +1,5 @@
 import { createTheme } from '@mui/material';
+import { mainTheme } from './theme';
 
 const muiTheme = createTheme({
   typography: {
@@ -6,12 +7,19 @@ const muiTheme = createTheme({
   },
   palette: {
     primary: {
-      main: '#2195F2',
-      light: '#ffe54c',
-      dark: '#0068BF',
-      contrastText: '#212121',
+      main: mainTheme.colors.blueM,
+      light: mainTheme.colors.blueL,
+      dark: mainTheme.colors.blueD,
+      contrastText: mainTheme.colors.black900,
     },
   },
 });
 
 export default muiTheme;
+
+export const selectTheme = createTheme({
+  typography: {
+    fontFamily: 'SBAggroL',
+    fontSize: 12,
+  },
+});
