@@ -11,19 +11,21 @@ class Car(db.Model):
     photolink = db.Column(db.Text, nullable=False, default="./static/image/default.png")
     brand = db.Column(db.String(30), nullable=False)
     imported_domestic = db.Column(db.String(30), nullable=False)
-    price = db.Column(db.Integer, nullable=False)
-    fuel_efficiency = db.Column(db.Integer, nullable=False)
+    price = db.Column(db.String(40), nullable=False)
+    fuel_efficiency = db.Column(db.String(30), nullable=False)
     fuel = db.Column(db.String(30), nullable=False)
-    grade = db.Column(db.Integer, nullable=False)
+    car_grade = db.Column(db.String(30), nullable=False)
+    appearance = db.Column(db.String(30), nullable=False)
+    grade_name = db.Column(db.String(50), nullable=False)
     on_sale = db.Column(db.String(30), nullable=False)
     release_date = db.Column(db.Date, nullable=True)
     discontinued_date = db.Column(db.Date, nullable=True)
-    ride_capacity = db.Column(db.Integer, nullable=False)
-    top_speed = db.Column(db.Integer, nullable=False)
-    displacement = db.Column(db.Integer, nullable=False)
+    ride_capacity = db.Column(db.String(30), nullable=False)
+    top_speed = db.Column(db.String(30), nullable=False)
+    displacement = db.Column(db.String(30), nullable=False)
     engine_type = db.Column(db.String(30), nullable=False)
     drive_method = db.Column(db.String(30), nullable=False)
-    fuel_efficiency_rating = db.Column(db.Integer, nullable=False)
+    fuel_efficiency_rating = db.Column(db.String(30), nullable=False)
 
     def to_dict(self):
         return {
@@ -35,7 +37,9 @@ class Car(db.Model):
             "price": self.price,
             "fuel_efficiency": self.fuel_efficiency,
             "fuel": self.fuel,
-            "grade": self.grade,
+            "car_grade": self.car_grade,
+            "appearance": self.appearance,
+            "grade_name": self.grade_name,
             "on_sale": self.on_sale,
             "release_date": self.release_date,
             "discontinued_date": self.discontinued_date,
@@ -47,19 +51,7 @@ class Car(db.Model):
             "fuel_efficiency_rating": self.fuel_efficiency_rating,
         }
 
-    similars = db.relationship("Similar", backref="car", lazy=True)
     worldcups = db.relationship("Worldcup", backref="car", lazy=True)
-
-
-# 유사 차량 정보
-class Similar(db.Model):
-    __tablename__ = "similar"
-    id = db.Column(db.Integer, primary_key=True, nullable=False, autoincrement=True)
-    car_id = db.Column(db.Integer, db.ForeignKey("car.id"))
-    rate = db.Column(db.Integer, nullable=False)
-
-    def to_dict(self):
-        return {"car_id": self.car_id, "rate": self.rate}
 
 
 # 월드컵
