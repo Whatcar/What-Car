@@ -70,7 +70,7 @@ export default function Intro() {
 
           <ImageUploadButton
             variant="contained"
-            sx={{ backgroundColor: blue.main }}
+            sx={{ backgroundColor: blue.main, color: 'white' }}
             onClick={handleUploadImage}
           >
             이미지 검색하기
