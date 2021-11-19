@@ -4,7 +4,7 @@ import { Grid, Button } from '@mui/material';
 import MainImg from '../../img/main/main_img.svg';
 import { blue, black } from '../../css/colors';
 import ArrowDownwardRoundedIcon from '@mui/icons-material/ArrowDownwardRounded';
-import { MainTitle, SubTitle, Desc } from '../../css/mainStyles.jsx';
+import { MainTitle, SubTitle, Desc } from '../../css/mainStyles';
 
 export default function Intro() {
   const [imgFile, setImgFile] = useState(null);
