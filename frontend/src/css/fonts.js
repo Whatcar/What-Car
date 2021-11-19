@@ -14,19 +14,18 @@ export const subtitle = css`
 
 export const body = css`
   font-size: 16px;
-  font-weight: normal;
   line-height: 30px;
+  font-family: 'SBAggroL';
 `;
 
 export const menu = css`
   font-size: 24px;
-  font-weight: normal;
   line-height: 40px;
   font-family: 'SBAggroM';
 `;
 
 export const desc = css`
-  font-size: 10px;
-  font-weight: light;
+  font-size: 12px;
   line-height: 15px;
+  font-family: 'SBAggroL';
 `;

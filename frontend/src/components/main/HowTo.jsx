@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { SubTitle } from '../../css/mainStyles.jsx';
+import { SubTitle } from '../../css/mainStyles';
 import Sub1 from '../../img/main/main_sub_1.svg';
 import Sub2 from '../../img/main/main_sub_2.svg';
 import Sub3 from '../../img/main/main_sub_3.svg';
