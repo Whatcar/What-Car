@@ -34,6 +34,7 @@ const RestartBtn = styled.div`
   align-items: center;
   justify-content: left;
   border: 1px solid #d9d9d9;
+  margin: auto;
 `;
 const Img = styled.img`
   padding-left: 12px;

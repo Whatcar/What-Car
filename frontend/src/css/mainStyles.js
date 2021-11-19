@@ -4,8 +4,9 @@ import { maintitle, subtitle, body } from './fonts';
 
 export const MainTitle = styled.h2`
   ${maintitle};
-  color: ${(props) => props.blue && blue.main};
+  color: ${(props) => (props.blue ? blue.main : props.white ? 'white' : '')};
   margin-top: ${(props) => props.top && `${props.top}rem`};
+  text-shadow: ${(props) => props.shadow && '0 5px 5px rgba(0,0,0,0.2)'};
 `;
 
 export const SubTitle = styled.h3`
