@@ -63,7 +63,8 @@ const Emblem = styled.label`
   width: 100%;
   min-width: 48px;
   height: 60px;
-  box-shadow: ${(props) => (props.checked ? `${blue.light} 0 0 0 1px inset` : 'none')};
+  box-shadow: ${(props) =>
+    props.checked ? `${props.theme.colors.blueL} 0 0 0 1px inset` : 'none'};
   cursor: pointer;
   > input {
     display: none;
