@@ -1,5 +1,6 @@
 alembic==1.6.5
 aniso8601==9.0.1
+black==21.11b1
 click==8.0.3
 colorama==0.4.4
 DateTime==4.3

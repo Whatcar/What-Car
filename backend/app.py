@@ -1,4 +1,4 @@
-from flask import Flask, jsonify, request
+from flask import Flask
 from flask_cors import CORS
 from flask_migrate import Migrate
 
@@ -17,9 +17,11 @@ def create_app():
     db.init_app(app)
     Migrate().init_app(app, db)
 
-    from views import main
+    from views import detail, main, search
 
     app.register_blueprint(main.bp)
+    app.register_blueprint(search.bp)
+    app.register_blueprint(detail.bp)
 
     return app
 
