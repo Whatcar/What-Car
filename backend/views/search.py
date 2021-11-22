@@ -1,8 +1,7 @@
 import re
 
 import config
-from flask import Blueprint, json, jsonify, render_template, request
-from flask.wrappers import Response
+from flask import Blueprint, json, jsonify, request
 from models import *
 from sqlalchemy import create_engine
 from sqlalchemy.sql import text
