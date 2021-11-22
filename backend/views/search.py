@@ -48,7 +48,7 @@ def car_list(num):
 
 
 @bp.route(
-    "/search/<str:brand>/<str:cost>/<str:displacement>/<str:fuelEfficieny>/<str:grade>/<str:shape>/<str:name>/<str:method>/<str:fuel>/<int:num>",
+    "/search/<string:brand>/<string:cost>/<string:displacement>/<string:fuelEfficieny>/<string:grade>/<string:shape>/<string:name>/<string:method>/<string:fuel>/<int:num>",
     methods=["GET"],
 )
 def search(
@@ -236,7 +236,7 @@ def search(
         return jsonify(car)
 
 
-@bp.route("/car/list/sorted/<str:sort_criteria>/<int:num>", methods=["GET"])
+@bp.route("/car/list/sorted/<string:sort_criteria>/<int:num>", methods=["GET"])
 def car_list_sorted(sort_criteria, num):
 
     # 출시일순 최신
