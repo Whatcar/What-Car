@@ -8,23 +8,22 @@ app.app_context().push()
 from app import db
 from models import Car
 
-with open("df_spec_final.csv", "r", encoding="UTF-8") as f:
+with open("df_spec_final_int.csv", "r", encoding="UTF-8") as f:
     reader = csv.DictReader(f)
 
     for row in reader:
-        
+
         release_date = row["출시일"]
+        discontinued_date = row["단종일"]
         try:
             release_date = datetime.strptime(release_date, "%Y-%m-%d").date()
         except:
             release_date = None
-
-        discontinued_date = row["단종일"]
         try:
+
             discontinued_date = datetime.strptime(discontinued_date, "%Y-%m-%d").date()
         except:
             discontinued_date = None
-
         print(release_date, discontinued_date)
         car = Car(
             name=row["car_name"],
@@ -46,6 +45,13 @@ with open("df_spec_final.csv", "r", encoding="UTF-8") as f:
             engine_type=row["엔진형식"],
             drive_method=row["구동방식"],
             fuel_efficiency_rating=row["연비등급"],
+            price_int=row["price_int"],
+            price_int_low=int(row["price_int_low"]),
+            price_int_high=int(row["price_int_high"]),
+            displacement_int=int(row["displacement_int"]),
+            fuel_efficiency_int=row["fuel_efficiency_int"],
+            fuel_efficiency_int_low=float(row["fuel_efficiency_int_low"]),
+            fuel_efficiency_int_high=float(row["fuel_efficiency_int_high"]),
         )
         db.session.add(car)
 
