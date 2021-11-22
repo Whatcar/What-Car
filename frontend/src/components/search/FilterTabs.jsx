@@ -37,7 +37,6 @@ const a11yProps = (index) => {
 
 const FilterTabs = () => {
   const [currPage, setCurrPage] = useState('1');
-  const [currURL, setCurrURL] = useState('https://6191b2cf41928b0017690111.mockapi.io/search');
 
   const [value, setValue] = useState(0);
   const [dataLength, setDataLength] = useState(0);
@@ -71,13 +70,13 @@ const FilterTabs = () => {
         <span>총 {dataLength} 건</span>
       </Box>
       <TabPanel value={value} index={0}>
-        <CarList api={currURL} filter="recent" setDataLength={setDataLength} />
+        <CarList filter="출시일순" setDataLength={setDataLength} />
       </TabPanel>
       <TabPanel value={value} index={1}>
-        <CarList api={currURL} filter="cost" setDataLength={setDataLength} />
+        <CarList filter="가격순" setDataLength={setDataLength} />
       </TabPanel>
       <TabPanel value={value} index={2}>
-        <CarList api={currURL} filter="fuelEfficiency" setDataLength={setDataLength} />
+        <CarList filter="연비순" setDataLength={setDataLength} />
       </TabPanel>
       <Pagination
         sx={{ alignSelf: 'center' }}

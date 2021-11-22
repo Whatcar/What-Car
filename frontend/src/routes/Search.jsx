@@ -5,6 +5,7 @@ import FilterTabs from '../components/search/FilterTabs';
 import SelectBox from '../components/search/SelectBox';
 import { maintitle } from '../css/fonts';
 import { resetSessionStorage } from '../utils/searchCondition';
+import { getSearchCarList } from '../apis/seachAPI';
 
 const conditionsName = [
   'brand',
@@ -24,7 +25,9 @@ const Search = () => {
     conditionsName.forEach((keyName) => {
       conditions[keyName] = sessionStorage.getItem(keyName);
     });
-    console.log(conditions);
+    getSearchCarList(conditions).then((data) => {
+      console.log(data.slice(0, 16));
+    });
   };
 
   const handleResetClick = () => {
