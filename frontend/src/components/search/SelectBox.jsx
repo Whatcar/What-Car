@@ -1,5 +1,5 @@
 import Grid from '@mui/material/Grid';
-import { useCallback, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import SelectEmblem from './SelectEmblem';
 import styled from 'styled-components';
 import SelectCheck from './SelectCheck';
@@ -7,16 +7,21 @@ import { TextField, ThemeProvider } from '@mui/material';
 import SelectOne from './SelectOne';
 import SelectTwo from './SelectTwo';
 import { selectTheme } from '../../css/muiTheme';
+import { getSessionItem } from '../../utils/searchCondition';
 
 const SelectBox = () => {
-  const nowRange = sessionStorage.getItem('range') ? sessionStorage.getItem('range') : '전체';
-  const nowName = sessionStorage.getItem('name') ? sessionStorage.getItem('name') : '';
+  const nowRange = getSessionItem('range', '전체');
+  const nowName = getSessionItem('name', '');
   const [range, setRange] = useState(nowRange);
   const [name, setName] = useState(nowName);
 
   const isDisabled = (label) => {
     return range === label;
   };
+
+  useEffect(() => {
+    sessionStorage.setItem('name', nowName);
+  }, []);
 
   const handleClickRange = useCallback((e) => {
     const newRange = e.target.innerText;

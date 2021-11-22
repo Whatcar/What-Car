@@ -1,13 +1,17 @@
+import { useEffect } from 'react';
 import { Checkbox, FormControlLabel } from '@mui/material';
 import styled from 'styled-components';
 import selectList from '../../data/selectList';
 import isChecked from '../../utils/isChecked';
-import { parseSessionArray, setCheckedValues } from '../../utils/searchCondition';
-import { styled as muiStyled } from '@mui/system';
+import { getSessionItem, setCheckedValues } from '../../utils/searchCondition';
 
 const SelectCheck = ({ keyName }) => {
-  const nowValues = parseSessionArray(keyName);
+  const nowValues = getSessionItem(keyName, '').split(',');
   const check = selectList[keyName];
+
+  useEffect(() => {
+    sessionStorage.setItem(keyName, nowValues);
+  }, [keyName]);
 
   const handleClick = (e) => {
     const newValue = e.target.value;

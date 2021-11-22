@@ -3,15 +3,16 @@ import getEmblem from '../../utils/getEmblem';
 import { desc } from '../../css/fonts';
 import { blue } from '../../css/colors';
 import { useEffect, useState } from 'react';
-import { parseSessionArray, setCheckedValues } from '../../utils/searchCondition';
+import { getSessionItem, parseSessionArray, setCheckedValues } from '../../utils/searchCondition';
 import isChecked from '../../utils/isChecked';
 
 const EmblemBox = ({ range, keyName }) => {
-  const [values, setValues] = useState(parseSessionArray(keyName));
+  const nowValues = getSessionItem(keyName, '').split(',');
+  const [values, setValues] = useState(nowValues);
 
   useEffect(() => {
-    setValues(parseSessionArray(keyName));
-  }, [range, keyName]);
+    sessionStorage.setItem(keyName, values);
+  }, [range, keyName, values]);
 
   console.log(range);
 
