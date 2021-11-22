@@ -11,28 +11,49 @@ bp = Blueprint("search", __name__, url_prefix="/api")
 engine = create_engine(config.SQLALCHEMY_DATABASE_URI)
 
 
-@bp.route("/car/list", methods=["GET"])
-def car_list():
-    car_list = Car.query.order_by(Car.release_date.desc())
-    car = [Car.to_dict_part(car) for car in car_list]
+def pagination(query_list, num):
+    query_data_num = query_list.count()
+    print("query의 총 개수", query_data_num)
+    per_page = 16
+    range_start = per_page * (num - 1)
+    total_page = query_data_num // per_page
+    rest_data = query_data_num % per_page
+
+    # 전체 데이터 개수//페이지 당 데이터가 들어온 페이지 범위를 넘으면
+    if num >= (total_page + 1) and rest_data == 0:
+        abort(404, "페이지 범위를 초과했습니다.")
+    # 전체 데이터 개수//페이지 당 데이터가 들어온 페이지 범위를 넘으면
+    if num > (total_page + 1):
+        abort(404, "페이지 범위를 초과했습니다.")
+    # 전체 데이터 개수//페이지 당 데이터가 들어온 페이지 같으면
+    if num == (total_page + 1) and not rest_data == 0:
+        # 범위 시작값부터 마지막 데이터까지
+        query_list = query_list[range_start:query_data_num]
+
+    else:
+        query_list = query_list[range_start : per_page * num]
+    car_list = [Car.to_dict_part(car) for car in query_list]
+    # car = car_list.paginate(page, per_page=16)
+    print(len(car_list))
+    return car_list
+
+
+@bp.route("/car/list/<int:num>", methods=["GET"])
+def car_list(num):
+    car_list = Car.query.order_by(Car.release_date.asc())
+    car = pagination(car_list, num)
+
     return jsonify(car)
 
 
-@bp.route("/search", methods=["GET"])
-def search():
+@bp.route(
+    "/search/<string:brand>/<string:cost>/<string:displacement>/<string:fuelEfficieny>/<string:grade>/<string:shape>/<string:name>/<string:method>/<string:fuel>/<int:num>",
+    methods=["GET"],
+)
+def search(
+    brand, cost, displacement, fuelEfficiency, grade, shape, name, method, fuel, num
+):
     if request.method == "GET":
-        data = request.json
-        if not data:
-            abort(404, "조건을 선택해주세요.")
-        brand = data["brand"]
-        cost = data["cost"]
-        displacement = data["displacement"]
-        fuelEfficiency = data["fuelEfficiency"]
-        grade = data["grade"]
-        shape = data["shape"]
-        name = data["name"]
-        method = data["method"]
-        fuel = data["fuel"]
 
         # 전체
         query_all = ""
@@ -207,31 +228,31 @@ def search():
                 [search],
             )
         print("쿼리 출력", query_all)
-        car_brand = [Car.to_dict_part(car) for car in query_all]
-        print("개수!!!!!!!!", len(car_brand))
+        # car_list = [Car.to_dict_part(car) for car in query_all]
+        # print("개수!!!!!!!!", len(car_list))
+        car = pagination(query_all, num)
 
-        return jsonify(car_brand)
+        return jsonify(car)
 
 
-@bp.route("/car/list/sorted", methods=["GET"])
-def car_list_sorted():
-    data = request.json
-    creiteria = data["sort_criteria"]
+@bp.route("/car/list/sorted/<string:sort_criteria>/<int:num>", methods=["GET"])
+def car_list_sorted(sort_criteria, num):
 
     # 출시일순 최신
-    if creiteria == "출시일순":
-        release_date_desc = Car.query.order_by(Car.release_date.desc())
-        car = [Car.to_dict_part(car) for car in release_date_desc]
+    if sort_criteria == "출시일순":
+        car_list = Car.query.order_by(Car.release_date.desc())
+        # car_list = [Car.to_dict_part(car) for car in release_date_desc]
 
     # 연비순 오름차순
-    if creiteria == "연비순":
-        fuel_efficiency_desc = Car.query.order_by(Car.fuel_efficiency_int_high.desc())
-        car = [Car.to_dict_part(car) for car in fuel_efficiency_desc]
+    if sort_criteria == "연비순":
+        car_list = Car.query.order_by(Car.fuel_efficiency_int_high.desc())
+        # car_list = [Car.to_dict_part(car) for car in fuel_efficiency_desc]
 
     # 가격순 내림차순
-    if creiteria == "가격순":
+    if sort_criteria == "가격순":
 
-        price_asc = Car.query.order_by(Car.price_int_low.asc())
-        car = [Car.to_dict_part(car) for car in price_asc]
+        car_list = Car.query.order_by(Car.price_int_low.asc())
+        # car_list = [Car.to_dict_part(car) for car in price_asc]
+    car = pagination(car_list, num)
 
     return jsonify(car)
