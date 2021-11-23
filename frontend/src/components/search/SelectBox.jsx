@@ -63,7 +63,7 @@ const SelectBox = () => {
           <Category>외형</Category>
           <SelectCheck keyName="shape" />
         </div>
-        <div>
+        <SelectContainer>
           <SelectTwoBox>
             <Category>가격</Category>
             <SelectTwo keyName="cost" />
@@ -76,8 +76,8 @@ const SelectBox = () => {
             <Category>연비</Category>
             <SelectTwo keyName="fuelEfficiency" />
           </SelectTwoBox>
-        </div>
-        <div>
+        </SelectContainer>
+        <SelectContainer>
           <SelectOneBox>
             <Category>모델명</Category>
             <TextField
@@ -86,7 +86,7 @@ const SelectBox = () => {
               variant="outlined"
               value={name}
               onChange={handleChangeName}
-              inputProps={{ style: { padding: '0.5rem' } }}
+              inputProps={{ style: { padding: '0.725rem' } }}
             />
           </SelectOneBox>
           <SelectOneBox>
@@ -97,7 +97,7 @@ const SelectBox = () => {
             <Category>연료</Category>
             <SelectOne keyName={'fuel'} />
           </SelectOneBox>
-        </div>
+        </SelectContainer>
       </Box>
     </ThemeProvider>
   );
@@ -138,7 +138,7 @@ const RangeButton = styled.button`
   background-color: white;
   border: none;
   ${({ theme }) => theme.fontStyle.desc}
-  color: ${(props) => (props.disabled ? props.theme.colors.blueM : '')}
+  color: ${(props) => (props.disabled ? props.theme.colors.blueM : '')};
 `;
 
 const Box = styled.div`
@@ -152,4 +152,10 @@ const Box = styled.div`
 
 const BrandBox = styled.div`
   grid-row: 1 / 3;
+`;
+
+const SelectContainer = styled.div`
+  display: grid;
+  grid-template-rows: repeat(3, 1fr);
+  row-gap: 0.725rem;
 `;

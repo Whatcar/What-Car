@@ -25,7 +25,12 @@ const SelectCheck = ({ keyName }) => {
         key={item}
         control={
           <Checkbox
-            sx={checkboxStyle}
+            sx={{
+              padding: 0,
+              '&.Mui-checked': {
+                color: '#2195F2',
+              },
+            }}
             value={item}
             defaultChecked={isChecked(item, nowValues)}
             onClick={handleClick}

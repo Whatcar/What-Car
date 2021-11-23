@@ -1,10 +1,9 @@
+import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import getEmblem from '../../utils/getEmblem';
-import { desc } from '../../css/fonts';
-import { blue } from '../../css/colors';
-import { useEffect, useState } from 'react';
-import { getSessionItem, parseSessionArray, setCheckedValues } from '../../utils/searchCondition';
+import { getSessionItem, setCheckedValues } from '../../utils/searchCondition';
 import isChecked from '../../utils/isChecked';
+import { desc } from '../../css/fonts';
 
 const EmblemBox = ({ range, keyName }) => {
   const nowValues = getSessionItem(keyName, '').split(',');

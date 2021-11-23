@@ -4,6 +4,7 @@ import { useCallback, useEffect, useState } from 'react';
 import selectList from '../../data/selectList';
 import MySelect from '../../css/MySelect';
 import { getSessionItem } from '../../utils/searchCondition';
+import { padding } from '@mui/system';
 
 const SelectOne = ({ keyName }) => {
   const nowValue = getSessionItem(keyName, '전체');
@@ -33,7 +34,7 @@ const SelectOne = ({ keyName }) => {
   return (
     <Box>
       <FormControl sx={{ width: '100%' }}>
-        <Select
+        <MySelect
           labelId="demo-simple-select-label"
           id="demo-simple-select"
           value={value}
@@ -41,7 +42,7 @@ const SelectOne = ({ keyName }) => {
           onClick={handleChange}
         >
           {selectOneList}
-        </Select>
+        </MySelect>
       </FormControl>
     </Box>
   );
