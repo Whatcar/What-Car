@@ -1,5 +1,6 @@
 from db_connect import db
 
+
 # Mbti 결과 정보
 class Mbti_result(db.Model):
     __tablename__ = "mbti_result"

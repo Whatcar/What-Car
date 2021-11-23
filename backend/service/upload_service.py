@@ -1,6 +1,7 @@
 from flask import request
 from werkzeug.exceptions import abort
 
+
 def register():
     data = request.files["file"]
     if not data:

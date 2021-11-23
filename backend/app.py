@@ -2,12 +2,15 @@ from flask import Flask
 from flask_cors import CORS
 from flask_migrate import Migrate
 
+import config
 from controller.detailController import detail_bp
 from controller.searchController import search_bp
 from controller.uploadController import upload_bp
-
-import config
 from db_connect import db
+from models.car import *
+from models.mbti_question import *
+from models.mbti_result import *
+from models.worldcup import *
 
 
 def create_app():
