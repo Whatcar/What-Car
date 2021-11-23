@@ -1,7 +1,4 @@
-from datetime import datetime
-
 from db_connect import db
-
 
 # 차 정보
 class Car(db.Model):
@@ -79,35 +76,3 @@ class Car(db.Model):
         }
 
     worldcups = db.relationship("Worldcup", backref="car", lazy=True)
-
-
-# 월드컵
-class Worldcup(db.Model):
-    __tablename__ = "worldcup"
-    id = db.Column(db.Integer, primary_key=True, nullable=False, autoincrement=True)
-    car_id = db.Column(db.Integer, db.ForeignKey("car.id"))
-    count = db.Column(db.Integer, nullable=False)
-
-    def to_dict(self):
-        return {"car_id": self.car_id, "count": self.count}
-
-
-# Mbti 질문 정보
-class Mbti_question(db.Model):
-    __tablename__ = "mbti_question"
-    id = db.Column(db.Integer, primary_key=True, nullable=False, autoincrement=True)
-    question = db.Column(db.String(255), nullable=False)
-    weight = db.Column(db.Integer, nullable=False)
-
-    def to_dict(self):
-        return {"question": self.question, "weight": self.weight}
-
-
-# Mbti 결과 정보
-class Mbti_result(db.Model):
-    __tablename__ = "mbti_result"
-    id = db.Column(db.Integer, primary_key=True, nullable=False, autoincrement=True)
-    type = db.Column(db.String(30), nullable=False, unique=True)
-
-    def to_dict(self):
-        return {"type": self.type}
