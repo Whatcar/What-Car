@@ -1,5 +1,6 @@
 from db_connect import db
 
+
 # 월드컵
 class Worldcup(db.Model):
     __tablename__ = "worldcup"
