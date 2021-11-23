@@ -1,11 +1,13 @@
+require('dotenv').config();
 const { location } = window;
-const appKey = '4e57abf3232a3d33f24356209b3c9327';
+const appKey = process.env.REACT_APP_KAKAO_KEY;
 export const kakaoShare = (imageUrl) => {
   //   const shareUrl = location.href;
   const shareUrl = 'https://www.naver.com';
 
   if (window.Kakao) {
     console.log('yes');
+    console.log(appKey);
     if (!window.Kakao.isInitialized()) {
       window.Kakao.init(appKey);
     }

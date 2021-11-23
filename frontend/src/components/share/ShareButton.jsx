@@ -19,7 +19,7 @@ export default function ShareButton() {
 const ShareBtn = styled.div`
   display: flex;
   justify-content: space-between;
-  width: 165px;
-  padding-bottom: 2px;
+  width: 180px;
+  padding-bottom: 5px;
   margin: auto;
 `;
