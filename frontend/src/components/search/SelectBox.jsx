@@ -86,6 +86,7 @@ const SelectBox = () => {
               variant="outlined"
               value={name}
               onChange={handleChangeName}
+              inputProps={{ style: { padding: '0.5rem' } }}
             />
           </SelectOneBox>
           <SelectOneBox>

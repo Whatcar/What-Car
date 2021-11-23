@@ -2,32 +2,34 @@ import axios from 'axios';
 
 const PATH = 'http://localhost:5000/';
 
-const carList = `${PATH}/api/car/list`;
-const search = `${PATH}/api/search`;
-const carListSorted = `${PATH}/api/car/list/sorted`;
-
 const CancelToken = axios.CancelToken;
 const source = CancelToken.source();
 
-export const getCarList = async () => {
-  const response = await axios.get(carList);
-  return response;
-};
-
-export const getCarListSorted = async (filter) => {
-  const response = await axios.get(carListSorted, {
+export const getCarList = async (num) => {
+  const response = await axios.get(`${PATH}/api/car/list`, {
     params: {
-      sort_criteria: filter,
+      num: 16,
     },
   });
   return response;
 };
 
-export const getSearchCarList = async (conditions) => {
-  const response = await axios.get(search, {
+export const getCarListSorted = async (filter, num) => {
+  const response = await axios.get(`${PATH}/api/car/list/sorted/${filter}/${num}`);
+  return response;
+};
+
+export const getSearchCarList = async (conditions, num) => {
+  const response = await axios.get(`${PATH}/api/search`, {
     params: {
       conditions,
+      num,
     },
   });
+  return response;
+};
+
+export const getDetailCarInfo = async (id) => {
+  const response = await axios.get(`/detail/${id}`);
   return response;
 };

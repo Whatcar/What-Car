@@ -33,7 +33,7 @@ const SelectOne = ({ keyName }) => {
   return (
     <Box>
       <FormControl sx={{ width: '100%' }}>
-        <MySelect
+        <Select
           labelId="demo-simple-select-label"
           id="demo-simple-select"
           value={value}
@@ -41,7 +41,7 @@ const SelectOne = ({ keyName }) => {
           onClick={handleChange}
         >
           {selectOneList}
-        </MySelect>
+        </Select>
       </FormControl>
     </Box>
   );

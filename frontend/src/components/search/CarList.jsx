@@ -4,26 +4,15 @@ import { getCarList, getCarListSorted } from '../../apis/seachAPI';
 import { ImageList, ImageListItem } from '@mui/material';
 import CarHover from './CarHover';
 
-const CarList = ({ filter }) => {
-  const [cars, setCars] = useState(null);
-
-  useEffect(() => {
-    getCarList().then(({ data }) => {
-      setCars(data.slice(0, 16));
-    });
-  }, []);
-
-  console.log(cars);
-
+const CarList = ({ items }) => {
   const carItems = () => {
-    const carItem = cars.map((item) => {
-      const { name, photolink, price, car_id, car_grade } = item;
-      console.log(name, photolink, price, car_id, car_grade);
+    const carItem = items.map((item) => {
+      const { name, photolink, price, id, car_grade } = item;
 
       return (
-        <ImageListItem key={car_id} sx={{ minWidth: '100px' }}>
+        <ImageListItem key={id} sx={{ minWidth: '100px' }}>
           <img src={photolink} alt={name} loading="lazy" />
-          <CarHover hover={true} name={name} grade={car_grade} cost={price} carId={car_id} />
+          <CarHover hover={true} name={name} grade={car_grade} cost={price} carId={id} />
         </ImageListItem>
       );
     });
@@ -32,7 +21,7 @@ const CarList = ({ filter }) => {
 
   return (
     <ImageList sx={{ width: '100%', overflow: 'visible' }} cols={4} gap={0}>
-      {cars ? carItems() : <div>search...</div>}
+      {items ? carItems() : <div>search...</div>}
     </ImageList>
   );
 };

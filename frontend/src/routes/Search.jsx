@@ -25,6 +25,9 @@ const Search = () => {
     conditionsName.forEach((keyName) => {
       conditions[keyName] = sessionStorage.getItem(keyName);
     });
+
+    console.log(conditions);
+
     getSearchCarList(conditions).then((data) => {
       console.log(data.slice(0, 16));
     });

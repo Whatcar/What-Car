@@ -14,8 +14,6 @@ const EmblemBox = ({ range, keyName }) => {
     sessionStorage.setItem(keyName, values);
   }, [range, keyName, values]);
 
-  console.log(range);
-
   const emblemList = getEmblem(range).map((emblem) => {
     const name = emblem[0];
     const adress = emblem[1];
