@@ -8,21 +8,26 @@ const source = CancelToken.source();
 export const getCarList = async (num) => {
   const response = await axios.get(`${PATH}/api/car/list`, {
     params: {
-      num: 16,
+      num: num,
     },
   });
   return response;
 };
 
 export const getCarListSorted = async (filter, num) => {
-  const response = await axios.get(`${PATH}/api/car/list/sorted/${filter}/${num}`);
+  const response = await axios.get(`${PATH}/api/car/list/sorted`, {
+    params: {
+      sort_criteria: filter,
+      num,
+    },
+  });
   return response;
 };
 
 export const getSearchCarList = async (conditions, num) => {
   const response = await axios.get(`${PATH}/api/search`, {
     params: {
-      conditions,
+      ...conditions,
       num,
     },
   });

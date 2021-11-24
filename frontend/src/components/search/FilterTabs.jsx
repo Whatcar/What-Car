@@ -45,7 +45,10 @@ const FilterTabs = () => {
   useEffect(() => {
     const filterList = { 0: '출시일순', 1: '가격순', 2: '연비순' };
     getCarListSorted(filterList[filter], currPage).then(({ data }) => {
-      setItems(data);
+      const total = data[0].result_num;
+      const cars = data[1];
+      setDataLength(total);
+      setItems(cars);
     });
   }, [filter, currPage]);
 
