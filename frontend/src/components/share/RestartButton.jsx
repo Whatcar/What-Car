@@ -10,10 +10,9 @@ function RestartButton() {
   const onRestartClick = () => {
     var url = '';
     url = window.document.location.href;
-    console.log(url);
-    if (url.valueOf('http://localhost:3000/mbti/') >= 1) {
+    if (url.indexOf('http://localhost:3000/mbti/') == 0) {
       navigate('/mbti');
-    } else if (url.valueOf('http://localhost:3000/worldcup/') >= 1) {
+    } else if (url.indexOf('http://localhost:3000/worldcup/') == 0) {
       navigate('/worldcup');
     } else {
       navigate('/');
