@@ -11,9 +11,9 @@ function RestartButton() {
     var url = '';
     url = window.document.location.href;
     console.log(url);
-    if (url.valueOf('http://localhost:3000/mbti/') != 1) {
+    if (url.valueOf('http://localhost:3000/mbti/') >= 1) {
       navigate('/mbti');
-    } else if (url.valueOf('http://localhost:3000/worldcup/') != -1) {
+    } else if (url.valueOf('http://localhost:3000/worldcup/') >= 1) {
       navigate('/worldcup');
     } else {
       navigate('/');
