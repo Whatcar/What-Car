@@ -11,7 +11,11 @@ const EmblemBox = ({ range, keyName }) => {
 
   useEffect(() => {
     sessionStorage.setItem(keyName, values);
-  }, [range, keyName, values]);
+  }, [keyName, values]);
+
+  useEffect(() => {
+    setValues(getSessionItem(keyName, '').split(','));
+  }, [range]);
 
   const emblemList = getEmblem(range).map((emblem) => {
     const name = emblem[0];
@@ -59,7 +63,7 @@ const Emblem = styled.label`
   flex-direction: column;
   align-items: center;
   width: 100%;
-  min-width: 48px;
+  min-width: 64px;
   height: 60px;
   box-shadow: ${(props) =>
     props.checked ? `${props.theme.colors.blueL} 0 0 0 1px inset` : 'none'};

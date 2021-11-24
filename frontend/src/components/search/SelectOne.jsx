@@ -1,10 +1,9 @@
 import styled from 'styled-components';
-import { FormControl, Select, MenuItem } from '@mui/material';
+import { FormControl, MenuItem } from '@mui/material';
 import { useCallback, useEffect, useState } from 'react';
 import selectList from '../../data/selectList';
 import MySelect from '../../css/MySelect';
 import { getSessionItem } from '../../utils/searchCondition';
-import { padding } from '@mui/system';
 
 const SelectOne = ({ keyName }) => {
   const nowValue = getSessionItem(keyName, '전체');
@@ -40,6 +39,11 @@ const SelectOne = ({ keyName }) => {
           value={value}
           displayEmpty
           onClick={handleChange}
+          MenuProps={{
+            style: {
+              height: 204,
+            },
+          }}
         >
           {selectOneList}
         </MySelect>

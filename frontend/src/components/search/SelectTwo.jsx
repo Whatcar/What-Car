@@ -66,6 +66,11 @@ const SelectTwo = ({ keyName }) => {
           value={start}
           displayEmpty
           onChange={handleStartChange}
+          MenuProps={{
+            style: {
+              height: 204,
+            },
+          }}
         >
           {selectStart}
         </MySelect>
@@ -78,6 +83,11 @@ const SelectTwo = ({ keyName }) => {
           value={end}
           displayEmpty
           onChange={handleEndChange}
+          MenuProps={{
+            style: {
+              height: 204,
+            },
+          }}
         >
           {selectEnd}
         </MySelect>
