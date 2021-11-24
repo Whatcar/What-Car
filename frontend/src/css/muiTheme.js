@@ -15,6 +15,9 @@ const muiTheme = createTheme({
       light: mainTheme.colors.blueL,
       dark: mainTheme.colors.blueD,
     },
+    secondary: {
+      main: mainTheme.colors.kakaocolor,
+    },
   },
 });
 

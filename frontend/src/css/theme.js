@@ -6,6 +6,7 @@ const colors = {
   blueD: '#0068BF',
   black900: '#212121',
   black300: '#E0E0E0',
+  kakaocolor: '#000000',
 };
 
 const fontSize = {
