@@ -1,6 +1,8 @@
 import React from 'react';
 import link from '../../img/share/link.png';
 import styled from 'styled-components';
+import { blue, black } from '../../css/colors';
+import { Button } from '@mui/material';
 
 function LinkShareButton() {
   const onLinkClick = () => {
@@ -15,20 +17,14 @@ function LinkShareButton() {
     alert('URL이 복사되었습니다.');
   };
   return (
-    <LinkButton className="linkShareButton" onClick={onLinkClick}>
+    <LinkButton className="linkShareButton" onClick={onLinkClick} color="secondary">
       <img className="link" src={link} height="32px" width="32px"></img>
     </LinkButton>
   );
 }
 
-const LinkButton = styled.div`
-  background-color: #ffffff;
-  width: 43px;
-  height: 43px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border: 1px solid #d9d9d9;
-`;
+const LinkButton = styled(Button)({
+  width: '40px',
+});
 
 export default LinkShareButton;

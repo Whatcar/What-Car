@@ -1,5 +1,6 @@
 from db_connect import db
 
+
 # Mbti 질문 정보
 class Mbti_question(db.Model):
     __tablename__ = "mbti_question"

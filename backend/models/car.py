@@ -1,11 +1,13 @@
 from db_connect import db
 
+
 # 차 정보
 class Car(db.Model):
     __tablename__ = "car"
     id = db.Column(db.Integer, primary_key=True, nullable=False, autoincrement=True)
     name = db.Column(db.String(50), nullable=False)
-    photolink = db.Column(db.Text, nullable=True)
+    carisyou_url = db.Column(db.Text, nullable=True)
+    aws_url = db.Column(db.Text, nullable=True)
     brand = db.Column(db.String(30), nullable=False)
     imported_domestic = db.Column(db.String(30), nullable=False)
     price = db.Column(db.String(40), nullable=False)
@@ -32,10 +34,12 @@ class Car(db.Model):
     fuel_efficiency_int_high = db.Column(db.Float, nullable=True)
 
     def to_dict(self):
+        release_date = self.release_date.strftime("%Y-%m-%d")
+        discontinued_date = self.discontinued_date.strftime("%Y-%m-%d")
         return {
             "id": self.id,
             "name": self.name,
-            "photolink": self.photolink,
+            "photolink": self.aws_url,
             "brand": self.brand,
             "imported_domestic": self.imported_domestic,
             "price": self.price,
@@ -45,8 +49,8 @@ class Car(db.Model):
             "appearance": self.appearance,
             "grade_name": self.grade_name,
             "on_sale": self.on_sale,
-            "release_date": self.release_date,
-            "discontinued_date": self.discontinued_date,
+            "release_date": release_date,
+            "discontinued_date": discontinued_date,
             "ride_capacity": self.ride_capacity,
             "top_speed": self.top_speed,
             "displacement": self.displacement,
@@ -59,7 +63,7 @@ class Car(db.Model):
         return {
             "id": self.id,
             "name": self.name,
-            "photolink": self.photolink,
+            "photolink": self.aws_url,
             "price": self.price,
             "car_grade": self.car_grade,
         }
@@ -67,12 +71,9 @@ class Car(db.Model):
     def to_dict_int(self):
         return {
             "price_int_low": self.price_int_low,
-            "price_int_high": self.price_int_high,
             "price_int": self.price_int,
             "displacement_int": self.displacement_int,
             "fuel_efficiency_int": self.fuel_efficiency_int,
-            "fuel_efficiency_int_low": self.fuel_efficiency_int_low,
-            "fuel_efficiency_int_high": self.fuel_efficiency_int_high,
         }
 
-    worldcups = db.relationship("Worldcup", backref="car", lazy=True)
+    # worldcups = db.relationship("Worldcup", backref="car", lazy=True)
