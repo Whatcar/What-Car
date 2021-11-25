@@ -5,7 +5,7 @@ import selectList from '../../data/selectList';
 import isChecked from '../../utils/isChecked';
 import { getSessionItem, setCheckedValues } from '../../utils/searchCondition';
 
-const SelectCheck = ({ keyName }) => {
+const SelectCheck = ({ keyName, setSelected }) => {
   const nowValues = getSessionItem(keyName, '').split(',');
   const check = selectList[keyName];
 
@@ -15,7 +15,8 @@ const SelectCheck = ({ keyName }) => {
 
   const handleClick = (e) => {
     const newValue = e.target.value;
-    setCheckedValues(newValue, keyName);
+    const newValues = setCheckedValues(newValue, keyName).join(', ');
+    setSelected && setSelected(keyName, newValues);
   };
 
   const checkList = check.map((item) => {

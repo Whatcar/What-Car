@@ -32,8 +32,8 @@ export const resetSessionStorage = () => {
     grade: '',
     shape: '',
     name: '',
-    method: '',
-    fuel: '',
+    method: '전체',
+    fuel: '전체',
   };
   Object.keys(resetList).forEach((keyName) => sessionStorage.setItem(keyName, resetList[keyName]));
 };

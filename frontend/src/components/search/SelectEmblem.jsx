@@ -5,12 +5,13 @@ import { getSessionItem, setCheckedValues } from '../../utils/searchCondition';
 import isChecked from '../../utils/isChecked';
 import { desc } from '../../css/fonts';
 
-const EmblemBox = ({ range, keyName }) => {
+const EmblemBox = ({ range, keyName, setState }) => {
   const nowValues = getSessionItem(keyName, '').split(',');
   const [values, setValues] = useState(nowValues);
 
   useEffect(() => {
     sessionStorage.setItem(keyName, values);
+    setState && setState(values.join(', '));
   }, [keyName, values]);
 
   useEffect(() => {

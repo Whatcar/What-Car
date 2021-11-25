@@ -5,13 +5,14 @@ import selectList from '../../data/selectList';
 import MySelect from '../../css/MySelect';
 import { getSessionItem } from '../../utils/searchCondition';
 
-const SelectOne = ({ keyName }) => {
+const SelectOne = ({ keyName, setSelected }) => {
   const nowValue = getSessionItem(keyName, '전체');
   const [value, setValue] = useState(nowValue);
   const select = selectList[keyName];
 
   useEffect(() => {
     sessionStorage.setItem(keyName, value);
+    setSelected && setSelected(keyName, value);
   }, [keyName, value]);
 
   const handleChange = useCallback(

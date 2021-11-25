@@ -7,6 +7,7 @@ import { maintitle } from '../css/fonts';
 import { resetSessionStorage } from '../utils/searchCondition';
 import { getSearchCarList, getCarListSorted } from '../apis/seachAPI';
 import CarList from '../components/search/CarList';
+import SelectAccordion from '../components/search/SelectAccordion';
 
 const TabPanel = (props) => {
   const { children, value, index, ...other } = props;
@@ -73,7 +74,6 @@ const Search = () => {
         const cars = data[1];
         setDataLength(total);
         setItems(cars);
-        console.log(data);
       })
       .catch((error) => {
         setItems('no result');
@@ -87,6 +87,7 @@ const Search = () => {
 
   const handleSearchClick = (e) => {
     setConditions(getConditions());
+    console.log(getConditions());
   };
 
   const handleResetClick = () => {
@@ -107,19 +108,46 @@ const Search = () => {
     <ContentBox>
       <Title>어떤 차가 궁금하신가요?</Title>
       <SelectBox />
-      <Grid sx={{ marginBottom: '3rem' }} container spacing={1} columns={8}>
-        <Grid item xs={2} columns={8} />
-        <Grid item xs={2} style={{ width: '100%' }}>
-          <Button sx={buttonStyle} variant="contained" disableElevation onClick={handleSearchClick}>
-            조건 검색
-          </Button>
+      <SelectAccordion />
+      <ButtonBox>
+        <Grid sx={{ marginBottom: '3rem' }} container spacing={1} columns={8}>
+          <Grid item xs={2} style={{ width: '100%' }} />
+          <Grid item xs={2} style={{ width: '100%' }}>
+            <Button
+              sx={buttonStyle}
+              variant="contained"
+              disableElevation
+              onClick={handleSearchClick}
+            >
+              조건 검색
+            </Button>
+          </Grid>
+          <Grid item xs={2} style={{ width: '100%' }}>
+            <Button sx={buttonStyle} variant="outlined" onClick={handleResetClick}>
+              초기화
+            </Button>
+          </Grid>
         </Grid>
-        <Grid item xs={2} style={{ width: '100%' }}>
-          <Button sx={buttonStyle} variant="outlined" onClick={handleResetClick}>
-            초기화
-          </Button>
+      </ButtonBox>
+      <ButtonBoxHidden>
+        <Grid sx={{ marginBottom: '3rem' }} container spacing={1} columns={8}>
+          <Grid item xs={4} style={{ width: '100%' }}>
+            <Button
+              sx={buttonStyle}
+              variant="contained"
+              disableElevation
+              onClick={handleSearchClick}
+            >
+              조건 검색
+            </Button>
+          </Grid>
+          <Grid item xs={4} tyle={{ width: '100%' }}>
+            <Button sx={buttonStyle} variant="outlined" onClick={handleResetClick}>
+              초기화
+            </Button>
+          </Grid>
         </Grid>
-      </Grid>
+      </ButtonBoxHidden>
       <Box sx={{ width: '100%', display: 'flex', flexDirection: 'column' }}>
         <Box
           sx={{
@@ -133,10 +161,12 @@ const Search = () => {
         >
           <Tabs value={filter} onChange={handleFilterChange} aria-label="basic tabs example">
             <Tab label="최신순" {...a11yProps(0)} />
-            <Tab label="낮은가격순" {...a11yProps(1)} />
-            <Tab label="높은연비순" {...a11yProps(2)} />
+            <Tab label="낮은 가격순" {...a11yProps(1)} />
+            <Tab label="높은 연비순" {...a11yProps(2)} />
           </Tabs>
-          <span>총 {dataLength} 건</span>
+          <TotalNum>
+            총 <span style={{ fontSize: 16 }}>{dataLength}</span> 건
+          </TotalNum>
         </Box>
         <TabPanel value={filter} index={0}>
           <CarList items={items} />
@@ -179,3 +209,25 @@ const buttonStyle = {
   width: '100%',
   fontSize: '1rem',
 };
+
+const TotalNum = styled.span`
+  font-size: ${({ theme }) => theme.fontSize.S};
+  span {
+    font-size: ${({ theme }) => theme.fontSize.M};
+  }
+`;
+
+const ButtonBox = styled.div`
+  width: 100%;
+  @media screen and (max-width: 900px) {
+    display: none;
+  }
+`;
+
+const ButtonBoxHidden = styled.div`
+  display: none;
+  width: 100%;
+  @media screen and (max-width: 900px) {
+    display: block;
+  }
+`;
