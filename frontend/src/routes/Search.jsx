@@ -76,7 +76,7 @@ const Search = () => {
         setItems(cars);
       })
       .catch((error) => {
-        setItems('no result');
+        console.log(error);
       });
   }, [filter, currPage, conditions]);
 

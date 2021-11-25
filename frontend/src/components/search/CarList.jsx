@@ -6,7 +6,7 @@ const CarList = ({ items }) => {
   const carItems = () => {
     if (!items) {
       return <div>검색중...</div>;
-    } else if (items === 'no result') {
+    } else if (items.length === 0) {
       return <div>검색 결과가 없습니다.</div>;
     } else {
       const carItem = items.map((item) => {
