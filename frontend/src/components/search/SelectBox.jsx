@@ -1,5 +1,5 @@
 import Grid from '@mui/material/Grid';
-import { useCallback, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import SelectEmblem from './SelectEmblem';
 import styled from 'styled-components';
 import SelectCheck from './SelectCheck';
@@ -7,16 +7,21 @@ import { TextField, ThemeProvider } from '@mui/material';
 import SelectOne from './SelectOne';
 import SelectTwo from './SelectTwo';
 import { selectTheme } from '../../css/muiTheme';
+import { getSessionItem } from '../../utils/searchCondition';
 
 const SelectBox = () => {
-  const nowRange = sessionStorage.getItem('range') ? sessionStorage.getItem('range') : '전체';
-  const nowName = sessionStorage.getItem('name') ? sessionStorage.getItem('name') : '';
+  const nowRange = getSessionItem('range', '전체');
+  const nowName = getSessionItem('name', '');
   const [range, setRange] = useState(nowRange);
   const [name, setName] = useState(nowName);
 
   const isDisabled = (label) => {
     return range === label;
   };
+
+  useEffect(() => {
+    sessionStorage.setItem('name', nowName);
+  }, []);
 
   const handleClickRange = useCallback((e) => {
     const newRange = e.target.innerText;
@@ -58,7 +63,7 @@ const SelectBox = () => {
           <Category>외형</Category>
           <SelectCheck keyName="shape" />
         </div>
-        <div>
+        <SelectContainer>
           <SelectTwoBox>
             <Category>가격</Category>
             <SelectTwo keyName="cost" />
@@ -71,8 +76,8 @@ const SelectBox = () => {
             <Category>연비</Category>
             <SelectTwo keyName="fuelEfficiency" />
           </SelectTwoBox>
-        </div>
-        <div>
+        </SelectContainer>
+        <SelectContainer>
           <SelectOneBox>
             <Category>모델명</Category>
             <TextField
@@ -81,6 +86,7 @@ const SelectBox = () => {
               variant="outlined"
               value={name}
               onChange={handleChangeName}
+              inputProps={{ style: { padding: '0.725rem' } }}
             />
           </SelectOneBox>
           <SelectOneBox>
@@ -91,7 +97,7 @@ const SelectBox = () => {
             <Category>연료</Category>
             <SelectOne keyName={'fuel'} />
           </SelectOneBox>
-        </div>
+        </SelectContainer>
       </Box>
     </ThemeProvider>
   );
@@ -132,7 +138,7 @@ const RangeButton = styled.button`
   background-color: white;
   border: none;
   ${({ theme }) => theme.fontStyle.desc}
-  color: ${(props) => (props.disabled ? props.theme.colors.blueM : '')}
+  color: ${(props) => (props.disabled ? props.theme.colors.blueM : '')};
 `;
 
 const Box = styled.div`
@@ -146,4 +152,10 @@ const Box = styled.div`
 
 const BrandBox = styled.div`
   grid-row: 1 / 3;
+`;
+
+const SelectContainer = styled.div`
+  display: grid;
+  grid-template-rows: repeat(3, 1fr);
+  row-gap: 0.725rem;
 `;

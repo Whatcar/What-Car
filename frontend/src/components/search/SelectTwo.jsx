@@ -3,11 +3,10 @@ import { FormControl, MenuItem } from '@mui/material';
 import { useCallback, useEffect, useState } from 'react';
 import selectList from '../../data/selectList';
 import MySelect from '../../css/MySelect';
+import { getSessionItem } from '../../utils/searchCondition';
 
 const SelectTwo = ({ keyName }) => {
-  const nowValue = sessionStorage.getItem(keyName)
-    ? sessionStorage.getItem(keyName).split('~')
-    : ['전체', ''];
+  const nowValue = getSessionItem(keyName, '전체~').split('~');
   const [start, setStart] = useState(nowValue[0]);
   const [end, setEnd] = useState(nowValue[1]);
   const select = selectList[keyName];
@@ -67,6 +66,11 @@ const SelectTwo = ({ keyName }) => {
           value={start}
           displayEmpty
           onChange={handleStartChange}
+          MenuProps={{
+            style: {
+              height: 204,
+            },
+          }}
         >
           {selectStart}
         </MySelect>
@@ -79,6 +83,11 @@ const SelectTwo = ({ keyName }) => {
           value={end}
           displayEmpty
           onChange={handleEndChange}
+          MenuProps={{
+            style: {
+              height: 204,
+            },
+          }}
         >
           {selectEnd}
         </MySelect>

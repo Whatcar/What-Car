@@ -1,13 +1,18 @@
 import styled from 'styled-components';
-import { FormControl, Select, MenuItem } from '@mui/material';
-import { useCallback, useState } from 'react';
+import { FormControl, MenuItem } from '@mui/material';
+import { useCallback, useEffect, useState } from 'react';
 import selectList from '../../data/selectList';
 import MySelect from '../../css/MySelect';
+import { getSessionItem } from '../../utils/searchCondition';
 
 const SelectOne = ({ keyName }) => {
-  const nowValue = sessionStorage.getItem(keyName) ? sessionStorage.getItem(keyName) : '전체';
+  const nowValue = getSessionItem(keyName, '전체');
   const [value, setValue] = useState(nowValue);
   const select = selectList[keyName];
+
+  useEffect(() => {
+    sessionStorage.setItem(keyName, value);
+  }, [keyName, value]);
 
   const handleChange = useCallback(
     (e) => {
@@ -34,6 +39,11 @@ const SelectOne = ({ keyName }) => {
           value={value}
           displayEmpty
           onClick={handleChange}
+          MenuProps={{
+            style: {
+              height: 204,
+            },
+          }}
         >
           {selectOneList}
         </MySelect>

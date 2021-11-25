@@ -2,6 +2,11 @@ export const parseSessionArray = (keyName) => {
   return sessionStorage.getItem(keyName) ? sessionStorage.getItem(keyName).split(',') : [];
 };
 
+export const getSessionItem = (keyName, initial) => {
+  const item = sessionStorage.getItem(keyName) ? sessionStorage.getItem(keyName) : initial;
+  return item;
+};
+
 export const setCheckedValues = (newValue, keyName) => {
   const values = parseSessionArray(keyName);
   const newValueIdx = values.findIndex((item) => item === newValue);
