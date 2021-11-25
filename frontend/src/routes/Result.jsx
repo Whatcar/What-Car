@@ -26,7 +26,7 @@ export default function Result() {
   return (
     <ResultWrapper>
       <CarDetail detail={carData} />
-      <ShareButton></ShareButton>
+      <ShareButton url="result" />
       {carData.findMore && <CarRecommendation findMore={carData.findMore} />}
       <DisqusFrame>
         <Disqus.DiscussionEmbed shortname={disqusShortname} config={disqusConfig} />

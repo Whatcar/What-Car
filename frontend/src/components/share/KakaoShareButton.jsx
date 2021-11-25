@@ -15,7 +15,7 @@ function KakaoShareButton() {
     <KakaoButton
       className="kakaoShareButton"
       onClick={onKakaoClick}
-      // variant="outlined"
+      variant="contained"
       color="secondary"
     >
       <Helmet>

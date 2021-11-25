@@ -30,7 +30,7 @@ export default function MBTIresult() {
       <Desc style={{ marginBottom: '1rem' }}>
         {data.personality} 당신은 {data.brand}와 찰떡궁합이네요!
       </Desc>
-      <ShareButton />
+      <ShareButton url="mbti" />
       <Button variant="contained" onClick={onClickButton} sx={{ marginTop: '1rem' }}>
         {data.brand} 차 보러 가기
       </Button>
