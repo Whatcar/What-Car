@@ -1,7 +1,6 @@
 import re
 
 import config
-from flask import request
 from models.car import Car
 from sqlalchemy import create_engine
 from sqlalchemy.sql import text
@@ -48,7 +47,17 @@ def car_list(num):
 
 
 def search(
-    brand, cost, displacement, fuelEfficiency, grade, shape, name, method, fuel, num
+    brand,
+    cost,
+    displacement,
+    fuelEfficiency,
+    grade,
+    shape,
+    name,
+    method,
+    fuel,
+    num,
+    sort_criteria,
 ):
     # 전체
     query_all = ""
@@ -218,15 +227,54 @@ def search(
     # 이름
     if name == "":
         query_all = query_all[:-4]
-        query_all_list = Car.query.filter(text(query_all))
+
+        # 출시일순 최신
+        if sort_criteria == "출시일순" or sort_criteria == "":
+            query_all_list = Car.query.filter(text(query_all)).order_by(
+                Car.release_date.desc()
+            )
+
+        # 연비순 오름차순
+        if sort_criteria == "연비순":
+            query_all_list = Car.query.filter(text(query_all)).order_by(
+                Car.fuel_efficiency_int_high.desc()
+            )
+
+        # 가격순 내림차순
+        if sort_criteria == "가격순":
+            query_all_list = Car.query.filter(text(query_all)).order_by(
+                Car.price_int_low.asc()
+            )
         count = query_all_list.count()
+
     else:
         search = "%{}%".format(name)
+        # 출시일순 최신
+        if sort_criteria == "출시일순" or sort_criteria == "":
+            query_all_list = engine.execute(
+                "SELECT * FROM Car WHERE "
+                + query_all
+                + " name LIKE %s ORDER BY release_date DESC",
+                [search],
+            ).fetchall()
 
-        query_all_list = engine.execute(
-            "SELECT * FROM Car WHERE " + query_all + " name LIKE %s",
-            [search],
-        ).fetchall()
+        # 연비순 오름차순
+        if sort_criteria == "연비순":
+            query_all_list = engine.execute(
+                "SELECT * FROM Car WHERE "
+                + query_all
+                + " name LIKE %s ORDER BY fuel_efficiency DESC",
+                [search],
+            ).fetchall()
+
+        # 가격순 내림차순
+        if sort_criteria == "가격순":
+            query_all_list = engine.execute(
+                "SELECT * FROM Car WHERE "
+                + query_all
+                + " name LIKE %s ORDER BY price_int_low ASC",
+                [search],
+            ).fetchall()
 
         star = "(*) "
 
@@ -241,25 +289,5 @@ def search(
     print("쿼리 출력", query_all)
     # print("개수!!!!!!!!", len(car_list))
     car = pagination(query_all_list, count, num)
-
-    return car
-
-
-def car_list_sorted(sort_criteria, num):
-
-    # 출시일순 최신
-    if sort_criteria == "출시일순":
-        car_list = Car.query.order_by(Car.release_date.desc())
-
-    # 연비순 오름차순
-    if sort_criteria == "연비순":
-        car_list = Car.query.order_by(Car.fuel_efficiency_int_high.desc())
-
-    # 가격순 내림차순
-    if sort_criteria == "가격순":
-        car_list = Car.query.order_by(Car.price_int_low.asc())
-
-    count = car_list.count()
-    car = pagination(car_list, count, num)
 
     return car

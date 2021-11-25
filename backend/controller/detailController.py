@@ -9,4 +9,5 @@ def get_detail():
     if request.method == "GET":
         id = request.args.get("id")
         car_content = detail(id)
+
         return jsonify(car_content), 200

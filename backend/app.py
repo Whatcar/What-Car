@@ -4,11 +4,11 @@ from flask_migrate import Migrate
 
 import config
 from controller.detailController import detail_bp
+from controller.mbtiController import mbti_bp
 from controller.searchController import search_bp
 from controller.uploadController import upload_bp
 from db_connect import db
 from models.car import *
-from models.mbti_question import *
 from models.mbti_result import *
 from models.worldcup import *
 
@@ -18,6 +18,7 @@ def create_app():
     app.register_blueprint(detail_bp)
     app.register_blueprint(search_bp)
     app.register_blueprint(upload_bp)
+    app.register_blueprint(mbti_bp)
     # CORS(app, resources={r"/api/*": {"origins": "http://localhost:3000"}})
     CORS(app)
 
