@@ -6,17 +6,29 @@ import questions from '../data/mbtiQuestions.js';
 import Questions from '../components/MBTI/Questions.jsx';
 import mbtiCalculator from '../utils/mbtiCalculator.js';
 import { useNavigate } from 'react-router';
+import axios from 'axios';
 
 export default function MBTItest() {
   const navigate = useNavigate();
   const [progress, setProgress] = useState(0);
   const [answer, setAnswer] = useState({});
+  const sendAndGoToResult = (mbtiResult) => {
+    axios
+      .patch('http://localhost:5000/api/mbti/result', {
+        params: { mbti: mbtiResult },
+      })
+      .then((res) => {
+        console.log(res);
+        navigate(`/mbti/result/${mbtiResult}`, { state: res });
+      });
+  };
 
   const onClickNext = () => {
     if (answer[progress]) {
       if (progress === 7) {
         const result = mbtiCalculator(answer);
-        navigate(`/mbti/result/${result}`);
+        console.log(result);
+        sendAndGoToResult(result);
       } else {
         setProgress(progress + 1);
       }

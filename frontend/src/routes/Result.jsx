@@ -6,9 +6,11 @@ import axios from 'axios';
 import { useParams } from 'react-router';
 import CarRecommendation from '../components/result/CarRecommendation';
 import Disqus from 'disqus-react';
+import { useLocation } from 'react-router';
 
 export default function Result() {
   const params = useParams();
+  const { state } = useLocation();
   const carId = params.id;
   const [carData, setCarData] = useState({});
   useEffect(() => {
@@ -16,6 +18,8 @@ export default function Result() {
       .get('http://localhost:5000/api/detail', { params: { id: carId } })
       .then((res) => setCarData(res.data));
   }, [carId]);
+
+  console.log(state);
 
   const disqusShortname = 'WhatCar';
   const disqusConfig = {
