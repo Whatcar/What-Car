@@ -24,11 +24,12 @@ export const getCarListSorted = async (filter, num) => {
   return response;
 };
 
-export const getSearchCarList = async (conditions, num) => {
+export const getSearchCarList = async (conditions, num, filter) => {
   const response = await axios.get(`${PATH}/api/search`, {
     params: {
       ...conditions,
       num,
+      sort_criteria: filter,
     },
   });
   return response;

@@ -37,20 +37,29 @@ const a11yProps = (index) => {
   };
 };
 
-const conditionsName = [
-  'brand',
-  'cost',
-  'displacement',
-  'fuelEfficiency',
-  'grade',
-  'shape',
-  'name',
-  'method',
-  'fuel',
-];
+const getConditions = () => {
+  const conditionsName = [
+    'brand',
+    'cost',
+    'displacement',
+    'fuelEfficiency',
+    'grade',
+    'shape',
+    'name',
+    'method',
+    'fuel',
+  ];
+  const conditions = {};
+
+  conditionsName.forEach((keyName) => {
+    conditions[keyName] = sessionStorage.getItem(keyName);
+  });
+
+  return conditions;
+};
 
 const Search = () => {
-  const conditions = {};
+  const [conditions, setConditions] = useState(getConditions());
   const [currPage, setCurrPage] = useState('1');
   const [items, setItems] = useState(null);
   const [filter, setFilter] = useState(0);
@@ -58,13 +67,18 @@ const Search = () => {
 
   useEffect(() => {
     const filterList = { 0: '출시일순', 1: '가격순', 2: '연비순' };
-    getCarListSorted(filterList[filter], currPage).then(({ data }) => {
-      const total = data[0].result_num;
-      const cars = data[1];
-      setDataLength(total);
-      setItems(cars);
-    });
-  }, [filter, currPage]);
+    getSearchCarList(conditions, currPage, filterList[filter])
+      .then(({ data }) => {
+        const total = data[0].result_num;
+        const cars = data[1];
+        setDataLength(total);
+        setItems(cars);
+        console.log(data);
+      })
+      .catch((error) => {
+        setItems('no result');
+      });
+  }, [filter, currPage, conditions]);
 
   const pageCount = (dataLength) => {
     const pages = Math.ceil(dataLength / 16);
@@ -72,25 +86,12 @@ const Search = () => {
   };
 
   const handleSearchClick = (e) => {
-    conditionsName.forEach((keyName) => {
-      conditions[keyName] = sessionStorage.getItem(keyName);
-    });
-
-    console.log(conditions);
-
-    getSearchCarList(conditions, currPage).then(({ data }) => {
-      const total = data[0].result_num;
-      const cars = data[1];
-      setDataLength(total);
-      setItems(cars);
-    });
+    setConditions(getConditions());
   };
 
   const handleResetClick = () => {
     resetSessionStorage();
-    conditionsName.forEach((keyName) => {
-      conditions[keyName] = sessionStorage.getItem(keyName);
-    });
+    setConditions(getConditions());
     window.location.reload();
   };
 
