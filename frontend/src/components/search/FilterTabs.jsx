@@ -1,10 +1,11 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Box from '@mui/material/Box';
 import { Pagination } from '@mui/material';
 import CarList from './CarList';
+import { getCarListSorted } from '../../apis/seachAPI';
 
 const TabPanel = (props) => {
   const { children, value, index, ...other } = props;
@@ -37,18 +38,26 @@ const a11yProps = (index) => {
 
 const FilterTabs = () => {
   const [currPage, setCurrPage] = useState('1');
-  const [currURL, setCurrURL] = useState('https://6191b2cf41928b0017690111.mockapi.io/search');
-
-  const [value, setValue] = useState(0);
+  const [items, setItems] = useState(null);
+  const [filter, setFilter] = useState(0);
   const [dataLength, setDataLength] = useState(0);
 
-  const handleChange = (event, newValue) => {
-    setValue(newValue);
+  useEffect(() => {
+    const filterList = { 0: '출시일순', 1: '가격순', 2: '연비순' };
+    getCarListSorted(filterList[filter], currPage).then(({ data }) => {
+      const total = data[0].result_num;
+      const cars = data[1];
+      setDataLength(total);
+      setItems(cars);
+    });
+  }, [filter, currPage]);
+
+  const handleFilterChange = (event, newFilter) => {
+    setFilter(newFilter);
   };
 
   const handlePageChange = (_, page) => {
     setCurrPage(page);
-    console.log(page);
   };
 
   return (
@@ -63,21 +72,21 @@ const FilterTabs = () => {
           justifyContent: 'space-between',
         }}
       >
-        <Tabs value={value} onChange={handleChange} aria-label="basic tabs example">
+        <Tabs value={filter} onChange={handleFilterChange} aria-label="basic tabs example">
           <Tab label="최신순" {...a11yProps(0)} />
-          <Tab label="가격순↓" {...a11yProps(1)} />
-          <Tab label="연비순↓" {...a11yProps(2)} />
+          <Tab label="낮은가격순" {...a11yProps(1)} />
+          <Tab label="높은연비순" {...a11yProps(2)} />
         </Tabs>
         <span>총 {dataLength} 건</span>
       </Box>
-      <TabPanel value={value} index={0}>
-        <CarList api={currURL} filter="recent" setDataLength={setDataLength} />
+      <TabPanel value={filter} index={0}>
+        <CarList items={items} />
       </TabPanel>
-      <TabPanel value={value} index={1}>
-        <CarList api={currURL} filter="cost" setDataLength={setDataLength} />
+      <TabPanel value={filter} index={1}>
+        <CarList items={items} />
       </TabPanel>
-      <TabPanel value={value} index={2}>
-        <CarList api={currURL} filter="fuelEfficiency" setDataLength={setDataLength} />
+      <TabPanel value={filter} index={2}>
+        <CarList items={items} />
       </TabPanel>
       <Pagination
         sx={{ alignSelf: 'center' }}
