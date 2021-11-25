@@ -5,14 +5,14 @@ import restart from '../../img/share/restart.png';
 import { blue, black } from '../../css/colors';
 import { Button } from '@mui/material';
 
-function RestartButton() {
+function RestartButton(props) {
   const navigate = useNavigate();
   const onRestartClick = () => {
-    var url = '';
-    url = window.document.location.href;
-    if (url.indexOf('http://localhost:3000/mbti/') == 0) {
+    const url = props.url;
+    console.log(url);
+    if (url === 'mbti') {
       navigate('/mbti');
-    } else if (url.indexOf('http://localhost:3000/worldcup/') == 0) {
+    } else if (url === 'worldcup') {
       navigate('/worldcup');
     } else {
       navigate('/');
