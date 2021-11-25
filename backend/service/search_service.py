@@ -17,7 +17,9 @@ def pagination(query_list, count, num):
     total_page = query_data_num // per_page
     rest_data = query_data_num % per_page
 
-    # 검색 결과가 없으면
+    # # 검색 결과가 없으면
+    # if count == 0:
+    #     car_list = []
     if count == 0:
         abort(404, "검색 결과가 없습니다.")
     # per_page가 다 채워지지 않은 마지막 페이지를 넘으면
