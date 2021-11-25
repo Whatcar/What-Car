@@ -15,6 +15,7 @@ export default function MBTIresult() {
   const params = useParams();
   const type = params.type;
   const data = mbtiDesc[type];
+
   const onClickButton = () => {
     resetSessionStorage();
     sessionStorage.setItem('brand', data.brand);
