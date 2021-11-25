@@ -13,22 +13,23 @@ export default function Result() {
   const [carData, setCarData] = useState({});
   useEffect(() => {
     axios
-      .get(`https://6191b2cf41928b0017690111.mockapi.io/detail/${carId}`)
+      .get('http://localhost:5000/api/detail', { params: { id: carId } })
       .then((res) => setCarData(res.data));
   }, [carId]);
+
   const disqusShortname = 'WhatCar';
   const disqusConfig = {
     url: `http://localhost:3000/result/${carId}`,
-    identifier: carData.modelName,
-    title: carData.modelName,
+    identifier: carData.name,
+    title: carData.name,
   };
 
   return (
     <ResultWrapper>
       <CarDetail detail={carData} />
-      <ShareButton></ShareButton>
+      <ShareButton url="result" />
       {carData.findMore && <CarRecommendation findMore={carData.findMore} />}
-      <DisqusFrame>
+      <DisqusFrame showMore={carData.findMore ? true : false}>
         <Disqus.DiscussionEmbed shortname={disqusShortname} config={disqusConfig} />
       </DisqusFrame>
     </ResultWrapper>
@@ -40,5 +41,5 @@ const ResultWrapper = styled.div`
 `;
 
 const DisqusFrame = styled.div`
-  margin: 55rem 0 5rem;
+  margin: ${(props) => (props.showMore ? '55rem 0 5rem' : '5rem 0 5rem')};
 `;

@@ -1,6 +1,6 @@
 import config
 from flask import Blueprint, jsonify, request
-from service.search_service import car_list, car_list_sorted, search
+from service.search_service import car_list, search
 from sqlalchemy import create_engine
 
 search_bp = Blueprint("search", __name__, url_prefix="/api")
@@ -12,6 +12,7 @@ def get_car_List():
     if request.method == "GET":
         num = request.args.get("num", type=int, default=1)
         car = car_list(num)
+
         return jsonify(car), 200
 
 
@@ -31,6 +32,8 @@ def get_search():
         method = request.args.get("method")
         fuel = request.args.get("fuel")
         num = request.args.get("num", type=int, default=1)
+        sort_criteria = request.args.get("sort_criteria", type=str)
+
         car = search(
             brand,
             cost,
@@ -42,15 +45,7 @@ def get_search():
             method,
             fuel,
             num,
+            sort_criteria,
         )
-        return jsonify(car), 200
-
-
-@search_bp.route("/car/list/sorted", methods=["GET"])
-def get_car_list_sorted():
-    if request.method == "GET":
-        sort_criteria = request.args.get("sort_criteria")
-        num = request.args.get("num", type=int, default=1)
-        car = car_list_sorted(sort_criteria, num)
 
         return jsonify(car), 200

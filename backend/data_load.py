@@ -7,6 +7,7 @@ app = create_app()
 app.app_context().push()
 from app import db
 from models.car import Car
+from models.mbti_result import Mbti_result
 
 with open("car_spec_final_int_image.csv", "r", encoding="UTF-8") as f:
     reader = csv.DictReader(f)
@@ -24,7 +25,7 @@ with open("car_spec_final_int_image.csv", "r", encoding="UTF-8") as f:
             discontinued_date = datetime.strptime(discontinued_date, "%Y-%m-%d").date()
         except:
             discontinued_date = None
-            
+
         print(release_date, discontinued_date)
         car = Car(
             name=row["car_name"],
@@ -56,5 +57,15 @@ with open("car_spec_final_int_image.csv", "r", encoding="UTF-8") as f:
             fuel_efficiency_int_high=float(row["fuel_efficiency_int_high"]),
         )
         db.session.add(car)
+
+        db.session.commit()
+
+with open("mbti.csv", "r", encoding="UTF-8") as f:
+    reader = csv.DictReader(f)
+
+    for row in reader:
+
+        mbti = Mbti_result(type=row["type"], count=row["count"])
+        db.session.add(mbti)
 
         db.session.commit()

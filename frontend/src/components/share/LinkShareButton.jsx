@@ -17,7 +17,7 @@ function LinkShareButton() {
     alert('URL이 복사되었습니다.');
   };
   return (
-    <LinkButton className="linkShareButton" onClick={onLinkClick} color="secondary">
+    <LinkButton className="linkShareButton" variant="contained" onClick={onLinkClick} color="white">
       <img className="link" src={link} height="32px" width="32px"></img>
     </LinkButton>
   );

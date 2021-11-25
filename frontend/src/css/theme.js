@@ -6,7 +6,9 @@ const colors = {
   blueD: '#0068BF',
   black900: '#212121',
   black300: '#E0E0E0',
-  kakaocolor: '#000000',
+  kakaocolor: '#f7e600',
+  whiteM: '#ffffff',
+  whiteD: '#999999',
 };
 
 const fontSize = {
