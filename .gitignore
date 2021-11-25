@@ -3,3 +3,4 @@ backend/venv/
 __pycache__
 *.csv
 backend/migrations/
+config.py
