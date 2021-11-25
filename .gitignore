@@ -1,1 +1,5 @@
 .venv
+*.pyc
+__pycache__
+*.csv
+migrations
