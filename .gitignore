@@ -1,5 +1,5 @@
-.venv
+backend/venv/
 *.pyc
 __pycache__
 *.csv
-migrations
+backend/migrations/
