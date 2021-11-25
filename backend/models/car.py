@@ -34,8 +34,15 @@ class Car(db.Model):
     fuel_efficiency_int_high = db.Column(db.Float, nullable=True)
 
     def to_dict(self):
-        release_date = self.release_date.strftime("%Y-%m-%d")
-        discontinued_date = self.discontinued_date.strftime("%Y-%m-%d")
+        release_date = self.release_date
+        discontinued_date = self.discontinued_date
+
+        if not release_date == None:
+            release_date = self.release_date.strftime("%Y-%m-%d")
+
+        if not discontinued_date == None:
+            discontinued_date = self.discontinued_date.strftime("%Y-%m-%d")
+
         return {
             "id": self.id,
             "name": self.name,

@@ -9,4 +9,5 @@ upload_bp = Blueprint("main", __name__, url_prefix="/api")
 @upload_bp.route("/upload", methods=["POST"])
 def get_register():
     if request.method == "POST":
+        # data = request.files["file"]
         return jsonify(register()), 200

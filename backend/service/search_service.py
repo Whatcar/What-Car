@@ -252,7 +252,7 @@ def search(
         # 출시일순 최신
         if sort_criteria == "출시일순" or sort_criteria == "":
             query_all_list = engine.execute(
-                "SELECT * FROM Car WHERE "
+                "SELECT * FROM car WHERE "
                 + query_all
                 + " name LIKE %s ORDER BY release_date DESC",
                 [search],
@@ -261,7 +261,7 @@ def search(
         # 연비순 오름차순
         if sort_criteria == "연비순":
             query_all_list = engine.execute(
-                "SELECT * FROM Car WHERE "
+                "SELECT * FROM car WHERE "
                 + query_all
                 + " name LIKE %s ORDER BY fuel_efficiency DESC",
                 [search],
@@ -270,7 +270,7 @@ def search(
         # 가격순 내림차순
         if sort_criteria == "가격순":
             query_all_list = engine.execute(
-                "SELECT * FROM Car WHERE "
+                "SELECT * FROM car WHERE "
                 + query_all
                 + " name LIKE %s ORDER BY price_int_low ASC",
                 [search],
@@ -279,7 +279,7 @@ def search(
         star = "(*) "
 
         count_query = engine.execute(
-            "SELECT COUNT" + star + " FROM Car WHERE " + query_all + " name LIKE %s",
+            "SELECT COUNT" + star + " FROM car WHERE " + query_all + " name LIKE %s",
             [search],
         )
         count = str(count_query.first())
