@@ -1,5 +1,5 @@
 import React from 'react';
-import { useParams } from 'react-router';
+import { useLocation, useParams } from 'react-router';
 import styled from 'styled-components';
 import ShareButton from '../components/share/ShareButton';
 import { Desc, MainTitle, SubTitle } from '../css/mainStyles';
@@ -8,6 +8,7 @@ import { Button } from '@mui/material';
 import { useNavigate } from 'react-router';
 import { resetSessionStorage } from '../utils/searchCondition';
 import { blue } from '../css/colors';
+import PieChart from '../components/MBTI/PieChart';
 
 export default function MBTIresult() {
   // TODO: 결과 상세 제작
@@ -15,6 +16,8 @@ export default function MBTIresult() {
   const params = useParams();
   const type = params.type;
   const data = mbtiDesc[type];
+  const { state } = useLocation();
+  console.log(state);
 
   const onClickButton = () => {
     resetSessionStorage();
@@ -31,6 +34,7 @@ export default function MBTIresult() {
       <Desc style={{ marginBottom: '1rem' }}>
         {data.personality} 당신은 {data.brand}와 찰떡궁합이네요!
       </Desc>
+      {/* <PieChart mbti={state} /> */}
       <ShareButton url="mbti" />
       <Button variant="contained" onClick={onClickButton} sx={{ marginTop: '1rem' }}>
         {data.brand} 차 보러 가기

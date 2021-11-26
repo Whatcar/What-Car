@@ -21,7 +21,7 @@ export default function CarDetail({ detail }) {
         />
         <CarSpec>
           {displayOrder
-            .filter((item) => item.cond !== detail[item.eng])
+            .filter((item) => !item.cond.includes(detail[item.eng]))
             .map((item) => (
               <div key={`${item.eng}-detail`}>
                 <span>{item.kor}</span>
@@ -59,18 +59,18 @@ const CarSpec = styled.div`
 `;
 
 const displayOrder = [
-  { cond: '', eng: 'name', kor: '모델' },
-  { cond: '', eng: 'appearance', kor: '외형' },
-  { cond: '', eng: 'car_grade', kor: '차급' },
-  { cond: '-만원', eng: 'price', kor: '가격' },
-  { cond: '', eng: 'imported_domestic', kor: '국산/수입' },
-  { cond: '-', eng: 'fuel', kor: '연료' },
-  { cond: '-', eng: 'fuel_efficiency', kor: '연비' },
-  { cond: '0등급', eng: 'fuel_efficiency_rating', kor: '연비 등급' },
-  { cond: '', eng: 'on_sale', kor: '판매여부' },
-  { cond: '', eng: 'ride_capacity', kor: '승차정원' },
-  { cond: '', eng: 'displacement', kor: '배기량' },
-  { cond: '-', eng: 'engine_type', kor: '엔진형식' },
-  { cond: '', eng: 'drive_method', kor: '구동방식' },
-  { cond: '0km/h', eng: 'top_speed', kor: '최고 속도' },
+  { cond: [''], eng: 'name', kor: '모델' },
+  { cond: [''], eng: 'appearance', kor: '외형' },
+  { cond: [''], eng: 'car_grade', kor: '차급' },
+  { cond: ['-만원'], eng: 'price', kor: '가격' },
+  { cond: [''], eng: 'imported_domestic', kor: '국산/수입' },
+  { cond: ['-'], eng: 'fuel', kor: '연료' },
+  { cond: ['-'], eng: 'fuel_efficiency', kor: '연비' },
+  { cond: ['-등급', '0등급'], eng: 'fuel_efficiency_rating', kor: '연비 등급' },
+  { cond: [''], eng: 'on_sale', kor: '판매여부' },
+  { cond: [''], eng: 'ride_capacity', kor: '승차정원' },
+  { cond: ['-cc'], eng: 'displacement', kor: '배기량' },
+  { cond: ['-'], eng: 'engine_type', kor: '엔진형식' },
+  { cond: [''], eng: 'drive_method', kor: '구동방식' },
+  { cond: ['0km/h', '-km/h'], eng: 'top_speed', kor: '최고 속도' },
 ];
