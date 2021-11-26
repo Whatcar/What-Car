@@ -9,7 +9,7 @@ from app import db
 from models.car import Car
 from models.mbti_result import Mbti_result
 
-with open("car_spec_final_int_image.csv", "r", encoding="UTF-8") as f:
+with open("car_spec_final_remove_brand.csv", "r", encoding="UTF-8") as f:
     reader = csv.DictReader(f)
 
     for row in reader:
