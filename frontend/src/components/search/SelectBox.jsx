@@ -147,9 +147,9 @@ const Box = styled.div`
   row-gap: 1.5rem;
   margin-bottom: 2rem;
 
-  @media screen and (max-width: 900px) {
+  /* @media screen and (max-width: 900px) {
     display: none;
-  }
+  } */
 `;
 
 const BrandBox = styled.div`
