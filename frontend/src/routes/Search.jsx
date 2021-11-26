@@ -108,7 +108,7 @@ const Search = () => {
     <ContentBox>
       <Title>어떤 차가 궁금하신가요?</Title>
       <SelectBox />
-      <SelectAccordion />
+      {/* <SelectAccordion /> */}
       <ButtonBox>
         <Grid sx={{ marginBottom: '3rem' }} container spacing={1} columns={8}>
           <Grid item xs={2} style={{ width: '100%' }} />
