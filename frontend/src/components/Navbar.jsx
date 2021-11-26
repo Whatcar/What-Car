@@ -5,6 +5,7 @@ import { Grid } from '@mui/material';
 import { useLocation } from 'react-router';
 import { Link } from 'react-router-dom';
 import Logo from '../img/nav/logo.svg';
+import { resetSessionStorage } from '../utils/searchCondition';
 
 const navInfo = [
   { id: 0, link: '/', title: '사진 속 차 찾기' },
@@ -20,6 +21,9 @@ export default function Navbar() {
     location.pathname.split('/').length > 2
       ? `/${location.pathname.split('/')[1]}`
       : location.pathname; // pathname의 첫번째만 저장하도록 함
+  const handleClick = () => {
+    resetSessionStorage();
+  };
 
   return (
     <NavWrapper>
@@ -34,7 +38,11 @@ export default function Navbar() {
               <Menus>
                 {navInfo.map((item) => (
                   <div key={item.id}>
-                    <CustomLink to={item.link} ispage={locationNow == item.link ? 1 : undefined}>
+                    <CustomLink
+                      onClick={handleClick}
+                      to={item.link}
+                      ispage={locationNow == item.link ? 1 : undefined}
+                    >
                       {item.title}
                     </CustomLink>
                   </div>
