@@ -9,7 +9,6 @@ import { getCarListSorted } from '../../apis/seachAPI';
 
 const TabPanel = (props) => {
   const { children, value, index, ...other } = props;
-
   return (
     <div
       role="tabpanel"
@@ -77,7 +76,7 @@ const FilterTabs = () => {
           <Tab label="낮은가격순" {...a11yProps(1)} />
           <Tab label="높은연비순" {...a11yProps(2)} />
         </Tabs>
-        <span>총 {dataLength} 건</span>
+        <span style={{}}>총 {dataLength} 건</span>
       </Box>
       <TabPanel value={filter} index={0}>
         <CarList items={items} />

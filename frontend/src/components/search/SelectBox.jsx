@@ -110,18 +110,16 @@ const Category = styled.span`
   font-weight: bold;
 `;
 
-const SelectCheckBox = styled.div`
-  height: 260px;
-`;
-
 const SelectOneBox = styled.div`
   display: grid;
   grid-template-columns: 1fr 2fr;
+  align-items: center;
 `;
 
 const SelectTwoBox = styled.div`
   display: grid;
   grid-template-columns: 1fr 4fr;
+  align-items: center;
 `;
 
 const CategoryBox = styled.div`
@@ -148,6 +146,10 @@ const Box = styled.div`
   column-gap: 1rem;
   row-gap: 1.5rem;
   margin-bottom: 2rem;
+
+  @media screen and (max-width: 900px) {
+    display: none;
+  }
 `;
 
 const BrandBox = styled.div`
