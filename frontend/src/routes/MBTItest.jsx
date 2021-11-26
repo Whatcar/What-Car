@@ -13,14 +13,14 @@ export default function MBTItest() {
   const [progress, setProgress] = useState(0);
   const [answer, setAnswer] = useState({});
   const sendAndGoToResult = (mbtiResult) => {
-    console.log("여기까지는 왔니?"+ mbtiResult)
-    
     axios
-      .patch('http://localhost:5000/api/mbti/result',null, {params: {
-      mbti : mbtiResult }})
+      .patch('http://localhost:5000/api/mbti/result', null, {
+        params: {
+          mbti: mbtiResult,
+        },
+      })
       .then((res) => {
-        console.log(res);
-        navigate(`/mbti/result/${mbtiResult}`, { state: res });
+        navigate(`/mbti/result/${mbtiResult}`, { state: res.data });
       });
   };
 
@@ -28,7 +28,6 @@ export default function MBTItest() {
     if (answer[progress]) {
       if (progress === 7) {
         const result = mbtiCalculator(answer);
-        console.log(result);
         sendAndGoToResult(result);
       } else {
         setProgress(progress + 1);
