@@ -5,7 +5,7 @@ import selectList from '../../data/selectList';
 import MySelect from '../../css/MySelect';
 import { getSessionItem } from '../../utils/searchCondition';
 
-const SelectTwo = ({ keyName }) => {
+const SelectTwo = ({ keyName, setSelected }) => {
   const nowValue = getSessionItem(keyName, '전체~').split('~');
   const [start, setStart] = useState(nowValue[0]);
   const [end, setEnd] = useState(nowValue[1]);
@@ -14,6 +14,7 @@ const SelectTwo = ({ keyName }) => {
   useEffect(() => {
     const keyValue = `${start}~${end}`;
     sessionStorage.setItem(keyName, keyValue);
+    setSelected && setSelected(keyName, keyValue);
   }, [keyName, start, end]);
 
   const startIdx = select.findIndex((item) => item === start);
@@ -101,5 +102,6 @@ export default SelectTwo;
 const Box = styled.div`
   display: flex;
   justify-content: space-between;
+  align-items: center;
   padding-right: 12px;
 `;
