@@ -230,7 +230,12 @@ def search(
     # 이름
     if name == "" or name == None:
         if query_all == "" or query_all == None:
-            query_all_list = Car.query.order_by(Car.release_date.desc())
+            if sort_criteria == "출시일순":
+                query_all_list = Car.query.order_by(Car.release_date.desc())
+            if sort_criteria == "연비순":
+                query_all_list = Car.query.order_by(Car.fuel_efficiency_int_high.desc())
+            if sort_criteria == "가격순":
+                query_all_list = Car.query.order_by(Car.price_int_low.asc())
         else:
             query_all = query_all[:-4]
 
