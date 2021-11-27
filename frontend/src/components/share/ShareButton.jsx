@@ -4,14 +4,14 @@ import KakaoShareButton from '../share/KakaoShareButton';
 import LinkShareButton from '../share/LinkShareButton';
 import RestartButton from '../share/RestartButton';
 
-export default function ShareButton() {
+export default function ShareButton(props) {
   return (
     <div>
       <ShareBtn>
         <KakaoShareButton></KakaoShareButton>
         <LinkShareButton></LinkShareButton>
       </ShareBtn>
-      <RestartButton></RestartButton>
+      <RestartButton url={props.url}></RestartButton>
     </div>
   );
 }
@@ -19,7 +19,7 @@ export default function ShareButton() {
 const ShareBtn = styled.div`
   display: flex;
   justify-content: space-between;
-  width: 165px;
-  padding-bottom: 2px;
+  width: 180px;
+  padding-bottom: 5px;
   margin: auto;
 `;

@@ -4,22 +4,72 @@ import { blue } from '../css/colors.js';
 import styled from 'styled-components';
 import questions from '../data/mbtiQuestions.js';
 import Questions from '../components/MBTI/Questions.jsx';
+import mbtiCalculator from '../utils/mbtiCalculator.js';
+import { useNavigate } from 'react-router';
+import axios from 'axios';
 
 export default function MBTItest() {
+  const navigate = useNavigate();
   const [progress, setProgress] = useState(0);
-  // TODO: 페이지네이션, 버튼 연결, 계산 로직 구현
+  const [answer, setAnswer] = useState({});
+  const sendAndGoToResult = (mbtiResult) => {
+    axios
+      .patch('http://localhost:5000/api/mbti/result', null, {
+        params: {
+          mbti: mbtiResult,
+        },
+      })
+      .then((res) => {
+        navigate(`/mbti/result/${mbtiResult}`, { state: res.data });
+      });
+  };
+
+  const onClickNext = () => {
+    if (answer[progress]) {
+      if (progress === 7) {
+        const result = mbtiCalculator(answer);
+        sendAndGoToResult(result);
+      } else {
+        setProgress(progress + 1);
+      }
+    } else {
+      alert('보기 중 하나를 선택해주세요!');
+    }
+  };
+  const onClickPrev = () => {
+    if (progress === 0) {
+      navigate('/mbti');
+    }
+    setProgress(progress - 1);
+  };
   return (
     <>
       <ProgressBar>
         <div style={{ textAlign: 'right' }}>{progress + 1}/9</div>
         <LinearProgress variant="determinate" color="inherit" value={((progress + 1) * 100) / 9} />
       </ProgressBar>
-      <Questions item={questions[progress]} progress={progress} />
+      <Questions
+        item={questions[progress]}
+        progress={progress}
+        answer={answer}
+        setAnswer={setAnswer}
+      />
       <Buttons>
-        <Button variant="contained" size="large" sx={{ backgroundColor: blue.main }}>
+        <Button
+          variant="contained"
+          onClick={onClickPrev}
+          size="large"
+          sx={{ backgroundColor: blue.main }}
+        >
           이전
         </Button>
-        <Button variant="contained" size="large" sx={{ backgroundColor: blue.main }}>
+
+        <Button
+          variant="contained"
+          onClick={onClickNext}
+          size="large"
+          sx={{ backgroundColor: answer[progress] ? blue.main : blue.dark }}
+        >
           다음
         </Button>
       </Buttons>

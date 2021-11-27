@@ -3,13 +3,23 @@ from flask_cors import CORS
 from flask_migrate import Migrate
 
 import config
+from controller.detailController import detail_bp
+from controller.mbtiController import mbti_bp
+from controller.searchController import search_bp
+from controller.uploadController import upload_bp
 from db_connect import db
-from models import *
+from models.car import *
+from models.mbti_result import *
+from models.worldcup import *
 
 
 def create_app():
     app = Flask(__name__)
-    # jwt = JWTManager(app)
+    app.register_blueprint(detail_bp)
+    app.register_blueprint(search_bp)
+    app.register_blueprint(upload_bp)
+    app.register_blueprint(mbti_bp)
+    # CORS(app, resources={r"/api/*": {"origins": "http://localhost:3000"}})
     CORS(app)
 
     app.config.from_object(config)
@@ -17,11 +27,7 @@ def create_app():
     db.init_app(app)
     Migrate().init_app(app, db)
 
-    from views import detail, main, search
-
-    app.register_blueprint(main.bp)
-    app.register_blueprint(search.bp)
-    app.register_blueprint(detail.bp)
+    # from models import car, mbti_question, mbti_result, worldcup
 
     return app
 

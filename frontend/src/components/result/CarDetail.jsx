@@ -7,17 +7,27 @@ export default function CarDetail({ detail }) {
   return (
     <>
       <MainTitle>
-        이 차는 <BlueText>{detail.modelName}</BlueText>입니다!
+        이 차는 <BlueText>{detail.name}</BlueText>입니다!
       </MainTitle>
       <CarInfo>
-        <img src={detail.carImg} width="50%" />
+        <img
+          src={
+            detail.photolink ||
+            'https://cdn.pixabay.com/photo/2019/02/28/04/54/car-4025379_960_720.png'
+          }
+          width="50%"
+          loading="lazy"
+          alt="자동차 이미지"
+        />
         <CarSpec>
-          {displayOrder.map((item) => (
-            <div>
-              <span>{item.kor}</span>
-              {detail[item.eng]}
-            </div>
-          ))}
+          {displayOrder
+            .filter((item) => !item.cond.includes(detail[item.eng]))
+            .map((item) => (
+              <div key={`${item.eng}-detail`}>
+                <span>{item.kor}</span>
+                {detail[item.eng]}
+              </div>
+            ))}
         </CarSpec>
       </CarInfo>
     </>
@@ -49,16 +59,18 @@ const CarSpec = styled.div`
 `;
 
 const displayOrder = [
-  { eng: 'modelName', kor: '모델' },
-  { eng: 'modelType', kor: '외형' },
-  { eng: 'modelSize', kor: '차급' },
-  { eng: 'price', kor: '가격' },
-  { eng: 'korean', kor: '국산/수입' },
-  { eng: 'fuelType', kor: '연료' },
-  { eng: 'fuelEfficiency', kor: '연비' },
-  { eng: 'isSoldOut', kor: '판매여부' },
-  { eng: 'capacity', kor: '승차정원' },
-  { eng: 'displacement', kor: '배기량' },
-  { eng: 'engineType', kor: '엔진형식' },
-  { eng: 'drivingMethod', kor: '구동방식' },
+  { cond: [''], eng: 'name', kor: '모델' },
+  { cond: [''], eng: 'appearance', kor: '외형' },
+  { cond: [''], eng: 'car_grade', kor: '차급' },
+  { cond: ['-만원'], eng: 'price', kor: '가격' },
+  { cond: [''], eng: 'imported_domestic', kor: '국산/수입' },
+  { cond: ['-'], eng: 'fuel', kor: '연료' },
+  { cond: ['-'], eng: 'fuel_efficiency', kor: '연비' },
+  { cond: ['-등급', '0등급'], eng: 'fuel_efficiency_rating', kor: '연비 등급' },
+  { cond: [''], eng: 'on_sale', kor: '판매여부' },
+  { cond: [''], eng: 'ride_capacity', kor: '승차정원' },
+  { cond: ['-cc'], eng: 'displacement', kor: '배기량' },
+  { cond: ['-'], eng: 'engine_type', kor: '엔진형식' },
+  { cond: [''], eng: 'drive_method', kor: '구동방식' },
+  { cond: ['0km/h', '-km/h'], eng: 'top_speed', kor: '최고 속도' },
 ];

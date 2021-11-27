@@ -1,14 +1,47 @@
-from datetime import datetime
+"""
+    name : 자동차 이름
+    carisyou_url : 원본 링크
+    aws_url : AWS S3 링크
+    brand : 브랜드명
+    imported_domestic : 국산/수입
+    price : 가격
+    fuel_efficiency : 연비
+    fuel : 연료
+    car_grade : 차급
+    appearance : 외형
+    grade_name : 등급명
+    on_sale : 판매여부
+    release_date : 출시일
+    discontinued_date : 단종일
+    ride_capacity : 승차정원
+    top_speed : 최고속도
+    displacement : 배기량
+    engine_type : 엔진형식
+    drive_method : 구동방식
+    fuel_efficiency_rating : 연비등급
 
+    ex) 5,400~6,510만원
+    price_int : 가격 숫자 형식으로 변환(str) "54000000, 65100000"
+    price_int_low : 54000000
+    price_int_high : 65100000
+
+    displacement_int : 배기량 int 형식으로 변환
+    
+    ex) 5.5~6.8km/ℓ
+    fuel_efficiency_int : 연비 숫자 형식으로 변환(str) "5.5, 6.8"
+    fuel_efficiency_int_low : 5.5
+    fuel_efficiency_int_high : 6,8
+"""
 from db_connect import db
 
 
 # 차 정보
 class Car(db.Model):
-    __tablename__ = "car"
+    __tablename__ = "CAR"
     id = db.Column(db.Integer, primary_key=True, nullable=False, autoincrement=True)
     name = db.Column(db.String(50), nullable=False)
-    photolink = db.Column(db.Text, nullable=True)
+    carisyou_url = db.Column(db.Text, nullable=True)
+    aws_url = db.Column(db.Text, nullable=True)
     brand = db.Column(db.String(30), nullable=False)
     imported_domestic = db.Column(db.String(30), nullable=False)
     price = db.Column(db.String(40), nullable=False)
@@ -35,10 +68,19 @@ class Car(db.Model):
     fuel_efficiency_int_high = db.Column(db.Float, nullable=True)
 
     def to_dict(self):
+        release_date = self.release_date
+        discontinued_date = self.discontinued_date
+
+        if not release_date == None:
+            release_date = self.release_date.strftime("%Y-%m-%d")
+
+        if not discontinued_date == None:
+            discontinued_date = self.discontinued_date.strftime("%Y-%m-%d")
+
         return {
             "id": self.id,
             "name": self.name,
-            "photolink": self.photolink,
+            "photolink": self.aws_url,
             "brand": self.brand,
             "imported_domestic": self.imported_domestic,
             "price": self.price,
@@ -48,8 +90,8 @@ class Car(db.Model):
             "appearance": self.appearance,
             "grade_name": self.grade_name,
             "on_sale": self.on_sale,
-            "release_date": self.release_date,
-            "discontinued_date": self.discontinued_date,
+            "release_date": release_date,
+            "discontinued_date": discontinued_date,
             "ride_capacity": self.ride_capacity,
             "top_speed": self.top_speed,
             "displacement": self.displacement,
@@ -62,7 +104,7 @@ class Car(db.Model):
         return {
             "id": self.id,
             "name": self.name,
-            "photolink": self.photolink,
+            "photolink": self.aws_url,
             "price": self.price,
             "car_grade": self.car_grade,
         }
@@ -70,44 +112,9 @@ class Car(db.Model):
     def to_dict_int(self):
         return {
             "price_int_low": self.price_int_low,
-            "price_int_high": self.price_int_high,
             "price_int": self.price_int,
             "displacement_int": self.displacement_int,
             "fuel_efficiency_int": self.fuel_efficiency_int,
-            "fuel_efficiency_int_low": self.fuel_efficiency_int_low,
-            "fuel_efficiency_int_high": self.fuel_efficiency_int_high,
         }
 
-    worldcups = db.relationship("Worldcup", backref="car", lazy=True)
-
-
-# 월드컵
-class Worldcup(db.Model):
-    __tablename__ = "worldcup"
-    id = db.Column(db.Integer, primary_key=True, nullable=False, autoincrement=True)
-    car_id = db.Column(db.Integer, db.ForeignKey("car.id"))
-    count = db.Column(db.Integer, nullable=False)
-
-    def to_dict(self):
-        return {"car_id": self.car_id, "count": self.count}
-
-
-# Mbti 질문 정보
-class Mbti_question(db.Model):
-    __tablename__ = "mbti_question"
-    id = db.Column(db.Integer, primary_key=True, nullable=False, autoincrement=True)
-    question = db.Column(db.String(255), nullable=False)
-    weight = db.Column(db.Integer, nullable=False)
-
-    def to_dict(self):
-        return {"question": self.question, "weight": self.weight}
-
-
-# Mbti 결과 정보
-class Mbti_result(db.Model):
-    __tablename__ = "mbti_result"
-    id = db.Column(db.Integer, primary_key=True, nullable=False, autoincrement=True)
-    type = db.Column(db.String(30), nullable=False, unique=True)
-
-    def to_dict(self):
-        return {"type": self.type}
+    # worldcups = db.relationship("Worldcup", backref="car", lazy=True)

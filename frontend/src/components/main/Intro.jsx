@@ -5,8 +5,11 @@ import MainImg from '../../img/main/main_img.svg';
 import { blue, black } from '../../css/colors';
 import ArrowDownwardRoundedIcon from '@mui/icons-material/ArrowDownwardRounded';
 import { MainTitle, SubTitle, Desc } from '../../css/mainStyles';
+import axios from 'axios';
+import { useNavigate } from 'react-router';
 
 export default function Intro() {
+  const navigate = useNavigate();
   const [imgFile, setImgFile] = useState(null);
   const [imgBase64, setImgBase64] = useState(null);
   const handleChangeFile = (event) => {
@@ -27,9 +30,11 @@ export default function Intro() {
   const handleUploadImage = async () => {
     // TODO: 파일 형식 및 파일 크기 체크하기
     if (imgFile) {
-      // TODO: FormData로 보내기
-      alert('전송중...');
-      // TODO: 응답 받고 결과 페이지로 리다이렉트
+      const formData = new FormData();
+      formData.append('file', imgFile);
+      axios
+        .post('http://localhost:5000/api/upload', formData)
+        .then((res) => navigate(`/result/${res.data.id}`, { state: true }));
     }
   };
   return (

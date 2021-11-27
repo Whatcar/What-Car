@@ -1,43 +1,49 @@
-import { useEffect, useState } from 'react';
-import { getCarList } from '../../apis/seachAPI';
-
-import { ImageList, ImageListItem } from '@mui/material';
+import styled from 'styled-components';
+import { Grid } from '@mui/material';
 import CarHover from './CarHover';
 
-const CarList = ({ api, filter, setDataLength }) => {
-  const [cars, setCars] = useState(null);
-
-  useEffect(() => {
-    getCarList(api).then(({ data }) => {
-      data.splice(12);
-      setCars(data);
-      setDataLength(data.length);
-    });
-  }, []);
-
+const CarList = ({ items }) => {
   const carItems = () => {
-    const carItem = cars.map((item) => {
-      const name = item.modelName;
-      const grade = item.modelSize;
-      const cost = item.price;
-      const img = item.carImg;
-      const carId = item.detail;
+    if (!items) {
+      return <div>검색중...</div>;
+    } else if (items.length === 0) {
+      return <div>검색 결과가 없습니다.</div>;
+    } else {
+      const carItem = items.map((item) => {
+        const { name, photolink, price, id, car_grade } = item;
 
-      return (
-        <ImageListItem key={carId} sx={{ minWidth: '100px' }}>
-          <img src={img} alt={name} loading="lazy" />
-          <CarHover hover={true} name={name} grade={grade} cost={cost} carId={carId} />
-        </ImageListItem>
-      );
-    });
-    return carItem;
+        return (
+          <Grid key={id} item sm={6} md={4} lg={3}>
+            <CarBox>
+              <CarImg src={photolink} alt={name} loading="lazy" />
+              <CarHover hover={true} name={name} grade={car_grade} cost={price} carId={id} />
+            </CarBox>
+          </Grid>
+        );
+      });
+      return carItem;
+    }
   };
 
   return (
-    <ImageList sx={{ width: '100%', overflow: 'visible' }} cols={4} gap={0}>
-      {cars ? carItems() : <div>search...</div>}
-    </ImageList>
+    <Grid container spacing={0} sx={{ marginBottom: '3rem' }}>
+      {carItems()}
+    </Grid>
   );
 };
 
 export default CarList;
+
+const CarBox = styled.div`
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
+const CarImg = styled.img`
+  width: 100%;
+  object-fit: contain;
+  padding: 8px;
+  box-sizing: border-box;
+`;

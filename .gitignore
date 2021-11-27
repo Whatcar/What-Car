@@ -1,0 +1,7 @@
+backend/venv/
+.venv
+*.pyc
+__pycache__
+*.csv
+backend/migrations/
+config.py

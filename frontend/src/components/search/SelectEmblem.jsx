@@ -1,19 +1,22 @@
+import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import getEmblem from '../../utils/getEmblem';
-import { desc } from '../../css/fonts';
-import { blue } from '../../css/colors';
-import { useEffect, useState } from 'react';
-import { parseSessionArray, setCheckedValues } from '../../utils/searchCondition';
+import { getSessionItem, setCheckedValues } from '../../utils/searchCondition';
 import isChecked from '../../utils/isChecked';
+import { desc } from '../../css/fonts';
 
-const EmblemBox = ({ range, keyName }) => {
-  const [values, setValues] = useState(parseSessionArray(keyName));
+const EmblemBox = ({ range, keyName, setState }) => {
+  const nowValues = getSessionItem(keyName, '').split(',');
+  const [values, setValues] = useState(nowValues);
 
   useEffect(() => {
-    setValues(parseSessionArray(keyName));
-  }, [range, keyName]);
+    sessionStorage.setItem(keyName, values);
+    setState && setState(values.join(', '));
+  }, [keyName, values]);
 
-  console.log(range);
+  useEffect(() => {
+    setValues(getSessionItem(keyName, '').split(','));
+  }, [range]);
 
   const emblemList = getEmblem(range).map((emblem) => {
     const name = emblem[0];
@@ -61,7 +64,7 @@ const Emblem = styled.label`
   flex-direction: column;
   align-items: center;
   width: 100%;
-  min-width: 48px;
+  min-width: 64px;
   height: 60px;
   box-shadow: ${(props) =>
     props.checked ? `${props.theme.colors.blueL} 0 0 0 1px inset` : 'none'};
