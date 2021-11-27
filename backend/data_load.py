@@ -7,7 +7,7 @@ app = create_app()
 app.app_context().push()
 from app import db
 from models.car import Car
-from models.mbti_result import Mbti_result
+from models.mbti_result import MbtiResult
 
 with open("car_spec_final_remove_brand.csv", "r", encoding="UTF-8") as f:
     reader = csv.DictReader(f)
@@ -65,7 +65,7 @@ with open("mbti.csv", "r", encoding="UTF-8") as f:
 
     for row in reader:
 
-        mbti = Mbti_result(type=row["type"], count=row["count"])
+        mbti = MbtiResult(type=row["type"], count=row["count"])
         db.session.add(mbti)
 
         db.session.commit()

@@ -1,9 +1,43 @@
+"""
+    name : 자동차 이름
+    carisyou_url : 원본 링크
+    aws_url : AWS S3 링크
+    brand : 브랜드명
+    imported_domestic : 국산/수입
+    price : 가격
+    fuel_efficiency : 연비
+    fuel : 연료
+    car_grade : 차급
+    appearance : 외형
+    grade_name : 등급명
+    on_sale : 판매여부
+    release_date : 출시일
+    discontinued_date : 단종일
+    ride_capacity : 승차정원
+    top_speed : 최고속도
+    displacement : 배기량
+    engine_type : 엔진형식
+    drive_method : 구동방식
+    fuel_efficiency_rating : 연비등급
+
+    ex) 5,400~6,510만원
+    price_int : 가격 숫자 형식으로 변환(str) "54000000, 65100000"
+    price_int_low : 54000000
+    price_int_high : 65100000
+
+    displacement_int : 배기량 int 형식으로 변환
+    
+    ex) 5.5~6.8km/ℓ
+    fuel_efficiency_int : 연비 숫자 형식으로 변환(str) "5.5, 6.8"
+    fuel_efficiency_int_low : 5.5
+    fuel_efficiency_int_high : 6,8
+"""
 from db_connect import db
 
 
 # 차 정보
 class Car(db.Model):
-    __tablename__ = "car"
+    __tablename__ = "CAR"
     id = db.Column(db.Integer, primary_key=True, nullable=False, autoincrement=True)
     name = db.Column(db.String(50), nullable=False)
     carisyou_url = db.Column(db.Text, nullable=True)

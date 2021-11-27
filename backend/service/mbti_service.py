@@ -3,11 +3,11 @@ from werkzeug.exceptions import abort
 
 
 def mbti_result(mbti):
-    mbti_count = Mbti_result.query.filter_by(type=mbti).first()
-    Mbti_result.query.filter_by(type=mbti).update({"count": mbti_count.count + 1})
+    mbti_count = MbtiResult.query.filter_by(type=mbti).first()
+    MbtiResult.query.filter_by(type=mbti).update({"count": mbti_count.count + 1})
     db.session.commit()
 
-    total = Mbti_result.query.order_by(Mbti_result.count.desc())
+    total = MbtiResult.query.order_by(MbtiResult.count.desc())
     total_count = [t.count for t in total]
     total_count_sum = sum(total_count)
     count_type = list(set(total_count))
