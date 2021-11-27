@@ -1,33 +1,36 @@
 import csv
-from datetime import date, datetime
+from datetime import datetime
 
 from app import create_app
 
 app = create_app()
 app.app_context().push()
 from app import db
-from models import Car
+from models.car import Car
+from models.mbti_result import MbtiResult
 
-with open("df_spec_final_int.csv", "r", encoding="UTF-8") as f:
+with open("car_spec_final_remove_brand.csv", "r", encoding="UTF-8") as f:
     reader = csv.DictReader(f)
 
     for row in reader:
 
         release_date = row["출시일"]
         discontinued_date = row["단종일"]
+
         try:
             release_date = datetime.strptime(release_date, "%Y-%m-%d").date()
         except:
             release_date = None
         try:
-
             discontinued_date = datetime.strptime(discontinued_date, "%Y-%m-%d").date()
         except:
             discontinued_date = None
+
         print(release_date, discontinued_date)
         car = Car(
             name=row["car_name"],
-            photolink=row["url"],
+            carisyou_url=row["carisyou_url"],
+            aws_url=row["aws_url"],
             brand=row["브랜드"],
             imported_domestic=row["국산/수입"],
             price=row["가격"],
@@ -54,5 +57,15 @@ with open("df_spec_final_int.csv", "r", encoding="UTF-8") as f:
             fuel_efficiency_int_high=float(row["fuel_efficiency_int_high"]),
         )
         db.session.add(car)
+
+        db.session.commit()
+
+with open("mbti.csv", "r", encoding="UTF-8") as f:
+    reader = csv.DictReader(f)
+
+    for row in reader:
+
+        mbti = MbtiResult(type=row["type"], count=row["count"])
+        db.session.add(mbti)
 
         db.session.commit()

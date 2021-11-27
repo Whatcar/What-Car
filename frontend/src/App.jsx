@@ -18,6 +18,7 @@ import { ThemeProvider } from 'styled-components';
 import { mainTheme } from './css/theme.js';
 import WorldcupTest from './components/worldcup/WorldcupTest.jsx';
 import ScrollToTop from './routes/ScrollTop.jsx';
+import MBTIresult from './routes/MBTIresult.jsx';
 
 function App() {
   return (
@@ -35,6 +36,7 @@ function App() {
                 <Route path="/search" element={<Search />} />
                 <Route path="/mbti" element={<MBTI />} />
                 <Route path="/mbti/test" element={<MBTItest />} />
+                <Route path="/mbti/result/:type" element={<MBTIresult />} />
                 <Route path="/worldcup" element={<Worldcup />} />
                 <Route path="/worldcup/test" element={<WorldcupTest />} />
                 <Route path="/team" element={<Team />} />
