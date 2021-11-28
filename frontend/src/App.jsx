@@ -57,5 +57,6 @@ const Contents = styled.div`
   margin: 10rem auto;
   @media screen and (max-width: 480px) {
     width: 85%;
+    margin: 5rem auto;
   }
 `;

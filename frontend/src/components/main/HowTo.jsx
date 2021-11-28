@@ -12,7 +12,7 @@ export default function HowTo() {
     <HowToDiv>
       <SubTitle center>어떻게 검색하나요?</SubTitle>
       <Steps>
-        <div>
+        <StepImgs>
           <StepImg>
             <img src={Sub1} />
           </StepImg>
@@ -24,7 +24,7 @@ export default function HowTo() {
           <StepImg>
             <img src={Sub3} />
           </StepImg>
-        </div>
+        </StepImgs>
         <HowToDesc>
           <HowToStep>
             <HowToTitle>step 1. 사진 찍기</HowToTitle>
@@ -62,6 +62,13 @@ const Steps = styled.div`
   display: flex;
   margin: 3rem 0;
   justify-content: center;
+`;
+
+const StepImgs = styled.div`
+  @media screen and (max-width: 480px) {
+    display: none;
+  }
+  display: block;
 `;
 
 const StepImg = styled.div`

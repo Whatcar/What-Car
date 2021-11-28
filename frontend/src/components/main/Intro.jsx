@@ -97,6 +97,9 @@ const MainImage = styled.img`
   max-width: 350px;
   display: block;
   margin: auto;
+  @media screen and (max-width: 480px) {
+    width: 50%;
+  }
 `;
 
 const InputDiv = styled.div`
