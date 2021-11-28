@@ -41,7 +41,7 @@ export default function Navbar() {
           <StyledGrid container spacing={0}>
             <Grid item xs={10} md={8} lg={8}>
               <InnerDiv>
-                <Link to="/" onClick={() => setSidebar(false)}>
+                <Link to="/">
                   <img src={Logo} />
                 </Link>
                 <Menus>
