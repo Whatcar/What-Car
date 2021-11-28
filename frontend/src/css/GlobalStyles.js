@@ -28,6 +28,11 @@ const GlobalStyles = createGlobalStyle`
   body {
     font-family: 'SBAggroL';
     word-break: keep-all;
+    -ms-overflow-style: none; 
+    scrollbar-width: none; 
+  }
+  body::-webkit-scrollbar {
+    display: none;
   }
 `;
 
