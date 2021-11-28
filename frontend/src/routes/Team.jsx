@@ -16,12 +16,7 @@ export default function Team() {
         <Member image={yeonju} name="김민지" part="백엔드" intro="안녕하세유" />
         <Member image={yeonju} name="김재현" part="프론트엔드" intro="안녕하세유" />
 
-        <Member
-          image={yeonju}
-          name="백승욱"
-          part="바지팀장 백엔드 데이터분석"
-          intro="해에위이요옹~~"
-        />
+        <Member image={yeonju} name="백승욱" part="팀장 백엔드 데이터분석" intro="해에위이요옹~~" />
         <Member image={yeonju} name="이정규" part="백엔드" intro="안녕하세유" />
         <Member image={yeonju} name="최연주" part="프론트엔드" intro="서비스 잘 이용해주세요~~" />
       </Members>
