@@ -24,7 +24,8 @@ const AccordionComponent = ({ index }) => {
     return initial;
   };
 
-  const [selected, setSelected] = useState(nowValue);
+  const initialState = nowValue();
+  const [selected, setSelected] = useState(initialState);
 
   useEffect(() => {
     console.log('mount');

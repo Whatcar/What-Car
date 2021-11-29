@@ -68,6 +68,7 @@ const Search = () => {
 
   useEffect(() => {
     const filterList = { 0: '출시일순', 1: '가격순', 2: '연비순' };
+    console.log(filterList[filter]);
     getSearchCarList(conditions, currPage, filterList[filter])
       .then(({ data }) => {
         const total = data[0].result_num;

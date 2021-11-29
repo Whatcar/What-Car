@@ -11,7 +11,7 @@ const CarList = ({ items }) => {
     } else {
       const carItem = items.map((item) => {
         const { name, photolink, price, id, car_grade } = item;
-
+        console.log(name, id, 'photo', photolink);
         return (
           <Grid key={id} item sm={6} md={4} lg={3}>
             <CarBox>
