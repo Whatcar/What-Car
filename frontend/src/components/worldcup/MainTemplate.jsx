@@ -11,11 +11,7 @@ export default function MainTemplate({ mainDesc, subDesc, linkTo, page }) {
   const navigate = useNavigate();
   return (
     <TemplateWrapper>
-      <img
-        src={page === 'mbti' ? nextToCar : blackCar}
-        height="200px"
-        style={{ marginTop: '3rem' }}
-      />
+      <Image src={page === 'mbti' ? nextToCar : blackCar} />
       <MainTitle top={3}>{mainDesc}</MainTitle>
       <SubTitle top={1}>{subDesc}</SubTitle>
       <Button
@@ -32,4 +28,12 @@ export default function MainTemplate({ mainDesc, subDesc, linkTo, page }) {
 
 const TemplateWrapper = styled.div`
   text-align: center;
+`;
+
+const Image = styled.img`
+  margin-top: 3rem;
+  width: 300px;
+  @media screen and (max-width: 480px) {
+    width: 50%;
+  }
 `;
