@@ -12,7 +12,7 @@ engine = create_engine(config.SQLALCHEMY_DATABASE_URI)
 def pagination(query_list, count, num):
     # query_data_num = len(query_list)
     query_data_num = count
-    per_page = 16
+    per_page = 24
     range_start = per_page * (num - 1)
     total_page = query_data_num // per_page
     rest_data = query_data_num % per_page

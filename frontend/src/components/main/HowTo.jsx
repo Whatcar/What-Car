@@ -6,8 +6,18 @@ import Sub2 from '../../img/main/main_sub_2.svg';
 import Sub3 from '../../img/main/main_sub_3.svg';
 import { blue, black } from '../../css/colors';
 import { menu, body } from '../../css/fonts';
+import Swal from 'sweetalert2';
+import example from '../../img/main/example.jpg';
 
 export default function HowTo() {
+  const onClickExample = () => {
+    return Swal.fire({
+      title: '이렇게 해주세요!',
+      imageUrl: example,
+      confirmButtonText: '이해했어요!',
+      confirmButtonColor: blue.main,
+    });
+  };
   return (
     <HowToDiv>
       <SubTitle center>어떻게 검색하나요?</SubTitle>
@@ -31,6 +41,12 @@ export default function HowTo() {
             <HowToDetail>이름을 알고 싶은 자동차의 사진을 찍으세요.</HowToDetail>
             <HowToDetail>
               자동차의 절반 이상이 나와야 하며, 자동차의 크기가 이미지의 반 이상을 차지해야 합니다.
+            </HowToDetail>
+            <HowToDetail
+              onClick={onClickExample}
+              style={{ color: blue.main, fontFamily: 'SBAggroM', cursor: 'pointer' }}
+            >
+              자세히 알려주세요!
             </HowToDetail>
           </HowToStep>
           <VerticalLine no />
