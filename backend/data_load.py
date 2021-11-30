@@ -8,6 +8,7 @@ app.app_context().push()
 from app import db
 from models.car import Car
 from models.mbti_result import MbtiResult
+from models.worldcup import WorldCup
 
 with open("car_spec_final_remove_brand.csv", "r", encoding="UTF-8") as f:
     reader = csv.DictReader(f)
@@ -67,5 +68,15 @@ with open("mbti.csv", "r", encoding="UTF-8") as f:
 
         mbti = MbtiResult(type=row["type"], count=row["count"])
         db.session.add(mbti)
+
+        db.session.commit()
+
+with open("worldcup.csv", "r", encoding="UTF-8") as f:
+    reader = csv.DictReader(f)
+
+    for row in reader:
+
+        car = WorldCup(car_id=row["car_id"], count=row["count"])
+        db.session.add(car)
 
         db.session.commit()
