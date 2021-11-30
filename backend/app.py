@@ -3,11 +3,11 @@ from flask_cors import CORS
 from flask_migrate import Migrate
 
 import config
-from controller.detailController import detail_bp
-from controller.mbtiController import mbti_bp
-from controller.searchController import search_bp
-from controller.uploadController import upload_bp
-from controller.worldcupController import worldcup_bp
+from controller.detail_controller import detail_bp
+from controller.mbti_controller import mbti_bp
+from controller.search_controller import search_bp
+from controller.upload_controller import upload_bp
+from controller.worldcup_controller import worldcup_bp
 from db_connect import db
 from models.car import *
 from models.mbti_result import *

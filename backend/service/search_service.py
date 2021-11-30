@@ -20,12 +20,15 @@ def pagination(query_list, count, num):
     # # 검색 결과가 없으면
     if count == 0:
         car_list = []
+
     # per_page가 다 채워지지 않은 마지막 페이지를 넘으면
     elif num >= (total_page + 1) and rest_data == 0:
         abort(404, "페이지 범위를 초과했습니다.")
+
     # 전체 데이터 개수//페이지 당 데이터가 들어온 페이지 범위를 넘으면
     elif num > (total_page + 1):
         abort(404, "페이지 범위를 초과했습니다.")
+
     # 전체 데이터 개수//페이지 당 데이터가 들어온 페이지 같으면
     if num == (total_page + 1) and not rest_data == 0:
         # 범위 시작값부터 마지막 데이터까지
@@ -34,8 +37,7 @@ def pagination(query_list, count, num):
         query_list = query_list[range_start : per_page * num]
 
     car_list = [Car.to_dict_part(car) for car in query_list]
-    # car = car_list.paginate(page, per_page=16)
-    # print(len(car_list))
+
     return {"result_num": count}, car_list
 
 
@@ -75,7 +77,7 @@ def search(
         query_all += " AND "
 
     # 가격
-    if cost == "" or cost == None:
+    if cost == "" or cost == None or cost == "전체":
         pass
     else:
         numbers = re.sub(r"[^0-9~]", "", cost)
@@ -118,7 +120,7 @@ def search(
             query_all += q
 
     # 배기량
-    if displacement == "" or displacement == None:
+    if displacement == "" or displacement == None or displacement == "전체":
         pass
     else:
         numbers = re.sub(r"[^0-9~]", "", displacement)
@@ -148,7 +150,7 @@ def search(
             query_all += q
 
     # 연비
-    if fuelEfficiency == "" or fuelEfficiency == None:
+    if fuelEfficiency == "" or fuelEfficiency == None or fuelEfficiency == "전체":
         pass
     else:
         numbers = re.sub(r"[^0-9~]", "", fuelEfficiency)
@@ -226,7 +228,6 @@ def search(
     else:
         query_all += f'fuel = "{fuel}" AND'
 
-    print("현재 query_all 뭐야?", query_all, name)
     # 이름
     if name == "" or name == None:
         if query_all == "" or query_all == None:
@@ -240,7 +241,7 @@ def search(
             query_all = query_all[:-4]
 
             # 출시일순 최신
-            if sort_criteria == "출시일순" or sort_criteria == "":
+            if sort_criteria == "출시일순" or sort_criteria == "" or sort_criteria == None:
                 query_all_list = Car.query.filter(text(query_all)).order_by(
                     Car.release_date.desc()
                 )
@@ -261,7 +262,7 @@ def search(
     else:
         search = "%{}%".format(name)
         # 출시일순 최신
-        if sort_criteria == "출시일순" or sort_criteria == "":
+        if sort_criteria == "출시일순" or sort_criteria == "" or sort_criteria == None:
             query_all_list = engine.execute(
                 "SELECT * FROM CAR WHERE "
                 + query_all
