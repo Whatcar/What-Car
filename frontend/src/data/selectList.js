@@ -1,9 +1,9 @@
 // 백엔드 스키마 ; method->drive_method, cost->price
 
 const selectList = {
-  grade: ['경형', '소형', '준중형', '중형', '준대형', '대형', '스포츠카'],
-  shape: ['SUV', 'RV', '벤', '세단', '왜건', '컨버터블', '해치백', '쿠페'],
-  method: ['전체', 'FF', 'FR', '4WD', 'RR', 'MR', 'AWD'],
+  grade: ['경형', '소형', '준중형', '중형', '준대형', '대형'],
+  shape: ['SUV', '세단', '왜건', '컨버터블', '해치백', '쿠페'],
+  method: ['FF', 'FR', '4WD', 'RR', 'MR', 'AWD'],
   fuel: [
     '전체',
     '디젤',
@@ -11,12 +11,10 @@ const selectList = {
     'LPG',
     '가솔린/하이브리드',
     '디젤/하이브리드',
-    '에탄올',
     '가솔린/수소',
     '전기',
     '수소',
     'LPG/하이브리드',
-    '연료전지',
   ],
   cost: [
     '전체',
@@ -30,24 +28,8 @@ const selectList = {
     '2억원',
     '5억원',
   ],
-  displacement: [
-    '전체',
-    '1cc',
-    '1,000cc',
-    '1,200cc',
-    '1,400cc',
-    '1,600cc',
-    '1,800cc',
-    '2,000cc',
-    '2,200cc',
-    '2,400cc',
-    '2,600cc',
-    '2,800cc',
-    '3,000cc',
-    '3,500cc',
-    '4,000cc',
-  ],
-  fuelEfficiency: ['전체', '1km/l', '5km/l', '10km/l', '15km/l', '20km/l', '25km/l', '30km/l'],
+  displacement: ['1,000cc', '1,600cc', '2,000cc', '3,000cc'],
+  fuelEfficiency: ['전체', '1km/l', '5km/l', '10km/l', '15km/l', '20km/l'],
 };
 
 export default selectList;
