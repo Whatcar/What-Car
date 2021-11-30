@@ -8,20 +8,8 @@ import { resetSessionStorage, useResetRecoilValues } from '../utils/searchCondit
 import { getSearchCarList, getCarListSorted } from '../apis/seachAPI';
 import CarList from '../components/search/CarList';
 import * as atom from '../recoil/atom';
-import { useRecoilValue, useSetRecoilState } from 'recoil';
-
-const resetList = {
-  range: '전체',
-  brand: [],
-  cost: [0, 9],
-  displacement: [0, 5],
-  fuelEfficiency: [0, 5],
-  grade: [],
-  shape: [],
-  name: '',
-  method: [],
-  fuel: [],
-};
+import { useRecoilState, useSetRecoilState } from 'recoil';
+import conditionSelector from '../recoil/selector';
 
 const TabPanel = (props) => {
   const { children, value, index, ...other } = props;
@@ -74,38 +62,12 @@ const getConditions = () => {
 };
 
 const Search = () => {
-  const recoilConditions = {
-    range: useRecoilValue(atom.range),
-    brand: useRecoilValue(atom.brand),
-    grade: useRecoilValue(atom.grade),
-    shape: useRecoilValue(atom.shape),
-    method: useRecoilValue(atom.method),
-    fuel: useRecoilValue(atom.fuel),
-    displacement: useRecoilValue(atom.displacement),
-    fuelEfficiency: useRecoilValue(atom.fuelEfficiency),
-    cost: useRecoilValue(atom.cost),
-    name: useRecoilValue(atom.name),
-  };
-
-  const setValue = {
-    setRange: useSetRecoilState(atom.range),
-    setBrand: useSetRecoilState(atom.brand),
-    setGrade: useSetRecoilState(atom.grade),
-    setShape: useSetRecoilState(atom.shape),
-    setMethod: useSetRecoilState(atom.method),
-    setFuel: useSetRecoilState(atom.fuel),
-    setDisplacement: useSetRecoilState(atom.displacement),
-    setFuelEfficiency: useSetRecoilState(atom.fuelEfficiency),
-    setCost: useSetRecoilState(atom.cost),
-    setName: useSetRecoilState(atom.name),
-  };
-
   const [conditions, setConditions] = useState(getConditions());
-  const [trigger, setTrigger] = useState(false);
   const [currPage, setCurrPage] = useState('1');
   const [items, setItems] = useState(null);
   const [filter, setFilter] = useState(0);
   const [dataLength, setDataLength] = useState(0);
+  const [recoilStates, setRecoilStates] = useRecoilState(conditionSelector);
 
   useEffect(() => {
     const filterList = { 0: '출시일순', 1: '가격순', 2: '연비순' };
@@ -129,15 +91,13 @@ const Search = () => {
   };
 
   const handleSearchClick = (e) => {
-    const cons = Object.keys(recoilConditions);
-    cons.forEach((con) => sessionStorage.setItem(con, recoilConditions[con]));
+    const cons = Object.keys(recoilStates);
+    cons.forEach((con) => sessionStorage.setItem(con, recoilStates[con]));
     setConditions(getConditions());
   };
 
   const handleResetClick = () => {
-    resetSessionStorage();
-    // console.log(setValue.range);
-    // Object.keys(setValue).forEach((key) => setValue[key](resetList[key]));
+    setRecoilStates();
   };
 
   const handleFilterChange = (event, newFilter) => {

@@ -1,34 +1,6 @@
 import * as atom from '../recoil/atom';
-import { useSetRecoilState } from 'recoil';
-
-const resetList = {
-  range: '전체',
-  brand: '',
-  cost: '0,9',
-  displacement: '0,5',
-  fuelEfficiency: '0,5',
-  grade: '',
-  shape: '',
-  name: '',
-  method: '',
-  fuel: '',
-};
-
-export const useResetRecoilValues = () => {
-  const setValue = {
-    setRange: useSetRecoilState(atom.range),
-    setBrand: useSetRecoilState(atom.brand),
-    setGrade: useSetRecoilState(atom.grade),
-    setShape: useSetRecoilState(atom.shape),
-    setMethod: useSetRecoilState(atom.method),
-    setFuel: useSetRecoilState(atom.fuel),
-    setDisplacement: useSetRecoilState(atom.displacement),
-    setFuelEfficiency: useSetRecoilState(atom.fuelEfficiency),
-    setCost: useSetRecoilState(atom.cost),
-    setName: useSetRecoilState(atom.name),
-  };
-  Object.keys(setValue).forEach((key) => setValue[key](resetList[key]));
-};
+import { useSetRecoilState, useRecoilState } from 'recoil';
+import conditionSelector from '../recoil/selector';
 
 export const parseSessionArray = (keyName) => {
   return sessionStorage.getItem(keyName) ? sessionStorage.getItem(keyName).split(',') : [];
@@ -88,5 +60,17 @@ export const setCheckedValuesArray = (newValue, values) => {
 };
 
 export const resetSessionStorage = () => {
+  const resetList = {
+    range: '전체',
+    brand: '',
+    cost: '0,9',
+    displacement: '0,5',
+    fuelEfficiency: '0,5',
+    grade: '',
+    shape: '',
+    name: '',
+    method: '',
+    fuel: '',
+  };
   Object.keys(resetList).forEach((keyName) => sessionStorage.setItem(keyName, resetList[keyName]));
 };
