@@ -18,50 +18,26 @@ def mbti_result(mbti):
     count = count_type[0]
 
     for t in total:
+        result = {
+            "type": t.type,
+            "count": t.count,
+            "rate": round((t.count / total_count_sum) * 100, 2),
+            "rank": num,
+            "is_result": True,
+        }
+
         if count == t.count:
-            if t.type == mbti:
-                mbti_result.append(
-                    {
-                        "type": t.type,
-                        "count": t.count,
-                        "rate": round((t.count / total_count_sum) * 100, 2),
-                        "rank": num,
-                        "is_result": True,
-                    }
-                )
-            else:
-                mbti_result.append(
-                    {
-                        "type": t.type,
-                        "count": t.count,
-                        "rate": round((t.count / total_count_sum) * 100, 2),
-                        "rank": num,
-                        "is_result": False,
-                    }
-                )
+            if not t.type == mbti:
+                result["is_result"] = False
+
+            mbti_result.append(result)
             continue
-        else:
-            num += 1
-            count = t.count
-            if t.type == mbti:
-                mbti_result.append(
-                    {
-                        "type": t.type,
-                        "count": t.count,
-                        "rate": round((t.count / total_count_sum) * 100, 2),
-                        "rank": num,
-                        "is_result": True,
-                    }
-                )
-            else:
-                mbti_result.append(
-                    {
-                        "type": t.type,
-                        "count": t.count,
-                        "rate": round((t.count / total_count_sum) * 100, 2),
-                        "rank": num,
-                        "is_result": False,
-                    }
-                )
+
+        num += 1
+        count = t.count
+        if not t.type == mbti:
+            result["is_result"] = False
+
+        mbti_result.append(result)
 
     return mbti_result
