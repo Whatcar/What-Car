@@ -31,9 +31,12 @@ export default function Intro() {
     // TODO: 파일 형식 및 파일 크기 체크하기
     if (imgFile) {
       const formData = new FormData();
-      formData.append('file', imgFile);
+      formData.append('file', imgFile[0]);
       axios
-        .post('http://localhost:5000/api/upload', formData)
+        .post('http://localhost:5000/api/upload', formData, {
+    headers: {
+      'Content-Type': 'multipart/form-data'
+    }})
         .then((res) => navigate(`/result/${res.data.id}`, { state: true }));
     }
   };
