@@ -7,6 +7,7 @@ import ArrowDownwardRoundedIcon from '@mui/icons-material/ArrowDownwardRounded';
 import { MainTitle, SubTitle, Desc } from '../../css/mainStyles';
 import axios from 'axios';
 import { useNavigate } from 'react-router';
+import Swal from 'sweetalert2';
 
 export default function Intro() {
   const navigate = useNavigate();
@@ -28,16 +29,50 @@ export default function Intro() {
   };
 
   const handleUploadImage = async () => {
-    // TODO: 파일 형식 및 파일 크기 체크하기
+    // TODO: 파일 크기 체크하기
     if (imgFile) {
+      if (
+        !['jpg', 'png', 'jpeg'].includes(
+          imgFile[0].name.split('.')[imgFile[0].name.split('.').length - 1],
+        )
+      ) {
+        setImgFile(null);
+        setImgBase64(null);
+        return Swal.fire({
+          title: '파일 형식을 확인해주세요!',
+          text: '.jpg, .png 확장자만 업로드 할 수 있습니다.',
+          icon: 'error',
+          confirmButtonText: '넵!',
+          confirmButtonColor: blue.main,
+        });
+      }
       const formData = new FormData();
       formData.append('file', imgFile[0]);
-      axios
-        .post('http://localhost:5000/api/upload', formData, {
-    headers: {
-      'Content-Type': 'multipart/form-data'
-    }})
-        .then((res) => navigate(`/result/${res.data.id}`, { state: true }));
+      axios.post('http://localhost:5000/api/upload', formData, {
+          headers: {
+              'Content-Type': 'multipart/form-data'
+          }
+      }).then((res) => {
+        if (res.status === 200) {
+          navigate(`/result/${res.data.id}`, { state: true });
+        } else {
+          Swal.fire({
+            icon: 'error',
+            title: '자동차를 찾을 수 없어요!',
+            text: '가이드라인에 맞추어 다시 업로드해주세요!',
+            confirmButtonText: '넵!',
+            confirmButtonColor: blue.main,
+          });
+        }
+      });
+    } else {
+      Swal.fire({
+        title: '엇, 아무 것도 없는 거 같아요.',
+        icon: 'warning',
+        text: '이미지를 가이드라인에 맞추어 업로드 해주세요!',
+        confirmButtonColor: blue.main,
+        confirmButtonText: '넵!',
+      });
     }
   };
   return (
@@ -78,7 +113,7 @@ export default function Intro() {
 
           <ImageUploadButton
             variant="contained"
-            sx={{ backgroundColor: blue.main, color: 'white' }}
+            sx={{ backgroundColor: imgFile ? blue.main : blue.dark, color: 'white' }}
             onClick={handleUploadImage}
           >
             이미지 검색하기

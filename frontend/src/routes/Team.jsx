@@ -3,13 +3,20 @@ import { MainTitle, SubTitle, Desc } from '../css/mainStyles';
 import styled from 'styled-components';
 import yeonju from '../img/team/yeonju.jpg';
 import Member from '../components/team/member';
+import TeamImg from '../img/team/teamImg.png';
 
 export default function Team() {
   return (
     <TeamWrapper>
       <MainTitle>머선러닝29</MainTitle>
-      <Desc top={2}>안녕하세요👋 저희는 머선러닝29팀입니다.</Desc>
-      <Desc>열심히 뚝딱뚝딱 만드는 중입니다 🔨</Desc>
+      <TeamIntro>
+        <img src={TeamImg} width="50%" alt="머선러닝29" />
+        <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
+          <Desc>안녕하세요👋 저희는 머선러닝29팀입니다.</Desc>
+          <Desc>열심히 뚝딱뚝딱 만드는 중입니다 🔨</Desc>
+        </div>
+      </TeamIntro>
+
       <MainTitle top={5}>팀원 소개</MainTitle>
       <Members>
         <Member image={yeonju} name="김나현" part="프론트엔드" intro="안녕하세유" />
@@ -26,6 +33,12 @@ export default function Team() {
 
 const TeamWrapper = styled.div`
   text-align: center;
+`;
+
+const TeamIntro = styled.div`
+  display: flex;
+  justify-content: space-around;
+  margin-top: 2rem;
 `;
 
 const Members = styled.div`
