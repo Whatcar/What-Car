@@ -4,10 +4,24 @@ import styled from 'styled-components';
 import { Button, Grid, Tabs, Tab, Box, Pagination } from '@mui/material';
 import SelectBox from '../components/search/SelectBox';
 import { maintitle } from '../css/fonts';
-import { resetSessionStorage } from '../utils/searchCondition';
+import { resetSessionStorage, useResetRecoilValues } from '../utils/searchCondition';
 import { getSearchCarList, getCarListSorted } from '../apis/seachAPI';
 import CarList from '../components/search/CarList';
-import SelectAccordion from '../components/search/SelectAccordion';
+import * as atom from '../recoil/atom';
+import { useRecoilValue, useSetRecoilState } from 'recoil';
+
+const resetList = {
+  range: '전체',
+  brand: [],
+  cost: [0, 9],
+  displacement: [0, 5],
+  fuelEfficiency: [0, 5],
+  grade: [],
+  shape: [],
+  name: '',
+  method: [],
+  fuel: [],
+};
 
 const TabPanel = (props) => {
   const { children, value, index, ...other } = props;
@@ -60,7 +74,34 @@ const getConditions = () => {
 };
 
 const Search = () => {
+  const recoilConditions = {
+    range: useRecoilValue(atom.range),
+    brand: useRecoilValue(atom.brand),
+    grade: useRecoilValue(atom.grade),
+    shape: useRecoilValue(atom.shape),
+    method: useRecoilValue(atom.method),
+    fuel: useRecoilValue(atom.fuel),
+    displacement: useRecoilValue(atom.displacement),
+    fuelEfficiency: useRecoilValue(atom.fuelEfficiency),
+    cost: useRecoilValue(atom.cost),
+    name: useRecoilValue(atom.name),
+  };
+
+  const setValue = {
+    setRange: useSetRecoilState(atom.range),
+    setBrand: useSetRecoilState(atom.brand),
+    setGrade: useSetRecoilState(atom.grade),
+    setShape: useSetRecoilState(atom.shape),
+    setMethod: useSetRecoilState(atom.method),
+    setFuel: useSetRecoilState(atom.fuel),
+    setDisplacement: useSetRecoilState(atom.displacement),
+    setFuelEfficiency: useSetRecoilState(atom.fuelEfficiency),
+    setCost: useSetRecoilState(atom.cost),
+    setName: useSetRecoilState(atom.name),
+  };
+
   const [conditions, setConditions] = useState(getConditions());
+  const [trigger, setTrigger] = useState(false);
   const [currPage, setCurrPage] = useState('1');
   const [items, setItems] = useState(null);
   const [filter, setFilter] = useState(0);
@@ -88,13 +129,15 @@ const Search = () => {
   };
 
   const handleSearchClick = (e) => {
+    const cons = Object.keys(recoilConditions);
+    cons.forEach((con) => sessionStorage.setItem(con, recoilConditions[con]));
     setConditions(getConditions());
-    console.log(getConditions());
   };
 
   const handleResetClick = () => {
     resetSessionStorage();
-    window.location.reload();
+    // console.log(setValue.range);
+    // Object.keys(setValue).forEach((key) => setValue[key](resetList[key]));
   };
 
   const handleFilterChange = (event, newFilter) => {
@@ -108,6 +151,7 @@ const Search = () => {
   return (
     <ContentBox>
       <Title>어떤 차가 궁금하신가요?</Title>
+
       <SelectBox />
       {/* <SelectAccordion /> */}
       <ButtonBox>
@@ -186,7 +230,6 @@ const Search = () => {
           count={pageCount(dataLength)}
           shape="rounded"
           onChange={handlePageChange}
-          // getItemAriaLabel={(e) => console.log('get', e)}
         />
       </Box>
     </ContentBox>
