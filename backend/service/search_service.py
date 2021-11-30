@@ -41,13 +41,6 @@ def pagination(query_list, count, num):
     return {"result_num": count}, car_list
 
 
-def car_list(num):
-    car_list = Car.query.order_by(Car.release_date.desc())
-    count = car_list.count()
-    car = pagination(car_list, count, num)
-    return car
-
-
 def search(
     brand,
     cost,

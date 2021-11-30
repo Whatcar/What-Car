@@ -18,7 +18,7 @@ def mbti_result(mbti):
     count = count_type[0]
 
     for t in total:
-        is_result = {
+        result = {
             "type": t.type,
             "count": t.count,
             "rate": round((t.count / total_count_sum) * 100, 2),
@@ -26,26 +26,18 @@ def mbti_result(mbti):
             "is_result": True,
         }
 
-        is_not_result = {
-            "type": t.type,
-            "count": t.count,
-            "rate": round((t.count / total_count_sum) * 100, 2),
-            "rank": num,
-            "is_result": False,
-        }
-
         if count == t.count:
-            if t.type == mbti:
-                mbti_result.append(is_result)
-            else:
-                mbti_result.append(is_not_result)
+            if not t.type == mbti:
+                result["is_result"] = False
+
+            mbti_result.append(result)
             continue
 
         num += 1
         count = t.count
-        if t.type == mbti:
-            mbti_result.append(is_result)
-        else:
-            mbti_result.append(is_not_result)
+        if not t.type == mbti:
+            result["is_result"] = False
+
+        mbti_result.append(result)
 
     return mbti_result
