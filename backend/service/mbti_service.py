@@ -35,6 +35,7 @@ def mbti_result(mbti):
 
         num += 1
         count = t.count
+        result["rank"] = num
         if not t.type == mbti:
             result["is_result"] = False
 

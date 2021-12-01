@@ -224,7 +224,7 @@ def search(
     # 이름
     if name == "" or name == None:
         if query_all == "" or query_all == None:
-            if sort_criteria == "출시일순":
+            if sort_criteria == "출시일순" or sort_criteria == "" or sort_criteria == None:
                 query_all_list = Car.query.order_by(Car.release_date.desc())
             if sort_criteria == "연비순":
                 query_all_list = Car.query.order_by(Car.fuel_efficiency_int_high.desc())
