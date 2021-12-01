@@ -34,7 +34,16 @@ export default function MBTIresult() {
       <Desc style={{ marginBottom: '1rem' }}>
         {data.personality} 당신은 {data.brand}와 찰떡궁합이네요!
       </Desc>
-      {/* <PieChart mbti={state} /> */}
+      {state && (
+        <>
+          <SubTitle top={3}>
+            전체 중 {state && state.filter((item) => item.type === type)[0].rate}% 사람들이 이
+            유형에 해당돼요!
+          </SubTitle>
+          <SubTitle top={4}>유형별 랭킹</SubTitle>
+          <PieChart mbti={state} special={type} />
+        </>
+      )}
       <ShareButton url="mbti" />
       <Button variant="contained" onClick={onClickButton} sx={{ marginTop: '1rem' }}>
         {data.brand} 차 보러 가기
