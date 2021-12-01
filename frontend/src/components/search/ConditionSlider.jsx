@@ -1,11 +1,12 @@
-import { useEffect, useState } from 'react';
 import Box from '@mui/material/Box';
 import Slider from '@mui/material/Slider';
 import selectList from '../../data/selectList';
 import { useRecoilState } from 'recoil';
 import * as atom from '../../recoil/atom';
-import { Accordion, AccordionSummary, AccordionDetails } from '@mui/material';
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import { AccordionDetails } from '@mui/material';
+import MyAccordion, { MyAccordionSummary, MyAccordionDetails } from '../../css/MyAccordion';
+import { categoryDesc } from '../../data/description';
+import MySlider from '../../css/MySlider';
 
 const getMarks = (condition) => {
   const cons = selectList[condition];
@@ -15,20 +16,12 @@ const getMarks = (condition) => {
   return consList;
 };
 
-const valuetext = (value) => {
-  return `${value}°C`;
-};
-
 const ConditionSlider = ({ condition }) => {
   const marks = getMarks(condition);
   const max = marks.length - 1;
   const minDistance = 1;
 
   const [value, setValue] = useRecoilState(atom[condition]);
-
-  useEffect(() => {
-    console.log(value);
-  }, []);
 
   const handleChange = (_, newValue, activeThumb) => {
     if (!Array.isArray(newValue)) {
@@ -49,18 +42,14 @@ const ConditionSlider = ({ condition }) => {
   };
 
   return (
-    <Accordion key={condition} style={{ width: '100%' }}>
-      <AccordionSummary
-        expandIcon={<ExpandMoreIcon />}
-        aria-controls="panel1a-content"
-        id="panel1a-header"
-      >
-        {condition}
-        description
-      </AccordionSummary>
-      <AccordionDetails>
+    <MyAccordion key={condition}>
+      <MyAccordionSummary aria-controls="panel1a-content" id="panel1a-header">
+        <span>{categoryDesc[condition].title}</span>
+        <span>{categoryDesc[condition].comment}</span>
+      </MyAccordionSummary>
+      <MyAccordionDetails>
         <Box sx={{ width: '100%' }}>
-          <Slider
+          <MySlider
             defaultValue={0}
             step={null}
             max={max}
@@ -69,8 +58,8 @@ const ConditionSlider = ({ condition }) => {
             value={value}
           />
         </Box>
-      </AccordionDetails>
-    </Accordion>
+      </MyAccordionDetails>
+    </MyAccordion>
   );
 };
 

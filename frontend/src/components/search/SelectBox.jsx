@@ -5,8 +5,6 @@ import { selectTheme } from '../../css/muiTheme';
 import ConditionButtons from './ConditionButtons';
 import ConditionSlider from './ConditionSlider';
 import SelectName from './SelectName';
-import * as atom from '../../recoil/atom';
-import { useRecoilValue } from 'recoil';
 
 const getAccordion = (method) => {
   let cons = [];
@@ -42,6 +40,7 @@ const Box = styled.div`
   grid-template-columns: 1fr 1fr;
   column-gap: 1rem;
   margin-bottom: 2rem;
+  align-items: start;
 
   @media screen and (max-width: 900px) {
     display: flex;

@@ -1,6 +1,6 @@
 const pixelToRem = (size) => `${size / 16}rem`;
 
-const colors = {
+export const colors = {
   blueM: '#2195F2',
   blueL: '#6EC5FF',
   blueD: '#0068BF',
@@ -11,7 +11,7 @@ const colors = {
   whiteD: '#999999',
 };
 
-const fontSize = {
+export const fontSize = {
   M: pixelToRem(16),
   L: pixelToRem(24),
   XL: pixelToRem(32),
@@ -20,7 +20,7 @@ const fontSize = {
   XS: pixelToRem(12),
 };
 
-const fontStyle = {
+export const fontStyle = {
   mainTitle: `
   font-size: ${fontSize.XXL};
   line-height: 64px;

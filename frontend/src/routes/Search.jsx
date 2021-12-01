@@ -3,12 +3,9 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { Button, Grid, Tabs, Tab, Box, Pagination } from '@mui/material';
 import SelectBox from '../components/search/SelectBox';
-import { maintitle } from '../css/fonts';
-import { resetSessionStorage, useResetRecoilValues } from '../utils/searchCondition';
-import { getSearchCarList, getCarListSorted } from '../apis/seachAPI';
+import { getSearchCarList } from '../apis/seachAPI';
 import CarList from '../components/search/CarList';
-import * as atom from '../recoil/atom';
-import { useRecoilState, useSetRecoilState } from 'recoil';
+import { useRecoilState } from 'recoil';
 import conditionSelector from '../recoil/selector';
 
 const TabPanel = (props) => {
@@ -62,12 +59,12 @@ const getConditions = () => {
 };
 
 const Search = () => {
-  const [conditions, setConditions] = useState(getConditions());
   const [currPage, setCurrPage] = useState('1');
   const [items, setItems] = useState(null);
   const [filter, setFilter] = useState(0);
   const [dataLength, setDataLength] = useState(0);
   const [recoilStates, setRecoilStates] = useRecoilState(conditionSelector);
+  const [conditions, setConditions] = useState(getConditions());
 
   useEffect(() => {
     const filterList = { 0: '출시일순', 1: '가격순', 2: '연비순' };
@@ -111,48 +108,21 @@ const Search = () => {
   return (
     <ContentBox>
       <Title>어떤 차가 궁금하신가요?</Title>
-
       <SelectBox />
-      {/* <SelectAccordion /> */}
       <ButtonBox>
-        <Grid sx={{ marginBottom: '3rem' }} container spacing={1} columns={8}>
-          <Grid item xs={2} style={{ width: '100%' }} />
-          <Grid item xs={2} style={{ width: '100%' }}>
-            <Button
-              sx={buttonStyle}
-              variant="contained"
-              disableElevation
-              onClick={handleSearchClick}
-            >
-              조건 검색
-            </Button>
-          </Grid>
-          <Grid item xs={2} style={{ width: '100%' }}>
-            <Button sx={buttonStyle} variant="outlined" onClick={handleResetClick}>
-              초기화
-            </Button>
-          </Grid>
-        </Grid>
+        <Button
+          style={{ gridColumn: '2/ 3' }}
+          sx={buttonStyle}
+          variant="contained"
+          disableElevation
+          onClick={handleSearchClick}
+        >
+          조건 검색
+        </Button>
+        <Button sx={buttonStyle} variant="outlined" onClick={handleResetClick}>
+          초기화
+        </Button>
       </ButtonBox>
-      <ButtonBoxHidden>
-        <Grid sx={{ marginBottom: '3rem' }} container spacing={1} columns={8}>
-          <Grid item xs={4} style={{ width: '100%' }}>
-            <Button
-              sx={buttonStyle}
-              variant="contained"
-              disableElevation
-              onClick={handleSearchClick}
-            >
-              조건 검색
-            </Button>
-          </Grid>
-          <Grid item xs={4} tyle={{ width: '100%' }}>
-            <Button sx={buttonStyle} variant="outlined" onClick={handleResetClick}>
-              초기화
-            </Button>
-          </Grid>
-        </Grid>
-      </ButtonBoxHidden>
       <Box sx={{ width: '100%', display: 'flex', flexDirection: 'column' }}>
         <Box
           sx={{
@@ -223,15 +193,10 @@ const TotalNum = styled.span`
 
 const ButtonBox = styled.div`
   width: 100%;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  column-gap: 1rem;
   @media screen and (max-width: 900px) {
-    display: none;
-  }
-`;
-
-const ButtonBoxHidden = styled.div`
-  display: none;
-  width: 100%;
-  @media screen and (max-width: 900px) {
-    display: block;
+    display: flex;
   }
 `;

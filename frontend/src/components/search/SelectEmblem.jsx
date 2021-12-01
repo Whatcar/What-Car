@@ -1,12 +1,13 @@
-import { useEffect, useState, useCallback } from 'react';
+import { useEffect, useCallback } from 'react';
 import styled from 'styled-components';
 import getEmblem from '../../utils/getEmblem';
-import { getSessionItem, setCheckedValuesArray } from '../../utils/searchCondition';
+import { setCheckedValuesArray } from '../../utils/searchCondition';
 import { desc } from '../../css/fonts';
-import { Accordion, AccordionSummary, AccordionDetails } from '@mui/material';
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import { AccordionDetails } from '@mui/material';
 import { useRecoilState } from 'recoil';
 import * as atom from '../../recoil/atom';
+import MyAccordion, { MyAccordionSummary } from '../../css/MyAccordion';
+import { categoryDesc } from '../../data/description';
 
 const SelectEmblem = () => {
   const [range, setRange] = useRecoilState(atom.range);
@@ -46,14 +47,11 @@ const SelectEmblem = () => {
 
   return (
     <BrandBox>
-      <Accordion defaultExpanded style={{ width: '100%' }}>
-        <AccordionSummary
-          expandIcon={<ExpandMoreIcon />}
-          aria-controls="panel1a-content"
-          id="panel1a-header"
-        >
-          brand description
-        </AccordionSummary>
+      <MyAccordion defaultExpanded>
+        <MyAccordionSummary aria-controls="panel1a-content" id="panel1a-header">
+          <span>{categoryDesc.brand.title}</span>
+          <span>{categoryDesc.brand.comment}</span>
+        </MyAccordionSummary>
         <AccordionDetails>
           <RangeButtons>
             <RangeButton disabled={isDisabled('전체')} onClick={handleClickRange}>
@@ -68,7 +66,7 @@ const SelectEmblem = () => {
           </RangeButtons>
           <EmblemBox>{emblemList}</EmblemBox>
         </AccordionDetails>
-      </Accordion>
+      </MyAccordion>
     </BrandBox>
   );
 };
@@ -90,10 +88,12 @@ const Emblem = styled.label`
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
   width: 4.5rem;
   height: 4rem;
   box-shadow: ${(props) =>
     props.checked ? `${props.theme.colors.blueL} 0 0 0 1px inset` : 'none'};
+  color: ${(props) => (props.checked ? props.theme.colors.blueM : props.theme.colors.black900)};
   cursor: pointer;
   > input {
     display: none;
