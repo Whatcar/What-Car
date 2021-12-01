@@ -27,7 +27,7 @@ export const MyAccordionSummary = styled((props) => (
   '& .MuiAccordionSummary-content': {
     marginLeft: theme.spacing(1),
     display: 'grid',
-    gridTemplateColumns: '4.5rem auto',
+    gridTemplateColumns: '4.5rem auto 2rem',
     columnGap: '0.25rem',
     alignItems: 'center',
     '& span + span': {

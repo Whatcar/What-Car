@@ -7,13 +7,29 @@ import { AccordionDetails } from '@mui/material';
 import { useEffect } from 'react';
 import MyAccordion, { MyAccordionSummary } from '../../css/MyAccordion';
 import { conditionDesc, categoryDesc } from '../../data/description';
+import DescButton from './DescButton';
 
 const ConditionButtons = ({ condition }) => {
   const [values, setValues] = useRecoilState(atom[condition]);
 
-  useEffect(() => {
-    console.log('button', values);
-  }, []);
+  const getConditionDesc = (item) => {
+    const conDesc = conditionDesc[condition];
+    let _item = item;
+    if (item === '4WD') {
+      _item = 'FWD';
+    } else if (item.includes('/')) {
+      _item = item.split('/')[1];
+    }
+    if (!conDesc) return null;
+    const itemDesc = conDesc[_item];
+    if (!itemDesc) return null;
+    const description = {
+      desc: itemDesc.desc ? itemDesc.desc : null,
+      good: itemDesc.good ? itemDesc.good : null,
+      bad: itemDesc.bad ? itemDesc.bad : null,
+    };
+    return description;
+  };
 
   const conditions = selectList[condition];
   const buttonList = conditions.map((item) => {
@@ -23,9 +39,12 @@ const ConditionButtons = ({ condition }) => {
       setValues(newValues);
     };
 
+    const description = getConditionDesc(item);
+
     return (
       <Label key={item} htmlFor={item} checked={values.includes(item)}>
         {item}
+        {description && <DescButton desc={description} />}
         <input
           id={item}
           type="checkbox"
@@ -43,6 +62,7 @@ const ConditionButtons = ({ condition }) => {
       <MyAccordionSummary aria-controls="panel1a-content" id="panel1a-header">
         <span>{categoryDesc[condition].title}</span>
         <span>{categoryDesc[condition].comment}</span>
+        <DescButton desc={categoryDesc[condition].desc} />
       </MyAccordionSummary>
       <AccordionDetails>
         <Box>{buttonList}</Box>

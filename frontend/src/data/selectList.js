@@ -1,7 +1,7 @@
 const selectList = {
   grade: ['경형', '소형', '준중형', '중형', '준대형', '대형'],
-  shape: ['SUV', '세단', '왜건', '컨버터블', '해치백', '쿠페'],
-  method: ['FF', 'FR', '4WD', 'RR', 'MR', 'AWD'],
+  shape: ['SUV', '세단', '해치백', '컨버터블', '왜건', '쿠페'],
+  method: ['FF', 'FR', 'MR', 'AWD', '4WD', 'RR'],
   fuel: [
     '디젤',
     '가솔린',
