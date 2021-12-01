@@ -4,12 +4,14 @@ import { Button } from '@mui/material';
 
 import Intro from '../components/main/Intro.jsx';
 import HowTo from '../components/main/HowTo.jsx';
+import Brands from '../components/main/Brands.jsx';
 
 export default function Main() {
   return (
     <>
       <Intro />
       <HowTo />
+      <Brands />
       <div style={{ textAlign: 'center' }}>
         <StyledButton
           variant="outlined"
