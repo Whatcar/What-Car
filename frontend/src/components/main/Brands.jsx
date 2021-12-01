@@ -1,44 +1,24 @@
-import React, { useEffect, useState, useMemo } from 'react';
+import React from 'react';
 import styled from 'styled-components';
+import { MainTitle } from '../../css/mainStyles';
 import getEmblem from '../../utils/getEmblem';
+import useIntersect from '../../utils/useIntersect';
 
 export default function Brands() {
-  const [target, setTarget] = useState(null);
   const emblems = getEmblem('전체').map((i) => i[1]);
   console.log(emblems.length);
-  useEffect(() => {
-    let observer;
-    const thresholdList = [
-      0.3, 0.35, 0.4, 0.45, 0.5, 0.55, 0.6, 0.65, 0.7, 0.75, 0.8, 0.85, 0.9, 0.95, 1.0,
-    ];
-    if (target) {
-      observer = new IntersectionObserver(_onIntersect, { threshold: thresholdList });
-      observer.observe(target);
-    }
-    return () => observer && observer.disconnect();
-  }, [target]);
 
-  let prevRatio;
-  const _onIntersect = (entries, observer) => {
-    console.log(prevRatio);
-    entries.forEach((entry) => {
-      if (entry.intersectionRatio > prevRatio) {
-        console.log('scrolling down', prevRatio, 'to', entry.intersectionRatio);
-        entry.target.style.marginLeft = `-${(entry.intersectionRatio - 0.3) * 200}%`;
-      } else {
-        console.log('scrolling up', prevRatio, 'to', entry.intersectionRatio);
-        entry.target.style.marginLeft = `-${(entry.intersectionRatio - 0.3) * 200}%`;
-      }
-      prevRatio = entry.intersectionRatio;
-    });
-  };
   return (
-    <BrandWrapper>
-      <BrandSlide ref={setTarget}>
+    <BrandWrapper {...useIntersect()}>
+      <BrandSlide>
         {emblems.map((item, index) => (
-          <BrandImg key={`brand-image-${index}`} scrollNow={prevRatio} src={item} />
+          <BrandImg key={`brand-image-${index}`} src={item} />
         ))}
       </BrandSlide>
+      <MainTitle style={{ fontSize: '4.5rem', lineHeight: '4.7rem' }}>
+        이렇게 다양한 <br />
+        브랜드의 차들을
+      </MainTitle>
     </BrandWrapper>
   );
 }
@@ -46,15 +26,32 @@ export default function Brands() {
 const BrandWrapper = styled.div`
   width: 100%;
   overflow-x: hidden;
+  position: relative;
+
+  div {
+    width: 200%;
+    transition: all 2.5s ease;
+    margin: 10rem 0;
+    opacity: 0.4;
+    margin-left: ${(props) => (props.direction && props.direction === 'up' ? `0%` : '-95%')};
+  }
+  h2 {
+    position: absolute;
+    top: 40%;
+    @media screen and (max-width: 480px) {
+      top: 30%;
+    }
+    transition: all 2.5s ease;
+    left: ${(props) => (props.direction && props.direction === 'up' ? '0%' : '10%')};
+  }
 `;
 
-const BrandSlide = styled.div`
-  width: 200%;
-  transition: all 0.2s ease;
-`;
+const BrandSlide = styled.div``;
 
 const BrandImg = styled.img`
   display: inline-block;
-  width: 100px;
-  margin-top: ${(props) => props.scrollNow && `${props.scrollNow * 10}px`};
+  width: 6%;
+  @media screen and (max-width: 480px) {
+    width: 10%;
+  }
 `;
