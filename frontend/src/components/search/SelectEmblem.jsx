@@ -17,10 +17,6 @@ const SelectEmblem = () => {
     return range === label;
   };
 
-  useEffect(() => {
-    console.log('check', range, values);
-  }, []);
-
   const handleClickRange = useCallback((e) => {
     const newRange = e.target.innerText;
     setRange(newRange);

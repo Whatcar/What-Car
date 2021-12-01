@@ -1,12 +1,11 @@
 import Box from '@mui/material/Box';
-import Slider from '@mui/material/Slider';
 import selectList from '../../data/selectList';
 import { useRecoilState } from 'recoil';
 import * as atom from '../../recoil/atom';
-import { AccordionDetails } from '@mui/material';
 import MyAccordion, { MyAccordionSummary, MyAccordionDetails } from '../../css/MyAccordion';
 import { categoryDesc } from '../../data/description';
 import MySlider from '../../css/MySlider';
+import DescButton from './DescButton';
 
 const getMarks = (condition) => {
   const cons = selectList[condition];
@@ -46,6 +45,9 @@ const ConditionSlider = ({ condition }) => {
       <MyAccordionSummary aria-controls="panel1a-content" id="panel1a-header">
         <span>{categoryDesc[condition].title}</span>
         <span>{categoryDesc[condition].comment}</span>
+        {categoryDesc[condition].desc && (
+          <DescButton item={condition} desc={categoryDesc[condition].desc} />
+        )}
       </MyAccordionSummary>
       <MyAccordionDetails>
         <Box sx={{ width: '100%' }}>

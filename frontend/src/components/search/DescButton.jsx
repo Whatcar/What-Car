@@ -1,11 +1,9 @@
 import { useState } from 'react';
-import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
-import ClickAwayListener from '@mui/material/ClickAwayListener';
 import QuestionMarkIcon from '@mui/icons-material/QuestionMark';
 import styled from 'styled-components';
 
-const DescButton = ({ desc }) => {
+const DescButton = ({ item, desc }) => {
   const [open, setOpen] = useState(false);
 
   const handleTooltipClose = (e) => {
@@ -19,9 +17,20 @@ const DescButton = ({ desc }) => {
   };
 
   return (
-    <Button onClick={handleTooltipOpen}>
-      <QuestionMarkIcon fontSize={'0.5rem'} />
-    </Button>
+    <Tooltip
+      PopperProps={{
+        disablePortal: true,
+      }}
+      onClose={handleTooltipClose}
+      open={open}
+      disableFocusListener
+      disableTouchListener
+      title={desc ? desc : 'no'}
+    >
+      <button onClick={handleTooltipOpen} style={{ width: '16px', justifySelf: 'flex-end' }}>
+        <QuestionMarkIcon fontSize={'0.75rem'} />
+      </button>
+    </Tooltip>
   );
 };
 

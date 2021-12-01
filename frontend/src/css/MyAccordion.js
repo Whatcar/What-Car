@@ -20,6 +20,7 @@ export const MyAccordionSummary = styled((props) => (
     {...props}
   />
 ))(({ theme }) => ({
+  padding: '0 0.5rem',
   flexDirection: 'row-reverse',
   '& .MuiAccordionSummary-expandIconWrapper.Mui-expanded': {
     transform: 'rotate(90deg)',
@@ -27,10 +28,10 @@ export const MyAccordionSummary = styled((props) => (
   '& .MuiAccordionSummary-content': {
     marginLeft: theme.spacing(1),
     display: 'grid',
-    gridTemplateColumns: '4.5rem auto 2rem',
-    columnGap: '0.25rem',
+    gridTemplateColumns: '4.5rem auto auto',
     alignItems: 'center',
     '& span + span': {
+      width: 'auto',
       fontSize: `${fontSize.S}`,
       lineHeight: '1.25rem',
       margin: 0,
