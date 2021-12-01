@@ -16,9 +16,10 @@ import muiTheme from './css/muiTheme.js';
 import GlobalStyles from './css/GlobalStyles.js';
 import { ThemeProvider } from 'styled-components';
 import { mainTheme } from './css/theme.js';
-import WorldcupTest from './components/worldcup/WorldcupTest.jsx';
+import WorldcupTest from './routes/WorldcupTest.jsx';
 import ScrollToTop from './routes/ScrollTop.jsx';
 import MBTIresult from './routes/MBTIresult.jsx';
+import WorldcupResult from './routes/WorldcupResult.jsx';
 
 function App() {
   return (
@@ -39,6 +40,7 @@ function App() {
                 <Route path="/mbti/result/:type" element={<MBTIresult />} />
                 <Route path="/worldcup" element={<Worldcup />} />
                 <Route path="/worldcup/test" element={<WorldcupTest />} />
+                <Route path="/worldcup/result/:id" element={<WorldcupResult />} />
                 <Route path="/team" element={<Team />} />
                 <Route path="/*" element={<NotFound />} />
               </Routes>
