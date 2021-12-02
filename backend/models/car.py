@@ -107,6 +107,8 @@ class Car(db.Model):
             "photolink": self.aws_url,
             "price": self.price,
             "car_grade": self.car_grade,
+            "price": self.price,
+            "displacement": self.displacement,
         }
 
     def to_dict_int(self):

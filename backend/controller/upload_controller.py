@@ -1,14 +1,21 @@
-from flask import Blueprint, jsonify, request
+from flask import request
+from flask_restx import Namespace, Resource
 from service.upload_service import register
+from werkzeug.datastructures import FileStorage
 
 # from werkzeug.utils import secure_filename
 
-upload_bp = Blueprint("main", __name__, url_prefix="/api")
+upload = Namespace("main", path="/api")
+
+parser = upload.parser()
+parser.add_argument("file", type=FileStorage, location="files")
 
 
-@upload_bp.route("/upload", methods=["POST"])
-def get_register():
-    if request.method == "POST":
+@upload.expect(parser)
+@upload.route("/upload", methods=["POST"])
+class Upload(Resource):
+    def post(self):
+        """차량 사진을 올리면 가장 유사한 차량을 가져옵니다."""
         data = request.files["file"]
-
-        return jsonify(register(data)), 200
+        # data = request.files["file"]
+        return register(data), 200

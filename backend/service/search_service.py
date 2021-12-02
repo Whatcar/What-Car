@@ -10,7 +10,7 @@ engine = create_engine(config.SQLALCHEMY_DATABASE_URI)
 
 
 def pagination(query_list, count, num):
-    # query_data_num = len(query_list)
+
     query_data_num = count
     per_page = 24
     range_start = per_page * (num - 1)
@@ -41,7 +41,7 @@ def pagination(query_list, count, num):
     return {"result_num": count}, car_list
 
 
-def search(
+def get_search(
     brand,
     cost,
     displacement,
@@ -58,226 +58,133 @@ def search(
     query_all = ""
 
     # 브랜드
-    if brand == "" or brand == None or brand == "전체":
-        pass
-    else:
+    if brand and not brand == "전체":
         brands = brand.split(",")
         for brand1 in brands:
-            q = f'brand = "{brand1}" OR '
-            query_all += q
-        query_all = query_all[:-4]
-        query_all = "( " + query_all + ")"
-        query_all += " AND "
+            query_all += f'brand = "{brand1}" OR '
+        query_all = "(" + query_all[:-4] + ") AND "
 
     # 가격
-    if cost == "" or cost == None or cost == "전체":
-        pass
-    else:
+    if cost and not cost == "전체":
+
         numbers = re.sub(r"[^0-9~]", "", cost)
         costs = numbers.split("~")
-        if len(costs) == 1:
+
+        for i in range(len(costs)):
+            if costs[i]:
+                costs[i] = int(costs[i])
+                if costs[i] <= 5:
+                    costs[i] *= 100000000
+                else:
+                    costs[i] *= 10000
+            is_none = str(costs[i])
+
+        if len(costs) == 1 or is_none == "":
             pass
         elif costs[0] == "":
-            if costs[1] == "":
-                pass
-            else:
-                costs[1] = int(costs[1])
-                if costs[1] <= 5:
-                    costs[1] *= 100000000
-                else:
-                    costs[1] *= 10000
-                q = f"(price_int_high <= {costs[1]} ) AND "
-                query_all += q
+            query_all += f"(price_int_high <= {costs[1]} ) AND "
         elif costs[1] == "":
-            if costs[0] == "":
-                pass
-            else:
-                costs[0] = int(costs[0])
-                if costs[0] <= 5:
-                    costs[0] *= 100000000
-                else:
-                    costs[0] *= 10000
-                q = f"(price_int_low >= {costs[0]} ) AND "
-                query_all += q
+            query_all += f"(price_int_low >= {costs[0]} ) AND "
         else:
-            costs = [int(cost) for cost in costs]
-            if costs[0] <= 5:
-                costs[0] *= 100000000
-            else:
-                costs[0] *= 10000
-            if costs[1] <= 5:
-                costs[1] *= 100000000
-            else:
-                costs[1] *= 10000
-            q = f"(price_int_low >= {costs[0]} AND price_int_high <= {costs[1]} ) AND "
-            query_all += q
+            query_all += (
+                f"(price_int_low >= {costs[0]} AND price_int_high <= {costs[1]} ) AND "
+            )
 
     # 배기량
-    if displacement == "" or displacement == None or displacement == "전체":
-        pass
-    else:
+    if displacement and not displacement == "전체":
+
         numbers = re.sub(r"[^0-9~]", "", displacement)
         displacements = numbers.split("~")
 
-        if len(displacements) == 1:
+        for i in range(len(displacements)):
+            if displacements[i]:
+                displacements[i] = int(displacements[i])
+            is_none = str(displacements[i])
+
+        if len(displacements) == 1 or is_none == "":
             pass
         elif displacements[0] == "":
-            if displacements[1] == "":
-                pass
-            else:
-                displacements[1] = int(displacements[1])
-                q = f"(displacement_int <= {displacements[1]} ) AND "
-                query_all += q
+            query_all += f"(displacement_int <= {displacements[1]} ) AND "
         elif displacements[1] == "":
-            if displacements[0] == "":
-                pass
-            else:
-                displacements[0] = int(displacements[0])
-
-                q = f"(displacement_int >= {displacements[0]} ) AND "
-                query_all += q
+            query_all += f"(displacement_int >= {displacements[0]} ) AND "
         else:
-            displacements = [int(displacement) for displacement in displacements]
-
-            q = f"(displacement_int >= {displacements[0]} AND displacement_int <= {displacements[1]} ) AND "
-            query_all += q
+            query_all += f"(displacement_int >= {displacements[0]} AND displacement_int <= {displacements[1]} ) AND "
 
     # 연비
-    if fuelEfficiency == "" or fuelEfficiency == None or fuelEfficiency == "전체":
-        pass
-    else:
+    if fuelEfficiency and not fuelEfficiency == "전체":
+
         numbers = re.sub(r"[^0-9~]", "", fuelEfficiency)
         fuelEfficiencys = numbers.split("~")
 
-        if len(fuelEfficiencys) == 1:
+        for i in range(len(fuelEfficiencys)):
+            if fuelEfficiencys[i]:
+                fuelEfficiencys[i] = float(fuelEfficiencys[i])
+            is_none = str(fuelEfficiencys[i])
+
+        if len(fuelEfficiencys) == 1 or is_none == "":
             pass
         elif fuelEfficiencys[0] == "":
-            if fuelEfficiencys[1] == "":
-                pass
-            else:
-                fuelEfficiencys[1] = float(fuelEfficiencys[1])
-                q = f"(fuel_efficiency_int_high <= {fuelEfficiencys[1]} ) AND "
-                query_all += q
+            query_all += f"(fuel_efficiency_int_high <= {fuelEfficiencys[1]} ) AND "
         elif fuelEfficiencys[1] == "":
-            if fuelEfficiencys[0] == "":
-                pass
-            else:
-                fuelEfficiencys[0] = float(fuelEfficiencys[0])
-
-                q = f"(fuel_efficiency_int_low >= {fuelEfficiencys[0]} ) AND "
-                query_all += q
+            query_all += f"(fuel_efficiency_int_low >= {fuelEfficiencys[0]} ) AND "
         else:
-            fuelEfficiencys = [
-                float(fuelEfficiency) for fuelEfficiency in fuelEfficiencys
-            ]
-
-            q = f"(fuel_efficiency_int_low >= {fuelEfficiencys[0]} AND fuel_efficiency_int_high <= {fuelEfficiencys[1]} ) AND "
-            query_all += q
+            query_all += f"(fuel_efficiency_int_low >= {fuelEfficiencys[0]} AND fuel_efficiency_int_high <= {fuelEfficiencys[1]} ) AND "
 
     # 차급
     ql = ""
-    if grade == "전체" or grade == "" or grade == None:
-        pass
-    else:
+    if grade and not grade == "전체":
         grades = grade.split(",")
         for grade1 in grades:
-            q = f'car_grade = "{grade1}" OR '
-            ql += q
-        ql = ql[:-4]
-        ql = "( " + ql + ") AND "
-        query_all += ql
-        print(query_all)
+            ql += f'car_grade = "{grade1}" OR '
+        query_all += "(" + ql[:-4] + ") AND "
 
     # 외형
     ql = ""
-    if shape == "전체" or shape == "" or shape == None:
-        pass
-    else:
+    if shape and not shape == "전체":
         shapes = shape.split(",")
         for shape1 in shapes:
-            q = f'appearance = "{shape1}" OR '
-            ql += q
-        ql = ql[:-4]
-        ql = "( " + ql + ") AND "
-        query_all += ql
-        print(query_all)
+            ql += f'appearance = "{shape1}" OR '
+        query_all += "(" + ql[:-4] + ") AND "
 
     # 구동방식
     ql = ""
-    if method == "전체" or method == "" or method == None:
-        pass
-    else:
+    if method and not method == "전체":
         methods = method.split(",")
         for method1 in methods:
-            q = f'drive_method = "{method1}" OR '
-            ql += q
-        ql = ql[:-4]
-        ql = "( " + ql + ") AND "
-        query_all += ql
+            ql += f'drive_method = "{method1}" OR '
+        query_all += "(" + ql[:-4] + ") AND "
 
     # 연료
-    if fuel == "전체" or fuel == "" or fuel == None:
-        pass
-    else:
+    if fuel and not fuel == "전체":
         query_all += f'fuel = "{fuel}" AND'
 
+    # 기본 정렬
+    if not sort_criteria:
+        sort_criteria == "출시일순"
+
     # 이름
-    if name == "" or name == None:
-        if query_all == "" or query_all == None:
-            if sort_criteria == "출시일순":
-                query_all_list = Car.query.order_by(Car.release_date.desc())
-            if sort_criteria == "연비순":
-                query_all_list = Car.query.order_by(Car.fuel_efficiency_int_high.desc())
-            if sort_criteria == "가격순":
-                query_all_list = Car.query.order_by(Car.price_int_low.asc())
-        else:
-            query_all = query_all[:-4]
-
-            # 출시일순 최신
-            if sort_criteria == "출시일순" or sort_criteria == "" or sort_criteria == None:
-                query_all_list = Car.query.filter(text(query_all)).order_by(
-                    Car.release_date.desc()
-                )
-
-            # 연비순 오름차순
-            if sort_criteria == "연비순":
-                query_all_list = Car.query.filter(text(query_all)).order_by(
-                    Car.fuel_efficiency_int_high.desc()
-                )
-
-            # 가격순 내림차순
-            if sort_criteria == "가격순":
-                query_all_list = Car.query.filter(text(query_all)).order_by(
-                    Car.price_int_low.asc()
-                )
-        count = query_all_list.count()
-
-    else:
+    if name:
         search = "%{}%".format(name)
+        query_type = "SELECT * FROM CAR WHERE " + query_all + " name LIKE %s ORDER BY "
+
         # 출시일순 최신
-        if sort_criteria == "출시일순" or sort_criteria == "" or sort_criteria == None:
+        if sort_criteria == "출시일순":
             query_all_list = engine.execute(
-                "SELECT * FROM CAR WHERE "
-                + query_all
-                + " name LIKE %s ORDER BY release_date DESC",
+                query_type + "release_date DESC",
                 [search],
             ).fetchall()
 
         # 연비순 오름차순
         if sort_criteria == "연비순":
             query_all_list = engine.execute(
-                "SELECT * FROM CAR WHERE "
-                + query_all
-                + " name LIKE %s ORDER BY fuel_efficiency DESC",
+                query_type + "fuel_efficiency DESC",
                 [search],
             ).fetchall()
 
         # 가격순 내림차순
         if sort_criteria == "가격순":
             query_all_list = engine.execute(
-                "SELECT * FROM CAR WHERE "
-                + query_all
-                + " name LIKE %s ORDER BY price_int_low ASC",
+                query_type + "price_int_low ASC",
                 [search],
             ).fetchall()
 
@@ -287,12 +194,31 @@ def search(
             "SELECT COUNT" + star + " FROM CAR WHERE " + query_all + " name LIKE %s",
             [search],
         )
-        count = str(count_query.first())
-        count = re.sub(r"[^0-9]", "", count)
-        count = int(count)
+        count = int(re.sub(r"[^0-9]", "", str(count_query.first())))
+
+    # 이름 검색 안들어오면
+    if not name:
+        query_all = query_all[:-4]
+
+        # 출시일순 최신
+        if sort_criteria == "출시일순":
+            print("여기아니야????????//")
+            query_all_list = Car.query.filter(text(query_all)).order_by(
+                Car.release_date.desc()
+            )
+        # 연비순 오름차순
+        if sort_criteria == "연비순":
+            query_all_list = Car.query.filter(text(query_all)).order_by(
+                Car.fuel_efficiency_int_high.desc()
+            )
+        # 가격순 내림차순
+        if sort_criteria == "가격순":
+            query_all_list = Car.query.filter(text(query_all)).order_by(
+                Car.price_int_low.asc()
+            )
+        count = query_all_list.count()
 
     print("쿼리 출력", query_all)
-    # print("개수!!!!!!!!", len(car_list))
     car = pagination(query_all_list, count, num)
 
     return car
