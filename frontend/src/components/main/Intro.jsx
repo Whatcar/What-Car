@@ -8,6 +8,7 @@ import { MainTitle, SubTitle, Desc } from '../../css/mainStyles';
 import axios from 'axios';
 import { useNavigate } from 'react-router';
 import Swal from 'sweetalert2';
+import useSrr from '../../utils/useSrr';
 
 export default function Intro() {
   const navigate = useNavigate();
@@ -85,8 +86,10 @@ export default function Intro() {
           <MainImage src={MainImg} />
         </Grid>
         <Grid item xs={12} md={6} lg={6} desc>
-          <SubTitle>찰칵!</SubTitle>
-          <MainTitle blue>저 차는 뭐징?</MainTitle>
+          <SubTitle {...useSrr('down', 1, 0.5)}>찰칵!</SubTitle>
+          <MainTitle blue {...useSrr('down', 1, 1)}>
+            저 차는 뭐징?
+          </MainTitle>
           <Desc>
             내가 방금 본 차는 이름이 뭘까? 이런 궁금증을 갖고 있지는 않았나요? 왓카는{' '}
             <span style={{ color: blue.main }}>차알못</span>을 위한 서비스로, 자동차 이미지를 인식해

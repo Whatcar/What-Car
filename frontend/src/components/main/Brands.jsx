@@ -34,6 +34,7 @@ const BrandWrapper = styled.div`
     text-shadow: 0 0 0.5rem dimgray;
     font-size: 4.5rem;
     line-height: 4.7rem;
+    left: 3%;
     @media screen and (max-width: 480px) {
       top: 30%;
       font-size: 3rem;
