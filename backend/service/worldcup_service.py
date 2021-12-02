@@ -1,4 +1,3 @@
-import itertools
 import random
 
 from models.car import *
