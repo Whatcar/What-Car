@@ -1,29 +1,18 @@
 import React, { useRef, useState, useEffect, useCallback } from 'react';
 
-const useIntersect = () => {
+const useIntersect = (styleDetail = 'marginLeft', toExtent = '-90') => {
   const element = useRef();
-  const [direction, setDirection] = useState(null);
-  let prevRatio = 0;
 
-  const handleDirection = (way) => {
-    switch (way) {
-      case 'up':
-        return 'translate3d(20%, 0, 0)';
-      case 'down':
-        return 'translate3d(-20%, 0, 0)';
-    }
-  };
-
-  const onIntersect = useCallback(([entry]) => {
-    if (entry.intersectionRatio > prevRatio) {
-      setDirection('down');
-      console.log('down');
-    } else if (entry.intersectionRatio < prevRatio) {
-      setDirection('up');
-      console.log('up');
-    }
-    prevRatio = entry.intersectionRatio;
-  }, []);
+  const onIntersect = useCallback(
+    ([entry]) => {
+      const { current } = element;
+      if (entry.isIntersecting) {
+        current.style[`${styleDetail}`] =
+          current.style[`${styleDetail}`] === `${toExtent}%` ? '3%' : `${toExtent}%`;
+      }
+    },
+    [styleDetail, toExtent],
+  );
   useEffect(() => {
     let observer;
     if (element.current) {
@@ -35,7 +24,6 @@ const useIntersect = () => {
 
   return {
     ref: element,
-    direction: direction,
   };
 };
 

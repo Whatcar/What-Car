@@ -9,13 +9,13 @@ export default function Brands() {
   console.log(emblems.length);
 
   return (
-    <BrandWrapper {...useIntersect()}>
-      <BrandSlide>
+    <BrandWrapper>
+      <BrandSlide {...useIntersect('marginLeft', '-90')}>
         {emblems.map((item, index) => (
           <BrandImg key={`brand-image-${index}`} src={item} />
         ))}
       </BrandSlide>
-      <MainTitle style={{ fontSize: '4.5rem', lineHeight: '4.7rem' }}>
+      <MainTitle {...useIntersect('left', '10')}>
         이렇게 다양한 <br />
         브랜드의 차들을
       </MainTitle>
@@ -28,25 +28,28 @@ const BrandWrapper = styled.div`
   overflow-x: hidden;
   position: relative;
 
-  div {
-    width: 200%;
-    transition: all 2.5s ease;
-    margin: 10rem 0;
-    opacity: 0.4;
-    margin-left: ${(props) => (props.direction && props.direction === 'up' ? `0%` : '-95%')};
-  }
   h2 {
     position: absolute;
     top: 40%;
+    text-shadow: 0 0 0.5rem dimgray;
+    font-size: 4.5rem;
+    line-height: 4.7rem;
+    left: 3%;
     @media screen and (max-width: 480px) {
       top: 30%;
+      font-size: 3rem;
+      line-height: 3.2rem;
     }
     transition: all 2.5s ease;
-    left: ${(props) => (props.direction && props.direction === 'up' ? '0%' : '10%')};
   }
 `;
 
-const BrandSlide = styled.div``;
+const BrandSlide = styled.div`
+  width: 200%;
+  transition: all 2.5s ease;
+  margin: 1rem 0;
+  opacity: 0.4;
+`;
 
 const BrandImg = styled.img`
   display: inline-block;
