@@ -1,9 +1,8 @@
-import itertools
 import random
 
-from flask.json import jsonify
 from models.car import *
 from models.worldcup import *
+from werkzeug.exceptions import abort
 
 
 def select_car():
@@ -22,6 +21,10 @@ def select_car():
 
 
 def modify_worldcup_result(car_id):
+    total = WorldCup.query.order_by(WorldCup.count.desc()).all()
+    car_id_list = [car.car_id for car in total]
+    if not car_id in car_id_list:
+        abort(404, "후보에 해당하는 차량이 없습니다.")
     worldcup_count = WorldCup.query.filter_by(car_id=car_id).first()
     WorldCup.query.filter_by(car_id=car_id).update({"count": worldcup_count.count + 1})
     db.session.commit()
@@ -32,6 +35,10 @@ def modify_worldcup_result(car_id):
 def get_worldcup_result(car_id):
 
     total = WorldCup.query.order_by(WorldCup.count.desc()).all()
+    car_id_list = [car.car_id for car in total]
+    if not car_id in car_id_list:
+        abort(404, "후보에 해당하는 차량이 없습니다.")
+
     total_count = [t.count for t in total]
     total_count_sum = sum(total_count)
     count_car_id = list(set(total_count))
@@ -40,8 +47,6 @@ def get_worldcup_result(car_id):
     worldcup_result = []
     num = 1
     count = count_car_id[0]
-    print(len(total))
-    print(count_car_id)
 
     for t in total:
         original = Car.query.filter(Car.id == t.car_id).first()
@@ -70,7 +75,7 @@ def get_worldcup_result(car_id):
 
             worldcup_result.append(result)
     worldcup_list = []
-    worldcup_list = [car for car in worldcup_result if car["is_result"] == True]
+    worldcup_list = [[car for car in worldcup_result if car["is_result"] == True]]
     worldcup_list.append([car for car in worldcup_result if car["rank"] <= 3])
 
     return worldcup_list
