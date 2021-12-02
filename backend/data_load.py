@@ -27,7 +27,6 @@ with open("car_spec_real_final.csv", "r", encoding="UTF-8") as f:
         except:
             discontinued_date = None
 
-        print(release_date, discontinued_date)
         car = Car(
             name=row["car_name"],
             carisyou_url=row["carisyou_url"],
