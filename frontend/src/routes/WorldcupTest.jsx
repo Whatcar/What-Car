@@ -17,7 +17,7 @@ export default function WorldcupTest() {
         },
       })
       .then((res) => {
-        navigate(`/worldcup/result/${worldcupResult}`, { state: res.data });
+        if (res.status === 200) navigate(`/worldcup/result/${worldcupResult}`);
       });
   };
   useEffect(() => {
