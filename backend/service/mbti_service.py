@@ -3,11 +3,16 @@ from werkzeug.exceptions import abort
 
 
 def mbti_result(mbti):
+
+    total = MbtiResult.query.order_by(MbtiResult.count.desc())
+    mbti_id_list = [mbti.type for mbti in total]
+    if not mbti in mbti_id_list:
+        abort(404, "MBTI 타입 중에 해당하는 타입이 없습니다.")
+
     mbti_count = MbtiResult.query.filter_by(type=mbti).first()
     MbtiResult.query.filter_by(type=mbti).update({"count": mbti_count.count + 1})
     db.session.commit()
 
-    total = MbtiResult.query.order_by(MbtiResult.count.desc())
     total_count = [t.count for t in total]
     total_count_sum = sum(total_count)
     count_type = list(set(total_count))

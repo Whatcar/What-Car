@@ -10,7 +10,7 @@ from models.car import Car
 from models.mbti_result import MbtiResult
 from models.worldcup import WorldCup
 
-with open("car_spec_final_remove_brand.csv", "r", encoding="UTF-8") as f:
+with open("car_spec_real_final.csv", "r", encoding="UTF-8") as f:
     reader = csv.DictReader(f)
 
     for row in reader:
