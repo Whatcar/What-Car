@@ -1,6 +1,7 @@
 import config
 from flask import request
-from flask_restx import Namespace, Resource, fields
+from flask_restx import Namespace, Resource
+from models.car import Car
 from service.search_service import get_search
 from sqlalchemy import create_engine
 
@@ -9,13 +10,7 @@ engine = create_engine(config.SQLALCHEMY_DATABASE_URI)
 
 result = search.model(
     "serach_result",
-    {
-        "id": fields.String(required=True, description="차량 고유 아이디"),
-        "name": fields.String(required=True, description="차량 모델명"),
-        "photolink": fields.String(required=True, description="차량 이미지 링크"),
-        "price": fields.String(required=True, description="차량 가격"),
-        "car_grade": fields.String(required=True, description="차급"),
-    },
+    Car.car_model_part,
 )
 
 

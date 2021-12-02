@@ -1,27 +1,17 @@
 from flask import request
-from flask_restx import Namespace, Resource, fields
+from flask_restx import Namespace, Resource
+from models.worldcup import WorldCup
 from service.worldcup_service import *
 
 worldcup = Namespace("worldcup", path="/api")
 
 rand_result = worldcup.model(
     "worldcup_rand_result",
-    {
-        "car_id": fields.Integer(required=True, description="차량 고유 아이디"),
-        "photolink": fields.String(required=True, description="블러 처리된 차량 이미지 링크"),
-    },
+    WorldCup.worldcup_model_rand_result,
 )
 result = worldcup.model(
     "worldcup_result",
-    {
-        "car_id": fields.Integer(required=True, description="차량 고유 아이디"),
-        "name": fields.String(required=True, description="차량 모델명"),
-        "count": fields.Integer(required=True, description="우승한 횟수"),
-        "rate": fields.Integer(required=True, description="우승 비율"),
-        "rank": fields.Integer(required=True, description="순위"),
-        "photolink": fields.String(required=True, description="원본 차량 이미지 링크"),
-        "is_result": fields.Boolean(required=True, description="현재 우승 결과 여부"),
-    },
+    WorldCup.wordlcup_model_result,
 )
 
 

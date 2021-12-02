@@ -1,18 +1,13 @@
 from flask import request
-from flask_restx import Namespace, Resource, fields
+from flask_restx import Namespace, Resource
+from models.mbti_result import MbtiResult
 from service.mbti_service import mbti_result
 
 mbti = Namespace("mbti", path="/api")
 
 result = mbti.model(
     "mbti_result",
-    {
-        "type": fields.String(required=True, description="Mbti 타입"),
-        "count": fields.Integer(required=True, description="총 테스트 중 해당 타입 횟수"),
-        "rate": fields.Integer(required=True, description="총 테스트 중 해당 타입 결과 비율"),
-        "rank": fields.Integer(required=True, description="순위"),
-        "is_result": fields.String(required=True, description="현재 테스트 결과 여부"),
-    },
+    MbtiResult.mbti_model_result,
 )
 
 
