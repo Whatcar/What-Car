@@ -107,16 +107,6 @@ class Car(db.Model):
             "photolink": self.aws_url,
             "price": self.price,
             "car_grade": self.car_grade,
-            "price": self.price,
-            "displacement": self.displacement,
-        }
-
-    def to_dict_int(self):
-        return {
-            "price_int_low": self.price_int_low,
-            "price_int": self.price_int,
-            "displacement_int": self.displacement_int,
-            "fuel_efficiency_int": self.fuel_efficiency_int,
         }
 
     # worldcups = db.relationship("Worldcup", backref="car", lazy=True)
