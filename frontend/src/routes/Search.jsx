@@ -6,7 +6,8 @@ import SelectBox from '../components/search/SelectBox';
 import { getSearchCarList } from '../apis/seachAPI';
 import CarList from '../components/search/CarList';
 import { useRecoilState } from 'recoil';
-import conditionSelector from '../recoil/selector';
+import { parseSearchConditionSelector } from '../recoil/selector';
+import { getConditions } from '../utils/searchCondition';
 
 const TabPanel = (props) => {
   const { children, value, index, ...other } = props;
@@ -37,33 +38,12 @@ const a11yProps = (index) => {
   };
 };
 
-const getConditions = () => {
-  const conditionsName = [
-    'brand',
-    'cost',
-    'displacement',
-    'fuelEfficiency',
-    'grade',
-    'shape',
-    'name',
-    'method',
-    'fuel',
-  ];
-  const conditions = {};
-
-  conditionsName.forEach((keyName) => {
-    conditions[keyName] = sessionStorage.getItem(keyName);
-  });
-
-  return conditions;
-};
-
 const Search = () => {
   const [currPage, setCurrPage] = useState('1');
   const [items, setItems] = useState(null);
   const [filter, setFilter] = useState(0);
   const [dataLength, setDataLength] = useState(0);
-  const [recoilStates, setRecoilStates] = useRecoilState(conditionSelector);
+  const [recoilStates, setRecoilStates] = useRecoilState(parseSearchConditionSelector);
   const [conditions, setConditions] = useState(getConditions());
 
   useEffect(() => {
@@ -77,7 +57,7 @@ const Search = () => {
         setItems(cars);
       })
       .catch((error) => {
-        console.log(error);
+        console.log('ERROR CHECK!', error);
       });
   }, [filter, currPage, conditions]);
 
@@ -87,6 +67,7 @@ const Search = () => {
   };
 
   const handleSearchClick = (e) => {
+    console.log('SEARCH CONDITIONS:', recoilStates);
     const cons = Object.keys(recoilStates);
     cons.forEach((con) => sessionStorage.setItem(con, recoilStates[con]));
     setConditions(getConditions());

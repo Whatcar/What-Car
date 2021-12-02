@@ -1,7 +1,3 @@
-import * as atom from '../recoil/atom';
-import { useSetRecoilState, useRecoilState } from 'recoil';
-import conditionSelector from '../recoil/selector';
-
 export const parseSessionArray = (keyName) => {
   return sessionStorage.getItem(keyName) ? sessionStorage.getItem(keyName).split(',') : [];
 };
@@ -11,7 +7,7 @@ export const getSessionItem = (keyName, initial) => {
   return item;
 };
 
-const getConditions = () => {
+export const getConditions = () => {
   const conditionsName = [
     'brand',
     'cost',

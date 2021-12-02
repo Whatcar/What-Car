@@ -5,6 +5,9 @@ import { selectTheme } from '../../css/muiTheme';
 import ConditionButtons from './ConditionButtons';
 import ConditionSlider from './ConditionSlider';
 import SelectName from './SelectName';
+import SelectedConditions from './SelectedConditions';
+import { useRecoilState } from 'recoil';
+import conditionSelector from '../../recoil/selector';
 
 const getAccordion = (method) => {
   let cons = [];
@@ -20,6 +23,8 @@ const getAccordion = (method) => {
 };
 
 const SelectBox = () => {
+  const [recoilStates, setRecoilStates] = useRecoilState(conditionSelector);
+
   return (
     <ThemeProvider theme={selectTheme}>
       <Box>
@@ -27,6 +32,7 @@ const SelectBox = () => {
         {getAccordion('checkbox')}
         {getAccordion('slider')}
         <SelectName />
+        <SelectedConditions />
       </Box>
     </ThemeProvider>
   );

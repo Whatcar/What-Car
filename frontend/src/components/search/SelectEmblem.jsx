@@ -42,28 +42,26 @@ const SelectEmblem = () => {
   });
 
   return (
-    <BrandBox>
-      <MyAccordion defaultExpanded>
-        <MyAccordionSummary aria-controls="panel1a-content" id="panel1a-header">
-          <span>{categoryDesc.brand.title}</span>
-          <span>{categoryDesc.brand.comment}</span>
-        </MyAccordionSummary>
-        <AccordionDetails>
-          <RangeButtons>
-            <RangeButton disabled={isDisabled('전체')} onClick={handleClickRange}>
-              전체
-            </RangeButton>
-            <RangeButton disabled={isDisabled('국산')} onClick={handleClickRange}>
-              국산
-            </RangeButton>
-            <RangeButton disabled={isDisabled('수입')} onClick={handleClickRange}>
-              수입
-            </RangeButton>
-          </RangeButtons>
-          <EmblemBox>{emblemList}</EmblemBox>
-        </AccordionDetails>
-      </MyAccordion>
-    </BrandBox>
+    <MyAccordion defaultExpanded style={{ gridColumn: '1 / 3' }}>
+      <MyAccordionSummary aria-controls="panel1a-content" id="panel1a-header">
+        <span>{categoryDesc.brand.title}</span>
+        <span>{categoryDesc.brand.comment}</span>
+      </MyAccordionSummary>
+      <AccordionDetails>
+        <RangeButtons>
+          <RangeButton disabled={isDisabled('전체')} onClick={handleClickRange}>
+            전체
+          </RangeButton>
+          <RangeButton disabled={isDisabled('국산')} onClick={handleClickRange}>
+            국산
+          </RangeButton>
+          <RangeButton disabled={isDisabled('수입')} onClick={handleClickRange}>
+            수입
+          </RangeButton>
+        </RangeButtons>
+        <EmblemBox>{emblemList}</EmblemBox>
+      </AccordionDetails>
+    </MyAccordion>
   );
 };
 
@@ -116,10 +114,6 @@ const RangeButton = styled.button`
   border: none;
   ${({ theme }) => theme.fontStyle.desc}
   color: ${(props) => (props.disabled ? props.theme.colors.blueM : '')};
-`;
-
-const BrandBox = styled.div`
-  grid-column: 1 / 3;
 `;
 
 export default SelectEmblem;
