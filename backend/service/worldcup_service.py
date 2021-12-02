@@ -76,7 +76,7 @@ def get_worldcup_result(car_id):
 
             worldcup_result.append(result)
     worldcup_list = []
-    worldcup_list = [car for car in worldcup_result if car["is_result"] == True]
+    worldcup_list = [[car for car in worldcup_result if car["is_result"] == True]]
     worldcup_list.append([car for car in worldcup_result if car["rank"] <= 3])
 
     return worldcup_list
