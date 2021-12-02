@@ -7,9 +7,9 @@ import useIntersect from '../../utils/useIntersect';
 
 export default function ServiceIntro() {
   return (
-    <ServiceWrapper {...useIntersect()}>
-      <BgDiv />
-      <MainTitle>
+    <ServiceWrapper>
+      <BgDiv {...useIntersect('marginLeft', '-45')} />
+      <MainTitle {...useIntersect('right', '10')}>
         <span style={{ color: blue.main }}>찰칵!</span>
         <br />한 번으로
         <br />
@@ -29,21 +29,30 @@ const ServiceWrapper = styled.div`
     text-align: right;
     position: absolute;
     top: 30%;
-    @media screen and (max-width: 480px) {
-    }
+    right: 3%;
     transition: all 2.5s ease;
-    right: ${(props) => (props.direction && props.direction === 'up' ? '0%' : '10%')};
+    -webkit-transition: all 2.5s ease;
+    -moz-transition: all 2.5s ease;
+    -o-transition: all 2.5s ease;
+    text-shadow: 0 0 0.5rem dimgray;
+
+    @media screen and (max-width: 480px) {
+      font-size: 3rem;
+      line-height: 3.2rem;
+    }
   }
   div {
     transition: all 2.5s ease;
-    margin-left: ${(props) => (props.direction && props.direction === 'up' ? `-45%` : '0%')};
+    -webkit-transition: all 2.5s ease;
+    -moz-transition: all 2.5s ease;
+    -o-transition: all 2.5s ease;
   }
 `;
 
 const BgDiv = styled.div`
   width: 150%;
   height: 50vh;
-  margin: 5rem;
+  margin: 5rem -45% 5rem 0;
   opacity: 0.5;
   background: radial-gradient(black 3px, transparent 4px),
     radial-gradient(black 3px, transparent 4px), linear-gradient(#fff 4px, transparent 0),

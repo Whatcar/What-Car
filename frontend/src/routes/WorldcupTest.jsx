@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router';
+import { MainTitle } from '../css/mainStyles';
+import { blue } from '../css/colors';
 
 export default function WorldcupTest() {
   const navigate = useNavigate();
@@ -17,7 +19,7 @@ export default function WorldcupTest() {
         },
       })
       .then((res) => {
-        navigate(`/worldcup/result/${worldcupResult}`, { state: res.data });
+        if (res.status === 200) navigate(`/worldcup/result/${worldcupResult}`);
       });
   };
   useEffect(() => {
@@ -47,21 +49,23 @@ export default function WorldcupTest() {
 
   return (
     <WorldcupWrapper>
-      <p>
+      <MainTitle>
         {gameNum}
         {gameNum >= 4 && '강'}전
-      </p>
-      {displays.map((d) => (
-        <ImgWrapper
-          key={`worldcup-${d.car_id}`}
-          onClick={() => {
-            console.log(d);
-            clickHandler(d);
-          }}
-        >
-          <img src={d.photolink} alt="차량 사진" />
-        </ImgWrapper>
-      ))}
+      </MainTitle>
+      <Images>
+        {displays.map((d) => (
+          <ImgWrapper
+            key={`worldcup-${d.car_id}`}
+            onClick={() => {
+              console.log(d);
+              clickHandler(d);
+            }}
+          >
+            <img src={d.photolink} alt="차량 사진" />
+          </ImgWrapper>
+        ))}
+      </Images>
     </WorldcupWrapper>
   );
 }
@@ -70,11 +74,32 @@ const WorldcupWrapper = styled.div`
   display: flex;
   flex-wrap: wrap;
   height: 80vh;
+  flex-direction: column;
+  justify-content: top;
+  text-align: center;
+`;
+
+const Images = styled.div`
+  display: flex;
+  margin-top: 3rem;
+  @media screen and (max-width: 480px) {
+    flex-direction: column;
+  }
 `;
 
 const ImgWrapper = styled.div`
-  flex-grow: 1;
+  flex: 1 1 0;
+  margin: 1rem;
+
   img {
-    width: 200px;
+    border: 2px solid rgba(0, 0, 0, 0.2);
+    width: 100%;
+    border-radius: 15px;
+    cursor: pointer;
+    transition: all 0.5s ease;
+
+    &:hover {
+      box-shadow: 0 0 2rem rgba(0, 0, 0, 0.2);
+    }
   }
 `;
