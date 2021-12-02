@@ -202,7 +202,6 @@ def get_search(
 
         # 출시일순 최신
         if sort_criteria == "출시일순":
-            print("여기아니야????????//")
             query_all_list = Car.query.filter(text(query_all)).order_by(
                 Car.release_date.desc()
             )
