@@ -38,6 +38,8 @@ class Select_Worldcup(Resource):
 @worldcup.doc(params={"id": "우승한 차량의 고유 아이디"})
 @worldcup.route("/worldcup/result")
 class Worldcup_Result(Resource):
+    @worldcup.response(200, "Success")
+    @worldcup.response(404, "후보에 해당하는 차량이 없습니다.")
     def patch(self):
         """우승한 차량에 해당하는 우승 횟수를 1회 증가합니다."""
         car_id = request.args.get("id", type=int)
@@ -45,6 +47,7 @@ class Worldcup_Result(Resource):
         return worldcup_result_list, 200
 
     @worldcup.response(200, "Success", result)
+    @worldcup.response(404, "후보에 해당하는 차량이 없습니다.")
     def get(self):
         """해당 차량 이상형 월드컵 결과의 비율과 총 테스트 결과의 순위와 비율을 계산해서 가져옵니다."""
 

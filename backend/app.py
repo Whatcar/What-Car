@@ -18,7 +18,7 @@ from models.worldcup import *
 
 def create_app():
     app = Flask(__name__)
-    api = Api(app, title="Whatcar's API Server", description="왓카 API 문서 작업 중")
+    api = Api(app, title="Whatcar's API Server", description="왓카 API 문서")
     api.add_namespace(detail)
     api.add_namespace(search)
     api.add_namespace(upload)
@@ -32,8 +32,6 @@ def create_app():
     cache.init_app(app)
     db.init_app(app)
     Migrate().init_app(app, db)
-
-    # from models import car, mbti_question, mbti_result, worldcup
 
     return app
 

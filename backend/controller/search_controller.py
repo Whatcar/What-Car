@@ -37,9 +37,10 @@ result = search.model(
 @search.route("/search")
 class Search(Resource):
     @search.response(200, "Success", result)
+    @search.response(404, "페이지 범위를 초과했습니다.")
     def get(self):
         """검색 결과를 가져옵니다."""
-        
+
         brand = request.args.get("brand")
         cost = request.args.get("cost")
         displacement = request.args.get("displacement")
