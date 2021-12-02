@@ -1,10 +1,9 @@
-import config
 from flask import Flask
-from flask_caching import Cache
 from flask_cors import CORS
 from flask_migrate import Migrate
 from flask_restx import Api, Resource
 
+import config
 from controller.detail_controller import detail
 from controller.mbti_controller import mbti
 from controller.search_controller import search
@@ -28,8 +27,7 @@ def create_app():
     CORS(app)
 
     app.config.from_object(config)
-    cache = Cache(config={"CACHE_TYPE": "simple"})
-    cache.init_app(app)
+
     db.init_app(app)
     Migrate().init_app(app, db)
 
