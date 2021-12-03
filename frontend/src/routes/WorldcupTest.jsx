@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import { useNavigate } from 'react-router';
 import { MainTitle } from '../css/mainStyles';
 import { blue } from '../css/colors';
+import Layout from '../components/Layout';
 
 export default function WorldcupTest() {
   const navigate = useNavigate();
@@ -48,25 +49,27 @@ export default function WorldcupTest() {
   };
 
   return (
-    <WorldcupWrapper>
-      <MainTitle>
-        {gameNum}
-        {gameNum >= 4 && '강'}전
-      </MainTitle>
-      <Images>
-        {displays.map((d) => (
-          <ImgWrapper
-            key={`worldcup-${d.car_id}`}
-            onClick={() => {
-              console.log(d);
-              clickHandler(d);
-            }}
-          >
-            <img src={d.photolink} alt="차량 사진" />
-          </ImgWrapper>
-        ))}
-      </Images>
-    </WorldcupWrapper>
+    <Layout>
+      <WorldcupWrapper>
+        <MainTitle>
+          {gameNum}
+          {gameNum >= 4 && '강'}전
+        </MainTitle>
+        <Images>
+          {displays.map((d) => (
+            <ImgWrapper
+              key={`worldcup-${d.car_id}`}
+              onClick={() => {
+                console.log(d);
+                clickHandler(d);
+              }}
+            >
+              <img src={d.photolink} alt="차량 사진" />
+            </ImgWrapper>
+          ))}
+        </Images>
+      </WorldcupWrapper>
+    </Layout>
   );
 }
 

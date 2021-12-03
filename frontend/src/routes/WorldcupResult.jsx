@@ -8,6 +8,7 @@ import { Skeleton, Button } from '@mui/material';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router';
 import ShareButton from '../components/share/ShareButton';
+import Layout from '../components/Layout';
 
 export default function WorldcupResult() {
   const params = useParams();
@@ -31,7 +32,7 @@ export default function WorldcupResult() {
     return () => clearTimeout(timer);
   }, [carId]);
   return (
-    <>
+    <Layout>
       <MainTitle>당신의 차 이상형은</MainTitle>
       {!loading ? (
         <MainTitle style={{ color: blue.main }}>{result.name}</MainTitle>
@@ -65,7 +66,7 @@ export default function WorldcupResult() {
       </SubTitle>
       {!loading ? <Ranking ranking={rank} /> : <Skeleton width="100%" height="30rem" />}
       <ShareButton url="worldcup" />
-    </>
+    </Layout>
   );
 }
 
