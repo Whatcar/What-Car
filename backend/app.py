@@ -25,6 +25,9 @@ def create_app():
     db.init_app(app)
     Migrate().init_app(app, db)
 
+    # AI model
+    from ai import model
+
     return app
 
 
