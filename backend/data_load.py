@@ -5,12 +5,12 @@ from app import create_app
 
 app = create_app()
 app.app_context().push()
-from app import db
-from models.car import Car
-from models.mbti_result import MbtiResult
-from models.worldcup import WorldCup
+from werkzeug.exceptions import abort
 
-with open("car_spec_final_remove_brand.csv", "r", encoding="UTF-8") as f:
+from app import db
+from models.__init__ import *
+
+with open("car_spec_real_final.csv", "r", encoding="UTF-8") as f:
     reader = csv.DictReader(f)
 
     for row in reader:
@@ -49,17 +49,39 @@ with open("car_spec_final_remove_brand.csv", "r", encoding="UTF-8") as f:
             engine_type=row["엔진형식"],
             drive_method=row["구동방식"],
             fuel_efficiency_rating=row["연비등급"],
-            price_int=row["price_int"],
+        )
+
+        db.session.add(car)
+        try:
+            db.session.commit()
+        except Exception as e:
+            db.session.rollback()
+            abort(400, {"error": str(e)})
+
+num = 1
+with open("car_spec_real_final.csv", "r", encoding="UTF-8") as f:
+    reader = csv.DictReader(f)
+
+    for row in reader:
+
+        print(num)
+        car_int = Car_Int(
+            car_id=num,
             price_int_low=int(row["price_int_low"]),
             price_int_high=int(row["price_int_high"]),
             displacement_int=int(row["displacement_int"]),
-            fuel_efficiency_int=row["fuel_efficiency_int"],
             fuel_efficiency_int_low=float(row["fuel_efficiency_int_low"]),
             fuel_efficiency_int_high=float(row["fuel_efficiency_int_high"]),
         )
-        db.session.add(car)
 
-        db.session.commit()
+        db.session.add(car_int)
+        try:
+            db.session.commit()
+        except Exception as e:
+            db.session.rollback()
+            abort(400, {"error": str(e)})
+        num += 1
+
 
 with open("mbti.csv", "r", encoding="UTF-8") as f:
     reader = csv.DictReader(f)
@@ -69,7 +91,11 @@ with open("mbti.csv", "r", encoding="UTF-8") as f:
         mbti = MbtiResult(type=row["type"], count=row["count"])
         db.session.add(mbti)
 
-        db.session.commit()
+        try:
+            db.session.commit()
+        except Exception as e:
+            db.session.rollback()
+            abort(400, {"error": str(e)})
 
 with open("worldcup.csv", "r", encoding="UTF-8") as f:
     reader = csv.DictReader(f)
@@ -79,4 +105,8 @@ with open("worldcup.csv", "r", encoding="UTF-8") as f:
         car = WorldCup(car_id=row["car_id"], count=row["count"])
         db.session.add(car)
 
-        db.session.commit()
+        try:
+            db.session.commit()
+        except Exception as e:
+            db.session.rollback()
+            abort(400, {"error": str(e)})

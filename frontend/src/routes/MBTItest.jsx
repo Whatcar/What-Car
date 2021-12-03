@@ -7,6 +7,7 @@ import Questions from '../components/MBTI/Questions.jsx';
 import mbtiCalculator from '../utils/mbtiCalculator.js';
 import { useNavigate } from 'react-router';
 import axios from 'axios';
+import Swal from 'sweetalert2';
 
 export default function MBTItest() {
   const navigate = useNavigate();
@@ -33,7 +34,12 @@ export default function MBTItest() {
         setProgress(progress + 1);
       }
     } else {
-      alert('보기 중 하나를 선택해주세요!');
+      Swal.fire({
+        title: '보기 중 하나를 선택해주세요!',
+        icon: 'warning',
+        confirmButtonText: '넵!',
+        confirmButtonColor: blue.main,
+      });
     }
   };
   const onClickPrev = () => {
@@ -86,5 +92,8 @@ const Buttons = styled.div`
   button {
     width: 200px;
     margin-top: 2rem;
+    @media screen and (max-width: 480px) {
+      width: 100px;
+    }
   }
 `;

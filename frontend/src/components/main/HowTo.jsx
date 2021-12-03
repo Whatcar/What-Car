@@ -8,6 +8,7 @@ import { blue, black } from '../../css/colors';
 import { menu, body } from '../../css/fonts';
 import Swal from 'sweetalert2';
 import example from '../../img/main/example.jpg';
+import useSrr from '../../utils/useSrr';
 
 export default function HowTo() {
   const onClickExample = () => {
@@ -23,20 +24,20 @@ export default function HowTo() {
       <SubTitle center>어떻게 검색하나요?</SubTitle>
       <Steps>
         <StepImgs>
-          <StepImg>
+          <StepImg {...useSrr('right', 2.5, 0)}>
             <img src={Sub1} />
           </StepImg>
-          <VerticalLine />
-          <StepImg>
+          <VerticalLine {...useSrr('right', 2.5, 0.5)} />
+          <StepImg {...useSrr('right', 2.5, 0)}>
             <img src={Sub2} />
           </StepImg>
-          <VerticalLine />
-          <StepImg>
+          <VerticalLine {...useSrr('right', 2.5, 0.5)} />
+          <StepImg {...useSrr('right', 2.5, 0)}>
             <img src={Sub3} />
           </StepImg>
         </StepImgs>
         <HowToDesc>
-          <HowToStep>
+          <HowToStep {...useSrr('up', 2, 0.5)}>
             <HowToTitle>step 1. 사진 찍기</HowToTitle>
             <HowToDetail>이름을 알고 싶은 자동차의 사진을 찍으세요.</HowToDetail>
             <HowToDetail>
@@ -50,7 +51,7 @@ export default function HowTo() {
             </HowToDetail>
           </HowToStep>
           <VerticalLine no />
-          <HowToStep>
+          <HowToStep {...useSrr('up', 2, 0.5)}>
             <HowToTitle>step 2. 업로드 하기</HowToTitle>
             <HowToDetail>사진을 업로드 해주세요.</HowToDetail>
             <HowToDetail>
@@ -58,7 +59,7 @@ export default function HowTo() {
             </HowToDetail>
           </HowToStep>
           <VerticalLine no />
-          <HowToStep>
+          <HowToStep {...useSrr('up', 2, 0.5)}>
             <HowToTitle>step 3. 검색하기</HowToTitle>
             <HowToDetail>이미지 검색하기 버튼을 누르세요.</HowToDetail>
             <HowToDetail>왓카가 이미지를 인식해 이름을 알려줄 거예요!</HowToDetail>
