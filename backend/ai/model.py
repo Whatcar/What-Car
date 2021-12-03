@@ -17,7 +17,7 @@ class Resnet:
     def predict(self, img):
 
         cropped_img = self.detect_model.crop_car_image(img, save=True)
-        cropped_img = np.divide(cropped_img, 255.0, casting="unsafe")
+        #cropped_img = np.divide(cropped_img, 255.0, casting="unsafe")
         cropped_img = np.expand_dims(cropped_img, 0)
         preds = self.resnet_model.predict(cropped_img)
 
