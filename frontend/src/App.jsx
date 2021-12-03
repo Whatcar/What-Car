@@ -32,21 +32,19 @@ function App() {
             <BrowserRouter>
               <ScrollToTop />
               <Navbar />
-              <Contents>
-                <Routes>
-                  <Route path="/" element={<Main />} />
-                  <Route path="/result/:id" element={<Result />} />
-                  <Route path="/search" element={<Search />} />
-                  <Route path="/mbti" element={<MBTI />} />
-                  <Route path="/mbti/test" element={<MBTItest />} />
-                  <Route path="/mbti/result/:type" element={<MBTIresult />} />
-                  <Route path="/worldcup" element={<Worldcup />} />
-                  <Route path="/worldcup/test" element={<WorldcupTest />} />
-                  <Route path="/worldcup/result/:id" element={<WorldcupResult />} />
-                  <Route path="/team" element={<Team />} />
-                  <Route path="/*" element={<NotFound />} />
-                </Routes>
-              </Contents>
+              <Routes>
+                <Route path="/" element={<Main />} />
+                <Route path="/result/:id" element={<Result />} />
+                <Route path="/search" element={<Search />} />
+                <Route path="/mbti" element={<MBTI />} />
+                <Route path="/mbti/test" element={<MBTItest />} />
+                <Route path="/mbti/result/:type" element={<MBTIresult />} />
+                <Route path="/worldcup" element={<Worldcup />} />
+                <Route path="/worldcup/test" element={<WorldcupTest />} />
+                <Route path="/worldcup/result/:id" element={<WorldcupResult />} />
+                <Route path="/team" element={<Team />} />
+                <Route path="/*" element={<NotFound />} />
+              </Routes>
             </BrowserRouter>
           </RecoilRoot>
         </MUIThemeProvider>
@@ -56,12 +54,3 @@ function App() {
 }
 
 export default App;
-
-const Contents = styled.div`
-  width: 66%;
-  margin: 10rem auto;
-  @media screen and (max-width: 480px) {
-    width: 85%;
-    margin: 5rem auto;
-  }
-`;

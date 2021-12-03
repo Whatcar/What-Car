@@ -8,6 +8,7 @@ import CarList from '../components/search/CarList';
 import { useRecoilState } from 'recoil';
 import conditionSelector from '../recoil/selector';
 import { getConditions } from '../utils/searchCondition';
+import Layout from '../components/Layout';
 
 const TabPanel = (props) => {
   const { children, value, index, ...other } = props;
@@ -62,7 +63,7 @@ const Search = () => {
   }, [filter, currPage, conditions]);
 
   const pageCount = (dataLength) => {
-    const pages = Math.ceil(dataLength / 16);
+    const pages = Math.ceil(dataLength / 24);
     return pages;
   };
 
@@ -86,63 +87,65 @@ const Search = () => {
   };
 
   return (
-    <ContentBox>
-      <Title>어떤 차가 궁금하신가요?</Title>
-      <SelectBox />
-      <ButtonBox>
-        <Button
-          style={{ gridColumn: '2/ 3' }}
-          sx={buttonStyle}
-          variant="contained"
-          disableElevation
-          onClick={handleSearchClick}
-        >
-          조건 검색
-        </Button>
-        <Button sx={buttonStyle} variant="outlined" onClick={handleResetClick}>
-          초기화
-        </Button>
-      </ButtonBox>
-      <Box sx={{ width: '100%', display: 'flex', flexDirection: 'column' }}>
-        <Box
-          sx={{
-            width: '100%',
-            borderBottom: 1,
-            borderColor: 'divider',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'space-between',
-          }}
-        >
-          <Tabs value={filter} onChange={handleFilterChange} aria-label="basic tabs example">
-            <Tab label="최신순" {...a11yProps(0)} />
-            <Tab label="낮은 가격순" {...a11yProps(1)} />
-            <Tab label="높은 연비순" {...a11yProps(2)} />
-          </Tabs>
-          <TotalNum>
-            총 <span style={{ fontSize: 16 }}>{dataLength}</span> 건
-          </TotalNum>
+    <Layout>
+      <ContentBox>
+        <Title>어떤 차가 궁금하신가요?</Title>
+        <SelectBox />
+        <ButtonBox>
+          <Button
+            style={{ gridColumn: '2/ 3' }}
+            sx={buttonStyle}
+            variant="contained"
+            disableElevation
+            onClick={handleSearchClick}
+          >
+            조건 검색
+          </Button>
+          <Button sx={buttonStyle} variant="outlined" onClick={handleResetClick}>
+            초기화
+          </Button>
+        </ButtonBox>
+        <Box sx={{ width: '100%', display: 'flex', flexDirection: 'column' }}>
+          <Box
+            sx={{
+              width: '100%',
+              borderBottom: 1,
+              borderColor: 'divider',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'space-between',
+            }}
+          >
+            <Tabs value={filter} onChange={handleFilterChange} aria-label="basic tabs example">
+              <Tab label="최신순" {...a11yProps(0)} />
+              <Tab label="낮은 가격순" {...a11yProps(1)} />
+              <Tab label="높은 연비순" {...a11yProps(2)} />
+            </Tabs>
+            <TotalNum>
+              총 <span style={{ fontSize: 16 }}>{dataLength}</span> 건
+            </TotalNum>
+          </Box>
+          <TabPanel value={filter} index={0}>
+            <CarList items={items} />
+          </TabPanel>
+          <TabPanel value={filter} index={1}>
+            <CarList items={items} />
+          </TabPanel>
+          <TabPanel value={filter} index={2}>
+            <CarList items={items} />
+          </TabPanel>
+          <Pagination
+            sx={{ alignSelf: 'center' }}
+            boundaryCount={1}
+            siblingCount={2}
+            color="primary"
+            count={pageCount(dataLength)}
+            shape="rounded"
+            onChange={handlePageChange}
+          />
         </Box>
-        <TabPanel value={filter} index={0}>
-          <CarList items={items} />
-        </TabPanel>
-        <TabPanel value={filter} index={1}>
-          <CarList items={items} />
-        </TabPanel>
-        <TabPanel value={filter} index={2}>
-          <CarList items={items} />
-        </TabPanel>
-        <Pagination
-          sx={{ alignSelf: 'center' }}
-          boundaryCount={1}
-          siblingCount={2}
-          color="primary"
-          count={pageCount(dataLength)}
-          shape="rounded"
-          onChange={handlePageChange}
-        />
-      </Box>
-    </ContentBox>
+      </ContentBox>
+    </Layout>
   );
 };
 

@@ -8,6 +8,7 @@ import mbtiCalculator from '../utils/mbtiCalculator.js';
 import { useNavigate } from 'react-router';
 import axios from 'axios';
 import Swal from 'sweetalert2';
+import Layout from '../components/Layout.jsx';
 
 export default function MBTItest() {
   const navigate = useNavigate();
@@ -49,7 +50,7 @@ export default function MBTItest() {
     setProgress(progress - 1);
   };
   return (
-    <>
+    <Layout>
       <ProgressBar>
         <div style={{ textAlign: 'right' }}>{progress + 1}/9</div>
         <LinearProgress variant="determinate" color="inherit" value={((progress + 1) * 100) / 9} />
@@ -79,7 +80,7 @@ export default function MBTItest() {
           다음
         </Button>
       </Buttons>
-    </>
+    </Layout>
   );
 }
 

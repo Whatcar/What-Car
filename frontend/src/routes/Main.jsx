@@ -6,10 +6,11 @@ import Intro from '../components/main/Intro.jsx';
 import HowTo from '../components/main/HowTo.jsx';
 import Brands from '../components/main/Brands.jsx';
 import ServiceIntro from '../components/main/ServiceIntro.jsx';
+import Layout from '../components/Layout.jsx';
 
 export default function Main() {
   return (
-    <>
+    <Layout>
       <Intro />
       <HowTo />
       <Brands />
@@ -22,7 +23,7 @@ export default function Main() {
           위로 올라가기
         </StyledButton>
       </div>
-    </>
+    </Layout>
   );
 }
 
