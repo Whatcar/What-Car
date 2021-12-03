@@ -5,3 +5,6 @@ __pycache__
 *.csv
 backend/migrations/
 config.py
+# AI test
+data
+result
