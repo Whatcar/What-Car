@@ -1,18 +1,12 @@
 from flask import Flask
 from flask_cors import CORS
 from flask_migrate import Migrate
-from flask_restx import Api, Resource
+from flask_restx import Api
 
 import config
-from controller.detail_controller import detail
-from controller.mbti_controller import mbti
-from controller.search_controller import search
-from controller.upload_controller import upload
-from controller.worldcup_controller import worldcup
+from controller.__init__ import *
 from db_connect import db
-from models.car import *
-from models.mbti_result import *
-from models.worldcup import *
+from models.__init__ import *
 
 
 def create_app():

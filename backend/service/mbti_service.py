@@ -11,7 +11,12 @@ def mbti_result(mbti):
 
     mbti_count = MbtiResult.query.filter_by(type=mbti).first()
     MbtiResult.query.filter_by(type=mbti).update({"count": mbti_count.count + 1})
-    db.session.commit()
+
+    try:
+        db.session.commit()
+    except Exception as e:
+        db.session.rollback()
+        abort(400, {"error": str(e)})
 
     total_count = [t.count for t in total]
     total_count_sum = sum(total_count)
