@@ -5,6 +5,7 @@ export const colors = {
   blueL: '#6EC5FF',
   blueD: '#0068BF',
   black900: '#212121',
+  black500: '#818181',
   black300: '#E0E0E0',
   kakaocolor: '#f7e600',
   whiteM: '#ffffff',
