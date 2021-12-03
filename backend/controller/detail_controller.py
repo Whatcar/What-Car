@@ -20,5 +20,5 @@ class Detail(Resource):
 
         id = request.args.get("id")
         car_content = get_detail(id)
-        print(car_content)
+
         return car_content, 200
