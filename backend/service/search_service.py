@@ -158,24 +158,25 @@ def get_search(
         query_all += "(" + ql[:-4] + ") AND "
 
     # 연료
-    if fuel == "전체":
-        fuel = "%{}%".format("")
+    fuel_query = ""
     if fuel and not fuel == "전체":
-        fuel = "%{}%".format(fuel)
+        fuels = fuel.split(",")
+        for fuel1 in fuels:
+            fuel_query += f"{fuel1}|"
+        fuel_query = fuel_query[:-1]
 
     # 기본 정렬
     if not sort_criteria:
         sort_criteria = "출시일순"
     # 이름
     search = "%{}%".format(name)
-
     query_all = query_all[:-4]
 
     default_query = (
         Car.query.outerjoin(Car_Int, Car.id == Car_Int.car_id)
         .filter(text(query_all))
-        .filter(Car.fuel.like(fuel))
         .filter(Car.name.like(search))
+        .filter(Car.fuel.op("regexp")(rf"{fuel_query}"))
     )
     # 출시일순 최신
     if sort_criteria == "출시일순":
