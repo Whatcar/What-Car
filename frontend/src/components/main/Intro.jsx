@@ -8,6 +8,7 @@ import { MainTitle, SubTitle, Desc } from '../../css/mainStyles';
 import axios from 'axios';
 import { useNavigate } from 'react-router';
 import Swal from 'sweetalert2';
+import useSrr from '../../utils/useSrr';
 
 export default function Intro() {
   const navigate = useNavigate();
@@ -48,23 +49,26 @@ export default function Intro() {
       }
       const formData = new FormData();
       formData.append('file', imgFile[0]);
-      axios.post('http://localhost:5000/api/upload', formData, {
+      axios
+        .post('http://localhost:5000/api/upload', formData, {
           headers: {
-              'Content-Type': 'multipart/form-data'
+            'Content-Type': 'multipart/form-data',
+          },
+        })
+        .then((res) => {
+          if (res.status === 200) {
+            navigate(`/result/${res.data.id}`, { state: true });
+          } else {
+            Swal.fire({
+              icon: 'error',
+              title: '자동차를 찾을 수 없어요!',
+              text: '가이드라인에 맞추어 다시 업로드해주세요!',
+              confirmButtonText: '넵!',
+              confirmButtonColor: blue.main,
+            });
           }
-      }).then((res) => {
-        if (res.status === 200) {
-          navigate(`/result/${res.data.id}`, { state: true });
-        } else {
-          Swal.fire({
-            icon: 'error',
-            title: '자동차를 찾을 수 없어요!',
-            text: '가이드라인에 맞추어 다시 업로드해주세요!',
-            confirmButtonText: '넵!',
-            confirmButtonColor: blue.main,
-          });
-        }
-      });
+        })
+        .catch((err) => console.log(err));
     } else {
       Swal.fire({
         title: '엇, 아무 것도 없는 거 같아요.',
@@ -82,16 +86,19 @@ export default function Intro() {
           <MainImage src={MainImg} />
         </Grid>
         <Grid item xs={12} md={6} lg={6} desc>
-          <SubTitle>찰칵!</SubTitle>
-          <MainTitle blue>저 차는 뭐징?</MainTitle>
+          <SubTitle {...useSrr('down', 1, 0.5)}>찰칵!</SubTitle>
+          <MainTitle blue {...useSrr('down', 1, 1)}>
+            저 차는 뭐징?
+          </MainTitle>
           <Desc>
-            내가 방금 본 차는 이름이 뭘까? 이런 궁금증을 갖고 있지는 않았나요? 왓카는 자동차
-            이미지를 인식해 당신이 찾고 있는 자동차의 종류를 알려줍니다. 자동차 이미지를 업로드
-            해보세요!
+            내가 방금 본 차는 이름이 뭘까? 이런 궁금증을 갖고 있지는 않았나요? 왓카는{' '}
+            <span style={{ color: blue.main }}>차알못</span>을 위한 서비스로, 자동차 이미지를 인식해
+            당신이 찾고 있는 자동차의 종류를 알려줍니다. <br />
+            자동차 이미지를 업로드 해보세요!
           </Desc>
 
           <InputDiv style={{ display: 'flex' }}>
-            {imgBase64 && <img src={imgBase64} />}
+            {imgBase64 && <img src={imgBase64} alt="이미지 미리보기" />}
             <div style={{ flexGrow: 1, margin: 'auto' }}>
               <label htmlFor="img-upload">
                 <div>

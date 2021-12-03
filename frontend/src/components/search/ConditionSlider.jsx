@@ -46,7 +46,7 @@ const ConditionSlider = ({ condition }) => {
         <span>{categoryDesc[condition].title}</span>
         <span>{categoryDesc[condition].comment}</span>
         {categoryDesc[condition].desc && (
-          <DescButton item={condition} desc={categoryDesc[condition].desc} />
+          <DescButton item={condition} description={categoryDesc[condition]} />
         )}
       </MyAccordionSummary>
       <MyAccordionDetails>

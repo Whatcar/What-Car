@@ -1,10 +1,19 @@
-import { useState } from 'react';
-import Tooltip from '@mui/material/Tooltip';
-import QuestionMarkIcon from '@mui/icons-material/QuestionMark';
+import { useState, Fragment } from 'react';
 import styled from 'styled-components';
+import { ReactComponent as QuestionIcon } from '../../img/search/desc.svg';
+import { colors } from '../../css/theme';
+import MyTooltip from '../../css/MyTooltip';
+import ClickAwayListener from '@mui/base/ClickAwayListener';
 
-const DescButton = ({ item, desc }) => {
+const DescButton = ({ idx, item, description, checked }) => {
   const [open, setOpen] = useState(false);
+
+  const place = (idx) => {
+    if (idx === undefined) return 'bottom-end';
+    if (idx % 3 === 0) return 'top-start';
+    if (idx % 3 === 1) return 'top';
+    if (idx % 3 === 2) return 'top-end';
+  };
 
   const handleTooltipClose = (e) => {
     e.stopPropagation();
@@ -17,28 +26,66 @@ const DescButton = ({ item, desc }) => {
   };
 
   return (
-    <Tooltip
-      PopperProps={{
-        disablePortal: true,
-      }}
-      onClose={handleTooltipClose}
-      open={open}
-      disableFocusListener
-      disableTouchListener
-      title={desc ? desc : 'no'}
-    >
-      <button onClick={handleTooltipOpen} style={{ width: '16px', justifySelf: 'flex-end' }}>
-        <QuestionMarkIcon fontSize={'0.75rem'} />
-      </button>
-    </Tooltip>
+    <ClickAwayListener onClickAway={handleTooltipClose}>
+      <MyTooltip
+        PopperProps={{
+          disablePortal: true,
+        }}
+        onClose={handleTooltipClose}
+        open={open}
+        placement={place(idx)}
+        disableFocusListener
+        disableTouchListener
+        title={
+          <Fragment>
+            <TooltipContent description={description} />
+          </Fragment>
+        }
+      >
+        <Label htmlFor={`${item}-desc`} onClick={(e) => e.stopPropagation()}>
+          <QuestionIcon fill={checked ? colors.blueM : colors.black500} />
+          <input
+            style={{ display: 'none' }}
+            id={`${item}-desc`}
+            type="checkbox"
+            onClick={handleTooltipOpen}
+          />
+        </Label>
+      </MyTooltip>
+    </ClickAwayListener>
   );
 };
 
 export default DescButton;
 
-const IconBox = styled.div`
-  width: 1rem;
-  height: 1rem;
-  border-radius: 1rem;
-  border: 1px solid ${({ theme }) => theme.colors.blueM};
+const Label = styled.label`
+  justify-self: flex-end;
+  box-sizing: border-box;
+  padding-bottom: 3px;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
+const TooltipContent = ({ description }) => {
+  console.log(description);
+  const desc = description.desc;
+  const good = description.good;
+  const bad = description.bad;
+
+  return (
+    <TextBox>
+      <p>{desc && desc}</p>
+      {good && <p>장점 : {good}</p>}
+      {bad && <p>단점 : {bad}</p>}
+    </TextBox>
+  );
+};
+
+const TextBox = styled.div`
+  display: flex;
+  flex-direction: column;
+  text-align: start;
 `;

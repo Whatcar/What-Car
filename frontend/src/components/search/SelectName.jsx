@@ -1,20 +1,19 @@
 import { useCallback } from 'react';
-import styled from 'styled-components';
 import { useRecoilState } from 'recoil';
 import * as atom from '../../recoil/atom';
 import MyTextField from '../../css/MyTextField';
-import { getSessionItem } from '../../utils/searchCondition';
 import MyAccordion, { MyAccordionSummary } from '../../css/MyAccordion';
-import { red } from '@mui/material/colors';
-import { categoryDesc } from '../../data/description';
 
 const SelectName = () => {
   const [name, setName] = useRecoilState(atom.name);
 
-  const handleChangeName = useCallback((e) => {
-    setName(e.target.value);
-    sessionStorage.setItem('name', e.target.value);
-  }, []);
+  const handleChangeName = useCallback(
+    (e) => {
+      setName(e.target.value);
+      sessionStorage.setItem('name', e.target.value);
+    },
+    [setName],
+  );
 
   const style = {
     width: '100%',
@@ -26,7 +25,9 @@ const SelectName = () => {
   return (
     <MyAccordion key="name" sx={style}>
       <MyAccordionSummary aria-controls="panel1a-content" id="panel1a-header">
-        <span>모델명</span>
+        <label htmlFor="model-name">
+          <span>모델명</span>
+        </label>
         <MyTextField
           id="model-name"
           hiddenLabel

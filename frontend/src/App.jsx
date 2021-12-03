@@ -16,10 +16,14 @@ import muiTheme from './css/muiTheme.js';
 import GlobalStyles from './css/GlobalStyles.js';
 import { ThemeProvider } from 'styled-components';
 import { mainTheme } from './css/theme.js';
-import WorldcupTest from './components/worldcup/WorldcupTest.jsx';
+import WorldcupTest from './routes/WorldcupTest.jsx';
 import ScrollToTop from './routes/ScrollTop.jsx';
 import MBTIresult from './routes/MBTIresult.jsx';
+<<<<<<< HEAD
 import { RecoilRoot } from 'recoil';
+=======
+import WorldcupResult from './routes/WorldcupResult.jsx';
+>>>>>>> 4fa017303edb359f07c6aa21472d562fbe741361
 
 function App() {
   return (
@@ -27,6 +31,7 @@ function App() {
       <GlobalStyles />
       <ThemeProvider theme={mainTheme}>
         <MUIThemeProvider theme={muiTheme}>
+<<<<<<< HEAD
           <RecoilRoot>
             <BrowserRouter>
               <ScrollToTop />
@@ -47,6 +52,27 @@ function App() {
               </Contents>
             </BrowserRouter>
           </RecoilRoot>
+=======
+          <BrowserRouter>
+            <ScrollToTop />
+            <Navbar />
+            <Contents>
+              <Routes>
+                <Route path="/" element={<Main />} />
+                <Route path="/result/:id" element={<Result />} />
+                <Route path="/search" element={<Search />} />
+                <Route path="/mbti" element={<MBTI />} />
+                <Route path="/mbti/test" element={<MBTItest />} />
+                <Route path="/mbti/result/:type" element={<MBTIresult />} />
+                <Route path="/worldcup" element={<Worldcup />} />
+                <Route path="/worldcup/test" element={<WorldcupTest />} />
+                <Route path="/worldcup/result/:id" element={<WorldcupResult />} />
+                <Route path="/team" element={<Team />} />
+                <Route path="/*" element={<NotFound />} />
+              </Routes>
+            </Contents>
+          </BrowserRouter>
+>>>>>>> 4fa017303edb359f07c6aa21472d562fbe741361
         </MUIThemeProvider>
       </ThemeProvider>
     </div>

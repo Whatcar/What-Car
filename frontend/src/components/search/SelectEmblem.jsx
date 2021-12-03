@@ -17,10 +17,17 @@ const SelectEmblem = () => {
     return range === label;
   };
 
-  const handleClickRange = useCallback((e) => {
-    const newRange = e.target.innerText;
-    setRange(newRange);
-  }, []);
+  useEffect(() => {
+    setValues([]);
+  }, [setValues, range]);
+
+  const handleClickRange = useCallback(
+    (e) => {
+      const newRange = e.target.innerText;
+      setRange(newRange);
+    },
+    [setRange],
+  );
 
   const emblemList = getEmblem(range).map((emblem) => {
     const name = emblem[0];

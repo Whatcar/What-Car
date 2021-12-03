@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import { Button, Grid, Tabs, Tab, Box, Pagination } from '@mui/material';
+import { Button, Tabs, Tab, Box, Pagination } from '@mui/material';
 import SelectBox from '../components/search/SelectBox';
 import { getSearchCarList } from '../apis/seachAPI';
 import CarList from '../components/search/CarList';
 import { useRecoilState } from 'recoil';
-import { parseSearchConditionSelector } from '../recoil/selector';
+import conditionSelector from '../recoil/selector';
 import { getConditions } from '../utils/searchCondition';
 
 const TabPanel = (props) => {
@@ -43,7 +43,7 @@ const Search = () => {
   const [items, setItems] = useState(null);
   const [filter, setFilter] = useState(0);
   const [dataLength, setDataLength] = useState(0);
-  const [recoilStates, setRecoilStates] = useRecoilState(parseSearchConditionSelector);
+  const [recoilStates, setRecoilStates] = useRecoilState(conditionSelector);
   const [conditions, setConditions] = useState(getConditions());
 
   useEffect(() => {
@@ -68,8 +68,8 @@ const Search = () => {
 
   const handleSearchClick = (e) => {
     console.log('SEARCH CONDITIONS:', recoilStates);
-    const cons = Object.keys(recoilStates);
-    cons.forEach((con) => sessionStorage.setItem(con, recoilStates[con]));
+    const searchConditions = Object.keys(recoilStates);
+    searchConditions.forEach((con) => sessionStorage.setItem(con, recoilStates[con]));
     setConditions(getConditions());
   };
 

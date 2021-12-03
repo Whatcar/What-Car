@@ -12,7 +12,7 @@ import {
   name,
 } from './atom';
 
-export const parseCondition = (keyName, condition) => {
+const parseCondition = (keyName, condition) => {
   const beforeLabel = {
     cost: [
       '0원',
@@ -35,9 +35,7 @@ export const parseCondition = (keyName, condition) => {
   const endIdx = Number(condition[1]);
   const start = label[startIdx];
   const end = label[endIdx];
-  if (keyName === 'cost') console.log('IDX', startIdx, endIdx);
   if (keyName === 'cost' && startIdx === 0 && endIdx === 9) {
-    console.log('전체 가격');
     return '전체~';
   } else if (startIdx === 0 && endIdx === 5) {
     return '전체~';
@@ -45,51 +43,20 @@ export const parseCondition = (keyName, condition) => {
   return `${start}~${end}`;
 };
 
-export const parseSearchConditionSelector = selector({
-  key: 'parseConditionSelector',
-  get: ({ get }) => {
-    const conditions = {
-      brand: get(brand).join(','),
-      grade: get(grade).join(','),
-      shape: get(shape).join(','),
-      method: get(method).join(','),
-      fuel: get(fuel).join(','),
-      displacement: parseCondition('displacement', get(displacement)),
-      fuelEfficiency: parseCondition('fuelEfficiency', get(fuelEfficiency)),
-      cost: parseCondition('cost', get(cost)),
-      name: get(name),
-    };
-    return conditions;
-  },
-  set: ({ set }) => {
-    set(range, '전체');
-    set(brand, []);
-    set(grade, []);
-    set(shape, []);
-    set(method, []);
-    set(fuel, []);
-    set(displacement, [0, 5]);
-    set(fuelEfficiency, [0, 5]);
-    set(cost, [0, 9]);
-    set(name, '');
-  },
-});
-
 export const eachConditionSelector = selector({
-  key: 'conditionSelector',
+  key: 'eachConditionSelector',
   get: ({ get }) => {
-    const conditions = [
-      range,
-      ...brand,
-      ...grade,
-      ...shape,
-      ...method,
-      ...fuel,
-      displacement,
-      fuelEfficiency,
-      cost,
-      name,
-    ];
+    const conditions = get(brand).concat(
+      get(grade),
+      get(shape),
+      get(method),
+      get(fuel),
+      parseCondition('displacement', get(displacement)),
+      parseCondition('fuelEfficiency', get(fuelEfficiency)),
+      parseCondition('cost', get(cost)),
+      get(name),
+    );
+
     return conditions;
   },
 });
@@ -110,6 +77,18 @@ const conditionSelector = selector({
       name: get(name),
     };
     return conditions;
+  },
+  set: ({ set }) => {
+    set(range, '전체');
+    set(brand, []);
+    set(grade, []);
+    set(shape, []);
+    set(method, []);
+    set(fuel, []);
+    set(displacement, [0, 5]);
+    set(fuelEfficiency, [0, 5]);
+    set(cost, [0, 9]);
+    set(name, '');
   },
 });
 

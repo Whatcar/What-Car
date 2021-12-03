@@ -3,11 +3,21 @@ from werkzeug.exceptions import abort
 
 
 def mbti_result(mbti):
-    mbti_count = MbtiResult.query.filter_by(type=mbti).first()
-    MbtiResult.query.filter_by(type=mbti).update({"count": mbti_count.count + 1})
-    db.session.commit()
 
     total = MbtiResult.query.order_by(MbtiResult.count.desc())
+    mbti_id_list = [mbti.type for mbti in total]
+    if not mbti in mbti_id_list:
+        abort(404, "MBTI 타입 중에 해당하는 타입이 없습니다.")
+
+    mbti_count = MbtiResult.query.filter_by(type=mbti).first()
+    MbtiResult.query.filter_by(type=mbti).update({"count": mbti_count.count + 1})
+
+    try:
+        db.session.commit()
+    except Exception as e:
+        db.session.rollback()
+        abort(400, {"error": str(e)})
+
     total_count = [t.count for t in total]
     total_count_sum = sum(total_count)
     count_type = list(set(total_count))
@@ -18,50 +28,27 @@ def mbti_result(mbti):
     count = count_type[0]
 
     for t in total:
+        result = {
+            "type": t.type,
+            "count": t.count,
+            "rate": round((t.count / total_count_sum) * 100, 2),
+            "rank": num,
+            "is_result": True,
+        }
+
         if count == t.count:
-            if t.type == mbti:
-                mbti_result.append(
-                    {
-                        "type": t.type,
-                        "count": t.count,
-                        "rate": round((t.count / total_count_sum) * 100, 2),
-                        "rank": num,
-                        "is_result": True,
-                    }
-                )
-            else:
-                mbti_result.append(
-                    {
-                        "type": t.type,
-                        "count": t.count,
-                        "rate": round((t.count / total_count_sum) * 100, 2),
-                        "rank": num,
-                        "is_result": False,
-                    }
-                )
+            if not t.type == mbti:
+                result["is_result"] = False
+
+            mbti_result.append(result)
             continue
-        else:
-            num += 1
-            count = t.count
-            if t.type == mbti:
-                mbti_result.append(
-                    {
-                        "type": t.type,
-                        "count": t.count,
-                        "rate": round((t.count / total_count_sum) * 100, 2),
-                        "rank": num,
-                        "is_result": True,
-                    }
-                )
-            else:
-                mbti_result.append(
-                    {
-                        "type": t.type,
-                        "count": t.count,
-                        "rate": round((t.count / total_count_sum) * 100, 2),
-                        "rank": num,
-                        "is_result": False,
-                    }
-                )
+
+        num += 1
+        count = t.count
+        result["rank"] = num
+        if not t.type == mbti:
+            result["is_result"] = False
+
+        mbti_result.append(result)
 
     return mbti_result

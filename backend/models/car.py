@@ -19,20 +19,9 @@
     engine_type : 엔진형식
     drive_method : 구동방식
     fuel_efficiency_rating : 연비등급
-
-    ex) 5,400~6,510만원
-    price_int : 가격 숫자 형식으로 변환(str) "54000000, 65100000"
-    price_int_low : 54000000
-    price_int_high : 65100000
-
-    displacement_int : 배기량 int 형식으로 변환
-    
-    ex) 5.5~6.8km/ℓ
-    fuel_efficiency_int : 연비 숫자 형식으로 변환(str) "5.5, 6.8"
-    fuel_efficiency_int_low : 5.5
-    fuel_efficiency_int_high : 6,8
 """
 from db_connect import db
+from flask_restx import fields
 
 
 # 차 정보
@@ -59,13 +48,6 @@ class Car(db.Model):
     engine_type = db.Column(db.String(30), nullable=True)
     drive_method = db.Column(db.String(30), nullable=True)
     fuel_efficiency_rating = db.Column(db.String(30), nullable=True)
-    price_int = db.Column(db.String(40), nullable=True)
-    price_int_low = db.Column(db.BigInteger, nullable=True)
-    price_int_high = db.Column(db.BigInteger, nullable=True)
-    displacement_int = db.Column(db.BigInteger, nullable=True)
-    fuel_efficiency_int = db.Column(db.String(30), nullable=True)
-    fuel_efficiency_int_low = db.Column(db.Float, nullable=True)
-    fuel_efficiency_int_high = db.Column(db.Float, nullable=True)
 
     def to_dict(self):
         release_date = self.release_date
@@ -109,12 +91,35 @@ class Car(db.Model):
             "car_grade": self.car_grade,
         }
 
-    def to_dict_int(self):
-        return {
-            "price_int_low": self.price_int_low,
-            "price_int": self.price_int,
-            "displacement_int": self.displacement_int,
-            "fuel_efficiency_int": self.fuel_efficiency_int,
-        }
+    car_model = {
+        "id": fields.Integer(description="차량 고유 아이디"),
+        "name": fields.String(description="모델명"),
+        "photolink": fields.String(description="이미지"),
+        "brand": fields.String(description="브랜드"),
+        "imported_domestic": fields.String(description="수입/국산"),
+        "price": fields.String(description="가격"),
+        "fuel_efficiency": fields.String(description="연비"),
+        "fuel": fields.String(description="연료"),
+        "car_grade": fields.String(description="차급"),
+        "appearance": fields.String(description="외형"),
+        "grade_name": fields.String(description="등급명"),
+        "on_sale": fields.String(description="판매여부"),
+        "release_date": fields.String(description="출시일"),
+        "discontinued_date": fields.String(description="단종일"),
+        "ride_capacity": fields.String(description="승차정원"),
+        "top_speed": fields.String(description="최고속도"),
+        "displacement": fields.String(description="배기량"),
+        "engine_type": fields.String(description="엔진형식"),
+        "drive_method": fields.String(description="구동방식"),
+        "fuel_efficiency_rating": fields.String(description="연비등급"),
+    }
+
+    car_model_part = {
+        "id": fields.String(required=True, description="차량 고유 아이디"),
+        "name": fields.String(required=True, description="차량 모델명"),
+        "photolink": fields.String(required=True, description="차량 이미지 링크"),
+        "price": fields.String(required=True, description="차량 가격"),
+        "car_grade": fields.String(required=True, description="차급"),
+    }
 
     # worldcups = db.relationship("Worldcup", backref="car", lazy=True)

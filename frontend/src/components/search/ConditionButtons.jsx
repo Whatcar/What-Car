@@ -3,7 +3,7 @@ import selectList from '../../data/selectList';
 import { setCheckedValuesArray } from '../../utils/searchCondition';
 import { useRecoilState } from 'recoil';
 import * as atom from '../../recoil/atom';
-import { AccordionDetails } from '@mui/material';
+import { AccordionDetails, Divider } from '@mui/material';
 import MyAccordion, { MyAccordionSummary } from '../../css/MyAccordion';
 import { conditionDesc, categoryDesc } from '../../data/description';
 import DescButton from './DescButton';
@@ -50,10 +50,10 @@ const ConditionButtons = ({ condition }) => {
   };
 
   const conditions = selectList[condition];
-  const buttonList = conditions.map((item) => {
+  const buttonList = conditions.map((item, idx) => {
     const svgStyle = (key) => {
       const display = item === key ? 'block' : 'none';
-      const checked = values.includes(item) ? colors.blueM : 'black';
+      const checked = values.includes(item) ? colors.blueM : colors.black500;
       return {
         display,
         fill: checked,
@@ -69,41 +69,71 @@ const ConditionButtons = ({ condition }) => {
 
     const description = getConditionDesc(item);
 
+    if (condition === 'fuel') {
+      return (
+        <ButtonBox
+          key={item}
+          checked={values.includes(item)}
+          borderTop={!!(idx > 2)}
+          borderLeft={!!(idx % 3)}
+        >
+          <ButtonLabel htmlFor={item}>
+            {item}
+            <input
+              id={item}
+              type="checkbox"
+              value={item}
+              defaultChecked={false}
+              onClick={handleClick}
+              style={{ display: 'none' }}
+            />
+          </ButtonLabel>
+        </ButtonBox>
+      );
+    }
+
     return (
-      <Label key={item} htmlFor={item} checked={values.includes(item)}>
-        <LightCar style={svgStyle('경형')} />
-        <SmallCar style={svgStyle('소형')} />
-        <SMiddleCar style={svgStyle('준중형')} />
-        <Sedan style={svgStyle('중형')} />
-        <MLargeCar style={svgStyle('준대형')} />
-        <LargeCar style={svgStyle('대형')} />
-        <SUV style={svgStyle('SUV')} />
-        <Sedan style={svgStyle('세단')} />
-        <Hatchback style={svgStyle('해치백')} />
-        <Convertible style={svgStyle('컨버터블')} />
-        <Wagon style={svgStyle('왜건')} />
-        <Coupe style={svgStyle('쿠페')} />
-        <FF style={svgStyle('FF')} />
-        <FR style={svgStyle('FR')} />
-        <MR style={svgStyle('MR')} />
-        <AWD style={svgStyle('AWD')} />
-        <FWD style={svgStyle('4WD')} />
-        <RR style={svgStyle('RR')} />
-        <div>
-          {item}
+      <ButtonBox key={item} checked={values.includes(item)}>
+        <ButtonLabel htmlFor={item}>
+          <LightCar style={svgStyle('경형')} />
+          <SmallCar style={svgStyle('소형')} />
+          <SMiddleCar style={svgStyle('준중형')} />
+          <Sedan style={svgStyle('중형')} />
+          <MLargeCar style={svgStyle('준대형')} />
+          <LargeCar style={svgStyle('대형')} />
+          <SUV style={svgStyle('SUV')} />
+          <Sedan style={svgStyle('세단')} />
+          <Hatchback style={svgStyle('해치백')} />
+          <Convertible style={svgStyle('컨버터블')} />
+          <Wagon style={svgStyle('왜건')} />
+          <Coupe style={svgStyle('쿠페')} />
+          <FF style={svgStyle('FF')} />
+          <FR style={svgStyle('FR')} />
+          <MR style={svgStyle('MR')} />
+          <AWD style={svgStyle('AWD')} />
+          <FWD style={svgStyle('4WD')} />
+          <RR style={svgStyle('RR')} />
+          <input
+            id={item}
+            type="checkbox"
+            value={item}
+            defaultChecked={false}
+            onClick={handleClick}
+            style={{ display: 'none' }}
+          />
+        </ButtonLabel>
+        <NameLabel item={item} htmlFor={`${item}-desc`}>
+          <span>{item}</span>
           {description && (
-            <DescButton item={item} desc={description.desc ? description.desc : description.good} />
+            <DescButton
+              idx={idx}
+              item={item}
+              description={description}
+              checked={values.includes(item)}
+            />
           )}
-        </div>
-        <input
-          id={item}
-          type="checkbox"
-          value={item}
-          defaultChecked={false}
-          onClick={handleClick}
-          style={{ display: 'none' }}
-        />
-      </Label>
+        </NameLabel>
+      </ButtonBox>
     );
   });
 
@@ -113,35 +143,91 @@ const ConditionButtons = ({ condition }) => {
         <span>{categoryDesc[condition].title}</span>
         <span>{categoryDesc[condition].comment}</span>
         {categoryDesc[condition].desc && (
-          <DescButton item={condition} desc={categoryDesc[condition].desc} />
+          <DescButton item={condition} description={categoryDesc[condition]} />
         )}
       </MyAccordionSummary>
       <AccordionDetails>
-        <Box>{buttonList}</Box>
+        <Box>
+          <ButtonLineBox num={condition === 'fuel' ? 3 : 2} />
+          {buttonList}
+        </Box>
       </AccordionDetails>
     </MyAccordion>
   );
 };
 
+export default ConditionButtons;
+
 const Box = styled.div`
   display: grid;
   grid-template-columns: repeat(3, 1fr);
+  grid-auto-rows: 1fr;
   width: 100%;
+  height: 185px;
+  position: relative;
 `;
 
-const Label = styled.label`
+const ButtonBox = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   width: 100%;
-  row-gap: 0.25rem;
-  border: 1px solid rgba(0, 0, 0, 0.2);
   text-align: center;
-  color: ${(props) => (props.checked ? props.theme.colors.blueM : props.theme.colors.black900)};
-  padding: 0.5rem;
+  color: ${(props) => (props.checked ? props.theme.colors.blueM : props.theme.colors.black500)};
   box-sizing: border-box;
+  position: relative;
   ${({ theme }) => theme.fontStyle.desc}
 `;
 
-export default ConditionButtons;
+const ButtonLabel = styled.label`
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  line-height: 1.25rem;
+`;
+
+const NameLabel = styled.label`
+  box-sizing: border-box;
+  padding-bottom: 12px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  span {
+    line-height: 1.25rem;
+    + label {
+      width: 14px;
+      height: 14px;
+      margin-left: 2px;
+      margin-top: -1px;
+    }
+  }
+`;
+
+const LineBox = styled.div`
+  display: flex;
+  flex-direction: ${({ axis }) => (axis === 'horizontal' ? 'column' : 'row')};
+  justify-content: space-evenly;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+`;
+
+const ButtonLineBox = ({ num }) => {
+  return (
+    <>
+      <LineBox axis="vertical">
+        <Divider orientation="vertical" />
+        <Divider orientation="vertical" />
+      </LineBox>
+      <LineBox axis="horizontal">
+        <Divider />
+        {num === 3 && <Divider />}
+      </LineBox>
+    </>
+  );
+};

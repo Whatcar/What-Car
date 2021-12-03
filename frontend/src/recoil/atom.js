@@ -5,9 +5,19 @@ const getSessionItem = (keyName, initial) => {
   return item;
 };
 
-const getSessionItemToNum = (keyName, initial) => {
+const getSessionItemArray = (keyName, initial) => {
   const item = sessionStorage.getItem(keyName) ? sessionStorage.getItem(keyName) : initial;
-  const items = item.split(',').map((elem) => Number(elem));
+  let items = item.split(',');
+  if (items[0] === '') {
+    items = [];
+  }
+  return items;
+};
+
+const getSessionItemToNum = (keyName, initial) => {
+  let items = getSessionItemArray(keyName, initial);
+  if (!items.length) return [];
+  items = items.map((item) => Number(item));
   return items;
 };
 
@@ -22,7 +32,7 @@ const getConditions = () => {
   });
 
   conditionsArr.forEach((keyName) => {
-    conditions[keyName] = getSessionItem(keyName, '').split(',');
+    conditions[keyName] = getSessionItemArray(keyName, '');
   });
 
   conditionsNumArr.forEach((keyName) => {
@@ -41,47 +51,47 @@ export const range = atom({
 
 export const brand = atom({
   key: 'brand',
-  default: getSessionItem('brand', '').split(','),
+  default: getSessionItemArray('brand', ''),
 });
 
 export const grade = atom({
   key: 'grade',
-  default: getSessionItem('grade', '').split(','),
+  default: getSessionItemArray('grade', ''),
 });
 
 export const shape = atom({
   key: 'shape',
-  default: getSessionItem('shape', '').split(','),
+  default: getSessionItemArray('shape', ''),
 });
 
 export const method = atom({
   key: 'method',
-  default: getSessionItem('shape', '').split(','),
+  default: getSessionItemArray('method', ''),
 });
 
 export const fuel = atom({
   key: 'fuel',
-  default: getSessionItem('shape', '').split(','),
+  default: getSessionItemArray('fuel', ''),
 });
 
 export const cost = atom({
   key: 'cost',
-  default: getSessionItemToNum('shape', '0,9'),
+  default: getSessionItemToNum('cost', '0,9'),
 });
 
 export const displacement = atom({
   key: 'displacement',
-  default: getSessionItemToNum('shape', '0,5'),
+  default: getSessionItemToNum('displacement', '0,5'),
 });
 
 export const fuelEfficiency = atom({
   key: 'fuelEfficiency',
-  default: getSessionItemToNum('shape', '0,5'),
+  default: getSessionItemToNum('fuelEfficiency', '0,5'),
 });
 
 export const name = atom({
   key: 'name',
-  default: getSessionItem('shape', '').split(','),
+  default: getSessionItem('name', ''),
 });
 
 export const conditions = atom({
