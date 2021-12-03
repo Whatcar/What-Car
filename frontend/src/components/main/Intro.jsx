@@ -1,19 +1,23 @@
 import React, { useState } from 'react';
-import styled from 'styled-components';
-import { Grid, Button } from '@mui/material';
+import styled, { keyframes } from 'styled-components';
+import { Grid, Button, Modal } from '@mui/material';
 import MainImg from '../../img/main/main_img.svg';
 import { blue, black } from '../../css/colors';
-import ArrowDownwardRoundedIcon from '@mui/icons-material/ArrowDownwardRounded';
 import { MainTitle, SubTitle, Desc } from '../../css/mainStyles';
 import axios from 'axios';
 import { useNavigate } from 'react-router';
 import Swal from 'sweetalert2';
 import useSrr from '../../utils/useSrr';
+import HowTo from './HowTo';
 
 export default function Intro() {
   const navigate = useNavigate();
   const [imgFile, setImgFile] = useState(null);
   const [imgBase64, setImgBase64] = useState(null);
+  const [open, setOpen] = useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
+
   const handleChangeFile = (event) => {
     setImgFile(event.target.files);
     if (event.target.files) {
@@ -90,12 +94,7 @@ export default function Intro() {
           <MainTitle blue {...useSrr('down', 1, 1)}>
             저 차는 뭐징?
           </MainTitle>
-          <Desc>
-            내가 방금 본 차는 이름이 뭘까? 이런 궁금증을 갖고 있지는 않았나요? 왓카는{' '}
-            <span style={{ color: blue.main }}>차알못</span>을 위한 서비스로, 자동차 이미지를 인식해
-            당신이 찾고 있는 자동차의 종류를 알려줍니다. <br />
-            자동차 이미지를 업로드 해보세요!
-          </Desc>
+          <Desc>지금 알고 싶은 자동차 이미지를 업로드 해보세요!</Desc>
 
           <InputDiv style={{ display: 'flex' }}>
             {imgBase64 && <img src={imgBase64} alt="이미지 미리보기" />}
@@ -126,16 +125,66 @@ export default function Intro() {
             이미지 검색하기
           </ImageUploadButton>
           <div style={{ textAlign: 'center', marginTop: '2rem' }}>
-            <Desc highlight top={2}>
+            <Desc
+              highlight
+              onClick={handleOpen}
+              style={{ textDecoration: 'underline', cursor: 'pointer' }}
+            >
               사용법을 모르겠다면?
             </Desc>
-            <ArrowDownwardRoundedIcon sx={{ color: blue.main }} />
+            <Modal open={open} onClose={handleClose}>
+              <HowTo />
+            </Modal>
           </div>
         </Grid>
+
+        <ScrollDiv>
+          <span></span>더 알아보기
+        </ScrollDiv>
       </Grid>
     </>
   );
 }
+
+const scroll = keyframes`
+    0% {
+      transform: rotate(-45deg) translate(0, 0);
+      opacity: 0;
+    }
+    50% {
+      opacity: 1;
+    }
+    100% {
+      transform: rotate(-45deg) translate(-20px, 20px);
+      opacity: 0;
+    }
+`;
+
+const ScrollDiv = styled.div`
+  padding-top: 70px;
+  position: relative;
+  color: ${blue.main};
+  margin: 2rem auto 0;
+  @media screen and (max-width: 480px) {
+    margin: 1rem auto;
+    padding-top: 0;
+  }
+  span {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    width: 24px;
+    height: 24px;
+    margin-left: -12px;
+    border-left: 1px solid ${blue.main};
+    border-bottom: 1px solid ${blue.main};
+    -webkit-transform: rotate(-45deg);
+    transform: rotate(-45deg);
+    -webkit-animation: ${scroll} 1.5s infinite;
+    animation: ${scroll} 1.5s infinite;
+    box-sizing: border-box;
+  }
+`;
 
 const MainImage = styled.img`
   width: 100%;
