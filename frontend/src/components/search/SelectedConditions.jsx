@@ -8,13 +8,13 @@ const style = {
 };
 
 const SelectedConditions = ({ conditions }) => {
-  const chipList = conditions.map((condition) => {
+  const chipList = conditions.map((condition, idx) => {
     const handleDelete = () => {
       console.info('You clicked the delete icon.');
     };
     return (
       <Chip
-        key={condition}
+        key={`${condition}-${idx}`}
         style={style}
         label={condition}
         variant="outlined"

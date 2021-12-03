@@ -26,33 +26,30 @@ const DescButton = ({ idx, item, description, checked }) => {
   };
 
   return (
-    <ClickAwayListener onClickAway={handleTooltipClose}>
-      <MyTooltip
-        PopperProps={{
-          disablePortal: true,
-        }}
-        onClose={handleTooltipClose}
-        open={open}
-        placement={place(idx)}
-        disableFocusListener
-        disableTouchListener
-        title={
-          <Fragment>
-            <TooltipContent description={description} />
-          </Fragment>
-        }
-      >
-        <Label htmlFor={`${item}-desc`} onClick={(e) => e.stopPropagation()}>
-          <QuestionIcon fill={checked ? colors.blueM : colors.black500} />
-          <input
-            style={{ display: 'none' }}
-            id={`${item}-desc`}
-            type="checkbox"
-            onClick={handleTooltipOpen}
-          />
-        </Label>
-      </MyTooltip>
-    </ClickAwayListener>
+    <MyTooltip
+      PopperProps={{
+        disablePortal: true,
+      }}
+      open={open}
+      placement={place(idx)}
+      disableFocusListener
+      disableTouchListener
+      title={
+        <Fragment>
+          <TooltipContent description={description} />
+        </Fragment>
+      }
+    >
+      <Label htmlFor={`${item}-desc`} onClick={(e) => e.stopPropagation()}>
+        <QuestionIcon fill={checked ? colors.blueM : colors.black500} />
+        <input
+          style={{ display: 'none' }}
+          id={`${item}-desc`}
+          type="checkbox"
+          onClick={handleTooltipOpen}
+        />
+      </Label>
+    </MyTooltip>
   );
 };
 
