@@ -27,12 +27,12 @@ export default function HowTo() {
           <StepImg {...useSrr('right', 2.5, 0)}>
             <img src={Sub1} />
           </StepImg>
-          <VerticalLine {...useSrr('right', 2.5, 0.5)} />
-          <StepImg {...useSrr('right', 2.5, 0)}>
+          <VerticalLine {...useSrr('right', 2.5, 0.7)} />
+          <StepImg {...useSrr('right', 2.5, 0.5)}>
             <img src={Sub2} />
           </StepImg>
-          <VerticalLine {...useSrr('right', 2.5, 0.5)} />
-          <StepImg {...useSrr('right', 2.5, 0)}>
+          <VerticalLine {...useSrr('right', 2.5, 1.2)} />
+          <StepImg {...useSrr('right', 2.5, 1)}>
             <img src={Sub3} />
           </StepImg>
         </StepImgs>
@@ -51,7 +51,7 @@ export default function HowTo() {
             </HowToDetail>
           </HowToStep>
           <VerticalLine no />
-          <HowToStep {...useSrr('up', 2, 0.5)}>
+          <HowToStep {...useSrr('up', 2, 1)}>
             <HowToTitle>step 2. 업로드 하기</HowToTitle>
             <HowToDetail>사진을 업로드 해주세요.</HowToDetail>
             <HowToDetail>
@@ -59,7 +59,7 @@ export default function HowTo() {
             </HowToDetail>
           </HowToStep>
           <VerticalLine no />
-          <HowToStep {...useSrr('up', 2, 0.5)}>
+          <HowToStep {...useSrr('up', 2, 1.5)}>
             <HowToTitle>step 3. 검색하기</HowToTitle>
             <HowToDetail>이미지 검색하기 버튼을 누르세요.</HowToDetail>
             <HowToDetail>왓카가 이미지를 인식해 이름을 알려줄 거예요!</HowToDetail>
@@ -72,7 +72,10 @@ export default function HowTo() {
 
 const HowToDiv = styled.div`
   margin: 5rem auto;
-  width: 90%;
+  width: 80%;
+  background-color: white;
+  padding: 2rem;
+  border-radius: 15px;
 `;
 
 const Steps = styled.div`
@@ -106,6 +109,9 @@ const VerticalLine = styled.div`
   width: 0px;
   height: 70px;
   margin-left: 65px;
+  @media screen and (max-width: 480px) {
+    height: 10px;
+  }
 `;
 
 const HowToDesc = styled.div`

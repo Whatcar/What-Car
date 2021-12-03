@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { blue, black } from './colors';
-import { maintitle, subtitle, body } from './fonts';
+import { maintitle, subtitle, body, menu } from './fonts';
 
 export const MainTitle = styled.h2`
   ${maintitle};
@@ -11,6 +11,12 @@ export const MainTitle = styled.h2`
 
 export const SubTitle = styled.h3`
   ${subtitle}
+  text-align: ${(props) => props.center && 'center'};
+  margin-top: ${(props) => props.top && `${props.top}rem`};
+`;
+
+export const MainDesc = styled.p`
+  ${menu}
   text-align: ${(props) => props.center && 'center'};
   margin-top: ${(props) => props.top && `${props.top}rem`};
 `;

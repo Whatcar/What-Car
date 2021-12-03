@@ -45,7 +45,7 @@ export default function MBTItest() {
   };
   const onClickPrev = () => {
     if (progress === 0) {
-      navigate('/mbti');
+      navigate('/destiny');
     }
     setProgress(progress - 1);
   };

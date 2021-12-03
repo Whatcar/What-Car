@@ -14,11 +14,11 @@ import conditionSelector from '../recoil/selector';
 import { useRecoilState } from 'recoil';
 
 const navInfo = [
-  { id: 0, link: '/', title: '사진 속 차 찾기' },
-  { id: 1, link: '/search', title: '자동차 검색' },
-  { id: 2, link: '/worldcup', title: '이상형 월드컵' },
-  { id: 3, link: '/mbti', title: 'MBTI' },
-  { id: 4, link: '/team', title: '팀 소개' },
+  { id: 0, links: ['/'], link: '/', title: '사진 속 차 찾기' },
+  { id: 1, links: ['/search'], link: '/search', title: '자동차 검색' },
+  { id: 2, links: ['/destiny', '/worldcup', '/mbti'], link: '/destiny', title: '운명의 차 찾기' },
+  { id: 3, links: ['/gallary'], link: '/gallary', title: '갤러리' },
+  { id: 4, links: ['/team'], link: '/team', title: '팀 소개' },
 ];
 
 export default function Navbar() {
@@ -54,7 +54,7 @@ export default function Navbar() {
                       <CustomLink
                         onClick={handleClick}
                         to={item.link}
-                        ispage={locationNow == item.link ? 1 : undefined}
+                        ispage={item.links.includes(locationNow) ? 1 : undefined}
                       >
                         {item.title}
                       </CustomLink>
@@ -96,7 +96,7 @@ export default function Navbar() {
                     setSidebar(false);
                   }}
                   to={item.link}
-                  ispage={locationNow == item.link ? 1 : undefined}
+                  ispage={item.links.includes(locationNow) ? 1 : undefined}
                 >
                   {item.title}
                 </CustomLink>
@@ -105,7 +105,7 @@ export default function Navbar() {
           </div>
         </NavMenu>
       </SideNav>
-      <VacantArea isShow={sidebar} onClick={showSidebar} />)
+      <VacantArea isShow={sidebar} onClick={showSidebar} />
     </>
   );
 }
