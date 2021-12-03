@@ -48,7 +48,7 @@ const Search = () => {
 
   useEffect(() => {
     const filterList = { 0: '출시일순', 1: '가격순', 2: '연비순' };
-
+    console.log('SEARCH CONDITIONS', conditions);
     getSearchCarList(conditions, currPage, filterList[filter])
       .then(({ data }) => {
         const total = data[0].result_num;
@@ -67,7 +67,7 @@ const Search = () => {
   };
 
   const handleSearchClick = (e) => {
-    console.log('SEARCH CONDITIONS:', recoilStates);
+    console.log('ORIGIN CONDITIONS:', recoilStates);
     const searchConditions = Object.keys(recoilStates);
     searchConditions.forEach((con) => sessionStorage.setItem(con, recoilStates[con]));
     setConditions(getConditions());
