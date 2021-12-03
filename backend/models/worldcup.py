@@ -13,7 +13,7 @@ class WorldCup(db.Model):
     def __init__(self, car_id, count):
         self.car_id = car_id
         self.photolink = (
-            "https://whatcar.s3.ap-northeast-2.amazonaws.com/worldcup_photo/"
+            "https://whatcar.s3.ap-northeast-2.amazonaws.com/worldcup_image/"
             + str(car_id)
             + ".png"
         )

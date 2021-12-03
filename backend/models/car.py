@@ -19,18 +19,6 @@
     engine_type : 엔진형식
     drive_method : 구동방식
     fuel_efficiency_rating : 연비등급
-
-    ex) 5,400~6,510만원
-    price_int : 가격 숫자 형식으로 변환(str) "54000000, 65100000"
-    price_int_low : 54000000
-    price_int_high : 65100000
-
-    displacement_int : 배기량 int 형식으로 변환
-    
-    ex) 5.5~6.8km/ℓ
-    fuel_efficiency_int : 연비 숫자 형식으로 변환(str) "5.5, 6.8"
-    fuel_efficiency_int_low : 5.5
-    fuel_efficiency_int_high : 6,8
 """
 from db_connect import db
 from flask_restx import fields
@@ -60,13 +48,6 @@ class Car(db.Model):
     engine_type = db.Column(db.String(30), nullable=True)
     drive_method = db.Column(db.String(30), nullable=True)
     fuel_efficiency_rating = db.Column(db.String(30), nullable=True)
-    price_int = db.Column(db.String(40), nullable=True)
-    price_int_low = db.Column(db.BigInteger, nullable=True)
-    price_int_high = db.Column(db.BigInteger, nullable=True)
-    displacement_int = db.Column(db.BigInteger, nullable=True)
-    fuel_efficiency_int = db.Column(db.String(30), nullable=True)
-    fuel_efficiency_int_low = db.Column(db.Float, nullable=True)
-    fuel_efficiency_int_high = db.Column(db.Float, nullable=True)
 
     def to_dict(self):
         release_date = self.release_date
@@ -132,6 +113,7 @@ class Car(db.Model):
         "drive_method": fields.String(description="구동방식"),
         "fuel_efficiency_rating": fields.String(description="연비등급"),
     }
+
     car_model_part = {
         "id": fields.String(required=True, description="차량 고유 아이디"),
         "name": fields.String(required=True, description="차량 모델명"),

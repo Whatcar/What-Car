@@ -27,7 +27,12 @@ def modify_worldcup_result(car_id):
         abort(404, "후보에 해당하는 차량이 없습니다.")
     worldcup_count = WorldCup.query.filter_by(car_id=car_id).first()
     WorldCup.query.filter_by(car_id=car_id).update({"count": worldcup_count.count + 1})
-    db.session.commit()
+
+    try:
+        db.session.commit()
+    except Exception as e:
+        db.session.rollback()
+        abort(400, {"error": str(e)})
 
     return {"result": "success"}
 
