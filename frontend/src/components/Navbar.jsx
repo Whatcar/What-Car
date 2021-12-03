@@ -10,6 +10,8 @@ import { resetSessionStorage } from '../utils/searchCondition';
 import MenuRoundedIcon from '@mui/icons-material/MenuRounded';
 import { blue } from '../css/colors';
 import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
+import conditionSelector from '../recoil/selector';
+import { useRecoilState } from 'recoil';
 
 const navInfo = [
   { id: 0, link: '/', title: '사진 속 차 찾기' },
@@ -21,6 +23,7 @@ const navInfo = [
 
 export default function Navbar() {
   const [sidebar, setSidebar] = useState(null);
+  const [state, setState] = useRecoilState(conditionSelector);
   const showSidebar = () => {
     sidebar === null ? setSidebar(true) : sidebar === false ? setSidebar(true) : setSidebar(false);
   };
@@ -31,6 +34,7 @@ export default function Navbar() {
       : location.pathname; // pathname의 첫번째만 저장하도록 함
   const handleClick = () => {
     resetSessionStorage();
+    setState();
   };
 
   return (

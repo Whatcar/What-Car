@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import { Button, Grid, Tabs, Tab, Box, Pagination } from '@mui/material';
+import { Button, Tabs, Tab, Box, Pagination } from '@mui/material';
 import SelectBox from '../components/search/SelectBox';
-import { maintitle } from '../css/fonts';
-import { resetSessionStorage } from '../utils/searchCondition';
-import { getSearchCarList, getCarListSorted } from '../apis/seachAPI';
+import { getSearchCarList } from '../apis/seachAPI';
 import CarList from '../components/search/CarList';
-import SelectAccordion from '../components/search/SelectAccordion';
+import { useRecoilState } from 'recoil';
+import conditionSelector from '../recoil/selector';
+import { getConditions } from '../utils/searchCondition';
 
 const TabPanel = (props) => {
   const { children, value, index, ...other } = props;
@@ -38,36 +38,17 @@ const a11yProps = (index) => {
   };
 };
 
-const getConditions = () => {
-  const conditionsName = [
-    'brand',
-    'cost',
-    'displacement',
-    'fuelEfficiency',
-    'grade',
-    'shape',
-    'name',
-    'method',
-    'fuel',
-  ];
-  const conditions = {};
-
-  conditionsName.forEach((keyName) => {
-    conditions[keyName] = sessionStorage.getItem(keyName);
-  });
-
-  return conditions;
-};
-
 const Search = () => {
-  const [conditions, setConditions] = useState(getConditions());
   const [currPage, setCurrPage] = useState('1');
   const [items, setItems] = useState(null);
   const [filter, setFilter] = useState(0);
   const [dataLength, setDataLength] = useState(0);
+  const [recoilStates, setRecoilStates] = useRecoilState(conditionSelector);
+  const [conditions, setConditions] = useState(getConditions());
 
   useEffect(() => {
     const filterList = { 0: '출시일순', 1: '가격순', 2: '연비순' };
+    console.log('SEARCH CONDITIONS', conditions);
     getSearchCarList(conditions, currPage, filterList[filter])
       .then(({ data }) => {
         const total = data[0].result_num;
@@ -76,7 +57,7 @@ const Search = () => {
         setItems(cars);
       })
       .catch((error) => {
-        console.log(error);
+        console.log('ERROR CHECK!', error);
       });
   }, [filter, currPage, conditions]);
 
@@ -86,14 +67,14 @@ const Search = () => {
   };
 
   const handleSearchClick = (e) => {
+    console.log('ORIGIN CONDITIONS:', recoilStates);
+    const searchConditions = Object.keys(recoilStates);
+    searchConditions.forEach((con) => sessionStorage.setItem(con, recoilStates[con]));
     setConditions(getConditions());
-    console.log(getConditions());
   };
 
   const handleResetClick = () => {
-    resetSessionStorage();
-    setConditions(getConditions());
-    window.location.reload();
+    setRecoilStates();
   };
 
   const handleFilterChange = (event, newFilter) => {
@@ -108,46 +89,20 @@ const Search = () => {
     <ContentBox>
       <Title>어떤 차가 궁금하신가요?</Title>
       <SelectBox />
-      {/* <SelectAccordion /> */}
       <ButtonBox>
-        <Grid sx={{ marginBottom: '3rem' }} container spacing={1} columns={8}>
-          <Grid item xs={2} style={{ width: '100%' }} />
-          <Grid item xs={2} style={{ width: '100%' }}>
-            <Button
-              sx={buttonStyle}
-              variant="contained"
-              disableElevation
-              onClick={handleSearchClick}
-            >
-              조건 검색
-            </Button>
-          </Grid>
-          <Grid item xs={2} style={{ width: '100%' }}>
-            <Button sx={buttonStyle} variant="outlined" onClick={handleResetClick}>
-              초기화
-            </Button>
-          </Grid>
-        </Grid>
+        <Button
+          style={{ gridColumn: '2/ 3' }}
+          sx={buttonStyle}
+          variant="contained"
+          disableElevation
+          onClick={handleSearchClick}
+        >
+          조건 검색
+        </Button>
+        <Button sx={buttonStyle} variant="outlined" onClick={handleResetClick}>
+          초기화
+        </Button>
       </ButtonBox>
-      <ButtonBoxHidden>
-        <Grid sx={{ marginBottom: '3rem' }} container spacing={1} columns={8}>
-          <Grid item xs={4} style={{ width: '100%' }}>
-            <Button
-              sx={buttonStyle}
-              variant="contained"
-              disableElevation
-              onClick={handleSearchClick}
-            >
-              조건 검색
-            </Button>
-          </Grid>
-          <Grid item xs={4} tyle={{ width: '100%' }}>
-            <Button sx={buttonStyle} variant="outlined" onClick={handleResetClick}>
-              초기화
-            </Button>
-          </Grid>
-        </Grid>
-      </ButtonBoxHidden>
       <Box sx={{ width: '100%', display: 'flex', flexDirection: 'column' }}>
         <Box
           sx={{
@@ -185,7 +140,6 @@ const Search = () => {
           count={pageCount(dataLength)}
           shape="rounded"
           onChange={handlePageChange}
-          // getItemAriaLabel={(e) => console.log('get', e)}
         />
       </Box>
     </ContentBox>
@@ -219,15 +173,10 @@ const TotalNum = styled.span`
 
 const ButtonBox = styled.div`
   width: 100%;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  column-gap: 1rem;
   @media screen and (max-width: 900px) {
-    display: none;
-  }
-`;
-
-const ButtonBoxHidden = styled.div`
-  display: none;
-  width: 100%;
-  @media screen and (max-width: 900px) {
-    display: block;
+    display: flex;
   }
 `;
