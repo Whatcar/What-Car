@@ -11,7 +11,11 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import SwiperCore, { Mousewheel, Pagination } from 'swiper';
 import Section0 from '../components/main/Section0.jsx';
 import Section1 from '../components/main/Section1.jsx';
-import introData from '../data/introData.js';
+import Section2 from '../components/main/Section2.jsx';
+import Section3 from '../components/main/Section3.jsx';
+import Section4 from '../components/main/Section4.jsx';
+import pic2 from '../img/main/2_2.svg';
+import pic3 from '../img/main/3_1.svg';
 
 export default function Main() {
   SwiperCore.use([Mousewheel, Pagination]);
@@ -34,23 +38,62 @@ export default function Main() {
             <Intro />
           </MainLayout>
         </SwiperSlide>
-        <SwiperSlide style={{ display: 'flex', alignItems: 'center', marginBottom: 0 }}>
+        <SwiperSlide
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            marginBottom: 0,
+            backgroundColor: ' #eaf6ff',
+          }}
+        >
           <MainLayout>
             <Section0 />
           </MainLayout>
         </SwiperSlide>
-        {introData.map((item) => (
-          <SwiperSlide style={{ display: 'flex', alignItems: 'center', marginBottom: 0 }}>
-            <MainLayout>
-              <Section1
-                desc={item.desc}
-                moreDesc={item.moreDesc}
-                buttonText={item.buttonText}
-                linkTo={item.linkTo}
-              />
-            </MainLayout>
-          </SwiperSlide>
-        ))}
+
+        <SwiperSlide style={{ display: 'flex', alignItems: 'center', marginBottom: 0 }}>
+          <MainLayout>
+            <Section1 />
+          </MainLayout>
+        </SwiperSlide>
+        <SwiperSlide
+          style={{ display: 'flex', alignItems: 'center', marginBottom: 0, position: 'relative' }}
+        >
+          <ImgWrapper src={pic2} />
+          <MainLayout>
+            <Section2 />
+          </MainLayout>
+        </SwiperSlide>
+        <SwiperSlide
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            marginBottom: 0,
+            backgroundColor: ' #eaf6ff',
+            position: 'relative',
+          }}
+        >
+          <MainLayout>
+            <Section3 />
+          </MainLayout>
+          <img
+            src={pic3}
+            style={{
+              position: 'absolute',
+              bottom: 0,
+              left: '50%',
+              transform: 'translate(-50%, 0%)',
+            }}
+            alt="메인 서브 이미지"
+          />
+        </SwiperSlide>
+        <SwiperSlide
+          style={{ display: 'flex', alignItems: 'center', marginBottom: 0, position: 'relative' }}
+        >
+          <MainLayout>
+            <Section4 swiper={swiper} />
+          </MainLayout>
+        </SwiperSlide>
       </StyledSwiper>
       {/* <Brands />
       <ServiceIntro /> */}
@@ -81,6 +124,15 @@ const MainLayout = styled.div`
 
   @media screen and (max-width: 480px) {
     width: 85%;
+  }
+`;
+
+const ImgWrapper = styled.img`
+  height: 100%;
+  margin-right: 2rem;
+  position: absolute;
+  @media screen and (max-width: 480px) {
+    display: none;
   }
 `;
 
