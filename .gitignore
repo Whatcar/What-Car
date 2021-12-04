@@ -4,4 +4,9 @@ backend/venv/
 __pycache__
 *.csv
 backend/migrations/
+backend/static/image
 config.py
+# AI test
+data
+result
+*.hdf5

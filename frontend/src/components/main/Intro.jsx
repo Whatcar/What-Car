@@ -1,17 +1,23 @@
 import React, { useState } from 'react';
-import styled from 'styled-components';
-import { Grid, Button } from '@mui/material';
-import MainImg from '../../img/main/main_img.svg';
+import styled, { keyframes } from 'styled-components';
+import { Grid, Button, Modal } from '@mui/material';
+import MainImg from '../../img/main/main_img_new.svg';
 import { blue, black } from '../../css/colors';
-import ArrowDownwardRoundedIcon from '@mui/icons-material/ArrowDownwardRounded';
 import { MainTitle, SubTitle, Desc } from '../../css/mainStyles';
 import axios from 'axios';
 import { useNavigate } from 'react-router';
+import Swal from 'sweetalert2';
+import useSrr from '../../utils/useSrr';
+import HowTo from './HowTo';
 
 export default function Intro() {
   const navigate = useNavigate();
   const [imgFile, setImgFile] = useState(null);
   const [imgBase64, setImgBase64] = useState(null);
+  const [open, setOpen] = useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
+
   const handleChangeFile = (event) => {
     setImgFile(event.target.files);
     if (event.target.files) {
@@ -28,32 +34,70 @@ export default function Intro() {
   };
 
   const handleUploadImage = async () => {
-    // TODO: 파일 형식 및 파일 크기 체크하기
+    // TODO: 파일 크기 체크하기
     if (imgFile) {
+      if (
+        !['jpg', 'png', 'jpeg'].includes(
+          imgFile[0].name.split('.')[imgFile[0].name.split('.').length - 1],
+        )
+      ) {
+        setImgFile(null);
+        setImgBase64(null);
+        return Swal.fire({
+          title: '파일 형식을 확인해주세요!',
+          text: '.jpg, .png 확장자만 업로드 할 수 있습니다.',
+          icon: 'error',
+          confirmButtonText: '넵!',
+          confirmButtonColor: blue.main,
+        });
+      }
       const formData = new FormData();
-      formData.append('file', imgFile);
+      formData.append('file', imgFile[0]);
       axios
-        .post('http://localhost:5000/api/upload', formData)
-        .then((res) => navigate(`/result/${res.data.id}`, { state: true }));
+        .post('http://localhost:5000/api/upload', formData, {
+          headers: {
+            'Content-Type': 'multipart/form-data',
+          },
+        })
+        .then((res) => {
+          if (res.status === 200) {
+            navigate(`/result/${res.data.id}`, { state: true });
+          } else {
+            Swal.fire({
+              icon: 'error',
+              title: '자동차를 찾을 수 없어요!',
+              text: '가이드라인에 맞추어 다시 업로드해주세요!',
+              confirmButtonText: '넵!',
+              confirmButtonColor: blue.main,
+            });
+          }
+        })
+        .catch((err) => console.log(err));
+    } else {
+      Swal.fire({
+        title: '엇, 아무 것도 없는 거 같아요.',
+        icon: 'warning',
+        text: '이미지를 가이드라인에 맞추어 업로드 해주세요!',
+        confirmButtonColor: blue.main,
+        confirmButtonText: '넵!',
+      });
     }
   };
   return (
     <>
       <Grid container spacing={2}>
-        <Grid item xs={12} md={6} lg={6} img>
-          <MainImage src={MainImg} />
-        </Grid>
         <Grid item xs={12} md={6} lg={6} desc>
-          <SubTitle>찰칵!</SubTitle>
-          <MainTitle blue>저 차는 뭐징?</MainTitle>
+          <SubTitle {...useSrr('down', 1, 0.5)}>찰칵!</SubTitle>
+          <MainTitle blue {...useSrr('down', 1, 1)}>
+            저 차는 뭐징?
+          </MainTitle>
           <Desc>
-            내가 방금 본 차는 이름이 뭘까? 이런 궁금증을 갖고 있지는 않았나요? 왓카는 자동차
-            이미지를 인식해 당신이 찾고 있는 자동차의 종류를 알려줍니다. 자동차 이미지를 업로드
-            해보세요!
+            사진을 업로드 해보세요! <br />
+            왓카가 해당 차량의 정보를 알려드립니다.
           </Desc>
 
           <InputDiv style={{ display: 'flex' }}>
-            {imgBase64 && <img src={imgBase64} />}
+            {imgBase64 && <img src={imgBase64} alt="이미지 미리보기" />}
             <div style={{ flexGrow: 1, margin: 'auto' }}>
               <label htmlFor="img-upload">
                 <div>
@@ -75,28 +119,83 @@ export default function Intro() {
 
           <ImageUploadButton
             variant="contained"
-            sx={{ backgroundColor: blue.main, color: 'white' }}
+            sx={{ backgroundColor: imgFile ? blue.main : blue.dark, color: 'white' }}
             onClick={handleUploadImage}
           >
             이미지 검색하기
           </ImageUploadButton>
           <div style={{ textAlign: 'center', marginTop: '2rem' }}>
-            <Desc highlight top={2}>
+            <Desc
+              highlight
+              onClick={handleOpen}
+              style={{ textDecoration: 'underline', cursor: 'pointer' }}
+            >
               사용법을 모르겠다면?
             </Desc>
-            <ArrowDownwardRoundedIcon sx={{ color: blue.main }} />
+            <Modal open={open} onClose={handleClose}>
+              <HowTo />
+            </Modal>
           </div>
         </Grid>
+        <Grid item xs={12} md={6} lg={6} img style={{ display: 'flex', alignItems: 'center' }}>
+          <MainImage src={MainImg} />
+        </Grid>
+        <ScrollDiv>
+          <span></span>더 알아보기
+        </ScrollDiv>
       </Grid>
     </>
   );
 }
+
+const scroll = keyframes`
+    0% {
+      transform: rotate(-45deg) translate(0, 0);
+      opacity: 0;
+    }
+    50% {
+      opacity: 1;
+    }
+    100% {
+      transform: rotate(-45deg) translate(-20px, 20px);
+      opacity: 0;
+    }
+`;
+
+const ScrollDiv = styled.div`
+  padding-top: 70px;
+  position: relative;
+  color: ${blue.main};
+  margin: 2rem auto 0;
+  @media screen and (max-width: 480px) {
+    margin: 1rem auto;
+    padding-top: 0;
+  }
+  span {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    width: 24px;
+    height: 24px;
+    margin-left: -12px;
+    border-left: 1px solid ${blue.main};
+    border-bottom: 1px solid ${blue.main};
+    -webkit-transform: rotate(-45deg);
+    transform: rotate(-45deg);
+    -webkit-animation: ${scroll} 1.5s infinite;
+    animation: ${scroll} 1.5s infinite;
+    box-sizing: border-box;
+  }
+`;
 
 const MainImage = styled.img`
   width: 100%;
   max-width: 350px;
   display: block;
   margin: auto;
+  @media screen and (max-width: 480px) {
+    width: 50%;
+  }
 `;
 
 const InputDiv = styled.div`

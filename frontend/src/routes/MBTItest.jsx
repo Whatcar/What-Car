@@ -7,6 +7,8 @@ import Questions from '../components/MBTI/Questions.jsx';
 import mbtiCalculator from '../utils/mbtiCalculator.js';
 import { useNavigate } from 'react-router';
 import axios from 'axios';
+import Swal from 'sweetalert2';
+import Layout from '../components/Layout.jsx';
 
 export default function MBTItest() {
   const navigate = useNavigate();
@@ -33,17 +35,22 @@ export default function MBTItest() {
         setProgress(progress + 1);
       }
     } else {
-      alert('보기 중 하나를 선택해주세요!');
+      Swal.fire({
+        title: '보기 중 하나를 선택해주세요!',
+        icon: 'warning',
+        confirmButtonText: '넵!',
+        confirmButtonColor: blue.main,
+      });
     }
   };
   const onClickPrev = () => {
     if (progress === 0) {
-      navigate('/mbti');
+      navigate('/destiny');
     }
     setProgress(progress - 1);
   };
   return (
-    <>
+    <Layout>
       <ProgressBar>
         <div style={{ textAlign: 'right' }}>{progress + 1}/9</div>
         <LinearProgress variant="determinate" color="inherit" value={((progress + 1) * 100) / 9} />
@@ -73,7 +80,7 @@ export default function MBTItest() {
           다음
         </Button>
       </Buttons>
-    </>
+    </Layout>
   );
 }
 
@@ -86,5 +93,8 @@ const Buttons = styled.div`
   button {
     width: 200px;
     margin-top: 2rem;
+    @media screen and (max-width: 480px) {
+      width: 100px;
+    }
   }
 `;

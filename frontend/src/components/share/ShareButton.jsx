@@ -6,7 +6,7 @@ import RestartButton from '../share/RestartButton';
 
 export default function ShareButton(props) {
   return (
-    <div>
+    <div style={{ textAlign: 'center' }}>
       <ShareBtn>
         <KakaoShareButton></KakaoShareButton>
         <LinkShareButton></LinkShareButton>
