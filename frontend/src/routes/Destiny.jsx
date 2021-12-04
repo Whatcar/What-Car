@@ -41,12 +41,11 @@ const TestWrapper = styled.div`
 `;
 
 const TestButton = styled.div`
-  width: 45%;
+  width: 48%;
   text-align: center;
   border: 1px solid lightgray;
   border-radius: 15px;
   padding: 3rem;
-  margin: 1rem;
   box-sizing: border-box;
   cursor: pointer;
   @media screen and (max-width: 480px) {
@@ -60,7 +59,7 @@ const TestButton = styled.div`
 
 const Image = styled.img`
   margin-bottom: 1rem;
-  width: 300px;
+  width: 80%;
   @media screen and (max-width: 480px) {
     display: none;
   }
