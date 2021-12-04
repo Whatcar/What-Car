@@ -34,6 +34,10 @@ export const menu = css`
   font-size: 24px;
   line-height: 40px;
   font-family: 'SBAggroM';
+  @media screen and (max-width: 480px) {
+    font-size: 16px;
+    line-height: 20px;
+  }
 `;
 
 export const desc = css`

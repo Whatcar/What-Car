@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import styled, { keyframes } from 'styled-components';
 import { Grid, Button, Modal } from '@mui/material';
-import MainImg from '../../img/main/main_img.svg';
+import MainImg from '../../img/main/main_img_new.svg';
 import { blue, black } from '../../css/colors';
 import { MainTitle, SubTitle, Desc } from '../../css/mainStyles';
 import axios from 'axios';
@@ -86,15 +86,15 @@ export default function Intro() {
   return (
     <>
       <Grid container spacing={2}>
-        <Grid item xs={12} md={6} lg={6} img>
-          <MainImage src={MainImg} />
-        </Grid>
         <Grid item xs={12} md={6} lg={6} desc>
           <SubTitle {...useSrr('down', 1, 0.5)}>찰칵!</SubTitle>
           <MainTitle blue {...useSrr('down', 1, 1)}>
             저 차는 뭐징?
           </MainTitle>
-          <Desc>지금 알고 싶은 자동차 이미지를 업로드 해보세요!</Desc>
+          <Desc>
+            사진을 업로드 해보세요! <br />
+            왓카가 해당 차량의 정보를 알려드립니다.
+          </Desc>
 
           <InputDiv style={{ display: 'flex' }}>
             {imgBase64 && <img src={imgBase64} alt="이미지 미리보기" />}
@@ -137,7 +137,9 @@ export default function Intro() {
             </Modal>
           </div>
         </Grid>
-
+        <Grid item xs={12} md={6} lg={6} img style={{ display: 'flex', alignItems: 'center' }}>
+          <MainImage src={MainImg} />
+        </Grid>
         <ScrollDiv>
           <span></span>더 알아보기
         </ScrollDiv>
