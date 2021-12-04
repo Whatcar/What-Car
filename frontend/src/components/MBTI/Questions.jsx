@@ -47,6 +47,9 @@ const QnA = styled.div`
 const Answers = styled.div`
   display: flex;
   justify-content: space-evenly;
+  @media screen and (max-width: 480px) {
+    flex-direction: column;
+  }
 `;
 
 const Answer = styled.div`
@@ -61,4 +64,18 @@ const Answer = styled.div`
   border: ${(props) =>
     props.clicked ? `5px solid ${blue.main}` : '5px solid rgba(196, 196, 196, 0.1)'};
   transition: border 0.5s ease;
+  @media screen and (max-width: 480px) {
+    img {
+      display: none;
+    }
+    width: 100%;
+    min-height: 100px;
+    p {
+      margin: 0;
+    }
+    box-sizing: border-box;
+    margin: 1rem auto;
+    border-radius: 30px;
+    border-width: 3px;
+  }
 `;

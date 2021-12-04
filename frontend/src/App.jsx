@@ -5,9 +5,7 @@ import Main from './routes/Main';
 import Result from './routes/Result';
 import Search from './routes/Search';
 import './css/Reset.css';
-import styled from 'styled-components';
-import MBTI from './routes/MBTI.jsx';
-import Worldcup from './routes/Worldcup.jsx';
+
 import Team from './routes/Team.jsx';
 import MBTItest from './routes/MBTItest.jsx';
 import NotFound from './routes/NotFound.jsx';
@@ -16,9 +14,13 @@ import muiTheme from './css/muiTheme.js';
 import GlobalStyles from './css/GlobalStyles.js';
 import { ThemeProvider } from 'styled-components';
 import { mainTheme } from './css/theme.js';
-import WorldcupTest from './components/worldcup/WorldcupTest.jsx';
+import WorldcupTest from './routes/WorldcupTest.jsx';
 import ScrollToTop from './routes/ScrollTop.jsx';
 import MBTIresult from './routes/MBTIresult.jsx';
+import { RecoilRoot } from 'recoil';
+import WorldcupResult from './routes/WorldcupResult.jsx';
+import Destiny from './routes/Destiny.jsx';
+import Gallary from './routes/Gallary.jsx';
 
 function App() {
   return (
@@ -26,24 +28,26 @@ function App() {
       <GlobalStyles />
       <ThemeProvider theme={mainTheme}>
         <MUIThemeProvider theme={muiTheme}>
-          <BrowserRouter>
-            <ScrollToTop />
-            <Navbar />
-            <Contents>
+          <RecoilRoot>
+            <BrowserRouter>
+              <ScrollToTop />
+              <Navbar />
               <Routes>
                 <Route path="/" element={<Main />} />
                 <Route path="/result/:id" element={<Result />} />
                 <Route path="/search" element={<Search />} />
-                <Route path="/mbti" element={<MBTI />} />
+                <Route path="/destiny" element={<Destiny />} />
+
                 <Route path="/mbti/test" element={<MBTItest />} />
                 <Route path="/mbti/result/:type" element={<MBTIresult />} />
-                <Route path="/worldcup" element={<Worldcup />} />
                 <Route path="/worldcup/test" element={<WorldcupTest />} />
+                <Route path="/worldcup/result/:id" element={<WorldcupResult />} />
                 <Route path="/team" element={<Team />} />
+                <Route path="/gallary" element={<Gallary />} />
                 <Route path="/*" element={<NotFound />} />
               </Routes>
-            </Contents>
-          </BrowserRouter>
+            </BrowserRouter>
+          </RecoilRoot>
         </MUIThemeProvider>
       </ThemeProvider>
     </div>
@@ -51,11 +55,3 @@ function App() {
 }
 
 export default App;
-
-const Contents = styled.div`
-  width: 66%;
-  margin: 10rem auto;
-  @media screen and (max-width: 480px) {
-    width: 85%;
-  }
-`;

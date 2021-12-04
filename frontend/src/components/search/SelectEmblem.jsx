@@ -1,22 +1,33 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useCallback } from 'react';
 import styled from 'styled-components';
 import getEmblem from '../../utils/getEmblem';
-import { getSessionItem, setCheckedValues } from '../../utils/searchCondition';
-import isChecked from '../../utils/isChecked';
+import { setCheckedValuesArray } from '../../utils/searchCondition';
 import { desc } from '../../css/fonts';
+import { AccordionDetails } from '@mui/material';
+import { useRecoilState } from 'recoil';
+import * as atom from '../../recoil/atom';
+import MyAccordion, { MyAccordionSummary } from '../../css/MyAccordion';
+import { categoryDesc } from '../../data/description';
 
-const EmblemBox = ({ range, keyName, setState }) => {
-  const nowValues = getSessionItem(keyName, '').split(',');
-  const [values, setValues] = useState(nowValues);
+const SelectEmblem = () => {
+  const [range, setRange] = useRecoilState(atom.range);
+  const [values, setValues] = useRecoilState(atom.brand);
+
+  const isDisabled = (label) => {
+    return range === label;
+  };
 
   useEffect(() => {
-    sessionStorage.setItem(keyName, values);
-    setState && setState(values.join(', '));
-  }, [keyName, values]);
+    setValues([]);
+  }, [setValues, range]);
 
-  useEffect(() => {
-    setValues(getSessionItem(keyName, '').split(','));
-  }, [range]);
+  const handleClickRange = useCallback(
+    (e) => {
+      const newRange = e.target.innerText;
+      setRange(newRange);
+    },
+    [setRange],
+  );
 
   const emblemList = getEmblem(range).map((emblem) => {
     const name = emblem[0];
@@ -24,50 +35,66 @@ const EmblemBox = ({ range, keyName, setState }) => {
 
     const handleClick = (e) => {
       const newValue = e.target.value;
-      const newValues = setCheckedValues(newValue, keyName);
+      const newValues = setCheckedValuesArray(newValue, values);
       setValues(newValues);
     };
 
     return (
-      <Emblem key={`${range}-${name}-box`} checked={isChecked(name, values)}>
-        <Img key={`${range}-${name}-img`} art={name} src={adress} />
-        <Name key={`${range}-${name}-name`}>{name}</Name>
-        <input
-          key={`${range}-${name}-input`}
-          type="checkbox"
-          value={name}
-          onClick={handleClick}
-        ></input>
+      <Emblem key={`${range}-${name}-box`} checked={values.includes(name)}>
+        <Img art={name} src={adress} />
+        <Name>{name}</Name>
+        <input type="checkbox" value={name} onClick={handleClick}></input>
       </Emblem>
     );
   });
 
-  return <Box>{emblemList}</Box>;
+  return (
+    <MyAccordion defaultExpanded style={{ gridColumn: '1 / 3' }}>
+      <MyAccordionSummary aria-controls="panel1a-content" id="panel1a-header">
+        <span>{categoryDesc.brand.title}</span>
+        <span>{categoryDesc.brand.comment}</span>
+      </MyAccordionSummary>
+      <AccordionDetails>
+        <RangeButtons>
+          <RangeButton disabled={isDisabled('전체')} onClick={handleClickRange}>
+            전체
+          </RangeButton>
+          <RangeButton disabled={isDisabled('국산')} onClick={handleClickRange}>
+            국산
+          </RangeButton>
+          <RangeButton disabled={isDisabled('수입')} onClick={handleClickRange}>
+            수입
+          </RangeButton>
+        </RangeButtons>
+        <EmblemBox>{emblemList}</EmblemBox>
+      </AccordionDetails>
+    </MyAccordion>
+  );
 };
 
-const Box = styled.div`
-  display: grid;
-  grid-template-columns: repeat(6, 1fr);
-  height: 252px;
+const EmblemBox = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  max-height: 12rem;
   overflow: auto;
-  padding: 4px;
-  padding-right: 12px;
+  padding: 0.5rem;
+  padding-left: 0;
   column-gap: 4px;
   row-gap: 4px;
-  justify-content: center;
+  justify-content: start;
   align-content: start;
 `;
 
 const Emblem = styled.label`
-  /* justify-self: center; */
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 100%;
-  min-width: 64px;
-  height: 60px;
+  justify-content: center;
+  width: 4.5rem;
+  height: 4rem;
   box-shadow: ${(props) =>
     props.checked ? `${props.theme.colors.blueL} 0 0 0 1px inset` : 'none'};
+  color: ${(props) => (props.checked ? props.theme.colors.blueM : props.theme.colors.black900)};
   cursor: pointer;
   > input {
     display: none;
@@ -85,4 +112,15 @@ const Name = styled.p`
   text-align: center;
 `;
 
-export default EmblemBox;
+const RangeButtons = styled.div`
+  display: flex;
+`;
+
+const RangeButton = styled.button`
+  background-color: white;
+  border: none;
+  ${({ theme }) => theme.fontStyle.desc}
+  color: ${(props) => (props.disabled ? props.theme.colors.blueM : '')};
+`;
+
+export default SelectEmblem;

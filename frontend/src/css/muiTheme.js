@@ -1,7 +1,7 @@
 import { createTheme } from '@mui/material';
 import { mainTheme } from './theme';
 
-const wantPx = (px) => {
+export const wantPx = (px) => {
   return (px / 16) * 14;
 };
 
