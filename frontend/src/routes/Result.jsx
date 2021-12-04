@@ -7,6 +7,8 @@ import { useParams } from 'react-router';
 import CarRecommendation from '../components/result/CarRecommendation';
 import Disqus from 'disqus-react';
 import { useLocation } from 'react-router';
+import Feedback from '../components/result/Feedback';
+import Layout from '../components/Layout';
 
 const mockData = [
   {
@@ -40,6 +42,7 @@ export default function Result() {
   const { state } = useLocation();
   const carId = params.id;
   const [carData, setCarData] = useState({});
+  const [isFeedback, setIsFeedback] = useState(false);
   useEffect(() => {
     axios
       .get('http://localhost:5000/api/detail', { params: { id: carId } })
@@ -56,14 +59,17 @@ export default function Result() {
   };
 
   return (
-    <ResultWrapper>
-      <CarDetail detail={carData} />
-      <ShareButton url="result" />
-      {state && <CarRecommendation findMore={mockData} />}
-      <DisqusFrame showMore={state ? true : false}>
-        <Disqus.DiscussionEmbed shortname={disqusShortname} config={disqusConfig} />
-      </DisqusFrame>
-    </ResultWrapper>
+    <Layout>
+      <ResultWrapper>
+        <CarDetail detail={carData} />
+        <ShareButton url="result" />
+        {!isFeedback && <Feedback setIsFeedback={setIsFeedback} />}
+        {state && <CarRecommendation findMore={mockData} />}
+        <DisqusFrame showMore={state ? true : false}>
+          <Disqus.DiscussionEmbed shortname={disqusShortname} config={disqusConfig} />
+        </DisqusFrame>
+      </ResultWrapper>
+    </Layout>
   );
 }
 
