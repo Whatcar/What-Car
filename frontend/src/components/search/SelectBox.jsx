@@ -6,8 +6,6 @@ import ConditionButtons from './ConditionButtons';
 import ConditionSlider from './ConditionSlider';
 import SelectName from './SelectName';
 import SelectedConditions from './SelectedConditions';
-import { useRecoilValue } from 'recoil';
-import { eachConditionSelector } from '../../recoil/selector';
 
 const getAccordion = (method) => {
   let cons = [];
@@ -23,9 +21,6 @@ const getAccordion = (method) => {
 };
 
 const SelectBox = () => {
-  const recoilState = useRecoilValue(eachConditionSelector);
-  const chipList = recoilState.filter((item) => item !== '전체~' && item.length);
-
   return (
     <ThemeProvider theme={selectTheme}>
       <Box>
@@ -33,7 +28,7 @@ const SelectBox = () => {
         {getAccordion('checkbox')}
         {getAccordion('slider')}
         <SelectName />
-        <SelectedConditions conditions={chipList} />
+        <SelectedConditions />
       </Box>
     </ThemeProvider>
   );
