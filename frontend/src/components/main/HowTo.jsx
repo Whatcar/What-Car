@@ -5,6 +5,7 @@ import Sub1 from '../../img/main/main_sub_1.svg';
 import Sub2 from '../../img/main/main_sub_2.svg';
 import Sub3 from '../../img/main/main_sub_3.svg';
 import { blue, black } from '../../css/colors';
+import { colors } from '../../css/theme';
 import { menu, body } from '../../css/fonts';
 import Swal from 'sweetalert2';
 import example from '../../img/main/example.jpg';
@@ -16,7 +17,7 @@ export default function HowTo() {
       title: '이렇게 해주세요!',
       imageUrl: example,
       confirmButtonText: '이해했어요!',
-      confirmButtonColor: blue.main,
+      confirmButtonColor: colors.blueM,
     });
   };
   return (
@@ -45,7 +46,7 @@ export default function HowTo() {
             </HowToDetail>
             <HowToDetail
               onClick={onClickExample}
-              style={{ color: blue.main, fontFamily: 'SBAggroM', cursor: 'pointer' }}
+              style={{ color: colors.blueM, fontFamily: 'SBAggroM', cursor: 'pointer' }}
             >
               자세히 알려주세요!
             </HowToDetail>
@@ -92,7 +93,7 @@ const StepImgs = styled.div`
 `;
 
 const StepImg = styled.div`
-  border: 3px solid ${blue.main};
+  border: 3px solid ${({ theme }) => theme.colors.blueM};
   border-radius: 50%;
   width: 130px;
   height: 130px;
@@ -105,7 +106,7 @@ const StepImg = styled.div`
 `;
 
 const VerticalLine = styled.div`
-  border: ${(props) => (props.no ? '' : `1px solid ${blue.main}`)};
+  border: ${(props) => (props.no ? '' : `1px solid ${({ theme }) => theme.colors.blueM}`)};
   width: 0px;
   height: 70px;
   margin-left: 65px;
@@ -130,7 +131,7 @@ const HowToStep = styled.div`
 
 const HowToTitle = styled.p`
   ${menu};
-  color: ${blue.main};
+  color: ${({ theme }) => theme.colors.blueM};
 `;
 
 const HowToDetail = styled.p`
