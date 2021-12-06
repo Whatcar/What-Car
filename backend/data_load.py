@@ -65,7 +65,7 @@ with open("car_spec_real_final.csv", "r", encoding="UTF-8") as f:
     for row in reader:
 
         print(num)
-        car_int = Car_Int(
+        car_int = CarInt(
             car_id=num,
             price_int_low=int(row["price_int_low"]),
             price_int_high=int(row["price_int_high"]),
