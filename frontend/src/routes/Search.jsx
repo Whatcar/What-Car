@@ -7,7 +7,7 @@ import { getSearchCarList } from '../apis/searchAPI';
 import CarList from '../components/search/CarList';
 import { getConditions } from '../utils/searchCondition';
 import Layout from '../components/Layout';
-import SearchButton from '../components/search/SearchButton';
+import SearchButtons from '../components/search/SearchButtons';
 
 const filterList = ['최신순', '낮은 가격순', '높은 연비순'];
 
@@ -80,7 +80,7 @@ const Search = () => {
       <ContentBox>
         <Title>어떤 차가 궁금하신가요?</Title>
         <SelectBox />
-        <SearchButton setConditions={setConditions} />
+        <SearchButtons setConditions={setConditions} />
         <Box sx={{ width: '100%', display: 'flex', flexDirection: 'column' }}>
           <Box
             sx={{

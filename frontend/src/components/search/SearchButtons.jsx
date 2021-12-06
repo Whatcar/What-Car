@@ -1,10 +1,10 @@
 import { useRecoilState } from 'recoil';
 import conditionSelector from '../../recoil/selector';
-import { getConditions } from '../../utils/searchCondition';
+import { getConditions, resetSessionStorage } from '../../utils/searchCondition';
 import { Button } from '@mui/material';
 import styled from 'styled-components';
 
-const SearchButton = ({ setConditions }) => {
+const SearchButtons = ({ setConditions }) => {
   const [recoilStates, setRecoilStates] = useRecoilState(conditionSelector);
   const handleSearchClick = (e) => {
     console.log('ORIGIN CONDITIONS:', recoilStates);
@@ -15,6 +15,7 @@ const SearchButton = ({ setConditions }) => {
 
   const handleResetClick = () => {
     setRecoilStates();
+    resetSessionStorage();
   };
   return (
     <ButtonBox>
@@ -34,7 +35,7 @@ const SearchButton = ({ setConditions }) => {
   );
 };
 
-export default SearchButton;
+export default SearchButtons;
 
 const ButtonBox = styled.div`
   width: 100%;
