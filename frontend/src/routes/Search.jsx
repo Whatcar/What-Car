@@ -56,10 +56,6 @@ const Search = () => {
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    loading ? console.log('loading') : console.log('loaded');
-  }, [loading]);
-
-  useEffect(() => {
     const filterList = { 0: '출시일순', 1: '가격순', 2: '연비순' };
     console.log('SEARCH CONDITIONS', conditions);
     setLoading(true);

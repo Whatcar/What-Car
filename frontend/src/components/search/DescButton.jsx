@@ -61,7 +61,6 @@ const Label = styled.label`
 `;
 
 const TooltipContent = ({ description }) => {
-  console.log(description);
   const desc = description.desc;
   const good = description.good;
   const bad = description.bad;
