@@ -1,3 +1,4 @@
+from config import aws_s3
 from db_connect import db
 from flask_restx import fields
 
@@ -14,7 +15,7 @@ class WorldCup(db.Model):
     def __init__(self, car_id, count):
         self.car_id = car_id
         self.photolink = (
-            "https://whatcar.s3.ap-northeast-2.amazonaws.com/worldcup_image/"
+            f"https://{aws_s3['BUCKET_NAME']}.s3.ap-northeast-2.amazonaws.com/worldcup_image/"
             + str(car_id)
             + ".png"
         )

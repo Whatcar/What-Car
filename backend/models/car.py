@@ -115,7 +115,7 @@ class Car(db.Model):
     }
 
     response_model_part = {
-        "id": fields.String(required=True, description="차량 고유 아이디"),
+        "id": fields.Integer(required=True, description="차량 고유 아이디"),
         "name": fields.String(required=True, description="차량 모델명"),
         "photolink": fields.String(required=True, description="차량 이미지 링크"),
         "price": fields.String(required=True, description="차량 가격"),

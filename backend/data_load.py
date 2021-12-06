@@ -7,7 +7,7 @@ app = create_app()
 app.app_context().push()
 from werkzeug.exceptions import abort
 
-import color_label
+# import color_label
 from app import db
 from models.__init__ import *
 
@@ -87,9 +87,9 @@ num = 1
 with open("db_color_sort.csv", "r", encoding="UTF-8") as f:
     reader = csv.DictReader(f)
     for i in range(1, 3903):
-        if not i in color_label.label_num:
-            car_int = CarColor(car_id=i, color_name="", color_url="")
-            db.session.add(car_int)
+        # if not i in color_label.label_num:
+        #     car_int = CarColor(car_id=i, color_name="", color_url="")
+        #     db.session.add(car_int)
         try:
             db.session.commit()
         except Exception as e:
