@@ -56,7 +56,7 @@ export const getConditions = () => {
     } else if (keyName === 'method') {
       const condition = sessionStorage.getItem(keyName);
       const conditionLength = condition ? condition.split(',') : [];
-      if (!condition && conditionLength.length < 6) {
+      if (condition && conditionLength.length < 6) {
         conditions[keyName] = condition;
       } else {
         conditions[keyName] = '전체';
@@ -64,7 +64,7 @@ export const getConditions = () => {
     } else if (keyName === 'fuel') {
       const condition = sessionStorage.getItem(keyName);
       const conditionLength = condition.split(',');
-      if (!condition && conditionLength.length < 9) {
+      if (condition && conditionLength.length < 9) {
         conditions[keyName] = condition;
       } else {
         conditions[keyName] = '전체';
