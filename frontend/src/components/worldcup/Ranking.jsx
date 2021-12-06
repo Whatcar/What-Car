@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { blue } from '../../css/colors';
-import { SubTitle } from '../../css/mainStyles';
+import { MainDesc } from '../../css/mainStyles';
 import { useNavigate } from 'react-router';
 
 export default function Ranking({ ranking }) {
@@ -14,22 +14,22 @@ export default function Ranking({ ranking }) {
     <RankingWrapper>
       {ranking.map((item) => (
         <RankingStacks key={`${item.name}-car`}>
-          <RankingStack
-            onClick={() => handleClick(item.car_id)}
-            heightRatio={item.rank === 1 ? 1 : item.rank === 2 ? 2 / 3 : 1 / 2}
-          >
-            <SubTitle>
-              {item.rank}등 ({item.rate}%)
-            </SubTitle>
-            <br />
-            {item.name}
-          </RankingStack>
           <img
             src={item.photolink}
             onClick={() => handleClick(item.car_id)}
             alt="차량 사진"
             style={{ width: '90%' }}
           />
+          <RankingStack
+            onClick={() => handleClick(item.car_id)}
+            heightRatio={item.rank === 1 ? 1 : item.rank === 2 ? 2 / 3 : 1 / 2}
+          >
+            <MainDesc>
+              {item.rank}등 ({item.rate}%)
+            </MainDesc>
+            <br />
+            {item.name}
+          </RankingStack>
         </RankingStacks>
       ))}
     </RankingWrapper>
@@ -52,6 +52,7 @@ const RankingStacks = styled.div`
   margin: 1rem;
   display: flex;
   flex-direction: column-reverse;
+  align-items: center;
   img {
     cursor: pointer;
   }
@@ -61,6 +62,7 @@ const RankingStacks = styled.div`
 `;
 
 const RankingStack = styled.div`
+  width: 100%;
   height: ${(props) => `${props.heightRatio * 300}px`};
   transition: all 0.5s ease;
   border-top-left-radius: 15px;

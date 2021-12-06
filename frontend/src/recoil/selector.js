@@ -56,7 +56,6 @@ export const eachConditionSelector = selector({
       parseCondition('cost', get(cost)),
       get(name),
     );
-
     return conditions;
   },
 });

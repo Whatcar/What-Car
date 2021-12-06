@@ -1,7 +1,5 @@
-import { blue } from '../../css/colors';
-import React, { useState } from 'react';
 import styled from 'styled-components';
-import { Desc, SubTitle } from '../../css/mainStyles';
+import { Desc } from '../../css/mainStyles';
 import campingCar from '../../img/mbti/campingCar.svg';
 
 export default function Questions({ item, progress, answer, setAnswer }) {
@@ -11,24 +9,28 @@ export default function Questions({ item, progress, answer, setAnswer }) {
   return (
     <QnA>
       <Question>
-        <SubTitle top={3}>
-          Q{progress + 1}. {item.q}
-        </SubTitle>
+        Q{progress + 1}. {item.q}
       </Question>
 
       <Answers>
         <Answer clicked={answer[progress] === 1} onClick={() => handleClick(1)}>
           <img src={campingCar} style={{ marginTop: '2rem' }} />
-          <Desc top={3}>{item.a.a1.a}</Desc>
+          <Desc highlight={answer[progress] === 1} top={3}>
+            {item.a.a1.a}
+          </Desc>
         </Answer>
         <Answer clicked={answer[progress] === 2} onClick={() => handleClick(2)}>
           <img src={campingCar} style={{ marginTop: '2rem' }} />
-          <Desc top={3}>{item.a.a2.a}</Desc>
+          <Desc highlight={answer[progress] === 2} top={3}>
+            {item.a.a2.a}
+          </Desc>
         </Answer>
         {item.a.a3.a && (
           <Answer clicked={answer[progress] === 3} onClick={() => handleClick(3)}>
             <img src={campingCar} style={{ marginTop: '2rem' }} />
-            <Desc top={3}>{item.a.a3.a}</Desc>
+            <Desc highlight={answer[progress] === 3} top={3}>
+              {item.a.a3.a}
+            </Desc>
           </Answer>
         )}
       </Answers>
@@ -37,7 +39,9 @@ export default function Questions({ item, progress, answer, setAnswer }) {
 }
 
 const Question = styled.div`
-  height: 6rem;
+  ${({ theme }) => theme.fontStyle.menu};
+  margin: 1rem 0;
+  text-align: start;
 `;
 
 const QnA = styled.div`
@@ -47,23 +51,24 @@ const QnA = styled.div`
 const Answers = styled.div`
   display: flex;
   justify-content: space-evenly;
+  column-gap: 1rem;
   @media screen and (max-width: 480px) {
     flex-direction: column;
+    row-gap: 1rem;
   }
 `;
 
 const Answer = styled.div`
-  border-radius: 50px;
-  background-color: rgba(196, 196, 196, 0.1);
-  flex-grow: 1;
-  min-height: 300px;
-  padding: 2rem;
-  margin: 1rem;
   width: 50%;
-  cursor: pointer;
+  text-align: center;
   border: ${(props) =>
-    props.clicked ? `5px solid ${blue.main}` : '5px solid rgba(196, 196, 196, 0.1)'};
-  transition: border 0.5s ease;
+    props.clicked
+      ? `2px solid ${props.theme.colors.blueL}`
+      : `2px solid ${props.theme.colors.black300}`};
+  border-radius: 15px;
+  padding: 3rem 2rem;
+  box-sizing: border-box;
+  cursor: pointer;
   @media screen and (max-width: 480px) {
     img {
       display: none;
@@ -74,8 +79,9 @@ const Answer = styled.div`
       margin: 0;
     }
     box-sizing: border-box;
-    margin: 1rem auto;
-    border-radius: 30px;
-    border-width: 3px;
+  }
+  transition: all 0.3s ease;
+  &:hover {
+    box-shadow: 0 0 1rem rgba(0, 0, 0, 0.2);
   }
 `;
