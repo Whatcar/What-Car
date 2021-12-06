@@ -4,6 +4,7 @@ export const colors = {
   blueM: '#2195F2',
   blueL: '#6EC5FF',
   blueD: '#0068BF',
+  blueBG: 'EAF6FF',
   black900: '#212121',
   black500: '#9e9e9e',
   black300: '#E0E0E0',
