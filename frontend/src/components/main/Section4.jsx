@@ -3,7 +3,7 @@ import React from 'react';
 import { Desc, MainTitle, SubTitle } from '../../css/mainStyles';
 import { useNavigate } from 'react-router';
 import useSrr from '../../utils/useSrr';
-import { blue } from '../../css/colors';
+import { colors } from '../../css/theme';
 import styled from 'styled-components';
 import ChevronRightRoundedIcon from '@mui/icons-material/ChevronRightRounded';
 import ArrowUpwardRoundedIcon from '@mui/icons-material/ArrowUpwardRounded';
@@ -14,7 +14,7 @@ export default function Section4({ swiper }) {
     <SectionWrapper>
       <MainTitle {...useSrr('down', 1, 0.2)}>
         다른 사람들은
-        <span style={{ color: blue.main }}> 어떤 차에 관심 있는지 </span>
+        <span style={{ color: colors.blueM }}> 어떤 차에 관심 있는지 </span>
         궁금해요!
       </MainTitle>
       <Desc {...useSrr('down', 1, 0.5)}>
