@@ -4,9 +4,8 @@ from flask_migrate import Migrate
 from flask_restx import Api
 
 import config
-from controller.__init__ import *
+from controller import detail, mbti, search, upload, worldcup
 from db_connect import db
-from models.__init__ import *
 
 
 def create_app():
@@ -26,7 +25,7 @@ def create_app():
     Migrate().init_app(app, db)
 
     # AI model
-    from ai import model
+    # from ai import model
 
     return app
 
