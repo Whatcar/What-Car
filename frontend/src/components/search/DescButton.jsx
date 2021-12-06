@@ -3,21 +3,15 @@ import styled from 'styled-components';
 import { ReactComponent as QuestionIcon } from '../../img/search/desc.svg';
 import { colors } from '../../css/theme';
 import MyTooltip from '../../css/MyTooltip';
-import ClickAwayListener from '@mui/base/ClickAwayListener';
 
 const DescButton = ({ idx, item, description, checked }) => {
   const [open, setOpen] = useState(false);
 
   const place = (idx) => {
-    if (idx === undefined) return 'bottom-end';
-    if (idx % 3 === 0) return 'top-start';
-    if (idx % 3 === 1) return 'top';
-    if (idx % 3 === 2) return 'top-end';
-  };
-
-  const handleTooltipClose = (e) => {
-    e.stopPropagation();
-    setOpen(false);
+    if (idx === undefined) return 'top-end';
+    if (idx % 3 === 0) return 'bottom-start';
+    if (idx % 3 === 1) return 'bottom';
+    if (idx % 3 === 2) return 'bottom-end';
   };
 
   const handleTooltipOpen = (e) => {
@@ -85,4 +79,5 @@ const TextBox = styled.div`
   display: flex;
   flex-direction: column;
   text-align: start;
+  color: ${({ theme }) => theme.colors.blueM};
 `;

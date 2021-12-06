@@ -1,7 +1,5 @@
 import { styled } from '@mui/material/styles';
 import Tooltip, { tooltipClasses } from '@mui/material/Tooltip';
-import { wantPx } from './muiTheme';
-import { colors } from './theme';
 
 const MyTooltip = styled(({ className, ...props }) => (
   <Tooltip {...props} classes={{ popper: className }} />
@@ -13,6 +11,7 @@ const MyTooltip = styled(({ className, ...props }) => (
     fontSize: 12,
     lineHeight: 1.5,
     width: 220,
+    padding: 14,
   },
 }));
 
