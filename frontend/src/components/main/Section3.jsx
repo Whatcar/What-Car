@@ -4,6 +4,7 @@ import { Desc, MainTitle, SubTitle } from '../../css/mainStyles';
 import { useNavigate } from 'react-router';
 import useSrr from '../../utils/useSrr';
 import { blue } from '../../css/colors';
+import { colors } from '../../css/theme';
 import styled from 'styled-components';
 import ChevronRightRoundedIcon from '@mui/icons-material/ChevronRightRounded';
 
@@ -13,9 +14,9 @@ export default function Section3() {
     <SectionWrapper>
       <MainTitle {...useSrr('up', 1, 0.2)}>
         자동차 종류가
-        <span style={{ color: blue.main }}> 너무 많아서 </span>
+        <span style={{ color: colors.blueM }}> 너무 많아서 </span>
         나에게 맞는 차를 어떻게 찾을지{' '}
-        <span style={{ color: blue.main }} blue>
+        <span style={{ color: colors.blueM }} blue>
           {' '}
           모르겠어요
         </span>

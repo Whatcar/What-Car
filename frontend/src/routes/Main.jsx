@@ -1,12 +1,7 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { Button } from '@mui/material';
-
 import Intro from '../components/main/Intro.jsx';
-
-import Brands from '../components/main/Brands.jsx';
-import ServiceIntro from '../components/main/ServiceIntro.jsx';
-import Layout from '../components/Layout.jsx';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import SwiperCore, { Mousewheel, Pagination } from 'swiper';
 import Section0 from '../components/main/Section0.jsx';
@@ -16,6 +11,7 @@ import Section3 from '../components/main/Section3.jsx';
 import Section4 from '../components/main/Section4.jsx';
 import pic2 from '../img/main/2_2.svg';
 import pic3 from '../img/main/3_1.svg';
+import { colors } from '../css/theme.js';
 
 export default function Main() {
   SwiperCore.use([Mousewheel, Pagination]);
@@ -42,7 +38,7 @@ export default function Main() {
             display: 'flex',
             alignItems: 'center',
             marginBottom: 0,
-            backgroundColor: ' #eaf6ff',
+            backgroundColor: colors.blueBG,
           }}
         >
           <MainLayout>
@@ -68,7 +64,7 @@ export default function Main() {
             display: 'flex',
             alignItems: 'center',
             marginBottom: 0,
-            backgroundColor: ' #eaf6ff',
+            backgroundColor: colors.blueBG,
             position: 'relative',
           }}
         >

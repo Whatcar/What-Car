@@ -1,8 +1,8 @@
 import { Button } from '@mui/material';
 import React from 'react';
-import { Desc, MainTitle, SubTitle } from '../../css/mainStyles';
+import { Desc, MainTitle } from '../../css/mainStyles';
+import { colors } from '../../css/theme';
 import useSrr from '../../utils/useSrr';
-import { blue } from '../../css/colors';
 import pic1 from '../../img/main/1_1.svg';
 import styled from 'styled-components';
 import ChevronRightRoundedIcon from '@mui/icons-material/ChevronRightRounded';
@@ -12,7 +12,7 @@ export default function Section1({ swiper }) {
     <SectionWrapper>
       <img src={pic1} {...useSrr('up', 1, 0.2)} alt="메인 이미지" />
       <MainTitle {...useSrr('up', 1, 0.5)}>
-        <span style={{ color: blue.main }}>사진만으로</span> 자동차 이름을
+        <span style={{ color: colors.blueM }}>사진만으로</span> 자동차 이름을
         <br />알 수는 없을까요?
       </MainTitle>
       <Desc {...useSrr('up', 1, 1)}>
