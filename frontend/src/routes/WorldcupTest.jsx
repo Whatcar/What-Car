@@ -24,7 +24,7 @@ export default function WorldcupTest() {
       });
   };
   useEffect(() => {
-    axios.get('http://localhost:5000/api/select/worldcup').then((res) => {
+    axios.get('http://localhost:5000/api/select/random/cars').then((res) => {
       setWorldcupData(res.data);
       setDisplays([res.data[0], res.data[1]]);
     });

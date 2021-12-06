@@ -1,17 +1,19 @@
 import random
 
-from models.car import *
-from models.worldcup import *
+from models import Car, WorldCup, db
 from werkzeug.exceptions import abort
 
 
-def select_car():
+def get_random_cars():
+    TOURNAMENT_STEPS = 5
+
     worldcup = WorldCup.query.all()
+    worldcup_num = len(worldcup)
     car_list = [WorldCup.to_dict(car) for car in worldcup]
 
     nums = set()
-    while len(nums) != 32:
-        nums.add(random.randint(0, 72))
+    while len(nums) != (2 ** TOURNAMENT_STEPS):
+        nums.add(random.randint(0, worldcup_num - 1))
 
     select_id_list = []
     for num in nums:
