@@ -9,6 +9,7 @@ import { useNavigate } from 'react-router';
 import Swal from 'sweetalert2';
 import useSrr from '../../utils/useSrr';
 import HowTo from './HowTo';
+import { desc } from '../../css/fonts';
 
 export default function Intro() {
   const navigate = useNavigate();
@@ -17,6 +18,7 @@ export default function Intro() {
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
+  const [sent, setSent] = useState(false);
 
   const handleChangeFile = (event) => {
     setImgFile(event.target.files);
@@ -51,6 +53,7 @@ export default function Intro() {
           confirmButtonColor: blue.main,
         });
       }
+      setSent(true);
       const formData = new FormData();
       formData.append('file', imgFile[0]);
       axios
@@ -60,13 +63,22 @@ export default function Intro() {
           },
         })
         .then((res) => {
+          setSent(false);
           if (res.status === 200) {
             navigate(`/result/${res.data.id}`, { state: true });
-          } else {
+          } else if (res.status === 404) {
             Swal.fire({
               icon: 'error',
               title: '자동차를 찾을 수 없어요!',
               text: '가이드라인에 맞추어 다시 업로드해주세요!',
+              confirmButtonText: '넵!',
+              confirmButtonColor: blue.main,
+            });
+          } else {
+            Swal.fire({
+              icon: 'error',
+              title: '서버에 문제가 있나봐요!',
+              text: '잠시 후에 다시 시도해주세요!',
               confirmButtonText: '넵!',
               confirmButtonColor: blue.main,
             });
@@ -95,6 +107,10 @@ export default function Intro() {
             사진을 업로드 해보세요! <br />
             왓카가 해당 차량의 정보를 알려드립니다.
           </Desc>
+          <Description>
+            *결과 링크를 제공하기 위해 업로드된 이미지는 왓카 서버에 24시간 동안 저장됩니다. 24시간
+            후에는 관련 데이터가 모두 삭제되니 걱정하지 마세요!
+          </Description>
 
           <InputDiv style={{ display: 'flex' }}>
             {imgBase64 && <img src={imgBase64} alt="이미지 미리보기" />}
@@ -144,6 +160,7 @@ export default function Intro() {
           <span></span>더 알아보기
         </ScrollDiv>
       </Grid>
+      <LoadingWrapper sent={sent}>Loading...</LoadingWrapper>
     </>
   );
 }
@@ -216,3 +233,22 @@ const InputDiv = styled.div`
 const ImageUploadButton = styled(Button)({
   width: '100%',
 });
+
+const Description = styled.p`
+  ${desc}
+  color: ${blue.main}
+`;
+
+const LoadingWrapper = styled.div`
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  background-color: rgba(255, 255, 255, 0.5);
+  transition: opacity 0.5s ease;
+  display: ${(props) => (props.sent ? 'flex' : 'none')};
+  opacity: ${(props) => (props.sent ? 1 : 0)};
+  justify-content: center;
+  align-items: center;
+`;
