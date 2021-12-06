@@ -134,14 +134,16 @@ const Search = () => {
                 <CarList items={items} />
               </TabPanel>
             ))}
-          <Pagination
-            sx={{ alignSelf: 'center' }}
-            color="primary"
-            count={pageCount(dataLength)}
-            shape="rounded"
-            onChange={handlePageChange}
-            page={currPage}
-          />
+          {!!dataLength && (
+            <Pagination
+              sx={{ alignSelf: 'center' }}
+              color="primary"
+              count={pageCount(dataLength)}
+              shape="rounded"
+              onChange={handlePageChange}
+              page={currPage}
+            />
+          )}
         </Box>
       </ContentBox>
     </Layout>
