@@ -1,12 +1,11 @@
 import React from 'react';
 import styled from 'styled-components';
-import { SubTitle, MenuDesc, MainDesc, Desc } from '../../css/mainStyles';
+import { SubTitle, MainDesc, Desc } from '../../css/mainStyles';
 import { blue } from '../../css/colors';
 import pic1 from '../../img/main/1.svg';
 import pic2 from '../../img/main/2.svg';
 import pic3 from '../../img/main/3.svg';
 import pic4 from '../../img/main/4.svg';
-import { menu } from '../../css/fonts';
 import useSrr from '../../utils/useSrr';
 
 const introData = [
@@ -72,6 +71,7 @@ const SectionWrapper = styled.div`
   text-align: center;
   display: flex;
   flex-direction: column;
+  padding-top: 7rem;
 `;
 
 const PeopleIntro = styled.div`
@@ -87,8 +87,8 @@ const PersonIntro = styled.div`
   flex: 1 1 0;
   padding: 1rem;
   div {
-    ${menu}
-    color: ${blue.main};
+    ${({ theme }) => theme.fontStyle.menu}
+    color: ${({ theme }) => theme.colors.blueM};
     transform: rotate(-8deg);
   }
   img {

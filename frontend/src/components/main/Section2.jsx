@@ -4,6 +4,7 @@ import { Desc, MainTitle, SubTitle } from '../../css/mainStyles';
 import { useNavigate } from 'react-router';
 import useSrr from '../../utils/useSrr';
 import { blue } from '../../css/colors';
+import { colors } from '../../css/theme';
 import styled from 'styled-components';
 import ChevronRightRoundedIcon from '@mui/icons-material/ChevronRightRounded';
 
@@ -12,7 +13,7 @@ export default function Section2() {
   return (
     <SectionWrapper>
       <MainTitle {...useSrr('down', 1, 0.2)}>
-        <span style={{ color: blue.main }}>자동차 용어를 몰라서</span>
+        <span style={{ color: colors.blueM }}>자동차 용어를 몰라서</span>
         <br />
         검색하기가 어려워요!
       </MainTitle>
