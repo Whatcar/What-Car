@@ -67,7 +67,7 @@ const ConditionSlider = ({ condition }) => {
               <div />
               <div>대형차</div>
               <div>경~중형차</div>
-              <div>중형 하이브리드</div>
+              <div>하이브리드</div>
               <div />
             </Desc>
           )}
