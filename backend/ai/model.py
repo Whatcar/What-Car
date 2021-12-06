@@ -53,11 +53,14 @@ class Resnet:
         # cropped_img = np.divide(cropped_img, 255.0, casting="unsafe")
         cropped_img = np.expand_dims(cropped_img, 0)
         preds = self.resnet_model.predict(cropped_img)
+        # 차원 축소
+        preds = np.squeeze(preds)
+        # 튜플형태를 int형으로
+        preds = [(idx[0], val) for idx, val in np.ndenumerate(preds)]
+        preds = sorted(preds, key=lambda x: x[1], reverse=True)[:5]
 
-        prob = np.max(preds)
-        class_id = np.argmax(preds)
         K.clear_session()
-        return class_id, prob
+        return preds
 
     def visualize(self, img, box_points):
         x1, y1, x2, y2 = self._calculate_box(img.shape, box_points)
