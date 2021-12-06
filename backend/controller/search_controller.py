@@ -1,16 +1,14 @@
 import config
 from flask import request
 from flask_restx import Namespace, Resource
-from models.car import Car
-from service.search_service import get_search
-from sqlalchemy import create_engine
+from models import Car
+from service import get_search_results
 
 search = Namespace("search", path="/api")
-engine = create_engine(config.SQLALCHEMY_DATABASE_URI)
 
 result = search.model(
     "serach_result",
-    Car.car_model_part,
+    Car.response_model_part,
 )
 
 
@@ -47,17 +45,17 @@ class Search(Resource):
         fuel = request.args.get("fuel")
         num = request.args.get("num", type=int, default=1)
         sort_criteria = request.args.get("sort_criteria", type=str)
-        car = get_search(
-            brand,
-            cost,
-            displacement,
-            fuelEfficiency,
-            grade,
-            shape,
-            name,
-            method,
-            fuel,
-            num,
-            sort_criteria,
+        cars = get_search_results(
+            brand=brand,
+            cost=cost,
+            displacement=displacement,
+            fuelEfficiency=fuelEfficiency,
+            grade=grade,
+            shape=shape,
+            name=name,
+            method=method,
+            fuel=fuel,
+            num=num,
+            sort_criteria=sort_criteria,
         )
-        return car, 200
+        return cars, 200
