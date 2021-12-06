@@ -1,17 +1,16 @@
 import { Button } from '@mui/material';
 import React from 'react';
 import { Desc, MainTitle, SubTitle } from '../../css/mainStyles';
-import { useNavigate } from 'react-router';
 import useSrr from '../../utils/useSrr';
 import { blue } from '../../css/colors';
 import pic1 from '../../img/main/1_1.svg';
 import styled from 'styled-components';
+import ChevronRightRoundedIcon from '@mui/icons-material/ChevronRightRounded';
 
-export default function Section1() {
-  const navigate = useNavigate();
+export default function Section1({ swiper }) {
   return (
     <SectionWrapper>
-      <img src={pic1} {...useSrr('up')} alt="메인 이미지" />
+      <img src={pic1} {...useSrr('up', 1, 0.2)} alt="메인 이미지" />
       <MainTitle {...useSrr('up', 1, 0.5)}>
         <span style={{ color: blue.main }}>사진만으로</span> 자동차 이름을
         <br />알 수는 없을까요?
@@ -22,8 +21,11 @@ export default function Section1() {
       </Desc>
       <Button
         variant="outlined"
+        startIcon={<ChevronRightRoundedIcon />}
         sx={{ padding: '10px 3rem', marginTop: '1rem' }}
-        onClick={() => navigate('/')}
+        onClick={() => {
+          swiper.slideTo(0);
+        }}
         {...useSrr('up', 1, 1.5)}
       >
         이미지로 자동차 검색하러 가기

@@ -5,12 +5,13 @@ import { useNavigate } from 'react-router';
 import useSrr from '../../utils/useSrr';
 import { blue } from '../../css/colors';
 import styled from 'styled-components';
+import ChevronRightRoundedIcon from '@mui/icons-material/ChevronRightRounded';
 
 export default function Section2() {
   const navigate = useNavigate();
   return (
     <SectionWrapper>
-      <MainTitle {...useSrr('down')}>
+      <MainTitle {...useSrr('down', 1, 0.2)}>
         <span style={{ color: blue.main }}>자동차 용어를 몰라서</span>
         <br />
         검색하기가 어려워요!
@@ -22,6 +23,7 @@ export default function Section2() {
       </Desc>
       <Button
         variant="outlined"
+        startIcon={<ChevronRightRoundedIcon />}
         sx={{ padding: '10px 3rem', marginTop: '1rem' }}
         onClick={() => navigate('/search')}
         {...useSrr('down', 1, 1)}

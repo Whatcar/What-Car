@@ -5,12 +5,13 @@ import { useNavigate } from 'react-router';
 import useSrr from '../../utils/useSrr';
 import { blue } from '../../css/colors';
 import styled from 'styled-components';
+import ChevronRightRoundedIcon from '@mui/icons-material/ChevronRightRounded';
 
 export default function Section3() {
   const navigate = useNavigate();
   return (
     <SectionWrapper>
-      <MainTitle {...useSrr('up')}>
+      <MainTitle {...useSrr('up', 1, 0.2)}>
         자동차 종류가
         <span style={{ color: blue.main }}> 너무 많아서 </span>
         나에게 맞는 차를 어떻게 찾을지{' '}
@@ -27,6 +28,7 @@ export default function Section3() {
       </Desc>
       <Button
         variant="outlined"
+        startIcon={<ChevronRightRoundedIcon />}
         sx={{ padding: '10px 3rem', marginTop: '2rem' }}
         onClick={() => navigate('/destiny')}
         {...useSrr('up', 1, 1)}
