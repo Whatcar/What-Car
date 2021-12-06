@@ -87,6 +87,14 @@ const ConditionButtons = ({ condition }) => {
               onClick={handleClick}
               style={{ display: 'none' }}
             />
+            {description && (
+              <DescButton
+                idx={idx}
+                item={item}
+                description={description}
+                checked={values.includes(item)}
+              />
+            )}
           </ButtonLabel>
         </ButtonBox>
       );
@@ -187,6 +195,7 @@ const ButtonLabel = styled.label`
   justify-content: center;
   align-items: center;
   line-height: 1.25rem;
+  cursor: pointer;
 `;
 
 const NameLabel = styled.label`
@@ -196,6 +205,7 @@ const NameLabel = styled.label`
   display: flex;
   justify-content: center;
   align-items: center;
+  cursor: pointer;
 
   span {
     line-height: 1.25rem;

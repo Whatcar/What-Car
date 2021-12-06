@@ -7,6 +7,7 @@ import { eachConditionSelector } from '../../recoil/selector';
 const style = {
   lineHeight: '30px',
   margin: '2px',
+  backgroundColor: 'rgba(33, 149, 242, 0.1)',
 };
 
 const SelectedConditions = () => {

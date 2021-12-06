@@ -69,8 +69,18 @@ const TooltipContent = ({ description }) => {
   return (
     <TextBox>
       <p>{desc && desc}</p>
-      {good && <p>장점 : {good}</p>}
-      {bad && <p>단점 : {bad}</p>}
+      {good && (
+        <Box>
+          <p>장점 : </p>
+          <p>{good}</p>
+        </Box>
+      )}
+      {bad && (
+        <Box>
+          <p>단점 : </p>
+          <p>{bad}</p>
+        </Box>
+      )}
     </TextBox>
   );
 };
@@ -80,4 +90,10 @@ const TextBox = styled.div`
   flex-direction: column;
   text-align: start;
   color: ${({ theme }) => theme.colors.blueM};
+`;
+
+const Box = styled.div`
+  display: grid;
+  grid-template-columns: auto auto;
+  justify-content: flex-start;
 `;
