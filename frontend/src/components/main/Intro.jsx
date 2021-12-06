@@ -2,14 +2,13 @@ import React, { useState } from 'react';
 import styled, { keyframes } from 'styled-components';
 import { Grid, Button, Modal } from '@mui/material';
 import MainImg from '../../img/main/main_img_new.svg';
-import { blue, black } from '../../css/colors';
 import { MainTitle, SubTitle, Desc } from '../../css/mainStyles';
+import { colors } from '../../css/theme';
 import axios from 'axios';
 import { useNavigate } from 'react-router';
 import Swal from 'sweetalert2';
 import useSrr from '../../utils/useSrr';
 import HowTo from './HowTo';
-import { desc } from '../../css/fonts';
 
 export default function Intro() {
   const navigate = useNavigate();
@@ -50,7 +49,7 @@ export default function Intro() {
           text: '.jpg, .png 확장자만 업로드 할 수 있습니다.',
           icon: 'error',
           confirmButtonText: '넵!',
-          confirmButtonColor: blue.main,
+          confirmButtonColor: colors.blueM,
         });
       }
       setSent(true);
@@ -72,7 +71,7 @@ export default function Intro() {
               title: '자동차를 찾을 수 없어요!',
               text: '가이드라인에 맞추어 다시 업로드해주세요!',
               confirmButtonText: '넵!',
-              confirmButtonColor: blue.main,
+              confirmButtonColor: colors.blueM,
             });
           } else {
             Swal.fire({
@@ -80,27 +79,36 @@ export default function Intro() {
               title: '서버에 문제가 있나봐요!',
               text: '잠시 후에 다시 시도해주세요!',
               confirmButtonText: '넵!',
-              confirmButtonColor: blue.main,
+              confirmButtonColor: colors.blueM,
             });
           }
         })
-        .catch((err) => console.log(err));
+        .catch((err) => {
+          setSent(false);
+          Swal.fire({
+            icon: 'error',
+            title: '서버에 문제가 있나봐요!',
+            text: '잠시 후에 다시 시도해주세요!',
+            confirmButtonText: '넵!',
+            confirmButtonColor: colors.blueM,
+          });
+        });
     } else {
       Swal.fire({
         title: '엇, 아무 것도 없는 거 같아요.',
         icon: 'warning',
         text: '이미지를 가이드라인에 맞추어 업로드 해주세요!',
-        confirmButtonColor: blue.main,
+        confirmButtonColor: colors.blueM,
         confirmButtonText: '넵!',
       });
     }
   };
   return (
     <>
-      <Grid container spacing={2}>
+      <Grid container spacing={2} style={{ paddingTop: '7rem' }}>
         <Grid item xs={12} md={6} lg={6} desc>
-          <SubTitle {...useSrr('down', 1, 0.5)}>찰칵!</SubTitle>
-          <MainTitle blue {...useSrr('down', 1, 1)}>
+          <SubTitle {...useSrr('down', 1, 0.2)}>찰칵!</SubTitle>
+          <MainTitle blue {...useSrr('down', 1, 0.5)}>
             저 차는 뭐징?
           </MainTitle>
           <Desc>
@@ -135,7 +143,7 @@ export default function Intro() {
 
           <ImageUploadButton
             variant="contained"
-            sx={{ backgroundColor: imgFile ? blue.main : blue.dark, color: 'white' }}
+            sx={{ backgroundColor: imgFile ? colors.blueM : colors.blueD, color: 'white' }}
             onClick={handleUploadImage}
           >
             이미지 검색하기
@@ -182,7 +190,7 @@ const scroll = keyframes`
 const ScrollDiv = styled.div`
   padding-top: 70px;
   position: relative;
-  color: ${blue.main};
+  color: ${({ theme }) => theme.colors.blueM};
   margin: 2rem auto 0;
   @media screen and (max-width: 480px) {
     margin: 1rem auto;
@@ -195,8 +203,8 @@ const ScrollDiv = styled.div`
     width: 24px;
     height: 24px;
     margin-left: -12px;
-    border-left: 1px solid ${blue.main};
-    border-bottom: 1px solid ${blue.main};
+    border-left: 1px solid ${({ theme }) => theme.colors.blueM};
+    border-bottom: 1px solid ${({ theme }) => theme.colors.blueM};
     -webkit-transform: rotate(-45deg);
     transform: rotate(-45deg);
     -webkit-animation: ${scroll} 1.5s infinite;
@@ -235,8 +243,8 @@ const ImageUploadButton = styled(Button)({
 });
 
 const Description = styled.p`
-  ${desc}
-  color: ${blue.main}
+  ${({ theme }) => theme.fontStyle.desc};
+  color: ${({ theme }) => theme.colors.blueM};
 `;
 
 const LoadingWrapper = styled.div`
