@@ -1,13 +1,13 @@
 from flask import request
 from flask_restx import Namespace, Resource
-from models.mbti_result import MbtiResult
-from service.mbti_service import mbti_result
+from models import MbtiResult
+from service import get_mbti_result
 
 mbti = Namespace("mbti", path="/api")
 
 result = mbti.model(
     "mbti_result",
-    MbtiResult.mbti_model_result,
+    MbtiResult.response_model,
 )
 
 
@@ -19,5 +19,5 @@ class Mbti(Resource):
     def patch(self):
         """해당 Mbti 테스트 결과 타입의 비율과 총 테스트 결과의 순위와 비율을 계산해서 가져옵니다."""
         mbti = request.args.get("mbti")
-        mbti_result_list = mbti_result(mbti)
+        mbti_result_list = get_mbti_result(mbti)
         return mbti_result_list, 200

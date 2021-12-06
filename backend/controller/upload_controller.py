@@ -1,6 +1,6 @@
 from flask import request
 from flask_restx import Namespace, Resource, fields
-from service.upload_service import register
+from service import get_upload_result
 from werkzeug.datastructures import FileStorage
 
 upload = Namespace("upload", path="/api")
@@ -20,5 +20,6 @@ class Upload(Resource):
     def post(self):
         """차량 사진을 올리면 가장 유사한 차량을 가져옵니다."""
         data = request.files["file"]
-        # data = request.files["file"]
-        return register(data), 200
+        similarity_car = get_upload_result(data)
+
+        return similarity_car, 200
