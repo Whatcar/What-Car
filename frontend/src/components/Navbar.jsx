@@ -135,7 +135,7 @@ const NavDiv = styled.div`
   width: 100%;
   position: absolute;
   top: 0;
-  background-color: ${blue.main};
+  background-color: ${({ theme }) => theme.colors.blueM};
 `;
 
 const StyledGrid = styled(Grid)`
@@ -225,7 +225,7 @@ const SideWave = styled.img`
 `;
 
 const NavMenu = styled.div`
-  background-color: ${blue.main};
+  background-color: ${({ theme }) => theme.colors.blueM};
   width: 200px;
   display: flex;
   flex-direction: column;

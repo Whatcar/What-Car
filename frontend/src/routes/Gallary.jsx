@@ -7,6 +7,7 @@ import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
 import useInfinity from '../utils/useInfinity';
 import Swal from 'sweetalert2';
 import axios from 'axios';
+import Loading from '../components/Loading';
 
 const fakeFetch = (delay = 1000) => new Promise((res) => setTimeout(res, delay));
 
@@ -57,7 +58,7 @@ export default function Gallary() {
   }, [state.item]);
 
   return (
-    <Layout style={{ marginBottom: '2rem' }}>
+    <Layout style={{ marginBottom: 0 }}>
       <MainTitle style={{ textAlign: 'center' }}>갤러리</MainTitle>
       <Desc center>
         다른 유저들이 올린 차량을 볼 수 있는 페이지예요! 이미지로 자동차를 검색하고 함께
@@ -113,7 +114,11 @@ export default function Gallary() {
           </ItemWrapper>
         ))}
       </MobileWrapper>
-      {state.isLoading && <div style={{ width: '100%', height: '50vh' }}>로딩중...</div>}
+      {state.isLoading && (
+        <div style={{ width: '100%', height: '50vh' }}>
+          <Loading />
+        </div>
+      )}
       {!state.isLoading && <div ref={setRef} style={{ width: '100%', height: '150px' }}></div>}
       {/* <ImageWrapper>
         <ImageList variant="masonry" cols={window.innerWidth >= 480 ? 3 : 2} gap={12}>
