@@ -93,8 +93,3 @@ export const name = atom({
   key: 'name',
   default: getSessionItem('name', ''),
 });
-
-export const conditions = atom({
-  key: 'conditions',
-  default: getConditions(),
-});

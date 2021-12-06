@@ -56,30 +56,23 @@ export const getConditions = () => {
     } else if (keyName === 'method') {
       const condition = sessionStorage.getItem(keyName);
       const conditionLength = condition ? condition.split(',') : [];
-      console.log(conditionLength);
-      if (condition !== '' && conditionLength.length < 6) {
-        console.log('method pass', condition);
+      if (condition && conditionLength.length < 6) {
         conditions[keyName] = condition;
       } else {
-        console.log('method 전체', condition);
         conditions[keyName] = '전체';
       }
     } else if (keyName === 'fuel') {
       const condition = sessionStorage.getItem(keyName);
       const conditionLength = condition.split(',');
-      console.log(conditionLength);
-      if (condition !== '' && conditionLength.length < 9) {
-        console.log('fuel pass', conditionLength);
+      if (condition && conditionLength.length < 9) {
         conditions[keyName] = condition;
       } else {
-        console.log('fuel 전체', condition);
         conditions[keyName] = '전체';
       }
     } else {
       conditions[keyName] = sessionStorage.getItem(keyName);
     }
   });
-  console.log('parse2', conditions);
   return conditions;
 };
 
