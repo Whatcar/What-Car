@@ -4,13 +4,14 @@ import { getConditions, resetSessionStorage } from '../../utils/searchCondition'
 import { Button } from '@mui/material';
 import styled from 'styled-components';
 
-const SearchButtons = ({ setConditions }) => {
+const SearchButtons = ({ setConditions, setCurrPage }) => {
   const [recoilStates, setRecoilStates] = useRecoilState(conditionSelector);
   const handleSearchClick = (e) => {
     console.log('ORIGIN CONDITIONS:', recoilStates);
     const searchConditions = Object.keys(recoilStates);
     searchConditions.forEach((con) => sessionStorage.setItem(con, recoilStates[con]));
     setConditions(getConditions());
+    setCurrPage(1);
   };
 
   const handleResetClick = () => {

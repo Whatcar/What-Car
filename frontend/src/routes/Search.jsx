@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import { Tabs, Tab, Box, Pagination } from '@mui/material';
+import { Tabs, Tab, Box, Pagination, CircularProgress } from '@mui/material';
 import SelectBox from '../components/search/SelectBox';
 import { getSearchCarList } from '../apis/searchAPI';
 import CarList from '../components/search/CarList';
@@ -41,15 +41,21 @@ const a11yProps = (index) => {
 };
 
 const Search = () => {
-  const [currPage, setCurrPage] = useState('1');
+  const [currPage, setCurrPage] = useState(1);
   const [items, setItems] = useState(null);
   const [filter, setFilter] = useState(0);
   const [dataLength, setDataLength] = useState(0);
   const [conditions, setConditions] = useState(getConditions());
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    loading ? console.log('loading') : console.log('loaded');
+  }, [loading]);
 
   useEffect(() => {
     const filterList = { 0: '출시일순', 1: '가격순', 2: '연비순' };
     console.log('SEARCH CONDITIONS', conditions);
+    setLoading(true);
     getSearchCarList(conditions, currPage, filterList[filter])
       .then(({ data }) => {
         const total = data[0].result_num;
@@ -60,6 +66,7 @@ const Search = () => {
       .catch((error) => {
         console.log('ERROR CHECK!', error);
       });
+    setLoading(false);
   }, [filter, currPage, conditions]);
 
   const pageCount = (dataLength) => {
@@ -69,6 +76,7 @@ const Search = () => {
 
   const handleFilterChange = (e, newFilter) => {
     setFilter(newFilter);
+    setCurrPage(1);
   };
 
   const handlePageChange = (e, page) => {
@@ -80,7 +88,7 @@ const Search = () => {
       <ContentBox>
         <Title>어떤 차가 궁금하신가요?</Title>
         <SelectBox />
-        <SearchButtons setConditions={setConditions} />
+        <SearchButtons setConditions={setConditions} setCurrPage={setCurrPage} />
         <Box sx={{ width: '100%', display: 'flex', flexDirection: 'column' }}>
           <Box
             sx={{
@@ -101,19 +109,20 @@ const Search = () => {
               총 <span style={{ fontSize: 16 }}>{dataLength}</span> 건
             </TotalNum>
           </Box>
-          {filterList.map((item, idx) => (
-            <TabPanel key={`tap-pannel-${item}`} value={filter} index={idx}>
-              <CarList items={items} />
-            </TabPanel>
-          ))}
+          {loading && <CircularProgress />}
+          {!loading &&
+            filterList.map((item, idx) => (
+              <TabPanel key={`tap-pannel-${item}`} value={filter} index={idx}>
+                <CarList items={items} />
+              </TabPanel>
+            ))}
           <Pagination
             sx={{ alignSelf: 'center' }}
-            boundaryCount={1}
-            siblingCount={2}
             color="primary"
             count={pageCount(dataLength)}
             shape="rounded"
             onChange={handlePageChange}
+            page={currPage}
           />
         </Box>
       </ContentBox>
