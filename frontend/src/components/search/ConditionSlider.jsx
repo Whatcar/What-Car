@@ -1,4 +1,3 @@
-import Box from '@mui/material/Box';
 import selectList from '../../data/selectList';
 import { useRecoilState } from 'recoil';
 import * as atom from '../../recoil/atom';
@@ -6,6 +5,7 @@ import MyAccordion, { MyAccordionSummary, MyAccordionDetails } from '../../css/M
 import { categoryDesc } from '../../data/description';
 import MySlider from '../../css/MySlider';
 import DescButton from './DescButton';
+import styled from 'styled-components';
 
 const getMarks = (condition) => {
   const cons = selectList[condition];
@@ -50,7 +50,27 @@ const ConditionSlider = ({ condition }) => {
         )}
       </MyAccordionSummary>
       <MyAccordionDetails>
-        <Box sx={{ width: '100%' }}>
+        <Box>
+          {condition === 'displacement' && (
+            <Desc>
+              <p>* 이해를 돕기 위한 차종별 평균 예시입니다</p>
+              <div>경형차</div>
+              <div>소형차</div>
+              <div>중형차</div>
+              <div>대형차</div>
+              <div />
+            </Desc>
+          )}
+          {condition === 'fuelEfficiency' && (
+            <Desc>
+              <p>* 이해를 돕기 위한 차종별 평균 예시입니다</p>
+              <div />
+              <div>대형차</div>
+              <div>경~중형차</div>
+              <div>하이브리드</div>
+              <div />
+            </Desc>
+          )}
           <MySlider
             defaultValue={0}
             step={null}
@@ -66,3 +86,24 @@ const ConditionSlider = ({ condition }) => {
 };
 
 export default ConditionSlider;
+
+const Box = styled.div`
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+`;
+
+const Desc = styled.div`
+  width: 90%;
+  display: flex;
+  flex-wrap: wrap;
+  font-size: ${({ theme }) => theme.fontSize.XS};
+  color: ${({ theme }) => theme.colors.black500};
+  p {
+    width: 100%;
+    margin-bottom: 0.75rem;
+  }
+  div {
+    width: 20%;
+  }
+`;
