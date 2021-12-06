@@ -1,45 +1,38 @@
 require('dotenv').config();
 const { location } = window;
 const appKey = process.env.REACT_APP_KAKAO_KEY;
-export const kakaoShare = (imageUrl) => {
-  //   const shareUrl = location.href;
-  const shareUrl = 'https://www.naver.com';
 
+export const kakaoShare = (
+  shareTitle = '왓카 | WhatCar',
+  shareDescription = '차가 궁금하다면, 왓카!',
+  imgUrl = 'http://localhost:3000/logo512.png',
+  link = location.href,
+  buttonTitle = '보러 가기',
+) => {
   if (window.Kakao) {
-    console.log('yes');
-    console.log(appKey);
     if (!window.Kakao.isInitialized()) {
       window.Kakao.init(appKey);
     }
-    // window.Kakao.Link.sendDefault({
-    //   objectType: 'feed',
-    //   content: {
-    //     title: 'WhatCar!',
-    //     description: '이 차 뭐징? 궁금하다면 찰칵 후 업로드!',
-    //     imageUrl: kakao,
-    //     link: {
-    //       webUrl: shareUrl,
-    //       mobileWebUrl: shareUrl,
-    //     },
-    //   },
-    //   buttons: [
-    //     {
-    //       title: '이 차 뭐징? 궁금하다면 찰칵 후 업로드!',
-    //       link: {
-    //         webUrl: shareUrl,
-    //         mobileWebUrl: shareUrl,
-    //       },
-    //     },
-    //   ],
-    // });
-    window.Kakao.Link.sendCustom({
-      templateId: 65266,
-      templateArgs: {
-        title: 'WhatCar?!',
-        description: '이 차 뭐징? 궁금하다면 찰칵 후 업로드!',
+    window.Kakao.Link.sendDefault({
+      objectType: 'feed',
+      content: {
+        title: shareTitle,
+        description: shareDescription,
+        imageUrl: imgUrl,
+        link: {
+          webUrl: link,
+          mobileWebUrl: link,
+        },
       },
+      buttons: [
+        {
+          title: buttonTitle,
+          link: {
+            webUrl: link,
+            mobileWebUrl: link,
+          },
+        },
+      ],
     });
-  } else {
-    console.log('no');
   }
 };
