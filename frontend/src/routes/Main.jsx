@@ -27,7 +27,6 @@ export default function Main() {
         slidesPerView={1}
         spaceBetween={30}
         mousewheel={true}
-        effect={'fade'}
         pagination={{
           clickable: true,
         }}
@@ -53,7 +52,7 @@ export default function Main() {
 
         <SwiperSlide style={{ display: 'flex', alignItems: 'center', marginBottom: 0 }}>
           <MainLayout>
-            <Section1 />
+            <Section1 swiper={swiper} />
           </MainLayout>
         </SwiperSlide>
         <SwiperSlide

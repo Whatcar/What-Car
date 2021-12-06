@@ -28,6 +28,14 @@ const useSrr = (direction = 'up', duration = 1, delay = 0) => {
         current.style.transitionDelay = `${delay}s`;
         current.style.opacity = 1;
         current.style.transform = 'translate3d(0, 0, 0)';
+      } else {
+        if (current) {
+          current.style.transitionProperty = 'all';
+          current.style.transitionDuration = `0s`;
+          current.style.transitionDelay = `0s`;
+          current.style.opacity = 0;
+          current.style.transform = handleDirection(direction);
+        }
       }
     },
     [delay, duration],
