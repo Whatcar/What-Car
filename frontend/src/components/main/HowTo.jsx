@@ -72,8 +72,8 @@ export default function HowTo() {
 }
 
 const HowToDiv = styled.div`
-  margin: 5rem auto;
-  width: 80%;
+  margin: 3rem auto;
+  width: 70%;
   background-color: white;
   padding: 2rem;
   border-radius: 15px;
@@ -108,7 +108,7 @@ const StepImg = styled.div`
 const VerticalLine = styled.div`
   border: ${(props) => (props.no ? '' : `1px solid ${({ theme }) => theme.colors.blueM}`)};
   width: 0px;
-  height: 70px;
+  height: 50px;
   margin-left: 65px;
   @media screen and (max-width: 480px) {
     height: 10px;
