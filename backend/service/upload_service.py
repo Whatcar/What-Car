@@ -15,10 +15,6 @@ from s3_connection import s3_connection
 from werkzeug.exceptions import abort
 from werkzeug.utils import secure_filename
 
-from service import pagination
-
-per_page_num = 9
-
 
 def pagination(query_list, num):
 
