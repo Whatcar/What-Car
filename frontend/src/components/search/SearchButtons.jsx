@@ -43,12 +43,13 @@ const ButtonBox = styled.div`
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   column-gap: 1rem;
+  margin-bottom: 2rem;
   @media screen and (max-width: 900px) {
     display: flex;
   }
 `;
 
 const buttonStyle = {
-  width: '100%',
+  width: '90%',
   fontSize: '1rem',
 };
