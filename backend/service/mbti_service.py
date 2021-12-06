@@ -1,8 +1,8 @@
-from models.mbti_result import *
+from models import MbtiResult, db
 from werkzeug.exceptions import abort
 
 
-def mbti_result(mbti):
+def get_mbti_result(mbti):
 
     total = MbtiResult.query.order_by(MbtiResult.count.desc())
     mbti_id_list = [mbti.type for mbti in total]

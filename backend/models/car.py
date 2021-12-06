@@ -26,7 +26,7 @@ from flask_restx import fields
 
 # 차 정보
 class Car(db.Model):
-    __tablename__ = "CAR"
+    __tablename__ = "car"
     id = db.Column(db.Integer, primary_key=True, nullable=False, autoincrement=True)
     name = db.Column(db.String(50), nullable=False)
     carisyou_url = db.Column(db.Text, nullable=True)
@@ -91,7 +91,7 @@ class Car(db.Model):
             "car_grade": self.car_grade,
         }
 
-    car_model = {
+    response_model = {
         "id": fields.Integer(description="차량 고유 아이디"),
         "name": fields.String(description="모델명"),
         "photolink": fields.String(description="이미지"),
@@ -114,7 +114,7 @@ class Car(db.Model):
         "fuel_efficiency_rating": fields.String(description="연비등급"),
     }
 
-    car_model_part = {
+    response_model_part = {
         "id": fields.String(required=True, description="차량 고유 아이디"),
         "name": fields.String(required=True, description="차량 모델명"),
         "photolink": fields.String(required=True, description="차량 이미지 링크"),
