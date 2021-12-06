@@ -5,12 +5,14 @@ import { useNavigate } from 'react-router';
 import useSrr from '../../utils/useSrr';
 import { blue } from '../../css/colors';
 import styled from 'styled-components';
+import ChevronRightRoundedIcon from '@mui/icons-material/ChevronRightRounded';
+import ArrowUpwardRoundedIcon from '@mui/icons-material/ArrowUpwardRounded';
 
 export default function Section4({ swiper }) {
   const navigate = useNavigate();
   return (
     <SectionWrapper>
-      <MainTitle {...useSrr('down')}>
+      <MainTitle {...useSrr('down', 1, 0.2)}>
         다른 사람들은
         <span style={{ color: blue.main }}> 어떤 차에 관심 있는지 </span>
         궁금해요!
@@ -22,6 +24,7 @@ export default function Section4({ swiper }) {
       </Desc>
       <Button
         variant="outlined"
+        startIcon={<ChevronRightRoundedIcon />}
         sx={{ padding: '10px 3rem', marginTop: '1rem' }}
         onClick={() => navigate('/gallary')}
         {...useSrr('down', 1, 1)}
@@ -38,6 +41,8 @@ export default function Section4({ swiper }) {
       >
         <Button
           variant="contained"
+          startIcon={<ArrowUpwardRoundedIcon />}
+          sx={{ padding: '10px 3rem', marginTop: '1rem' }}
           onClick={() => {
             swiper.slideTo(0);
             window.scrollTo(0, 0, 'smooth');

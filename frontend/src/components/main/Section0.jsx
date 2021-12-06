@@ -7,6 +7,7 @@ import pic2 from '../../img/main/2.svg';
 import pic3 from '../../img/main/3.svg';
 import pic4 from '../../img/main/4.svg';
 import { menu } from '../../css/fonts';
+import useSrr from '../../utils/useSrr';
 
 const introData = [
   {
@@ -46,9 +47,13 @@ const introData = [
 export default function Section0() {
   return (
     <SectionWrapper>
-      <SubTitle dark>차.알.못을 위한 자동차 검색 서비스, 왓카!</SubTitle>
-      <MainDesc dark>이런 사람들을 위해 만들었어요</MainDesc>
-      <PeopleIntro>
+      <SubTitle dark {...useSrr('down', 1, 0.2)}>
+        차.알.못을 위한 자동차 검색 서비스, 왓카!
+      </SubTitle>
+      <MainDesc dark {...useSrr('down', 1, 0.5)}>
+        이런 사람들을 위해 만들었어요
+      </MainDesc>
+      <PeopleIntro {...useSrr('up', 1, 1)}>
         {introData.map((item) => (
           <PersonIntro>
             <div>check!</div>
@@ -80,6 +85,7 @@ const PeopleIntro = styled.div`
 
 const PersonIntro = styled.div`
   flex: 1 1 0;
+  padding: 1rem;
   div {
     ${menu}
     color: ${blue.main};
