@@ -35,7 +35,7 @@ export const fontStyle = {
 `,
   body: `
   font-size: ${fontSize.M};
-  line-height: 30px;
+  line-height: 24px;
   font-family: 'SBAggroL';
 `,
   menu: `
@@ -45,7 +45,7 @@ export const fontStyle = {
 `,
   desc: `
   font-size: ${fontSize.S};
-  line-height: 15px;
+  line-height: 18px;
   font-family: 'SBAggroL';
 `,
 };
