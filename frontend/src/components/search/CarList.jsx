@@ -7,7 +7,11 @@ const CarList = ({ items }) => {
     if (!items) {
       return <div>검색중...</div>;
     } else if (items.length === 0) {
-      return <div>검색 결과가 없습니다.</div>;
+      return (
+        <NoResultBox>
+          <p>앗! 조건에 맞는 검색 결과가 없어요</p>
+        </NoResultBox>
+      );
     } else {
       const carItem = items.map((item) => {
         const { name, photolink, price, id, car_grade } = item;
@@ -34,6 +38,8 @@ const CarList = ({ items }) => {
 export default CarList;
 
 const CarBox = styled.div`
+  width: 100%;
+  height: 100%;
   position: relative;
   display: flex;
   justify-content: center;
@@ -45,4 +51,17 @@ const CarImg = styled.img`
   object-fit: contain;
   padding: 8px;
   box-sizing: border-box;
+`;
+
+const NoResultBox = styled.div`
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-self: center;
+  align-self: center;
+  justify-content: center;
+  align-items: center;
+  padding-top: 3rem;
+  color: ${({ theme }) => theme.colors.blueM};
+  ${({ theme }) => theme.fontStyle.menu};
 `;
