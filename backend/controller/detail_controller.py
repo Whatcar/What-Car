@@ -1,13 +1,13 @@
 from flask import request
 from flask_restx import Namespace, Resource
-from models.car import Car
-from service.detail_service import get_detail
+from models import Car
+from service import get_detail
 
 detail = Namespace("detail", path="/api")
 
 result = detail.model(
     "detail_result",
-    Car.car_model,
+    Car.response_model,
 )
 
 

@@ -1,17 +1,18 @@
 import MyAccordion, { MyAccordionSummary } from '../../css/MyAccordion';
 import { AccordionDetails, Chip } from '@mui/material';
 import styled from 'styled-components';
+import { useRecoilValue } from 'recoil';
+import { eachConditionSelector } from '../../recoil/selector';
 
 const style = {
   lineHeight: '30px',
   margin: '2px',
 };
 
-const SelectedConditions = ({ conditions }) => {
+const SelectedConditions = () => {
+  const recoilState = useRecoilValue(eachConditionSelector);
+  const conditions = recoilState.filter((item) => item !== '전체~' && item.length);
   const chipList = conditions.map((condition, idx) => {
-    const handleDelete = () => {
-      console.info('You clicked the delete icon.');
-    };
     return (
       <Chip
         key={`${condition}-${idx}`}
@@ -19,7 +20,6 @@ const SelectedConditions = ({ conditions }) => {
         label={condition}
         variant="outlined"
         color="primary"
-        // onDelete={handleDelete}
       />
     );
   });

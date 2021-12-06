@@ -1,14 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import { Button, Tabs, Tab, Box, Pagination } from '@mui/material';
+import { Tabs, Tab, Box, Pagination, CircularProgress } from '@mui/material';
 import SelectBox from '../components/search/SelectBox';
-import { getSearchCarList } from '../apis/seachAPI';
+import { getSearchCarList } from '../apis/searchAPI';
 import CarList from '../components/search/CarList';
-import { useRecoilState } from 'recoil';
-import conditionSelector from '../recoil/selector';
 import { getConditions } from '../utils/searchCondition';
 import Layout from '../components/Layout';
+import SearchButtons from '../components/search/SearchButtons';
+
+const filterList = ['최신순', '낮은 가격순', '높은 연비순'];
 
 const TabPanel = (props) => {
   const { children, value, index, ...other } = props;
@@ -40,16 +41,21 @@ const a11yProps = (index) => {
 };
 
 const Search = () => {
-  const [currPage, setCurrPage] = useState('1');
+  const [currPage, setCurrPage] = useState(1);
   const [items, setItems] = useState(null);
   const [filter, setFilter] = useState(0);
   const [dataLength, setDataLength] = useState(0);
-  const [recoilStates, setRecoilStates] = useRecoilState(conditionSelector);
   const [conditions, setConditions] = useState(getConditions());
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    loading ? console.log('loading') : console.log('loaded');
+  }, [loading]);
 
   useEffect(() => {
     const filterList = { 0: '출시일순', 1: '가격순', 2: '연비순' };
     console.log('SEARCH CONDITIONS', conditions);
+    setLoading(true);
     getSearchCarList(conditions, currPage, filterList[filter])
       .then(({ data }) => {
         const total = data[0].result_num;
@@ -60,6 +66,7 @@ const Search = () => {
       .catch((error) => {
         console.log('ERROR CHECK!', error);
       });
+    setLoading(false);
   }, [filter, currPage, conditions]);
 
   const pageCount = (dataLength) => {
@@ -67,22 +74,12 @@ const Search = () => {
     return pages;
   };
 
-  const handleSearchClick = (e) => {
-    console.log('ORIGIN CONDITIONS:', recoilStates);
-    const searchConditions = Object.keys(recoilStates);
-    searchConditions.forEach((con) => sessionStorage.setItem(con, recoilStates[con]));
-    setConditions(getConditions());
-  };
-
-  const handleResetClick = () => {
-    setRecoilStates();
-  };
-
-  const handleFilterChange = (event, newFilter) => {
+  const handleFilterChange = (e, newFilter) => {
     setFilter(newFilter);
+    setCurrPage(1);
   };
 
-  const handlePageChange = (_, page) => {
+  const handlePageChange = (e, page) => {
     setCurrPage(page);
   };
 
@@ -91,20 +88,7 @@ const Search = () => {
       <ContentBox>
         <Title>어떤 차가 궁금하신가요?</Title>
         <SelectBox />
-        <ButtonBox>
-          <Button
-            style={{ gridColumn: '2/ 3' }}
-            sx={buttonStyle}
-            variant="contained"
-            disableElevation
-            onClick={handleSearchClick}
-          >
-            조건 검색
-          </Button>
-          <Button sx={buttonStyle} variant="outlined" onClick={handleResetClick}>
-            초기화
-          </Button>
-        </ButtonBox>
+        <SearchButtons setConditions={setConditions} setCurrPage={setCurrPage} />
         <Box sx={{ width: '100%', display: 'flex', flexDirection: 'column' }}>
           <Box
             sx={{
@@ -117,31 +101,28 @@ const Search = () => {
             }}
           >
             <Tabs value={filter} onChange={handleFilterChange} aria-label="basic tabs example">
-              <Tab label="최신순" {...a11yProps(0)} />
-              <Tab label="낮은 가격순" {...a11yProps(1)} />
-              <Tab label="높은 연비순" {...a11yProps(2)} />
+              {filterList.map((item, idx) => (
+                <Tab key={item} label={item} {...a11yProps(idx)} />
+              ))}
             </Tabs>
             <TotalNum>
               총 <span style={{ fontSize: 16 }}>{dataLength}</span> 건
             </TotalNum>
           </Box>
-          <TabPanel value={filter} index={0}>
-            <CarList items={items} />
-          </TabPanel>
-          <TabPanel value={filter} index={1}>
-            <CarList items={items} />
-          </TabPanel>
-          <TabPanel value={filter} index={2}>
-            <CarList items={items} />
-          </TabPanel>
+          {loading && <CircularProgress />}
+          {!loading &&
+            filterList.map((item, idx) => (
+              <TabPanel key={`tap-pannel-${item}`} value={filter} index={idx}>
+                <CarList items={items} />
+              </TabPanel>
+            ))}
           <Pagination
             sx={{ alignSelf: 'center' }}
-            boundaryCount={1}
-            siblingCount={2}
             color="primary"
             count={pageCount(dataLength)}
             shape="rounded"
             onChange={handlePageChange}
+            page={currPage}
           />
         </Box>
       </ContentBox>
@@ -162,24 +143,9 @@ const Title = styled.p`
   margin-bottom: 1.5rem;
 `;
 
-const buttonStyle = {
-  width: '100%',
-  fontSize: '1rem',
-};
-
 const TotalNum = styled.span`
   font-size: ${({ theme }) => theme.fontSize.S};
   span {
     font-size: ${({ theme }) => theme.fontSize.M};
-  }
-`;
-
-const ButtonBox = styled.div`
-  width: 100%;
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  column-gap: 1rem;
-  @media screen and (max-width: 900px) {
-    display: flex;
   }
 `;

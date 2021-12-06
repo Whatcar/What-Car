@@ -34,6 +34,8 @@ const CarList = ({ items }) => {
 export default CarList;
 
 const CarBox = styled.div`
+  width: 100%;
+  height: 100%;
   position: relative;
   display: flex;
   justify-content: center;
