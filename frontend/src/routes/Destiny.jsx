@@ -10,34 +10,45 @@ export default function Destiny() {
   const navigate = useNavigate();
   return (
     <Layout>
-      <TestWrapper>
-        <TestButton onClick={() => navigate('/worldcup/test')}>
-          <Image src={nextToCar} />
-          <SubTitle>외관만큼은 내 이상형인 차는?</SubTitle>
-          <Desc top={2}>
-            가격, 연비, 연식 기준 다~ 내려놓고, <br />
-            오직 외관만 보고 이상형을 찾아봐요!
-          </Desc>
-        </TestButton>
-        <TestButton onClick={() => navigate('/mbti/test')}>
-          <Image src={blackCar} />
-          <SubTitle>나의 운전 성향과 찰떡인 차는?</SubTitle>
-          <Desc top={2}>
-            운전 성향을 검사하고, <br />
-            나와 어울리는 차가 무엇인지 알아봐요!
-          </Desc>
-        </TestButton>
-      </TestWrapper>
+      <Box>
+        <Title>
+          <span>운명의 차</span> 찾기
+        </Title>
+        <TestWrapper>
+          <TestButton onClick={() => navigate('/worldcup/test')}>
+            <Image src={nextToCar} />
+            <SubTitle>외관만큼은 내 이상형인 차는?</SubTitle>
+            <Desc top={2}>
+              가격, 연비, 연식 기준 다~ 내려놓고, <br />
+              오직 외관만 보고 이상형을 찾아봐요!
+            </Desc>
+          </TestButton>
+          <TestButton onClick={() => navigate('/mbti/test')}>
+            <Image src={blackCar} />
+            <SubTitle>나의 운전 성향과 찰떡인 차는?</SubTitle>
+            <Desc top={2}>
+              운전 성향을 검사하고, <br />
+              나와 어울리는 차가 무엇인지 알아봐요!
+            </Desc>
+          </TestButton>
+        </TestWrapper>
+      </Box>
     </Layout>
   );
 }
+
+const Box = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+`;
 
 const TestWrapper = styled.div`
   display: flex;
   flex-wrap: wrap;
   flex: 1 1 0;
   justify-content: space-between;
-  margin-top: 15vh;
 `;
 
 const TestButton = styled.div`
@@ -62,5 +73,13 @@ const Image = styled.img`
   width: 80%;
   @media screen and (max-width: 480px) {
     display: none;
+  }
+`;
+
+const Title = styled.p`
+  ${({ theme }) => theme.fontStyle.mainTitle}
+  margin-bottom: 1rem;
+  span {
+    color: ${({ theme }) => theme.colors.blueM};
   }
 `;
