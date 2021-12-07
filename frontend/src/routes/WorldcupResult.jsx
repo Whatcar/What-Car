@@ -54,8 +54,9 @@ export default function WorldcupResult() {
         <div style={{ position: 'relative' }}>
           {!loading ? (
             <SubTitle center>
-              이 차는 전체의 <span style={{ color: colors.blueM }}>{result.rate}%</span>가
-              선택했어요!
+              멋진 취향을 가지셨네요!
+              <br />이 차는 전체의 <span style={{ color: colors.blueM }}>{result.rate}%</span>가
+              선택했어요
             </SubTitle>
           ) : (
             <Skeleton height="4rem" width="50%" />
