@@ -1,4 +1,4 @@
-from models import Car, CarColor, Gallery
+from models import Car, CarColor, Gallary
 from werkzeug.exceptions import abort
 
 
@@ -30,7 +30,7 @@ def pagination(query_list, num):
     else:
         query_list = query_list[range_start : per_page * num]
 
-    car_list = [Gallery.to_dict(car) for car in query_list]
+    car_list = [Gallary.to_dict(car) for car in query_list]
 
     result = {"result_num": query_data_num, "gallery_content": car_list}
     return result
@@ -50,8 +50,8 @@ def get_same_id_gallery_img(id, num):
 
     # content = Temporary_Ai_Car.to_dict(data)
     # most = content["most_similar_car"]
-    same_id_gallery = Gallery.query.filter(Gallery.car_id == id)
-    # same_id_gallery2 = [Gallery.to_dict(content) for content in same_id_gallery]
+    same_id_gallery = Gallary.query.filter(Gallary.car_id == id)
+    # same_id_gallery2 = [Gallary.to_dict(content) for content in same_id_gallery]
     gallery_contents = pagination(same_id_gallery, num)
     # print(same_id_gallery2)
     return gallery_contents
