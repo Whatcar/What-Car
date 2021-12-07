@@ -7,9 +7,10 @@ import time
 import cv2
 import numpy as np
 import requests
+
 # from ai import detection, label, model
 from config import aws_s3
-from models import Car, Gallery, Temporary_Ai_Car, db
+from models import Car, Temporary_Ai_Car, db
 from PIL import Image
 from s3_connection import s3_connection
 from werkzeug.exceptions import abort

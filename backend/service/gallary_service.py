@@ -22,13 +22,13 @@ def get_gallary_cars(car_id):
             }
         )
 
-    return {"cars": result}, 200
+    return {"result_num": len(result), "cars": result}, 200
 
 
 def post_gallary_cars(info):
     try:
         boxing_car = info["boxing_car"]
-        pred_val = info["pred_val"]
+        similarity = info["similarity"]
         car_id = info["car_id"]
         nickname = info["nickname"]
         pw = info["password"]
@@ -36,7 +36,7 @@ def post_gallary_cars(info):
         new_gallary = Gallary(
             car_id=car_id,
             car_url=boxing_car,
-            pred_val=pred_val,
+            similarity=similarity,
             nickname=nickname,
             password=pw,
         )

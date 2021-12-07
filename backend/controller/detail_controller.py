@@ -1,6 +1,6 @@
 from flask import request
 from flask_restx import Namespace, Resource
-from models import Car, Gallery
+from models import Car, Gallary
 from service import get_detail, get_same_id_gallery_img
 
 detail = Namespace("detail", path="/api")
@@ -10,7 +10,7 @@ result = detail.model(
     Car.response_model,
 )
 
-gallery_result = detail.model("detail_gallery_result", Gallery.response_model)
+gallery_result = detail.model("detail_gallery_result", Gallary.response_model)
 
 
 @detail.doc(params={"id": "차량의 고유 아이디"})

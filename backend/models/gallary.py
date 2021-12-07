@@ -14,12 +14,11 @@ class Gallary(db.Model):
     password = db.Column(db.String(255), nullable=False)
 
     def __init__(
-        self, car_id: int, car_url: str, pred_val: float, nickname: str, password: str
+        self, car_id: int, car_url: str, similarity: float, nickname: str, password: str
     ):
         self.car_id = car_id
         self.car_url = car_url
-        # self.pred_val = pred_val
-        self.similarity = pred_val
+        self.similarity = similarity
         self.nickname = nickname
         self.password = bcrypt.generate_password_hash(password)
 
@@ -55,12 +54,13 @@ class Gallary(db.Model):
         ),
     }
     response_model = {
+        "result_num": fields.Integer(required=True, description="고유 아이디 일치 갤러리 게시물 개수", example=1),
         "car_id": fields.Integer(required=True, description="차량 고유 아이디", example=1),
         "car_url": fields.String(
             required=True,
-            description="박스가 그려진 차량 이미지 url",
+            description="차량 분석 이미지 링크",
             example="https://aws.s3.car",
         ),
-        "pred_val": fields.Float(required=True, description="차량을 예측한 값", example=0.99),
-        "nickname": fields.String(required=True, description="닉네임", example="왓카"),
+        "similarity": fields.Float(required=True, description="차량 분석 유사도", example=0.99),
+        "nickname": fields.String(required=True, description="업로드한 사용자의 닉네임", example="왓카"),
     }
