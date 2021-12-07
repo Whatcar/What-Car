@@ -50,8 +50,11 @@ export const getConditions = () => {
   const conditions = {};
 
   conditionsName.forEach((keyName) => {
-    if (['cost', 'displacement', 'fuelEfficiency'].includes(keyName)) {
-      const condition = sessionStorage.getItem(keyName);
+    if (['displacement', 'fuelEfficiency'].includes(keyName)) {
+      const condition = sessionStorage.getItem(keyName) ? sessionStorage.getItem(keyName) : '0,5';
+      conditions[keyName] = parseCondition(keyName, condition);
+    } else if (keyName === 'cost') {
+      const condition = sessionStorage.getItem(keyName) ? sessionStorage.getItem(keyName) : '0,5';
       conditions[keyName] = parseCondition(keyName, condition);
     } else if (keyName === 'method') {
       const condition = sessionStorage.getItem(keyName);
@@ -63,14 +66,14 @@ export const getConditions = () => {
       }
     } else if (keyName === 'fuel') {
       const condition = sessionStorage.getItem(keyName);
-      const conditionLength = condition.split(',');
+      const conditionLength = condition ? condition.split(',') : [];
       if (condition && conditionLength.length < 9) {
         conditions[keyName] = condition;
       } else {
         conditions[keyName] = '전체';
       }
     } else {
-      conditions[keyName] = sessionStorage.getItem(keyName);
+      conditions[keyName] = sessionStorage.getItem(keyName) ? sessionStorage.getItem(keyName) : '';
     }
   });
   return conditions;

@@ -3,9 +3,18 @@ import styled from 'styled-components';
 import { Divider, Grid, Tooltip } from '@mui/material';
 
 export default function CarDetail({ detail, colors }) {
+  const isColor = () => {
+    if (colors) {
+      if (colors.length && colors[0].name) {
+        return true;
+      }
+    }
+    return false;
+  };
+
   return (
     <InfoBox>
-      {colors && (
+      {isColor() && (
         <div style={{ width: '100%' }}>
           <p>색상</p>
           <Divider style={{ width: '100%', marginBottom: '1rem' }} />
@@ -49,6 +58,7 @@ const InfoBox = styled.div`
   align-items: flex-start;
   text-align: left;
   row-gap: 3rem;
+  margin-bottom: 5rem;
   p {
     ${({ theme }) => theme.fontStyle.subTitle}
   }
