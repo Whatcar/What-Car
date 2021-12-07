@@ -58,11 +58,9 @@ export default function SearchDetail() {
           description="차를 자세히 보고 싶으신가요?"
           imgUrl={carData.photolink}
           buttonTitle="보러 가기"
-          linkTo="/"
-          additionalButton={<FeedbackButton />}
+          linkTo="/search"
+          restartTitle="목록으로 돌아가기"
         />
-        {!isFeedback && <Feedback setIsFeedback={setIsFeedback} />}
-        {state && <CarRecommendation findMore={mockData} />}
         <DisqusFrame showMore={state ? true : false}>
           <Disqus.DiscussionEmbed shortname={disqusShortname} config={disqusConfig} />
         </DisqusFrame>

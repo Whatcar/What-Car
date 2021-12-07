@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import { Tabs, Tab, Box, Pagination, Divider, CircularProgress } from '@mui/material';
+import { Tabs, Tab, Box, Pagination, Divider } from '@mui/material';
 import SelectBox from '../components/search/SelectBox';
 import { getSearchCarList } from '../apis/searchAPI';
 import CarList from '../components/search/CarList';
@@ -10,6 +10,7 @@ import Layout from '../components/Layout';
 import SearchButtons from '../components/search/SearchButtons';
 import { ReactComponent as QuestionIcon } from '../img/search/desc.svg';
 import { colors } from '../css/theme';
+import Loading from '../components/Loading';
 
 const filterList = ['최신순', '낮은 가격순', '높은 연비순'];
 
@@ -126,7 +127,7 @@ const Search = () => {
               총 <span style={{ fontSize: 16 }}>{dataLength}</span> 건
             </TotalNum>
           </Box>
-          {isLoading && <CircularProgress />}
+          {isLoading && <Loading />}
           {!isLoading &&
             items &&
             filterList.map((item, idx) => (

@@ -7,7 +7,7 @@ import { useNavigate } from 'react-router';
 export default function Ranking({ ranking }) {
   const navigate = useNavigate();
   const handleClick = (carId) => {
-    navigate(`/result/${carId}`);
+    navigate(`/search/detail/${carId}`);
   };
   console.log(ranking);
   return (
