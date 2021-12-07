@@ -1,6 +1,6 @@
 from db_connect import db
 from flask import abort
-from models import Gallary
+from models import Car, Gallary
 from werkzeug.exceptions import HTTPException
 
 
@@ -15,10 +15,11 @@ def get_gallary_cars(off_set, limit_num):
         abort(404, "no data")
     result = list()
     for d in data:
+        car_data = Car.query.filter_by(id=d.car_id).first()
         result.append(
             {
                 "gallary_id": d.id,
-                "car_id": d.car_id,
+                "car_name": car_data.name,
                 "similarity": d.similarity,
                 "car_url": d.car_url,
                 "nickname": d.nickname,
