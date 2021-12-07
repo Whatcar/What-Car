@@ -1,11 +1,12 @@
 import { LinearProgress } from '@mui/material';
 import styled from 'styled-components';
+import carIcon from '../img/carIcon.png';
 
 const ProgressBar = ({ progress }) => {
   return (
     <>
       <ProgressCar progress={progress}>
-        <img src="/logo512.png" />
+        <img src={carIcon} />
       </ProgressCar>
       <LinearProgress variant="determinate" color="primary" value={progress} />
     </>
@@ -19,9 +20,8 @@ const ProgressCar = styled.div`
   transition: width 0.4s linear;
   display: flex;
   justify-content: flex-end;
-  padding-left: 1rem;
+  padding-left: 2rem;
   img {
-    width: 2rem;
-    transform: scaleX(-1);
+    height: 1rem;
   }
 `;
