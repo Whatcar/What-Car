@@ -3,23 +3,20 @@ import styled from 'styled-components';
 import { useNavigate } from 'react-router';
 import { Desc } from '../../css/mainStyles';
 import { Button } from '@mui/material';
-import { blue } from '../../css/colors';
 
 export default function Car({ item }) {
   const navigate = useNavigate();
   const onButtonClick = (pageId) => {
     navigate(`/result/${pageId}`);
   };
+  console.log(item);
   return (
     <CarCard>
-      <img src={item.carImg} height="50%" />
-      <p style={{ fontFamily: 'SBAggroM' }}>{item.carName}</p>
-      <Desc>{item.carPrice}</Desc>
-      <Button
-        variant="contained"
-        sx={{ backgroundColor: blue.main, color: 'white' }}
-        onClick={() => onButtonClick(item.details)}
-      >
+      <Percentage>{item.similarity.toFixed(2)}%</Percentage>
+      <img src={item.photolink} height="50%" />
+      <p style={{ fontFamily: 'SBAggroM' }}>{item.name}</p>
+      <Desc>{item.price}</Desc>
+      <Button variant="outlined" onClick={() => onButtonClick(item.id)}>
         자세히 보기
       </Button>
     </CarCard>
@@ -29,6 +26,7 @@ export default function Car({ item }) {
 const CarCard = styled.div`
   width: 200px;
   height: 240px;
+  position: relative;
   margin: 5px;
   padding: 1rem;
   box-sizing: border-box;
@@ -56,4 +54,16 @@ const CarCard = styled.div`
   button {
     display: none;
   }
+`;
+
+const Percentage = styled.div`
+  position: absolute;
+  width: 50px;
+  height: 50px;
+  top: 10px;
+  left: 10px;
+  border-radius: 50%;
+  border: 1px solid black;
+  line-height: 50px;
+  font-size: 0.8rem;
 `;
