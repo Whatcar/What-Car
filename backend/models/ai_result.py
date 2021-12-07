@@ -4,9 +4,9 @@ from db_connect import db
 from flask_restx import fields
 
 
-# 임시 AI 처리 결과 저장 정보
-class Temporary_Ai_Car(db.Model):
-    __tablename__ = "temporary_ai_car"
+# AI 처리 결과 저장 정보
+class Ai_Result(db.Model):
+    __tablename__ = "ai_result"
     id = db.Column(db.Integer, primary_key=True, nullable=False, autoincrement=True)
     most_similar_car = db.Column(db.String(255), nullable=False)
     less_similar_cars = db.Column(db.String(255), nullable=True)
