@@ -1,12 +1,14 @@
 import styled from 'styled-components';
-import { Grid, CircularProgress } from '@mui/material';
+import { Grid } from '@mui/material';
 import CarHover from './CarHover';
+import person from '../../img/main/3.svg';
 
 const CarList = ({ items }) => {
   const carItems = () => {
     if (!items.length) {
       return (
         <NoResultBox>
+          <img src={person} />
           <p>앗! 조건에 맞는 검색 결과가 없어요</p>
         </NoResultBox>
       );

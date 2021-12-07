@@ -1,35 +1,41 @@
-import { Button } from '@mui/material';
 import React from 'react';
 import styled from 'styled-components';
-import { blue } from '../../css/colors';
 import { MainTitle } from '../../css/mainStyles';
 import Car from './Car';
 
 export default function CarRecommendation({ findMore }) {
+  console.log(findMore);
   return (
-    <>
-      <RecommendWrapper>
-        <MainTitle white shadow>
-          이런 차들은 어떠신가요?
+    <RecommendWrapper>
+      <MainLayout>
+        <MainTitle blue shadow>
+          사진과 유사한 다른 차들이에요
         </MainTitle>
-        <Cars>
-          {findMore.map((item, idx) => (
-            <Car key={`detail-${idx}`} item={item}></Car>
-          ))}
-        </Cars>
-      </RecommendWrapper>
-    </>
+        {findMore['less_car_1_detail'] && (
+          <Cars>
+            {[1, 2, 3, 4].map((item) => (
+              <Car key={`detail-${item}`} item={findMore[`less_car_${item}_detail`]}></Car>
+            ))}
+          </Cars>
+        )}
+      </MainLayout>
+    </RecommendWrapper>
   );
 }
 
 const RecommendWrapper = styled.div`
-  background-color: ${blue.main};
-  box-shadow: inset 0 5px 10px rgba(0, 0, 0, 0.2);
   padding: 5rem 0;
   margin: 5rem 0;
   width: 100%;
-  position: absolute;
-  left: 0;
+`;
+
+const MainLayout = styled.div`
+  width: 66%;
+  margin: auto;
+
+  @media screen and (max-width: 480px) {
+    width: 85%;
+  }
 `;
 
 const Cars = styled.div`

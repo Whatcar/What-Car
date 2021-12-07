@@ -32,7 +32,7 @@ def pagination(query_list, num):
 
     car_list = [Gallary.to_dict(car) for car in query_list]
 
-    result = {"result_num": query_data_num, "gallery_content": car_list}
+    result = {"result_num": query_data_num, "gallary_content": car_list}
     return result
 
 
@@ -50,8 +50,8 @@ def get_same_id_gallary_img(id, num):
 
     # content = Temporary_Ai_Car.to_dict(data)
     # most = content["most_similar_car"]
-    same_id_gallery = Gallary.query.filter(Gallary.car_id == id)
-    # same_id_gallery2 = [Gallary.to_dict(content) for content in same_id_gallery]
-    gallery_contents = pagination(same_id_gallery, num)
-    # print(same_id_gallery2)
-    return gallery_contents
+    same_id_gallary = Gallary.query.filter(Gallary.car_id == id)
+    # same_id_gallary2 = [Gallary.to_dict(content) for content in same_id_gallary]
+    gallary_contents = pagination(same_id_gallary, num)
+    # print(same_id_gallary2)
+    return gallary_contents
