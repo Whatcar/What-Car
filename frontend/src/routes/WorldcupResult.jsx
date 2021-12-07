@@ -11,6 +11,8 @@ import Layout from '../components/Layout';
 import { colors } from '../css/theme';
 
 export default function WorldcupResult() {
+  const PATH = process.env.REACT_APP_BACKEND_URL;
+
   const params = useParams();
   const carId = params.id;
   const [result, setResult] = useState({});
@@ -19,12 +21,11 @@ export default function WorldcupResult() {
   const navigate = useNavigate();
   useEffect(() => {
     setLoading(true);
-    axios
-      .get('http://localhost:5000/api/worldcup/result', { params: { id: carId } })
-      .then((res) => {
-        setResult(res.data[0]);
-        setRank(res.data[1].slice(0, 3));
-      });
+    axios.get(`${PATH}/api/worldcup/result`, { params: { id: carId } }).then((res) => {
+      console.log(res.data);
+      setResult(res.data[0]);
+      setRank(res.data[1].slice(0, 3));
+    });
     const timer = setTimeout(() => {
       setLoading(false);
     }, 1300);
@@ -64,7 +65,13 @@ export default function WorldcupResult() {
             <Skeleton height="4rem" width="50%" />
           )}
           {!loading ? <Ranking ranking={rank} /> : <Skeleton width="100%" height="30rem" />}
-          <ShareButton url="worldcup" />
+          <ShareButton
+            title={`당신의 차 이상형은?`}
+            description={`${result.name}입니다!`}
+            imgUrl={result.photolink}
+            buttonTitle="🚘 결과 자세히 보러가기 🚘"
+            linkTo="/worldcup/test"
+          />
         </div>
       </ResultWrapper>
     </Layout>

@@ -11,6 +11,7 @@ export default function ShareButton({
   buttonTitle,
   linkTo,
   additionalButton,
+  buttonText,
 }) {
   return (
     <Grid container spacing={2} sx={{ width: ['100%', '50%'], margin: 'auto' }}>
@@ -26,7 +27,7 @@ export default function ShareButton({
         <LinkShareButton />
       </Grid>
       <Grid item xs={12}>
-        <RestartButton linkTo={linkTo} />
+        <RestartButton linkTo={linkTo} buttonText={buttonText} />
       </Grid>
       <Grid item xs={12}>
         {additionalButton}
