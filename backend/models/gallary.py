@@ -37,6 +37,9 @@ class Gallary(db.Model):
         }
 
     post_gallary = {
+        "ai_db_id": fields.Integer(
+            required=True, description="AI DB 고유 아이디", example=1
+        ),
         "car_id": fields.Integer(required=True, description="차량 고유 아이디", example=1),
         "car_url": fields.String(
             required=True,
@@ -64,7 +67,9 @@ class Gallary(db.Model):
         "result_num": fields.Integer(
             required=True, description="고유 아이디 일치 갤러리 게시물 개수", example=1
         ),
-        "car_id": fields.Integer(required=True, description="차량 고유 아이디", example=1),
+        "car_name": fields.String(
+            required=True, description="차량 이름", example="2021 벤츠"
+        ),
         "car_url": fields.String(
             required=True,
             description="차량 분석 이미지 링크",
