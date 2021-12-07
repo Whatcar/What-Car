@@ -52,7 +52,8 @@ export default function Result() {
           title={`이 차는 ${carData.name}입니다.`}
           description="차를 자세히 보고 싶으신가요?"
           imgUrl={carData.photolink}
-          buttonTitle="보러 가기"
+          buttonTitle="🚘 차 보러 가기 🚘"
+          buttonText="다시 검색하기"
           linkTo="/"
           additionalButton={<FeedbackButton />}
         />

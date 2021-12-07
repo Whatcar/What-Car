@@ -33,7 +33,8 @@ export default function Gallary() {
     // setData((prev) => [...prev, ...itemData]);
     // setLoading(false);
     setCount((prev) => prev + 1);
-    setState((prev) => ({ item: prev.item.concat(itemData), isLoading: false }));
+    setState((prev) => ({ ...prev, item: prev.item.concat(itemData) }));
+    setTimeout(() => setState((prev) => ({ ...prev, isLoading: false })), 500);
   };
 
   const [_, setRef] = useInfinity(async (entry, observer) => {
@@ -121,7 +122,12 @@ export default function Gallary() {
           <Loading />
         </div>
       )}
-      {!state.isLoading && <div ref={setRef} style={{ width: '100%', height: '150px' }}></div>}
+      {!state.isLoading && (
+        <div
+          ref={setRef}
+          style={{ width: '100%', height: '150px', border: '1px solid black' }}
+        ></div>
+      )}
       {/* <ImageWrapper>
         <ImageList variant="masonry" cols={window.innerWidth >= 480 ? 3 : 2} gap={12}>
           {data.map((item, idx) => (

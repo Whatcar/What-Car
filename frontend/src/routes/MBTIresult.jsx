@@ -64,7 +64,13 @@ export default function MBTIresult() {
             <PieChart mbti={state} special={type} />
           </>
         )}
-        <ShareButton url="mbti" />
+        <ShareButton
+          title={`당신은 ${data.carDesc} ${data.brand}와 찰떡이에요!`}
+          description={`${data.personality} 성격을 가지고 있으시네요.`}
+          imgUrl={data.img}
+          buttonTitle="🚘 결과 자세히 보러가기 🚘"
+          linkTo="/mbti/test"
+        />
       </ResultWrapper>
     </Layout>
   );

@@ -62,7 +62,13 @@ export default function WorldcupResult() {
             <Skeleton height="4rem" width="50%" />
           )}
           {!loading ? <Ranking ranking={rank} /> : <Skeleton width="100%" height="30rem" />}
-          <ShareButton url="worldcup" />
+          <ShareButton
+            title={`당신의 차 이상형은?`}
+            description={`${result.name}입니다!`}
+            imgUrl={result.photolink}
+            buttonTitle="🚘 결과 자세히 보러가기 🚘"
+            linkTo="/worldcup/test"
+          />
         </div>
       </ResultWrapper>
     </Layout>
