@@ -64,7 +64,13 @@ export default function Result() {
           buttonTitle="🚘 차 보러 가기 🚘"
           buttonText="다시 검색하기"
           linkTo="/"
-          additionalButton={<FeedbackButton />}
+          additionalButton={
+            <FeedbackButton
+              carId={carData.id}
+              carUrl={carData.most_car_url}
+              similarity={carData.similarity}
+            />
+          }
         />
         {lessCar && <CarRecommendation findMore={lessCar} />}
         <Disqus.DiscussionEmbed shortname={disqusShortname} config={disqusConfig} />
