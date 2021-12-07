@@ -1,12 +1,10 @@
 import styled from 'styled-components';
-import { Grid } from '@mui/material';
+import { Grid, CircularProgress } from '@mui/material';
 import CarHover from './CarHover';
 
 const CarList = ({ items }) => {
   const carItems = () => {
-    if (!items) {
-      return <div>검색중...</div>;
-    } else if (items.length === 0) {
+    if (!items.length) {
       return (
         <NoResultBox>
           <p>앗! 조건에 맞는 검색 결과가 없어요</p>

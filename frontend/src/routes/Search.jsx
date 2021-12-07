@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import { Tabs, Tab, Box, Pagination, CircularProgress, Divider } from '@mui/material';
+import { Tabs, Tab, Box, Pagination, Divider, CircularProgress } from '@mui/material';
 import SelectBox from '../components/search/SelectBox';
 import { getSearchCarList } from '../apis/searchAPI';
 import CarList from '../components/search/CarList';
@@ -53,23 +53,25 @@ const Search = () => {
   const [filter, setFilter] = useState(0);
   const [dataLength, setDataLength] = useState(0);
   const [conditions, setConditions] = useState(getConditions());
-  const [loading, setLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
-    const filterList = { 0: '출시일순', 1: '가격순', 2: '연비순' };
-    console.log('SEARCH CONDITIONS', conditions);
-    setLoading(true);
-    getSearchCarList(conditions, currPage, filterList[filter])
-      .then(({ data }) => {
-        const total = data[0].result_num;
-        const cars = data[1];
+    const getCarlist = async () => {
+      const filterList = { 0: '출시일순', 1: '가격순', 2: '연비순' };
+      setIsLoading(true);
+      try {
+        const carlist = await getSearchCarList(conditions, currPage, filterList[filter]);
+        const total = carlist.data[0].result_num;
+        const cars = carlist.data[1];
         setDataLength(total);
         setItems(cars);
-      })
-      .catch((error) => {
+      } catch (error) {
         console.log('ERROR CHECK!', error);
-      });
-    setLoading(false);
+      }
+      setIsLoading(false);
+    };
+
+    getCarlist();
   }, [filter, currPage, conditions]);
 
   const pageCount = (dataLength) => {
@@ -96,8 +98,9 @@ const Search = () => {
           원하는 자동차의 사양을 선택해주세요.{' '}
           <span>아무것도 선택하지 않는 경우 ‘전체'가 적용</span>됩니다.{' '}
           <QuestionIcon style={iconStyle} />
-          아이콘을 클릭하면 해당 용어에 대한 설명을 볼 수 있습니다. 버튼은 그림을 클릭하면 바로 조건
-          선택이 가능하며, <QuestionIcon style={iconStyle} />
+          아이콘을 클릭하면 해당 용어에 대한 설명을 볼 수 있습니다.
+          <br /> 버튼은 그림을 클릭하면 바로 조건 선택이 가능하며,{' '}
+          <QuestionIcon style={iconStyle} />
           아이콘이 있는 경우 이름을 클릭하면 설명을 볼 수 있습니다.
         </Desc>
         <Divider style={{ width: '100%' }} />
@@ -123,8 +126,9 @@ const Search = () => {
               총 <span style={{ fontSize: 16 }}>{dataLength}</span> 건
             </TotalNum>
           </Box>
-          {loading && <CircularProgress />}
-          {!loading &&
+          {isLoading && <CircularProgress />}
+          {!isLoading &&
+            items &&
             filterList.map((item, idx) => (
               <TabPanel key={`tap-pannel-${item}`} value={filter} index={idx}>
                 <CarList items={items} />
@@ -163,7 +167,7 @@ const Title = styled.p`
 `;
 
 const Desc = styled.p`
-  ${({ theme }) => theme.fontStyle.body}
+  ${({ theme }) => theme.fontStyle.desc}
   margin-bottom: 1.2rem;
   span {
     color: ${({ theme }) => theme.colors.blueM};
