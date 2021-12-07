@@ -37,6 +37,9 @@ class Gallary(db.Model):
         }
 
     post_gallary = {
+        "ai_db_id": fields.Integer(
+            required=True, description="AI DB 고유 아이디", example=1
+        ),
         "car_id": fields.Integer(required=True, description="차량 고유 아이디", example=1),
         "car_url": fields.String(
             required=True,
