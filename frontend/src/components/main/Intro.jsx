@@ -156,7 +156,7 @@ export default function Intro() {
             >
               사용법을 모르겠다면?
             </Desc>
-            <Modal open={open} onClose={handleClose}>
+            <Modal open={open} onClose={handleClose} sx={{ zIndex: 1050 }}>
               <HowTo />
             </Modal>
           </div>
