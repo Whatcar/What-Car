@@ -1,5 +1,6 @@
 from flask import request
 from flask_restx import Namespace, Resource, fields
+from models import Car
 from service import get_ai_cars_detail, get_upload_result
 from werkzeug.datastructures import FileStorage
 
@@ -8,14 +9,15 @@ upload = Namespace("upload", path="/api")
 parser = upload.parser()
 parser.add_argument("file", type=FileStorage, location="files")
 result = upload.model(
-    "upload_result", {"id": fields.String(required=True, description="차량 고유 아이디")}
+    "post_upload_result", {"id": fields.String(required=True, description="차량 고유 아이디")}
 )
+get_result = upload.model("get_upload_result", Car.response_model_upload)
 
 
 @upload.route("/upload")
 class Upload(Resource):
     @upload.doc(params={"id": "차량의 임시 DB 고유 아이디"})
-    @upload.response(200, "Success", result)
+    @upload.response(200, "Success", get_result)
     @upload.response(404, "해당 url이 만료되었습니다.")
     def get(self):
         """해당 자동차 분석 결과의 고유한 DB id값의 상세 정보를 가져옵니다."""
