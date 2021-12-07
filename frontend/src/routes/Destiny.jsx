@@ -2,8 +2,8 @@ import React from 'react';
 import Layout from '../components/Layout';
 import styled from 'styled-components';
 import { MainDesc, SubTitle, Desc } from '../css/mainStyles';
-import nextToCar from '../img/mbti/nextToCar.svg';
-import blackCar from '../img/mbti/blackCar.svg';
+import worldcup from '../img/mbti/worldcup.png';
+import carbti from '../img/mbti/carbti.png';
 import { useNavigate } from 'react-router';
 
 export default function Destiny() {
@@ -16,7 +16,7 @@ export default function Destiny() {
         </Title>
         <TestWrapper>
           <TestButton onClick={() => navigate('/worldcup/test')}>
-            <Image src={nextToCar} />
+            <Image src={worldcup} />
             <SubTitle>외관만큼은 내 이상형인 차는?</SubTitle>
             <Desc top={1}>
               가격, 연비, 연식 기준 다~ 내려놓고, <br />
@@ -24,7 +24,7 @@ export default function Destiny() {
             </Desc>
           </TestButton>
           <TestButton onClick={() => navigate('/mbti/test')}>
-            <Image src={blackCar} />
+            <Image src={carbti} />
             <SubTitle>나의 운전 성향과 찰떡인 차는?</SubTitle>
             <Desc top={1}>
               운전 성향을 검사하고, <br />
@@ -72,7 +72,7 @@ const TestButton = styled.div`
 
 const Image = styled.img`
   margin-bottom: 1rem;
-  width: 80%;
+  width: 70%;
   @media screen and (max-width: 480px) {
     display: none;
   }
