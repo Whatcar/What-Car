@@ -1,9 +1,6 @@
 from flask import request
 from flask_restx import Namespace, Resource, fields
-<<<<<<< HEAD
-=======
 from models import Car
->>>>>>> 4f03b5252642a01853c98ad536ab6d33b3a37953
 from service import get_ai_cars_detail, get_upload_result
 from werkzeug.datastructures import FileStorage
 
