@@ -21,6 +21,7 @@ import { RecoilRoot } from 'recoil';
 import WorldcupResult from './routes/WorldcupResult.jsx';
 import Destiny from './routes/Destiny.jsx';
 import Gallary from './routes/Gallary.jsx';
+import SearchDetail from './routes/SearchDetail';
 
 function App() {
   return (
@@ -36,8 +37,8 @@ function App() {
                 <Route path="/" element={<Main />} />
                 <Route path="/result/:id" element={<Result />} />
                 <Route path="/search" element={<Search />} />
+                <Route path="/search/detail/:id" element={<SearchDetail />} />
                 <Route path="/destiny" element={<Destiny />} />
-
                 <Route path="/mbti/test" element={<MBTItest />} />
                 <Route path="/mbti/result/:type" element={<MBTIresult />} />
                 <Route path="/worldcup/test" element={<WorldcupTest />} />
