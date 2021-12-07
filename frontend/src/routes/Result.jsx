@@ -11,6 +11,8 @@ import Feedback from '../components/result/Feedback';
 import Layout from '../components/Layout';
 import KakaoShare from '../components/share/KakaoShare';
 import FeedbackButton from '../components/share/FeedbackButton';
+import getSearchDetail from '../apis/getSearchDetail';
+import { MainTitle } from '../css/mainStyles';
 
 const mockData = [
   {
@@ -44,26 +46,42 @@ export default function Result() {
   const { state } = useLocation();
   const carId = params.id;
   const [carData, setCarData] = useState({});
+  const [carColor, setCarColor] = useState([]);
   const [isFeedback, setIsFeedback] = useState(false);
   useEffect(() => {
-    axios
-      .get('http://localhost:5000/api/detail', { params: { id: carId } })
-      .then((res) => setCarData(res.data));
+    const getCarInfo = async (carId) => {
+      const { carData, carColor } = await getSearchDetail(carId);
+      setCarData(carData);
+      setCarColor(carColor);
+    };
+    getCarInfo(carId);
   }, [carId]);
 
-  console.log(state);
-
   const disqusShortname = 'WhatCar';
+  const PATH = process.env.REACT_APP_FRONTEND_URL;
   const disqusConfig = {
-    url: `http://localhost:3000/result/${carId}`,
+    url: `${PATH}/result/${carId}`,
     identifier: carData.name,
     title: carData.name,
   };
+  console.log(disqusConfig);
 
   return (
     <Layout>
       <ResultWrapper>
-        <CarDetail detail={carData} />
+        <MainTitle>
+          이 차는 <Blue>{carData.name}</Blue>입니다!
+        </MainTitle>
+        <img
+          src={
+            carData.photolink ||
+            'https://cdn.pixabay.com/photo/2019/02/28/04/54/car-4025379_960_720.png'
+          }
+          width="70%"
+          loading="lazy"
+          alt="자동차 이미지"
+        />
+        <CarDetail detail={carData} colors={carColor} />
         <ShareButton
           title={`이 차는 ${carData.name}입니다.`}
           description="차를 자세히 보고 싶으신가요?"
@@ -88,4 +106,8 @@ const ResultWrapper = styled.div`
 
 const DisqusFrame = styled.div`
   margin: ${(props) => (props.showMore ? '55rem 0 5rem' : '5rem 0 5rem')};
+`;
+
+const Blue = styled.span`
+  color: ${({ theme }) => theme.colors.blueM};
 `;
