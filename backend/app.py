@@ -18,7 +18,7 @@ def create_app():
     api.add_namespace(mbti)
     api.add_namespace(worldcup)
     api.add_namespace(gallary)
-    # CORS(app, resources={r"/api/*": {"origins": "http://localhost:3000"}})
+
     CORS(app)
 
     app.config.from_object(config)
