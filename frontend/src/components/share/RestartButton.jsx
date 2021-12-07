@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router';
 import { Button } from '@mui/material';
 import RefreshRoundedIcon from '@mui/icons-material/RefreshRounded';
 
-function RestartButton({ linkTo, buttonTitle = false }) {
+function RestartButton({ linkTo }) {
   const navigate = useNavigate();
   const onRestartClick = () => {
     navigate(linkTo);
@@ -15,7 +15,7 @@ function RestartButton({ linkTo, buttonTitle = false }) {
       startIcon={<RefreshRoundedIcon width="20px" />}
       sx={{ padding: '15px', width: '100%', lineHeight: '1rem' }}
     >
-      {buttonTitle ? buttonTitle : '다시 시작 하기'}
+      다시 시작 하기
     </Button>
   );
 }
