@@ -11,15 +11,15 @@ import Loading from '../components/Loading';
 import { colors } from '../css/theme';
 import { useNavigate } from 'react-router';
 
-const fakeFetch = (delay = 1000) => new Promise((res) => setTimeout(res, delay));
-
 export default function Gallary() {
   const [state, setState] = useState({ item: [], isLoading: false });
-  const [count, setCount] = useState(0);
+  const [loadable, setLoadable] = useState(true);
+  let num = 0;
   const navigate = useNavigate();
   const imageRef = useRef();
   const refs = useMemo(() => state.item.map(() => React.createRef()), [state.item]);
   const PATH = process.env.REACT_APP_BACKEND_URL;
+  const LIMITS = 2;
 
   const handleDelete = async (idx, id) => {
     const temp = [...state.item];
@@ -72,25 +72,48 @@ export default function Gallary() {
     });
   };
 
-  const fetchItems = async () => {
+  const fetchNew = async () => {
+    console.log('renewed', num);
     setState((prev) => ({ ...prev, isLoading: true }));
-    await fakeFetch();
-    setCount((prev) => prev + 1);
-    // TODO: 새로 데이터 불러오기
-    setState((prev) => ({ ...prev, item: prev.item }));
-    setTimeout(() => setState((prev) => ({ ...prev, isLoading: false })), 1000);
+    axios
+      .get(`${PATH}/api/gallary`, {
+        params: { offset: num, limit: LIMITS },
+      })
+      .then((res) => {
+        console.log(res);
+        if (res.status === 200) {
+          if (res.data.result_num === 0) {
+            return setLoadable(false);
+          }
+          setState((prev) => ({ ...prev, item: prev.item.concat(res.data.cars) }));
+          num += LIMITS;
+        }
+        setTimeout(() => setState((prev) => ({ ...prev, isLoading: false })), 1000);
+      });
   };
 
+  useEffect(() => {
+    console.log(state.item);
+  }, [state.item]);
+
   const [_, setRef] = useInfinity(async (entry, observer) => {
-    observer.unobserve(entry.target);
-    await fetchItems();
-    observer.observe(entry.target);
+    if (entry.isIntersecting && !state.isLoading) {
+      observer.unobserve(entry.target);
+      await fetchNew();
+      observer.observe(entry.target);
+    }
   }, {});
 
   useEffect(() => {
-    axios.get(`${PATH}/api/gallary`).then((res) => {
-      setState((prev) => ({ ...prev, item: res.data.cars }));
-    });
+    console.log('initial');
+    axios
+      .get(`${PATH}/api/gallary`, {
+        params: { offset: 0, limit: LIMITS },
+      })
+      .then((res) => {
+        setState((prev) => ({ ...prev, item: res.data.cars }));
+        num += LIMITS;
+      });
   }, []);
 
   useEffect(() => {
@@ -182,15 +205,19 @@ export default function Gallary() {
           </ItemWrapper>
         ))}
       </MobileWrapper>
-      {state.isLoading ? (
-        <div style={{ width: '100%', height: '50vh' }}>
-          <Loading />
-        </div>
+      {loadable ? (
+        state.isLoading ? (
+          <div style={{ width: '100%', height: '50vh' }}>
+            <Loading />
+          </div>
+        ) : (
+          <div
+            ref={setRef}
+            style={{ width: '100%', height: '100px', border: '1px solid black' }}
+          ></div>
+        )
       ) : (
-        <div
-          ref={setRef}
-          style={{ width: '100%', height: '100px', border: '1px solid black' }}
-        ></div>
+        <div style={{ textAlign: 'center' }}>더이상 불러올 이미지가 없어요!</div>
       )}
     </Layout>
   );

@@ -9,7 +9,6 @@ export default function Car({ item }) {
   const onButtonClick = (pageId) => {
     navigate(`/result/${pageId}`);
   };
-  console.log(item);
   return (
     <CarCard>
       <Percentage>{(item.similarity * 100).toFixed(2)}%</Percentage>
