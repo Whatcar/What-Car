@@ -9,6 +9,7 @@ import { useNavigate } from 'react-router';
 import axios from 'axios';
 import Swal from 'sweetalert2';
 import Layout from '../components/Layout.jsx';
+import ProgressBar from '../components/ProgressBar';
 
 export default function MBTItest() {
   const navigate = useNavigate();
@@ -49,9 +50,10 @@ export default function MBTItest() {
     }
     setProgress(progress - 1);
   };
+
   return (
     <Layout>
-      <LinearProgress variant="determinate" color="primary" value={((progress + 1) * 100) / 9} />
+      <ProgressBar progress={((progress + 1) * 100) / 9} />
       <Questions
         item={questions[progress]}
         progress={progress}
