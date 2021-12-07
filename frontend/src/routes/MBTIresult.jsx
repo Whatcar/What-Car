@@ -27,7 +27,7 @@ export default function MBTIresult() {
   const onClickButton = () => {
     resetSessionStorage();
     sessionStorage.setItem('brand', data.brand);
-    setBrand(data.brand);
+    setBrand([data.brand]);
     navigate('/search');
   };
   return (
