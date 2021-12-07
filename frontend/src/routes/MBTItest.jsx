@@ -14,9 +14,11 @@ export default function MBTItest() {
   const navigate = useNavigate();
   const [progress, setProgress] = useState(0);
   const [answer, setAnswer] = useState({});
+  const PATH = process.env.REACT_APP_BACKEND_URL;
+
   const sendAndGoToResult = (mbtiResult) => {
     axios
-      .patch('http://localhost:5000/api/mbti/result', null, {
+      .patch(`${PATH}/api/mbti/result`, null, {
         params: {
           mbti: mbtiResult,
         },
