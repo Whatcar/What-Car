@@ -1,5 +1,6 @@
 from db_connect import db
 from models import Gallary
+from werkzeug.exceptions import abort
 
 
 def get_gallary_cars(car_id):
@@ -22,31 +23,31 @@ def get_gallary_cars(car_id):
             }
         )
 
-    return {"result_num": len(result), "cars": result}, 200
+    return {"result_num": len(result), "cars": result}
 
 
 def post_gallary_cars(info):
     try:
-        boxing_car = info["boxing_car"]
-        similarity = info["similarity"]
         car_id = info["car_id"]
+        car_url = info["car_url"]
+        similarity = info["similarity"]
         nickname = info["nickname"]
         pw = info["password"]
 
         new_gallary = Gallary(
             car_id=car_id,
-            car_url=boxing_car,
+            car_url=car_url,
             similarity=similarity,
             nickname=nickname,
             password=pw,
         )
         db.session.add(new_gallary)
         db.session.commit()
-        return 201
+        return "Created"
     except Exception as e:
         print(e)
         db.session.rollback()
-        return 400
+        abort(400, "Failed")
 
 
 def delete_gallary_cars(info):
@@ -57,10 +58,10 @@ def delete_gallary_cars(info):
         if del_gallary.is_password_correct(pw):
             db.session.delete(del_gallary)
             db.session.commit()
+            return "Deleted"
         else:
-            return 409
-        return 204
+            abort(409, "Not Correct PW")
     except Exception as e:
         print(e)
         db.session.rollback()
-        return 400
+        abort(400, "Failed")

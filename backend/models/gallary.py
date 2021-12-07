@@ -43,15 +43,19 @@ class Gallary(db.Model):
             description="박스가 그려진 차량 이미지 url",
             example="https://aws.s3.car",
         ),
-        "pred_val": fields.Float(required=True, description="차량을 예측한 값", example=0.99),
-        "nickname": fields.String(required=True, description="닉네임", example="왓카"),
+        "similarity": fields.Float(
+            required=True, description="차량 분석 유사도", example=0.99
+        ),
+        "nickname": fields.String(
+            required=True, description="업로드한 사용자의 닉네임", example="왓카"
+        ),
         "password": fields.String(
             required=True, description="패스워드", example="1q2w3e4r!"
         ),
     }
 
     delete_gallary = {
-        "car_id": fields.Integer(required=True, description="차량 고유 아이디", example=1),
+        "gallary_id": fields.Integer(required=True, description="갤러리 아이디", example=1),
         "password": fields.String(
             required=True, description="패스워드", example="1q2w3e4r!"
         ),
