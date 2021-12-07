@@ -7,12 +7,10 @@ import mbtiDesc from '../data/mbtiCar';
 import { Button } from '@mui/material';
 import { useNavigate } from 'react-router';
 import { resetSessionStorage } from '../utils/searchCondition';
-import { blue } from '../css/colors';
 import PieChart from '../components/MBTI/PieChart';
 import Layout from '../components/Layout';
 import { useSetRecoilState } from 'recoil';
 import { brand } from '../recoil/atom';
-import { colors } from '../css/theme';
 
 export default function MBTIresult() {
   // TODO: 결과 상세 제작
@@ -75,5 +73,5 @@ const ResultWrapper = styled.div`
 `;
 
 const Highlight = styled.span`
-  color: ${blue.main};
+  color: ${({ theme }) => theme.colors.blueM};
 `;

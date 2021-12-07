@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router';
 import axios from 'axios';
 import { MainTitle, SubTitle } from '../css/mainStyles';
-import { blue } from '../css/colors';
 import Ranking from '../components/worldcup/Ranking';
 import { Skeleton, Button } from '@mui/material';
 import styled from 'styled-components';
@@ -23,7 +22,6 @@ export default function WorldcupResult() {
     axios
       .get('http://localhost:5000/api/worldcup/result', { params: { id: carId } })
       .then((res) => {
-        console.log(res.data);
         setResult(res.data[0]);
         setRank(res.data[1].slice(0, 3));
       });

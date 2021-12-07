@@ -1,6 +1,4 @@
-import React, { useState } from 'react';
 import styled from 'styled-components';
-import { blue } from '../../css/colors';
 import { MainDesc } from '../../css/mainStyles';
 import { useNavigate } from 'react-router';
 
@@ -9,7 +7,6 @@ export default function Ranking({ ranking }) {
   const handleClick = (carId) => {
     navigate(`/search/detail/${carId}`);
   };
-  console.log(ranking);
   return (
     <RankingWrapper>
       {ranking.map((item) => (
@@ -67,7 +64,7 @@ const RankingStack = styled.div`
   transition: all 0.5s ease;
   border-top-left-radius: 15px;
   border-top-right-radius: 15px;
-  background-color: ${blue.main};
+  background-color: ${({ theme }) => theme.colors.blueM};
   text-align: center;
   color: white;
   padding-top: 2rem;
@@ -75,7 +72,7 @@ const RankingStack = styled.div`
   cursor: pointer;
   overflow-y: scroll;
   &:hover {
-    background-color: ${blue.dark};
+    background-color: ${({ theme }) => theme.colors.blueD};
   }
   @media screen and (max-width: 480px) {
     padding-top: 1rem;

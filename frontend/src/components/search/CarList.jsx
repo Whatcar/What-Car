@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { Grid, CircularProgress } from '@mui/material';
+import { Grid } from '@mui/material';
 import CarHover from './CarHover';
 import person from '../../img/main/3.svg';
 
