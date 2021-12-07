@@ -45,7 +45,7 @@ export const fontStyle = {
 `,
   desc: `
   font-size: ${fontSize.S};
-  line-height: 18px;
+  line-height: 20px;
   font-family: 'SBAggroL';
 `,
 };

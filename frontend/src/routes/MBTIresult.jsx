@@ -50,15 +50,15 @@ export default function MBTIresult() {
           loading="lazy"
           style={{ width: '70%' }}
         />
-        <MainDesc style={{ marginBottom: '1rem' }}>
+        <MainDesc>
           {data.personality} 당신은 <Highlight>{data.brand}</Highlight>와 찰떡궁합이네요!
         </MainDesc>
         {state && (
           <>
-            <SubTitle top={1}>
+            <SubTitle>
               전체 중{' '}
               <Highlight>{state && state.filter((item) => item.type === type)[0].rate}%</Highlight>
-              의 사람들이 이 브랜드와 찰떡이에요!
+              의 사람들이 이 브랜드와 어울려요!
             </SubTitle>
             <SubTitle top={4}>유형별 랭킹</SubTitle>
             <PieChart mbti={state} special={type} />
