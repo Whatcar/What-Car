@@ -20,7 +20,11 @@ export default function Result() {
   const [lessCar, setLessCar] = useState({});
   useEffect(() => {
     axios.get('http://localhost:5000/api/upload', { params: { id: id } }).then((res) => {
-      setCarData(res.data['most_car']['most_car_detail']);
+      setCarData({
+        ...res.data['most_car']['most_car_detail'],
+        similarity: res.data['most_car']['similarity'],
+        most_car_url: res.data['most_car']['most_car_url'],
+      });
       setLessCar(res.data['less_cars']);
     });
   }, [id]);
@@ -36,17 +40,22 @@ export default function Result() {
     <Layout>
       <ResultWrapper>
         <MainTitle>
-          이 차는 <Blue>{carData.name}</Blue>입니다!
+          <Blue>{(carData.similarity * 100).toFixed(0)}%</Blue>의 확률로
+          <br />이 차는 <Blue>{carData.name}</Blue>입니다!
         </MainTitle>
-        <img
-          src={
-            carData.photolink ||
-            'https://cdn.pixabay.com/photo/2019/02/28/04/54/car-4025379_960_720.png'
-          }
-          width="70%"
-          loading="lazy"
-          alt="자동차 이미지"
-        />
+        <ImageWrapper>
+          <img src={carData['most_car_url']} />
+          <img
+            src={
+              carData.photolink ||
+              'https://cdn.pixabay.com/photo/2019/02/28/04/54/car-4025379_960_720.png'
+            }
+            width="70%"
+            loading="lazy"
+            alt="자동차 이미지"
+          />
+        </ImageWrapper>
+
         <CarDetail detail={carData} />
         <ShareButton
           title={`이 차는 ${carData.name}입니다.`}
@@ -66,6 +75,15 @@ export default function Result() {
 
 const ResultWrapper = styled.div`
   text-align: center;
+`;
+
+const ImageWrapper = styled.div`
+  display: flex;
+  margin: 1rem auto;
+  width: 100%;
+  img {
+    flex: 1 1 0;
+  }
 `;
 
 const Blue = styled.span`
