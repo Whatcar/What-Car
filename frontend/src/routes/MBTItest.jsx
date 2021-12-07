@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { LinearProgress, Button } from '@mui/material';
-import { blue } from '../css/colors.js';
+import { colors } from '../css/theme';
 import styled from 'styled-components';
 import questions from '../data/mbtiQuestions.js';
 import Questions from '../components/MBTI/Questions.jsx';
@@ -39,7 +39,7 @@ export default function MBTItest() {
         title: '보기 중 하나를 선택해주세요!',
         icon: 'warning',
         confirmButtonText: '넵!',
-        confirmButtonColor: blue.main,
+        confirmButtonColor: colors.blueM,
       });
     }
   };
@@ -51,10 +51,7 @@ export default function MBTItest() {
   };
   return (
     <Layout>
-      <ProgressBar>
-        <div style={{ textAlign: 'right' }}>{progress + 1}/9</div>
-        <LinearProgress variant="determinate" color="inherit" value={((progress + 1) * 100) / 9} />
-      </ProgressBar>
+      <LinearProgress variant="determinate" color="primary" value={((progress + 1) * 100) / 9} />
       <Questions
         item={questions[progress]}
         progress={progress}
@@ -62,12 +59,7 @@ export default function MBTItest() {
         setAnswer={setAnswer}
       />
       <Buttons>
-        <Button
-          variant="contained"
-          onClick={onClickPrev}
-          size="large"
-          sx={{ backgroundColor: blue.main }}
-        >
+        <Button variant="outlined" onClick={onClickPrev} size="large">
           이전
         </Button>
 
@@ -75,7 +67,7 @@ export default function MBTItest() {
           variant="contained"
           onClick={onClickNext}
           size="large"
-          sx={{ backgroundColor: answer[progress] ? blue.main : blue.dark }}
+          disabled={!!!answer[progress]}
         >
           다음
         </Button>
@@ -84,15 +76,12 @@ export default function MBTItest() {
   );
 }
 
-const ProgressBar = styled.div``;
-
 const Buttons = styled.div`
   display: flex;
   justify-content: space-between;
-  padding: 1rem;
   button {
     width: 200px;
-    margin-top: 2rem;
+    margin-top: 1rem;
     @media screen and (max-width: 480px) {
       width: 100px;
     }

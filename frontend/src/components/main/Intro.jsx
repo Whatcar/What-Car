@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import styled, { keyframes } from 'styled-components';
 import { Grid, Button, Modal } from '@mui/material';
 import MainImg from '../../img/main/main_img_new.svg';
@@ -245,6 +245,7 @@ const ImageUploadButton = styled(Button)({
 const Description = styled.p`
   ${({ theme }) => theme.fontStyle.desc};
   color: ${({ theme }) => theme.colors.blueM};
+  margin-top: 0.5rem;
 `;
 
 const LoadingWrapper = styled.div`
