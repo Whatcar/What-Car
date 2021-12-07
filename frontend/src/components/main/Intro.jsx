@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import styled, { keyframes } from 'styled-components';
-import { Grid, Button, Modal } from '@mui/material';
+import { Grid, Button, Dialog, DialogTitle, DialogContent, DialogActions } from '@mui/material';
 import MainImg from '../../img/main/main_img_new.svg';
 import { MainTitle, SubTitle, Desc } from '../../css/mainStyles';
 import { colors } from '../../css/theme';
@@ -9,6 +9,7 @@ import { useNavigate } from 'react-router';
 import Swal from 'sweetalert2';
 import useSrr from '../../utils/useSrr';
 import HowTo from './HowTo';
+import Loading from '../Loading';
 
 export default function Intro() {
   const navigate = useNavigate();
@@ -62,9 +63,10 @@ export default function Intro() {
           },
         })
         .then((res) => {
+          console.log(res);
           setSent(false);
           if (res.status === 200) {
-            navigate(`/result/${res.data.id}`, { state: true });
+            navigate(`/result/${res.data.id}`, { state: res.data.car_id });
           } else if (res.status === 404) {
             Swal.fire({
               icon: 'error',
@@ -156,9 +158,18 @@ export default function Intro() {
             >
               사용법을 모르겠다면?
             </Desc>
-            <Modal open={open} onClose={handleClose} sx={{ zIndex: 1050 }}>
-              <HowTo />
-            </Modal>
+            <Dialog open={open} onClose={handleClose} scroll={'paper'} sx={{ zIndex: 1050 }}>
+              <DialogTitle>어떻게 검색하나요?</DialogTitle>
+              <DialogContent dividers={true}>
+                <HowTo />
+              </DialogContent>
+
+              <DialogActions>
+                <Button variant="outlined" onClick={handleClose}>
+                  이제 알겠어요!
+                </Button>
+              </DialogActions>
+            </Dialog>
           </div>
         </Grid>
         <Grid item xs={12} md={6} lg={6} img style={{ display: 'flex', alignItems: 'center' }}>
@@ -168,7 +179,9 @@ export default function Intro() {
           <span></span>더 알아보기
         </ScrollDiv>
       </Grid>
-      <LoadingWrapper sent={sent}>Loading...</LoadingWrapper>
+      <LoadingWrapper sent={sent}>
+        <Loading />
+      </LoadingWrapper>
     </>
   );
 }

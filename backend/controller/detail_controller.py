@@ -10,7 +10,7 @@ result = detail.model(
     Car.response_model,
 )
 
-gallery_result = detail.model("detail_gallery_result", Gallary.response_model)
+gallary_result = detail.model("detail_gallary_result", Gallary.response_model)
 
 
 @detail.doc(params={"id": "차량의 고유 아이디"})
@@ -29,7 +29,7 @@ class Detail(Resource):
 @detail.route("/detail/gallary")
 class detail_Gallary(Resource):
     @detail.doc(params={"id": "차량의 고유 아이디", "num": "페이지 번호"})
-    @detail.response(200, "Success", gallery_result)
+    @detail.response(200, "Success", gallary_result)
     @detail.response(404, "페이지 범위를 초과했습니다.")
     def get(self):
         """해당 자동차 분석 결과의 가장 유사 차량과 동일한 차량 갤러리 상세 정보를 가져옵니다."""
