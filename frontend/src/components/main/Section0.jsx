@@ -54,7 +54,7 @@ export default function Section0() {
       </MainDesc>
       <PeopleIntro {...useSrr('up', 1, 1)}>
         {introData.map((item) => (
-          <PersonIntro>
+          <PersonIntro key={`intro-${item.id}`}>
             <div>check!</div>
             <img src={item.img} />
             <Desc dark top={2}>

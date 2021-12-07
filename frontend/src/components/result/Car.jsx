@@ -12,7 +12,7 @@ export default function Car({ item }) {
   console.log(item);
   return (
     <CarCard>
-      <Percentage>{item.similarity.toFixed(2)}%</Percentage>
+      <Percentage>{(item.similarity * 100).toFixed(2)}%</Percentage>
       <img src={item.photolink} height="50%" />
       <p style={{ fontFamily: 'SBAggroM' }}>{item.name}</p>
       <Desc>{item.price}</Desc>
