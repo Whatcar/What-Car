@@ -12,6 +12,8 @@ import FeedbackButton from '../components/share/FeedbackButton';
 import { MainTitle } from '../css/mainStyles';
 
 export default function Result() {
+  const PATH = process.env.REACT_APP_BACKEND_URL;
+
   const params = useParams();
   const { state } = useLocation();
   const carId = state;
@@ -19,7 +21,7 @@ export default function Result() {
   const [carData, setCarData] = useState({});
   const [lessCar, setLessCar] = useState({});
   useEffect(() => {
-    axios.get('http://localhost:5000/api/upload', { params: { id: id } }).then((res) => {
+    axios.get(`${PATH}/api/upload`, { params: { id: id } }).then((res) => {
       setCarData({
         ...res.data['most_car']['most_car_detail'],
         similarity: res.data['most_car']['similarity'],
@@ -29,7 +31,6 @@ export default function Result() {
     });
   }, [id]);
   const disqusShortname = 'WhatCar';
-  const PATH = process.env.REACT_APP_FRONTEND_URL;
   const disqusConfig = {
     url: `${PATH}/result/${carId}`,
     identifier: carData.name,

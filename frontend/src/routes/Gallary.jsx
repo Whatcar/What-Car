@@ -8,33 +8,77 @@ import useInfinity from '../utils/useInfinity';
 import Swal from 'sweetalert2';
 import axios from 'axios';
 import Loading from '../components/Loading';
+import { colors } from '../css/theme';
+import { useNavigate } from 'react-router';
 
 const fakeFetch = (delay = 1000) => new Promise((res) => setTimeout(res, delay));
 
 export default function Gallary() {
-  // const [data, setData] = useState(itemData);
-  const [state, setState] = useState({ item: itemData, isLoading: false });
+  const [state, setState] = useState({ item: [], isLoading: false });
   const [count, setCount] = useState(0);
-  // const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
   const imageRef = useRef();
   const refs = useMemo(() => state.item.map(() => React.createRef()), [state.item]);
+  const PATH = process.env.REACT_APP_BACKEND_URL;
 
-  const handleDelete = async (idx) => {
-    alert('삭제?');
+  const handleDelete = async (idx, id) => {
     const temp = [...state.item];
-    temp.splice(idx, 1);
-    setState((prev) => ({ ...prev, item: temp }));
+    Swal.fire({
+      title: '비밀번호를 입력해주세요!',
+      html: `
+      <input type="password" id="password" class="swal2-input" placeholder="비밀번호">`,
+      confirmButtonText: '지우기',
+      confirmButtonColor: colors.blueM,
+      showCancelButton: true,
+      cancelButtonText: '안 지울래요',
+      focusConfirm: false,
+      preConfirm: () => {
+        const password = Swal.getPopup().querySelector('#password').value;
+        if (!password) {
+          Swal.showValidationMessage(`비밀번호를 입력해주세요!`);
+        }
+        return axios
+          .delete(`${PATH}/api/gallary`, {
+            data: { gallary_id: id, password: password },
+          })
+          .then((res) => {
+            console.log(res);
+            if (res.status !== 200) {
+              throw new Error(res.data);
+            }
+          })
+          .catch((err) => {
+            Swal.showValidationMessage(`요청 실패: ${err}`);
+          });
+      },
+    }).then((result) => {
+      if (result.isConfirmed) {
+        temp.splice(idx, 1);
+        setState((prev) => ({ ...prev, item: temp }));
+        Swal.fire({
+          icon: 'success',
+          title: '성공적으로 삭제되었습니다!',
+          confirmButtonText: '넵!',
+          confirmButtonColor: colors.blueM,
+        });
+      } else {
+        Swal.fire({
+          icon: 'question',
+          title: '삭제하지 않으시나요?',
+          confirmButtonText: '넵!',
+          confirmButtonColor: colors.blueM,
+        });
+      }
+    });
   };
 
   const fetchItems = async () => {
-    // setLoading(true);
     setState((prev) => ({ ...prev, isLoading: true }));
     await fakeFetch();
-    // setData((prev) => [...prev, ...itemData]);
-    // setLoading(false);
     setCount((prev) => prev + 1);
-    setState((prev) => ({ ...prev, item: prev.item.concat(itemData) }));
-    setTimeout(() => setState((prev) => ({ ...prev, isLoading: false })), 500);
+    // TODO: 새로 데이터 불러오기
+    setState((prev) => ({ ...prev, item: prev.item }));
+    setTimeout(() => setState((prev) => ({ ...prev, isLoading: false })), 1000);
   };
 
   const [_, setRef] = useInfinity(async (entry, observer) => {
@@ -44,6 +88,13 @@ export default function Gallary() {
   }, {});
 
   useEffect(() => {
+    axios.get(`${PATH}/api/gallary`).then((res) => {
+      setState((prev) => ({ ...prev, item: res.data.cars }));
+    });
+  }, []);
+
+  useEffect(() => {
+    console.log('useEffect');
     let imgStack = [0, 0, 0];
     let colWidth = 250;
     setTimeout(() => {
@@ -61,7 +112,7 @@ export default function Gallary() {
   }, [state.item]);
 
   return (
-    <Layout style={{ marginBottom: 0 }}>
+    <Layout>
       <MainTitle style={{ textAlign: 'center' }}>갤러리</MainTitle>
       <Desc center>
         다른 유저들이 올린 차량을 볼 수 있는 페이지예요! 이미지로 자동차를 검색하고 함께
@@ -70,20 +121,27 @@ export default function Gallary() {
       <GridWrapper ref={imageRef}>
         {state.item.map((item, index) => (
           <ItemWrapper ref={refs[index]} key={`${item.title}-${index}`}>
-            <img src={item.img} loading="lazy" style={{ width: '100%', position: 'relative' }} />
+            <img
+              src={item.car_url}
+              loading="lazy"
+              style={{ width: '100%', position: 'relative' }}
+            />
             <ItemDesc>
               <ItemTop>
-                <div>김머선</div>
-                <CloseRoundedIcon sx={{ cursor: 'pointer' }} onClick={() => handleDelete(index)} />
+                <div>{item.nickname}</div>
+                <CloseRoundedIcon
+                  sx={{ cursor: 'pointer' }}
+                  onClick={() => handleDelete(index, item.gallary_id)}
+                />
               </ItemTop>
               <ItemDetail>
                 <Desc style={{ color: 'white' }}>{item.title}</Desc>
-                <p style={{ marginBottom: '0.5rem' }}>97% 일치</p>
+                <p style={{ marginBottom: '0.5rem' }}>{(item.similarity * 100).toFixed(2)}% 일치</p>
 
                 <Button
                   variant="outlined"
                   color="white"
-                  onClick={() => alert('결과 페이지로 이동하기')}
+                  onClick={() => navigate(`/search/detail/${item.car_id}`)}
                 >
                   차 보러가기
                 </Button>
@@ -95,20 +153,27 @@ export default function Gallary() {
       <MobileWrapper>
         {state.item.map((item, index) => (
           <ItemWrapper mobile key={`mobile-${item.title}-${index}`}>
-            <img src={item.img} loading="lazy" style={{ width: '100%', position: 'relative' }} />
+            <img
+              src={item['car_url']}
+              loading="lazy"
+              style={{ width: '100%', position: 'relative' }}
+            />
             <ItemDesc>
               <ItemTop>
-                <div>김머선</div>
-                <CloseRoundedIcon sx={{ cursor: 'pointer' }} onClick={() => handleDelete()} />
+                <div>{item.nickname}</div>
+                <CloseRoundedIcon
+                  sx={{ cursor: 'pointer' }}
+                  onClick={() => handleDelete(index, item.gallary_id)}
+                />
               </ItemTop>
               <ItemDetail>
                 <Desc style={{ color: 'white' }}>{item.title}</Desc>
-                <p style={{ marginBottom: '0.5rem' }}>97% 일치</p>
+                <p style={{ marginBottom: '0.5rem' }}>{item.similarity} 일치</p>
 
                 <Button
                   variant="outlined"
                   color="white"
-                  onClick={() => alert('결과 페이지로 이동하기')}
+                  onClick={() => alert('결과 페이지로 이동하기', item['car_id'])}
                 >
                   차 보러가기
                 </Button>
@@ -117,66 +182,16 @@ export default function Gallary() {
           </ItemWrapper>
         ))}
       </MobileWrapper>
-      {state.isLoading && (
+      {state.isLoading ? (
         <div style={{ width: '100%', height: '50vh' }}>
           <Loading />
         </div>
-      )}
-      {!state.isLoading && (
+      ) : (
         <div
           ref={setRef}
-          style={{ width: '100%', height: '150px', border: '1px solid black' }}
+          style={{ width: '100%', height: '100px', border: '1px solid black' }}
         ></div>
       )}
-      {/* <ImageWrapper>
-        <ImageList variant="masonry" cols={window.innerWidth >= 480 ? 3 : 2} gap={12}>
-          {data.map((item, idx) => (
-            <ImageListItem
-              key={`${item.img}${idx}`}
-              style={{ borderRadius: '0.5rem', overflow: 'hidden' }}
-            >
-              <img
-                src={`${item.img}?w=248&fit=crop&auto=format`}
-                srcSet={`${item.img}?w=248&fit=crop&auto=format&dpr=2 2x`}
-                alt={item.title}
-                loading="lazy"
-              />
-
-              <StyledImageListItemBar
-                sx={{ padding: '0.5rem', backgroundColor: 'rgba(0,0,0,0.2)' }}
-                title={item.title}
-                subtitle={'인식률 97%'}
-                position="bottom"
-                actionIcon={
-                  <Button
-                    variant="outlined"
-                    color="white"
-                    onClick={() => alert('결과 페이지로 이동하기')}
-                  >
-                    차 보러가기
-                  </Button>
-                }
-              />
-              <ImageListItemBar
-                sx={{ backgroundColor: 'rgba(0,0,0,0)' }}
-                actionIcon={
-                  <IconButton
-                    onClick={() => alert('delete?')}
-                    sx={{ color: 'rgba(255,255,255,0.2)' }}
-                  >
-                    <CloseRoundedIcon />
-                  </IconButton>
-                }
-                position="top"
-                actionPosition="right"
-              />
-            </ImageListItem>
-          ))}
-        </ImageList>
-        <div ref={setRef} style={{ border: '1px solid black' }}>
-          {loading && 'Loading...'}
-        </div>
-      </ImageWrapper> */}
     </Layout>
   );
 }
@@ -311,54 +326,3 @@ const StyledImageListItemBar = styled(ImageListItemBar)`
     }
   }
 `;
-
-const itemData = [
-  {
-    img: 'https://images.unsplash.com/photo-1549388604-817d15aa0110',
-    title: 'Bed',
-  },
-  {
-    img: 'https://images.unsplash.com/photo-1525097487452-6278ff080c31',
-    title: 'Books',
-  },
-  {
-    img: 'https://images.unsplash.com/photo-1523413651479-597eb2da0ad6',
-    title: 'Sink',
-  },
-  {
-    img: 'https://images.unsplash.com/photo-1563298723-dcfebaa392e3',
-    title: 'Kitchen',
-  },
-  {
-    img: 'https://images.unsplash.com/photo-1588436706487-9d55d73a39e3',
-    title: 'Blinds',
-  },
-  {
-    img: 'https://images.unsplash.com/photo-1574180045827-681f8a1a9622',
-    title: 'Chairs',
-  },
-  {
-    img: 'https://images.unsplash.com/photo-1530731141654-5993c3016c77',
-    title: 'Laptop',
-  },
-  {
-    img: 'https://images.unsplash.com/photo-1481277542470-605612bd2d61',
-    title: 'Doors',
-  },
-  {
-    img: 'https://images.unsplash.com/photo-1517487881594-2787fef5ebf7',
-    title: 'Coffee',
-  },
-  {
-    img: 'https://images.unsplash.com/photo-1516455207990-7a41ce80f7ee',
-    title: 'Storage',
-  },
-  {
-    img: 'https://images.unsplash.com/photo-1597262975002-c5c3b14bbd62',
-    title: 'Candle',
-  },
-  {
-    img: 'https://images.unsplash.com/photo-1519710164239-da123dc03ef4',
-    title: 'Coffee table',
-  },
-];

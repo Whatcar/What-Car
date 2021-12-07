@@ -12,6 +12,8 @@ import Layout from '../components/Layout';
 import { colors } from '../css/theme';
 
 export default function WorldcupResult() {
+  const PATH = process.env.REACT_APP_BACKEND_URL;
+
   const params = useParams();
   const carId = params.id;
   const [result, setResult] = useState({});
@@ -20,13 +22,11 @@ export default function WorldcupResult() {
   const navigate = useNavigate();
   useEffect(() => {
     setLoading(true);
-    axios
-      .get('http://localhost:5000/api/worldcup/result', { params: { id: carId } })
-      .then((res) => {
-        console.log(res.data);
-        setResult(res.data[0]);
-        setRank(res.data[1].slice(0, 3));
-      });
+    axios.get(`${PATH}/api/worldcup/result`, { params: { id: carId } }).then((res) => {
+      console.log(res.data);
+      setResult(res.data[0]);
+      setRank(res.data[1].slice(0, 3));
+    });
     const timer = setTimeout(() => {
       setLoading(false);
     }, 1300);

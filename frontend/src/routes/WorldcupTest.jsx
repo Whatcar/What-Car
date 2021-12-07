@@ -8,6 +8,8 @@ import { LinearProgress } from '@mui/material';
 import { colors } from '../css/theme';
 
 export default function WorldcupTest() {
+  const PATH = process.env.REACT_APP_BACKEND_URL;
+
   const navigate = useNavigate();
   const [worldcupData, setWorldcupData] = useState([]);
   const [displays, setDisplays] = useState([]);
@@ -16,7 +18,7 @@ export default function WorldcupTest() {
   const [progress, setProgress] = useState(0);
   const sendAndGoToResult = (worldcupResult) => {
     axios
-      .patch('http://localhost:5000/api/worldcup/result', null, {
+      .patch(`${PATH}/api/worldcup/result`, null, {
         params: {
           id: worldcupResult,
         },
@@ -26,7 +28,7 @@ export default function WorldcupTest() {
       });
   };
   useEffect(() => {
-    axios.get('http://localhost:5000/api/select/random/cars').then((res) => {
+    axios.get(`${PATH}/api/select/random/cars`).then((res) => {
       setWorldcupData(res.data);
       setDisplays([res.data[0], res.data[1]]);
     });

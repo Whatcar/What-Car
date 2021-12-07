@@ -9,7 +9,6 @@ export default function FeedbackButton({ carId, carUrl, similarity }) {
   const PATH = process.env.REACT_APP_BACKEND_URL;
   const lastNames = '김이박최정강조윤장임';
   const handleClick = async () => {
-    // TODO: 허가 or not을 swal로 구현
     Swal.fire({
       title: '업로드를 위해 아래를 채워주세요!',
       html: `<input type="text" id="nickname" class="swal2-input" placeholder="닉네임" value="${
@@ -28,7 +27,7 @@ export default function FeedbackButton({ carId, carUrl, similarity }) {
           Swal.showValidationMessage(`닉네임과 비밀번호를 입력해주세요!`);
         }
         return axios
-          .post(`http://localhost:5000/api/gallary`, {
+          .post(`${PATH}/api/gallary`, {
             car_id: carId,
             car_url: carUrl,
             similarity: similarity,
