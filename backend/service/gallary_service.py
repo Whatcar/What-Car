@@ -21,6 +21,7 @@ def get_gallary_cars(off_set, limit_num):
         result.append(
             {
                 "gallary_id": d.id,
+                "ai_result_id": d.ai_result_id,
                 "car_name": car_data.name,
                 "similarity": d.similarity,
                 "car_url": d.car_url,
@@ -61,6 +62,7 @@ def post_gallary_cars(info):
         # gallary db에 저장
         new_gallary = Gallary(
             car_id=car_id,
+            ai_result_id=ai_db_id,
             car_url=img_url,
             similarity=similarity,
             nickname=nickname,

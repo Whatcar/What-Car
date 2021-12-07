@@ -46,12 +46,12 @@ def get_detail(id):
 
 
 def get_same_id_gallary_img(id, num):
-    # data = Temporary_Ai_Car.query.filter(Temporary_Ai_Car.id == id).first()
+    print(id, type(id), num, type(num))
 
-    # content = Temporary_Ai_Car.to_dict(data)
-    # most = content["most_similar_car"]
     same_id_gallary = Gallary.query.filter(Gallary.car_id == id)
-    # same_id_gallary2 = [Gallary.to_dict(content) for content in same_id_gallary]
+    car_name = Car.query.filter(Car.id == int(id)).first().name
+    print(car_name)
+
     gallary_contents = pagination(same_id_gallary, num)
-    # print(same_id_gallary2)
-    return gallary_contents
+
+    return {"car_name": car_name, "gallery_contents": gallary_contents}
