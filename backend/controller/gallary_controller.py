@@ -34,13 +34,13 @@ class Gallary(Resource):
     def post(self):
         """갤러리에 차량을 추가합니다."""
         info = request.json
-        return post_gallary_cars(info)
+        return post_gallary_cars(info), 201
 
     @gallary.expect(delete_gallary)
-    @gallary.response(201, "Deleted")
+    @gallary.response(204, "Deleted")
     @gallary.response(409, "Not Correct PW")
     @gallary.response(400, "Failed")
     def delete(self):
         """갤러리에 차량을 삭제합니다."""
         info = request.json
-        return delete_gallary_cars(info)
+        return delete_gallary_cars(info), 204
