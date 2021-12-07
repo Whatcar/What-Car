@@ -59,7 +59,6 @@ export default function SearchDetail() {
           imgUrl={carData.photolink}
           buttonTitle="보러 가기"
           linkTo="/search"
-          restartTitle="목록으로 돌아가기"
         />
         <DisqusFrame showMore={state ? true : false}>
           <Disqus.DiscussionEmbed shortname={disqusShortname} config={disqusConfig} />
