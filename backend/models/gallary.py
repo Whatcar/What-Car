@@ -1,3 +1,5 @@
+from datetime import datetime
+
 from bcrypt_generator import bcrypt
 from db_connect import db
 from flask_restx import fields
@@ -12,6 +14,7 @@ class Gallary(db.Model):
     car_url = db.Column(db.Text, nullable=True)
     nickname = db.Column(db.String(30), nullable=False)
     password = db.Column(db.String(255), nullable=False)
+    created_at = db.Column(db.DateTime, nullable=False, default=datetime.now)
 
     def __init__(
         self, car_id: int, car_url: str, similarity: float, nickname: str, password: str
@@ -54,13 +57,19 @@ class Gallary(db.Model):
         ),
     }
     response_model = {
-        "result_num": fields.Integer(required=True, description="고유 아이디 일치 갤러리 게시물 개수", example=1),
+        "result_num": fields.Integer(
+            required=True, description="고유 아이디 일치 갤러리 게시물 개수", example=1
+        ),
         "car_id": fields.Integer(required=True, description="차량 고유 아이디", example=1),
         "car_url": fields.String(
             required=True,
             description="차량 분석 이미지 링크",
             example="https://aws.s3.car",
         ),
-        "similarity": fields.Float(required=True, description="차량 분석 유사도", example=0.99),
-        "nickname": fields.String(required=True, description="업로드한 사용자의 닉네임", example="왓카"),
+        "similarity": fields.Float(
+            required=True, description="차량 분석 유사도", example=0.99
+        ),
+        "nickname": fields.String(
+            required=True, description="업로드한 사용자의 닉네임", example="왓카"
+        ),
     }

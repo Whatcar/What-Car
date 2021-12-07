@@ -7,7 +7,6 @@ import time
 import cv2
 import numpy as np
 import requests
-
 # from ai import detection, label, model
 from config import aws_s3
 from models import Car, Temporary_Ai_Car, db
@@ -127,13 +126,18 @@ def get_ai_cars_detail(id):
         less_similar_car_3 = Car.query.filter(Car.id == less[2][0]).first()
         less_similar_car_4 = Car.query.filter(Car.id == less[3][0]).first()
         most_similar_car_content = Car.to_dict(most_similar_car)
-        less_similar_car_1_content = Car.to_dict_part(less_similar_car_1)
-        less_similar_car_2_content = Car.to_dict_part(less_similar_car_2)
-        less_similar_car_3_content = Car.to_dict_part(less_similar_car_3)
-        less_similar_car_4_content = Car.to_dict_part(less_similar_car_4)
+        less_similar_car_1_content = Car.to_dict_upload(less_similar_car_1)
+        less_similar_car_1_content["similarity"] = less[0][1]
+        less_similar_car_2_content = Car.to_dict_upload(less_similar_car_2)
+        less_similar_car_2_content["similarity"] = less[1][1]
+        less_similar_car_3_content = Car.to_dict_upload(less_similar_car_3)
+        less_similar_car_3_content["similarity"] = less[2][1]
+        less_similar_car_4_content = Car.to_dict_upload(less_similar_car_4)
+        less_similar_car_4_content["similarity"] = less[3][1]
         result = {
             "most_car": {
                 "most_car_db_id": id,
+                "similarity": most[1],
                 "most_car_url": data.most_similar_car_url,
                 "most_car_detail": most_similar_car_content,
             },
