@@ -4,7 +4,8 @@ from flask_migrate import Migrate
 from flask_restx import Api
 
 import config
-from controller import detail, mbti, search, upload, worldcup
+from bcrypt_generator import bcrypt
+from controller import detail, gallary, mbti, search, upload, worldcup
 from db_connect import db
 
 
@@ -16,6 +17,7 @@ def create_app():
     api.add_namespace(upload)
     api.add_namespace(mbti)
     api.add_namespace(worldcup)
+    api.add_namespace(gallary)
     # CORS(app, resources={r"/api/*": {"origins": "http://localhost:3000"}})
     CORS(app)
 
@@ -24,8 +26,9 @@ def create_app():
     db.init_app(app)
     Migrate().init_app(app, db)
 
+    bcrypt.init_app(app)
     # AI model
-    from ai import detection, model
+    # from ai import detection, model
 
     return app
 

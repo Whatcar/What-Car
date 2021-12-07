@@ -7,7 +7,7 @@ import time
 import cv2
 import numpy as np
 import requests
-from ai import detection, label, model
+# from ai import detection, label, model
 from config import aws_s3
 from models import Car, Gallery, Temporary_Ai_Car, db
 from PIL import Image
