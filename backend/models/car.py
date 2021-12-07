@@ -91,6 +91,16 @@ class Car(db.Model):
             "car_grade": self.car_grade,
         }
 
+    def to_dict_upload(self):
+        return {
+            "id": self.id,
+            "name": self.name,
+            "photolink": self.aws_url,
+            "price": self.price,
+            "car_grade": self.car_grade,
+            "similarity": 0,
+        }
+
     response_model = {
         "id": fields.Integer(description="차량 고유 아이디"),
         "name": fields.String(description="모델명"),
