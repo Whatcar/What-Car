@@ -45,7 +45,7 @@ def get_detail(id):
     return car_content, car_color
 
 
-def get_same_id_gallery_img(id, num):
+def get_same_id_gallary_img(id, num):
     # data = Temporary_Ai_Car.query.filter(Temporary_Ai_Car.id == id).first()
 
     # content = Temporary_Ai_Car.to_dict(data)
