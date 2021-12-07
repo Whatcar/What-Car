@@ -19,7 +19,7 @@ export default function Gallary() {
   const imageRef = useRef();
   const refs = useMemo(() => state.item.map(() => React.createRef()), [state.item]);
   const PATH = process.env.REACT_APP_BACKEND_URL;
-  const LIMITS = 2;
+  const LIMITS = 10;
 
   const handleDelete = async (idx, id) => {
     const temp = [...state.item];
@@ -211,10 +211,7 @@ export default function Gallary() {
             <Loading />
           </div>
         ) : (
-          <div
-            ref={setRef}
-            style={{ width: '100%', height: '100px', border: '1px solid black' }}
-          ></div>
+          <div ref={setRef} style={{ width: '100%', height: '100px' }}></div>
         )
       ) : (
         <div style={{ textAlign: 'center' }}>더이상 불러올 이미지가 없어요!</div>
