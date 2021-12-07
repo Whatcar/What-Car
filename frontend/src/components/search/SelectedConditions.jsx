@@ -15,7 +15,6 @@ const SelectedConditions = () => {
 
   const getConditions = () => {
     if (recoilState) {
-      console.log(recoilState);
       const conditions = recoilState.filter((item) => item !== '전체~' && item.length);
       const chipList = conditions.map((condition, idx) => {
         return (
