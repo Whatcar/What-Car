@@ -42,7 +42,7 @@ def get_detail(id):
 
     car_content = Car.to_dict(car)
     car_color = CarColor.to_dict(car_color)
-    return car_content
+    return car_content, car_color
 
 
 def get_same_id_gallery_img(id, num):
