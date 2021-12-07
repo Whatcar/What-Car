@@ -5,17 +5,23 @@ import { Divider, Grid, Tooltip } from '@mui/material';
 export default function CarDetail({ detail, colors }) {
   return (
     <InfoBox>
-      <div style={{ width: '100%' }}>
-        <p>색상</p>
-        <Divider style={{ width: '100%', marginBottom: '1rem' }} />
-        <ColorBox>
-          {colors.map((color) => (
-            <Tooltip title={color.name} arrow>
-              <ColorCircle key={`${detail.name}-${color.name}`} art={color.name} src={color.url} />
-            </Tooltip>
-          ))}
-        </ColorBox>
-      </div>
+      {colors && (
+        <div style={{ width: '100%' }}>
+          <p>색상</p>
+          <Divider style={{ width: '100%', marginBottom: '1rem' }} />
+          <ColorBox>
+            {colors.map((color) => (
+              <Tooltip title={color.name} arrow>
+                <ColorCircle
+                  key={`${detail.name}-${color.name}`}
+                  art={color.name}
+                  src={color.url}
+                />
+              </Tooltip>
+            ))}
+          </ColorBox>
+        </div>
+      )}
 
       <div>
         <p>상세 스펙</p>
