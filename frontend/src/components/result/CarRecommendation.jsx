@@ -4,7 +4,6 @@ import { MainTitle } from '../../css/mainStyles';
 import Car from './Car';
 
 export default function CarRecommendation({ findMore }) {
-  console.log(findMore);
   return (
     <RecommendWrapper>
       <MainLayout>

@@ -22,7 +22,7 @@ const useInfinity = (onIntersect, option) => {
       observer.observe(ref);
     }
     return () => observer && observer.disconnect();
-  }, [ref, option.root, option.threshold, option.rootMargin, checkIntersect]);
+  }, [ref]);
   return [ref, setRef];
 };
 

@@ -19,6 +19,7 @@ export default function Intro() {
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
   const [sent, setSent] = useState(false);
+  const PATH = process.env.REACT_APP_BACKEND_URL;
 
   const handleChangeFile = (event) => {
     setImgFile(event.target.files);
@@ -57,7 +58,7 @@ export default function Intro() {
       const formData = new FormData();
       formData.append('file', imgFile[0]);
       axios
-        .post('http://localhost:5000/api/upload', formData, {
+        .post(`${PATH}/api/upload`, formData, {
           headers: {
             'Content-Type': 'multipart/form-data',
           },
