@@ -43,7 +43,7 @@ export const fontStyle = {
 `,
   body: `
   font-size: ${fontSize.M};
-  line-height: 30px;
+  line-height: 24px;
   font-family: 'SBAggroL';
   @media screen and (max-width: 480px) {
     font-size: 12px;
@@ -61,7 +61,7 @@ export const fontStyle = {
 `,
   desc: `
   font-size: ${fontSize.S};
-  line-height: 15px;
+  line-height: 20px;
   font-family: 'SBAggroL';
   @media screen and (max-width: 480px) {
     font-size: 12px;
