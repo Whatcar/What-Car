@@ -6,6 +6,7 @@ import { MainTitle } from '../css/mainStyles';
 import Layout from '../components/Layout';
 import { LinearProgress } from '@mui/material';
 import { colors } from '../css/theme';
+import ProgressBar from '../components/ProgressBar';
 
 export default function WorldcupTest() {
   const PATH = process.env.REACT_APP_BACKEND_URL;
@@ -55,7 +56,7 @@ export default function WorldcupTest() {
 
   return (
     <Layout>
-      <LinearProgress variant="determinate" color="primary" value={progress} />
+      <ProgressBar progress={progress} />
       <MainTitle style={{ margin: '0.5rem 0', color: colors.blueM }}>
         {gameNum}
         {gameNum >= 4 && '강'}전

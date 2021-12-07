@@ -132,4 +132,30 @@ class Car(db.Model):
         "car_grade": fields.String(required=True, description="차급"),
     }
 
+    response_model_upload = {
+        "most_car_db_id": fields.Integer(description="차량 임시 db 고유 아이디"),
+        "most_car_url" : fields.String(description="박스 표시된 이미지 url"),
+        "similarity": fields.Float(description="유사도"),
+        "id": fields.Integer(description="차량 고유 아이디"),
+        "name": fields.String(description="모델명"),
+        "photolink": fields.String(description="이미지"),
+        "brand": fields.String(description="브랜드"),
+        "imported_domestic": fields.String(description="수입/국산"),
+        "price": fields.String(description="가격"),
+        "fuel_efficiency": fields.String(description="연비"),
+        "fuel": fields.String(description="연료"),
+        "car_grade": fields.String(description="차급"),
+        "appearance": fields.String(description="외형"),
+        "grade_name": fields.String(description="등급명"),
+        "on_sale": fields.String(description="판매여부"),
+        "release_date": fields.String(description="출시일"),
+        "discontinued_date": fields.String(description="단종일"),
+        "ride_capacity": fields.String(description="승차정원"),
+        "top_speed": fields.String(description="최고속도"),
+        "displacement": fields.String(description="배기량"),
+        "engine_type": fields.String(description="엔진형식"),
+        "drive_method": fields.String(description="구동방식"),
+        "fuel_efficiency_rating": fields.String(description="연비등급"),
+    }
+
     # worldcups = db.relationship("Worldcup", backref="car", lazy=True)

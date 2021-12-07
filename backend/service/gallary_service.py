@@ -1,15 +1,12 @@
 from db_connect import db
+from flask import abort
 from models import Gallary
-from werkzeug.exceptions import abort
+from werkzeug.exceptions import HTTPException
 
 
-def get_gallary_cars(car_id):
+def get_gallary_cars():
     # 모든 차를 가져온다.
-    if car_id is None:
-        data = Gallary.query.all()
-    else:
-        # Todo : 무한스크롤 방식으로 조금씩 가져오기
-        data = Gallary.query.filter_by(car_id=car_id).all()
+    data = Gallary.query.all()
 
     result = list()
     for d in data:
@@ -60,8 +57,10 @@ def delete_gallary_cars(info):
             db.session.commit()
             return "Deleted"
         else:
-            abort(409, "Not Correct PW")
+            abort(409)
     except Exception as e:
         print(e)
+        if isinstance(e, HTTPException):
+            abort(e.code, "Not Correct PW")
         db.session.rollback()
         abort(400, "Failed")

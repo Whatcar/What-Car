@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router';
 import axios from 'axios';
 import { MainTitle, SubTitle } from '../css/mainStyles';
-import { blue } from '../css/colors';
 import Ranking from '../components/worldcup/Ranking';
 import { Skeleton, Button } from '@mui/material';
 import styled from 'styled-components';
@@ -42,7 +41,11 @@ export default function WorldcupResult() {
       ) : (
         <Skeleton variant="text" width="50%" height="4rem" />
       )}
-      <Button variant="contained" size="large" onClick={() => navigate(`/result/${result.car_id}`)}>
+      <Button
+        variant="contained"
+        size="large"
+        onClick={() => navigate(`/search/detail/${result.car_id}`)}
+      >
         자세히 보러 가기
       </Button>
       <ResultWrapper>
