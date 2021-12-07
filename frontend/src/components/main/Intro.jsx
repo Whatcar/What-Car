@@ -108,7 +108,7 @@ export default function Intro() {
   };
   return (
     <>
-      <Grid container spacing={2} style={{ paddingTop: '7rem' }}>
+      <Grid container spacing={2} style={{ paddingTop: '5rem' }}>
         <Grid item xs={12} md={6} lg={6} desc>
           <SubTitle {...useSrr('down', 1, 0.2)}>찰칵!</SubTitle>
           <MainTitle blue {...useSrr('down', 1, 0.5)}>

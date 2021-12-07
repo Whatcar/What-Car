@@ -57,7 +57,7 @@ export default function Section0() {
           <PersonIntro key={`intro-${item.id}`}>
             <div>check!</div>
             <img src={item.img} />
-            <Desc dark top={2}>
+            <Desc dark top={1}>
               {item.desc}
             </Desc>
           </PersonIntro>
@@ -71,7 +71,7 @@ const SectionWrapper = styled.div`
   text-align: center;
   display: flex;
   flex-direction: column;
-  padding-top: 7rem;
+  padding-top: 5rem;
 `;
 
 const PeopleIntro = styled.div`
