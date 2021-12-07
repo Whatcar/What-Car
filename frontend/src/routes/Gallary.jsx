@@ -14,7 +14,7 @@ const fakeFetch = (delay = 1000) => new Promise((res) => setTimeout(res, delay))
 export default function Gallary() {
   // const [data, setData] = useState(itemData);
   const [state, setState] = useState({ item: itemData, isLoading: false });
-  console.log('맨 바깥');
+  const [count, setCount] = useState(0);
   // const [loading, setLoading] = useState(false);
   const imageRef = useRef();
   const refs = useMemo(() => state.item.map(() => React.createRef()), [state.item]);
@@ -32,6 +32,7 @@ export default function Gallary() {
     await fakeFetch();
     // setData((prev) => [...prev, ...itemData]);
     // setLoading(false);
+    setCount((prev) => prev + 1);
     setState((prev) => ({ item: prev.item.concat(itemData), isLoading: false }));
   };
 
@@ -44,17 +45,18 @@ export default function Gallary() {
   useEffect(() => {
     let imgStack = [0, 0, 0];
     let colWidth = 250;
-    for (let i = 0; i < refs.length; i++) {
-      let minIndex = imgStack.indexOf(Math.min.apply(0, imgStack));
-      let x = colWidth * minIndex;
-      let y = imgStack[minIndex];
-      imgStack[minIndex] += refs[i].current.children[0].height + 20;
-      refs[i].current.style.transform = `translateX(${x}px) translateY(${y}px)`;
-      if (i === refs.length - 1) {
-        imageRef.current.style.height = `${Math.max.apply(0, imgStack)}px`;
+    setTimeout(() => {
+      for (let i = 0; i < refs.length; i++) {
+        let minIndex = imgStack.indexOf(Math.min.apply(0, imgStack));
+        let x = colWidth * minIndex;
+        let y = imgStack[minIndex];
+        imgStack[minIndex] += refs[i].current.children[0].height + 20;
+        refs[i].current.style.transform = `translateX(${x}px) translateY(${y}px)`;
+        if (i === refs.length - 1) {
+          imageRef.current.style.height = `${Math.max.apply(0, imgStack)}px`;
+        }
       }
-    }
-    console.log('useEffect 내부');
+    }, 1000);
   }, [state.item]);
 
   return (
@@ -175,6 +177,7 @@ export default function Gallary() {
 
 const GridWrapper = styled.div`
   display: none;
+  min-height: 70vh;
   @media screen and (min-width: 480px) {
     max-width: 730px;
     margin: 3rem auto 0;
