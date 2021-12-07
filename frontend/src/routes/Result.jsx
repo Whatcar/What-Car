@@ -10,6 +10,7 @@ import { useLocation } from 'react-router';
 import Layout from '../components/Layout';
 import FeedbackButton from '../components/share/FeedbackButton';
 import { MainTitle } from '../css/mainStyles';
+import NotFound from './NotFound';
 
 export default function Result() {
   const PATH = process.env.REACT_APP_BACKEND_URL;
@@ -20,15 +21,22 @@ export default function Result() {
   const id = params.id;
   const [carData, setCarData] = useState({});
   const [lessCar, setLessCar] = useState({});
+  const [notFound, setNotFound] = useState(false);
   useEffect(() => {
-    axios.get(`${PATH}/api/upload`, { params: { id: id } }).then((res) => {
-      setCarData({
-        ...res.data['most_car']['most_car_detail'],
-        similarity: res.data['most_car']['similarity'],
-        most_car_url: res.data['most_car']['most_car_url'],
+    axios
+      .get(`${PATH}/api/upload`, { params: { id: id } })
+      .then((res) => {
+        setCarData({
+          ...res.data['most_car']['most_car_detail'],
+          similarity: res.data['most_car']['similarity'],
+          most_car_url: res.data['most_car']['most_car_url'],
+        });
+        setLessCar(res.data['less_cars']);
+      })
+      .catch((err) => {
+        console.log(err.response.data);
+        if (err.response.status === 404) setNotFound(true);
       });
-      setLessCar(res.data['less_cars']);
-    });
   }, [id]);
   const disqusShortname = 'WhatCar';
   const disqusConfig = {
@@ -37,7 +45,7 @@ export default function Result() {
     title: carData.name,
   };
 
-  return (
+  return !notFound ? (
     <Layout>
       <ResultWrapper>
         <MainTitle>
@@ -45,16 +53,20 @@ export default function Result() {
           <br />이 차는 <Blue>{carData.name}</Blue>입니다!
         </MainTitle>
         <ImageWrapper>
-          <img src={carData['most_car_url']} />
-          <img
-            src={
-              carData.photolink ||
-              'https://cdn.pixabay.com/photo/2019/02/28/04/54/car-4025379_960_720.png'
-            }
-            width="70%"
-            loading="lazy"
-            alt="자동차 이미지"
-          />
+          <div>
+            <img src={carData['most_car_url']} />
+          </div>
+          <div>
+            <img
+              src={
+                carData.photolink ||
+                'https://cdn.pixabay.com/photo/2019/02/28/04/54/car-4025379_960_720.png'
+              }
+              width="70%"
+              loading="lazy"
+              alt="자동차 이미지"
+            />
+          </div>
         </ImageWrapper>
 
         <CarDetail detail={carData} />
@@ -77,6 +89,8 @@ export default function Result() {
         <Disqus.DiscussionEmbed shortname={disqusShortname} config={disqusConfig} />
       </ResultWrapper>
     </Layout>
+  ) : (
+    <NotFound moreInfo="해당 url이 만료되었습니다." />
   );
 }
 
@@ -88,8 +102,12 @@ const ImageWrapper = styled.div`
   display: flex;
   margin: 1rem auto;
   width: 100%;
-  img {
-    flex: 1 1 0;
+  div {
+    flex: 1 0 0;
+    margin: auto;
+    img {
+      width: 100%;
+    }
   }
 `;
 

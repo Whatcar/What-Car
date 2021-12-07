@@ -36,7 +36,7 @@ export default function FeedbackButton({ carId, carUrl, similarity }) {
           })
           .then((res) => {
             console.log(res);
-            if (res.status !== 200) {
+            if (res.status !== 201) {
               throw new Error(res.statusText);
             }
           })
