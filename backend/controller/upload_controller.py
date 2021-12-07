@@ -1,6 +1,6 @@
 from flask import request
 from flask_restx import Namespace, Resource, fields
-from service import get_ai_cars_detail, get_same_id_gallery_img, get_upload_result
+from service import get_ai_cars_detail, get_upload_result
 from werkzeug.datastructures import FileStorage
 
 upload = Namespace("upload", path="/api")
@@ -12,7 +12,7 @@ result = upload.model(
 )
 
 
-@upload.route("/upload", methods=["POST", "GET"])
+@upload.route("/upload")
 class Upload(Resource):
     @upload.doc(params={"id": "차량의 임시 DB 고유 아이디"})
     @upload.response(200, "Success", result)
