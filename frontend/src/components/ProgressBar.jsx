@@ -2,7 +2,6 @@ import { LinearProgress } from '@mui/material';
 import styled from 'styled-components';
 
 const ProgressBar = ({ progress }) => {
-  console.log('render');
   return (
     <>
       <ProgressCar progress={progress}>
