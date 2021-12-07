@@ -9,6 +9,7 @@ import { useNavigate } from 'react-router';
 import Swal from 'sweetalert2';
 import useSrr from '../../utils/useSrr';
 import HowTo from './HowTo';
+import Loading from '../Loading';
 
 export default function Intro() {
   const navigate = useNavigate();
@@ -62,9 +63,10 @@ export default function Intro() {
           },
         })
         .then((res) => {
+          console.log(res);
           setSent(false);
           if (res.status === 200) {
-            navigate(`/result/${res.data.id}`, { state: true });
+            navigate(`/result/${res.data.id}`, { state: res.data.car_id });
           } else if (res.status === 404) {
             Swal.fire({
               icon: 'error',
@@ -177,7 +179,9 @@ export default function Intro() {
           <span></span>더 알아보기
         </ScrollDiv>
       </Grid>
-      <LoadingWrapper sent={sent}>Loading...</LoadingWrapper>
+      <LoadingWrapper sent={sent}>
+        <Loading />
+      </LoadingWrapper>
     </>
   );
 }
