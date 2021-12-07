@@ -71,9 +71,11 @@ export default function Result() {
 
         <CarDetail detail={carData} />
         <ShareButton
-          title={`이 차는 ${carData.name}입니다.`}
+          title={`이 차는 ${(carData.similarity * 100).toFixed(0)}%의 확률로 ${
+            carData.name
+          }입니다.`}
           description="차를 자세히 보고 싶으신가요?"
-          imgUrl={carData.photolink}
+          imgUrl={carData.most_car_url}
           buttonTitle="🚘 차 보러 가기 🚘"
           buttonText="다시 검색하기"
           linkTo="/"
