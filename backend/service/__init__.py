@@ -1,4 +1,4 @@
-from service.detail_service import get_detail, get_same_id_gallery_img
+from service.detail_service import get_detail, get_same_id_gallary_img
 from service.gallary_service import (
     delete_gallary_cars,
     get_gallary_cars,
