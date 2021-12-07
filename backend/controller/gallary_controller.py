@@ -20,13 +20,13 @@ response_data = gallary.model(
 
 @gallary.route("/gallary")
 class Gallary(Resource):
-    @gallary.doc(params={"car_id": "특정한 car id"})
+    @gallary.doc(params={"offset": "데이터 시작 위치", "limit": "가져올 데이터의 수"})
     @gallary.response(200, "Success", response_data)
     def get(self):
         """갤러리에 있는 차량들을 가져옵니다."""
-        car_id = request.args.get("car_id")
-
-        return get_gallary_cars(car_id)
+        offset = request.args.get("offset")
+        limit = request.args.get("limit")
+        return get_gallary_cars(offset, limit)
 
     @gallary.expect(post_gallary)
     @gallary.response(201, "Created")
