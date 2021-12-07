@@ -6,7 +6,7 @@ const CarHover = ({ hover, name, grade, cost, carId }) => {
   const navigate = useNavigate();
 
   const handleDescClick = () => {
-    navigate(`/result/${carId}`);
+    navigate(`/search/detail/${carId}`);
   };
   return (
     <Box hover={hover}>
