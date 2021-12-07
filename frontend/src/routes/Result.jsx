@@ -9,6 +9,8 @@ import Disqus from 'disqus-react';
 import { useLocation } from 'react-router';
 import Feedback from '../components/result/Feedback';
 import Layout from '../components/Layout';
+import KakaoShare from '../components/share/KakaoShare';
+import FeedbackButton from '../components/share/FeedbackButton';
 
 const mockData = [
   {
@@ -62,7 +64,14 @@ export default function Result() {
     <Layout>
       <ResultWrapper>
         <CarDetail detail={carData} />
-        <ShareButton url="result" />
+        <ShareButton
+          title={`이 차는 ${carData.name}입니다.`}
+          description="차를 자세히 보고 싶으신가요?"
+          imgUrl={carData.photolink}
+          buttonTitle="보러 가기"
+          linkTo="/"
+          additionalButton={<FeedbackButton />}
+        />
         {!isFeedback && <Feedback setIsFeedback={setIsFeedback} />}
         {state && <CarRecommendation findMore={mockData} />}
         <DisqusFrame showMore={state ? true : false}>

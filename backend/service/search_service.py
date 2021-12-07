@@ -185,6 +185,6 @@ def get_search_results(
         query_all_list = default_query.order_by(CarInt.price_int_low.asc())
 
     print("쿼리 출력", query_all)
-    car = pagination(query_all_list, num)
+    cars = pagination(query_all_list, num)
 
-    return car
+    return cars

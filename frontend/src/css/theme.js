@@ -27,26 +27,46 @@ export const fontStyle = {
   font-size: ${fontSize.XXL};
   line-height: 64px;
   font-family: 'SBAggroB';
+  @media screen and (max-width: 480px) {
+    font-size: 32px;
+    line-height: 48px;
+  }
 `,
   subTitle: `
   font-size: ${fontSize.XL};
   line-height: 48px;
   font-family: 'SBAggroM';
+  @media screen and (max-width: 480px) {
+    font-size: 24px;
+    line-height: 36px;
+  }
 `,
   body: `
   font-size: ${fontSize.M};
   line-height: 24px;
   font-family: 'SBAggroL';
+  @media screen and (max-width: 480px) {
+    font-size: 12px;
+    line-height: 24px;
+  }
 `,
   menu: `
   font-size: ${fontSize.L};
   line-height: 40px;
   font-family: 'SBAggroM';
+  @media screen and (max-width: 480px) {
+    font-size: 16px;
+    line-height: 20px;
+  }
 `,
   desc: `
   font-size: ${fontSize.S};
   line-height: 20px;
   font-family: 'SBAggroL';
+  @media screen and (max-width: 480px) {
+    font-size: 12px;
+    line-height: 16px;
+  }
 `,
 };
 
