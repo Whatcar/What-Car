@@ -11,6 +11,7 @@ class Temporary_Ai_Car(db.Model):
     most_similar_car = db.Column(db.String(255), nullable=False)
     less_similar_cars = db.Column(db.String(255), nullable=True)
     most_similar_car_url = db.Column(db.Text, nullable=False)
+    is_upload = db.Column(db.Boolean, default=False, nullable=False)
     created_at = db.Column(db.DateTime, nullable=False)
 
     def to_dict(self):

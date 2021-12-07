@@ -4,10 +4,15 @@ from models import Gallary
 from werkzeug.exceptions import HTTPException
 
 
-def get_gallary_cars():
-    # 모든 차를 가져온다.
-    data = Gallary.query.all()
-
+def get_gallary_cars(off_set, limit_num):
+    """
+    1. offset에서 limit만큼 차를 가져온다.
+    """
+    try:
+        data = Gallary.query.offset(off_set).limit(limit_num)
+    except Exception as e:
+        print(e)
+        abort(404, "no data")
     result = list()
     for d in data:
         result.append(
