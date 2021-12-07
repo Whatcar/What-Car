@@ -5,12 +5,11 @@ from flask_restx import fields
 
 # 갤러리
 class Gallary(db.Model):
-    __tablename__ = "gallery"
+    __tablename__ = "gallary"
     id = db.Column(db.Integer, primary_key=True, nullable=False, autoincrement=True)
     car_id = db.Column(db.Integer, db.ForeignKey("car.id"), nullable=False)
+    similarity = db.Column(db.Float, nullable=True)
     car_url = db.Column(db.Text, nullable=True)
-    # pred_val = db.Column(db.Float, nullable=True)
-    similarity = db.Column(db.Text, nullable=False)
     nickname = db.Column(db.String(30), nullable=False)
     password = db.Column(db.String(255), nullable=False)
 
@@ -26,6 +25,14 @@ class Gallary(db.Model):
 
     def is_password_correct(self, password: str):
         return bcrypt.check_password_hash(self.password, password)
+
+    def to_dict(self):
+        return {
+            "car_id": self.car_id,
+            "similarity": self.similarity,
+            "car_url": self.car_url,
+            "nickname": self.nickname,
+        }
 
     post_gallary = {
         "car_id": fields.Integer(required=True, description="차량 고유 아이디", example=1),
