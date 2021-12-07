@@ -22,7 +22,7 @@ function LinkShareButton() {
       onClick={onLinkClick}
       color="white"
       startIcon={<LinkRoundedIcon sx={{ transform: 'rotate(-45deg)', width: '20px' }} />}
-      sx={{ padding: '15px', width: '100%', lineHeight: '1rem' }}
+      sx={{ padding: '15px', width: '100%', lineHeight: '1rem', height: '100%' }}
     >
       링크 복사하기
     </Button>
