@@ -1,6 +1,5 @@
 import styled from 'styled-components';
 import { Desc } from '../../css/mainStyles';
-import campingCar from '../../img/mbti/campingCar.svg';
 import carbti1 from '../../img/mbti/carbti1.png';
 import carbti2 from '../../img/mbti/carbti2.png';
 import carbti3 from '../../img/mbti/carbti3.png';

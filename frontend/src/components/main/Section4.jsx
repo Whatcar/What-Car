@@ -1,6 +1,6 @@
 import { Button } from '@mui/material';
 import React from 'react';
-import { Desc, MainTitle, SubTitle } from '../../css/mainStyles';
+import { Desc, MainTitle } from '../../css/mainStyles';
 import { useNavigate } from 'react-router';
 import useSrr from '../../utils/useSrr';
 import { colors } from '../../css/theme';
