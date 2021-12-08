@@ -49,10 +49,12 @@ const MemberPicture = styled.img`
 `;
 
 const Introduction = styled.p`
+  color: ${({ theme }) => theme.colors.black900};
   margin-top: 10px;
   height: 3rem;
   overflow: auto;
-  line-height: 1.5rem;
+  font-size: 0.9rem;
+  line-height: 1.2rem;
   @media screen and (max-width: 480px) {
     margin-top: 5px;
     height: 2rem;

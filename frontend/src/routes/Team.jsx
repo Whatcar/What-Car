@@ -21,8 +21,18 @@ export default function Team() {
 
         <MainTitle top={5}>팀원 소개</MainTitle>
         <Members>
-          <Member image={yeonju} name="김나현" part="프론트엔드" intro="안녕하세유" />
-          <Member image={yeonju} name="김민지" part="백엔드" intro="안녕하세유" />
+          <Member
+            image={yeonju}
+            name="김나현"
+            part="프론트엔드"
+            intro="아이디어 내고 뚝딱뚝딱 만드는 걸 좋아합니다!"
+          />
+          <Member
+            image={yeonju}
+            name="김민지"
+            part="백엔드 데이터분석"
+            intro="안녕하십시오! 변화와 실패를 두려워하지 않는 백엔드 개발자로 진화 중인 김민지입니다."
+          />
           <Member image={yeonju} name="김재현" part="프론트엔드" intro="안녕하세유" />
 
           <Member
@@ -31,8 +41,18 @@ export default function Team() {
             part="팀장 백엔드 데이터분석"
             intro="해에위이요옹~~"
           />
-          <Member image={yeonju} name="이정규" part="백엔드" intro="안녕하세유" />
-          <Member image={yeonju} name="최연주" part="프론트엔드" intro="서비스 잘 이용해주세요~~" />
+          <Member
+            image={yeonju}
+            name="이정규"
+            part="백엔드 AI 데이터분석"
+            intro="점점 강해지는 주니어 개발자 이정규입니다~"
+          />
+          <Member
+            image={yeonju}
+            name="최연주"
+            part="프론트엔드"
+            intro="이것 저것 찍먹하며 많이 배우고 있는 중입니다!"
+          />
         </Members>
       </TeamWrapper>
     </Layout>
