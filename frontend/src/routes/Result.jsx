@@ -21,23 +21,29 @@ export default function Result() {
   const id = params.id;
   const [carData, setCarData] = useState({});
   const [lessCar, setLessCar] = useState([]);
-  const [colors, setColors] = useState([]);
   const [notFound, setNotFound] = useState(false);
+
+  console.log(carData.colors);
   useEffect(() => {
     axios
       .get(`${PATH}/api/upload`, { params: { id: id } })
       .then((res) => {
+        const names = res.data['most_car']['most_car_color'].color_name;
+        const urls = res.data['most_car']['most_car_color'].color_url;
+        const carColor = names.map((name, idx) => {
+          return {
+            name,
+            url: urls[idx],
+          };
+        });
         setCarData({
           ...res.data['most_car']['most_car_detail'],
           similarity: res.data['most_car']['similarity'],
           most_car_url: res.data['most_car']['most_car_url'],
           isUpload: res.data['most_car']['is_upload'],
-          colors: res.data['most_car']['most_car_color'],
+          colors: carColor,
         });
         setLessCar(res.data['less_cars']);
-        const carNames = res.data.most_car.most_car_color;
-
-        setColors(carNames);
       })
       .catch((err) => {
         if (err.response.status === 404) setNotFound(true);
@@ -74,7 +80,7 @@ export default function Result() {
           </div>
         </ImageWrapper>
 
-        <CarDetail detail={carData} />
+        <CarDetail detail={carData} colors={carData.colors} />
         <ShareButton
           title={`이 차는 ${(carData.similarity * 100).toFixed(0)}%의 확률로 ${
             carData.name
