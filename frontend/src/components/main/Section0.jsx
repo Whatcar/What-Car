@@ -78,7 +78,7 @@ const PeopleIntro = styled.div`
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   margin-top: 2rem;
-  row-gap: 1rem;
+  row-gap: 1.5rem;
   @media screen and (max-width: 480px) {
     grid-template-columns: 1fr 1fr;
   }

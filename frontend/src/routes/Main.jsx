@@ -12,6 +12,7 @@ import Section4 from '../components/main/Section4.jsx';
 import pic2 from '../img/main/2_2.svg';
 import pic3 from '../img/main/3_1.svg';
 import section2 from '../img/main/section2.png';
+import person3 from '../img/main/person3.png';
 import { colors } from '../css/theme.js';
 
 const slideStyle = { width: '100%', display: 'flex', alignItems: 'center', position: 'relative' };
@@ -69,12 +70,13 @@ export default function Main() {
             <Section3 />
           </MainLayout>
           <img
-            src={pic3}
+            src={person3}
             style={{
               position: 'absolute',
               bottom: 0,
               left: '50%',
               transform: 'translate(-50%, 0%)',
+              height: '20vh',
             }}
             alt="메인 서브 이미지"
           />
