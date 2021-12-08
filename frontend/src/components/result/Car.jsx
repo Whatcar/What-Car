@@ -12,7 +12,7 @@ export default function Car({ item }) {
   return (
     <CarCard>
       <Percentage>{(item.similarity * 100).toFixed(2)}%</Percentage>
-      <img src={item.photolink} height="50%" />
+      <img alt={`car-${item.name}`} src={item.photolink} height="50%" />
       <p style={{ fontFamily: 'SBAggroM' }}>{item.name}</p>
       <Desc>{item.price}</Desc>
       <Button variant="outlined" onClick={() => onButtonClick(item.id)}>

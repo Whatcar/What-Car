@@ -159,14 +159,25 @@ export default function Intro() {
             >
               사용법을 모르겠다면?
             </Desc>
-            <Dialog open={open} onClose={handleClose} scroll={'paper'} sx={{ zIndex: 1050 }}>
-              <DialogTitle>어떻게 검색하나요?</DialogTitle>
-              <DialogContent dividers={true}>
+            <Dialog
+              open={open}
+              onClose={handleClose}
+              scroll={'paper'}
+              sx={{ zIndex: 1050 }}
+              maxWidth="sm"
+              fullWidth
+            >
+              <DialogTitle
+                style={{ textAlign: 'center', color: colors.blueM, fontFamily: 'SBAggroM' }}
+              >
+                어떻게 검색하나요?
+              </DialogTitle>
+              <DialogContent>
                 <HowTo />
               </DialogContent>
 
-              <DialogActions>
-                <Button variant="outlined" onClick={handleClose}>
+              <DialogActions style={{ display: 'flex', justifyContent: 'center' }}>
+                <Button variant="outlined" onClick={handleClose} style={{ marginBottom: '0.5rem' }}>
                   이제 알겠어요!
                 </Button>
               </DialogActions>
@@ -213,11 +224,12 @@ const scroll = keyframes`
     }
 `;
 
-const ScrollDiv = styled.div`
+export const ScrollDiv = styled.div`
   padding-top: 70px;
   position: relative;
   color: ${({ theme }) => theme.colors.blueM};
   margin: 2rem auto 0;
+  text-align: center;
   @media screen and (max-width: 480px) {
     margin: 1rem auto;
     padding-top: 0;

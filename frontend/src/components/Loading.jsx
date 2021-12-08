@@ -1,7 +1,6 @@
 import React from 'react';
 import Lottie from 'react-lottie';
 import animationData from '../img/carLoading.json';
-import useSrr from '../utils/useSrr';
 
 export default function Loading() {
   const defaultOptions = {
