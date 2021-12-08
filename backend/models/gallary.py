@@ -46,15 +46,10 @@ class Gallary(db.Model):
         }
 
     post_gallary = {
-        "ai_db_id": fields.Integer(
+        "ai_result_id": fields.Integer(
             required=True, description="AI DB 고유 아이디", example=1
         ),
         "car_id": fields.Integer(required=True, description="차량 고유 아이디", example=1),
-        "car_url": fields.String(
-            required=True,
-            description="박스가 그려진 차량 이미지 url",
-            example="https://aws.s3.car",
-        ),
         "similarity": fields.Float(
             required=True, description="차량 분석 유사도", example=0.99
         ),
@@ -73,8 +68,9 @@ class Gallary(db.Model):
         ),
     }
     response_model = {
-        "result_num": fields.Integer(
-            required=True, description="고유 아이디 일치 갤러리 게시물 개수", example=1
+        "gallary_id": fields.Integer(required=True, description="갤러리 아이디", example=1),
+        "ai_result_id": fields.Integer(
+            required=True, description="AI DB 고유 아이디", example=1
         ),
         "car_name": fields.String(
             required=True, description="차량 이름", example="2021 벤츠"
