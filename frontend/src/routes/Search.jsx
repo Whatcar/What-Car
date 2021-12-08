@@ -66,10 +66,10 @@ const Search = () => {
         const cars = carlist.data[1];
         setDataLength(total);
         setItems(cars);
+        setIsLoading(false);
       } catch (error) {
-        console.log('ERROR CHECK!', error);
+        setIsLoading(false);
       }
-      setIsLoading(false);
     };
 
     getCarlist();
