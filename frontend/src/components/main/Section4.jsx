@@ -4,7 +4,7 @@ import { Desc, MainTitle } from '../../css/mainStyles';
 import { useNavigate } from 'react-router';
 import useSrr from '../../utils/useSrr';
 import { colors } from '../../css/theme';
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
 import ChevronRightRoundedIcon from '@mui/icons-material/ChevronRightRounded';
 import ArrowUpwardRoundedIcon from '@mui/icons-material/ArrowUpwardRounded';
 
@@ -42,17 +42,14 @@ export default function Section4({ swiper }) {
           transform: 'translate(-50%, 0%)',
         }}
       >
-        <Button
-          variant="contained"
-          startIcon={<ArrowUpwardRoundedIcon />}
-          sx={{ padding: '10px 3rem', marginTop: '1rem' }}
+        <ScrollDiv
           onClick={() => {
             swiper.slideTo(0);
             window.scrollTo(0, 0, 'smooth');
           }}
         >
-          맨 위로 올라가기
-        </Button>
+          <span />맨 위로 올라가기
+        </ScrollDiv>
       </div>
     </SectionWrapper>
   );
@@ -62,5 +59,47 @@ const SectionWrapper = styled.div`
   width: 80%;
   @media screen and (max-width: 480px) {
     width: 100%;
+  }
+`;
+
+const scroll = keyframes`
+    0% {
+      transform: rotate(135deg) translate(0, 0);
+      opacity: 0;
+    }
+    50% {
+      opacity: 1;
+    }
+    100% {
+      transform: rotate(135deg) translate(-20px, 20px);
+      opacity: 0;
+    }
+`;
+
+export const ScrollDiv = styled.div`
+  padding-top: 1.5rem;
+  position: relative;
+  color: ${({ theme }) => theme.colors.blueM};
+  margin: 2rem auto 0;
+  text-align: center;
+  cursor: pointer;
+  @media screen and (max-width: 480px) {
+    margin: 1rem auto;
+    padding-top: 0;
+  }
+  span {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    width: 24px;
+    height: 24px;
+    margin-left: -12px;
+    border-left: 1px solid ${({ theme }) => theme.colors.blueM};
+    border-bottom: 1px solid ${({ theme }) => theme.colors.blueM};
+    -webkit-transform: rotate(135deg);
+    transform: rotate(135deg);
+    -webkit-animation: ${scroll} 1.5s infinite;
+    animation: ${scroll} 1.5s infinite;
+    box-sizing: border-box;
   }
 `;

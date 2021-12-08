@@ -224,11 +224,12 @@ const scroll = keyframes`
     }
 `;
 
-const ScrollDiv = styled.div`
+export const ScrollDiv = styled.div`
   padding-top: 70px;
   position: relative;
   color: ${({ theme }) => theme.colors.blueM};
   margin: 2rem auto 0;
+  text-align: center;
   @media screen and (max-width: 480px) {
     margin: 1rem auto;
     padding-top: 0;
