@@ -47,7 +47,6 @@ const Cars = styled.div`
     width: 85%;
   }
   display: flex;
-  justify-content: space-around;
   align-items: center;
   margin: 1rem auto;
   overflow: auto;
