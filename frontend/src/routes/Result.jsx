@@ -9,7 +9,7 @@ import Disqus from 'disqus-react';
 import { useLocation } from 'react-router';
 import Layout from '../components/Layout';
 import FeedbackButton from '../components/share/FeedbackButton';
-import { MainTitle } from '../css/mainStyles';
+import { Desc, MainTitle } from '../css/mainStyles';
 import NotFound from './NotFound';
 
 export default function Result() {
@@ -86,13 +86,19 @@ export default function Result() {
           linkTo="/"
           additionalButton={
             carData.isUpload === false && (
-              <FeedbackButton
-                id={id}
-                carId={carData.id}
-                carUrl={carData.most_car_url}
-                similarity={carData.similarity}
-                setCarData={setCarData}
-              />
+              <>
+                <FeedbackButton
+                  id={id}
+                  carId={carData.id}
+                  carUrl={carData.most_car_url}
+                  similarity={carData.similarity}
+                  setCarData={setCarData}
+                />
+                <Desc highlight center top={1}>
+                  *현재 페이지는 24시간이 지나면 접속할 수 없습니다. 기록을 남기고 싶으면 왓카
+                  갤러리에 사진을 공유하세요!
+                </Desc>
+              </>
             )
           }
         />
