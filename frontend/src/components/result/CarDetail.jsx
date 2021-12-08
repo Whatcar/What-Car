@@ -77,8 +77,8 @@ const ColorCircle = styled.img`
   width: 2rem;
   height: 2rem;
   border-radius: 1rem;
-  & + div {
-    padding-left: 0.5rem;
+  & + img {
+    margin-left: 0.5rem;
   }
 `;
 
