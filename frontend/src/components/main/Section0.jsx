@@ -48,10 +48,10 @@ export default function Section0() {
       <SubTitle dark {...useSrr('down', 1, 0.2)}>
         차.알.못을 위한 자동차 검색 서비스, 왓카!
       </SubTitle>
-      <MainDesc dark {...useSrr('down', 1, 0.5)}>
+      <MainDesc dark {...useSrr('down', 1, 0.5)} top={0.5}>
         이런 사람들을 위해 만들었어요
       </MainDesc>
-      <PeopleIntro {...useSrr('up', 1, 1)}>
+      <PeopleIntro {...useSrr('up', 1, 0.7)}>
         {introData.map((item) => (
           <PersonIntro key={`intro-${item.id}`}>
             <div>check!</div>
