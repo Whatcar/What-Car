@@ -14,10 +14,7 @@ export default function Section4({ swiper }) {
     <SectionWrapper>
       <MainTitle {...useSrr('down', 1, 0.2)}>
         다른 사람들은{' '}
-        <span style={{ color: colors.blueM, display: 'inline-block' }}>
-          {' '}
-          어떤 차에 관심 있는지{' '}
-        </span>
+        <span style={{ color: colors.blueM, display: 'inline-block' }}> 어떤 차에 관심 있는지</span>{' '}
         궁금해요!
       </MainTitle>
       <Desc {...useSrr('down', 1, 0.5)} top={0.5}>
