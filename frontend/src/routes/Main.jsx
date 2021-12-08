@@ -9,8 +9,6 @@ import Section1 from '../components/main/Section1.jsx';
 import Section2 from '../components/main/Section2.jsx';
 import Section3 from '../components/main/Section3.jsx';
 import Section4 from '../components/main/Section4.jsx';
-import pic2 from '../img/main/2_2.svg';
-import pic3 from '../img/main/3_1.svg';
 import section2 from '../img/main/section2.png';
 import person3 from '../img/main/person3.png';
 import { colors } from '../css/theme.js';
