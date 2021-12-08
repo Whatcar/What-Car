@@ -5,7 +5,10 @@ from db_connect import db
 class CarColor(db.Model):
     __tablename__ = "car_color"
     car_id = db.Column(
-        db.Integer, db.ForeignKey("car.id"), primary_key=True, nullable=False
+        db.Integer,
+        db.ForeignKey("car.id", ondelete="CASCADE", onupdate="CASCADE"),
+        primary_key=True,
+        nullable=False,
     )
     color_name = db.Column(db.Text, nullable=True)
     color_url = db.Column(db.Text, nullable=True)
