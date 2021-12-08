@@ -2,6 +2,7 @@ import React from 'react';
 import link from '../../img/share/link.png';
 import { Button } from '@mui/material';
 import LinkRoundedIcon from '@mui/icons-material/LinkRounded';
+import Swal from 'sweetalert2';
 
 function LinkShareButton() {
   const onLinkClick = () => {
@@ -13,7 +14,10 @@ function LinkShareButton() {
     textarea.select();
     document.execCommand('copy');
     document.body.removeChild(textarea);
-    alert('URL이 복사되었습니다.');
+    Swal.fire({
+      icon: 'success',
+      title: 'URL이 복사되었습니다.',
+    });
   };
   return (
     <Button

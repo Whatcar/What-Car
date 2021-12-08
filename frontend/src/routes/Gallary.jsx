@@ -127,7 +127,7 @@ export default function Gallary() {
         }
 
         if (i === refs.length - 1) {
-          imageRef.current.style.height = `${Math.max.apply(0, imgStack)}px`;
+          if (imageRef.current) imageRef.current.style.height = `${Math.max.apply(0, imgStack)}px`;
         }
       }
     }, 1000);
