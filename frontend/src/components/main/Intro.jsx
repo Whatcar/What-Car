@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import styled, { keyframes } from 'styled-components';
 import { Grid, Button, Dialog, DialogTitle, DialogContent, DialogActions } from '@mui/material';
-import MainImg from '../../img/main/main_img_new.svg';
 import { MainTitle, SubTitle, Desc } from '../../css/mainStyles';
 import { colors } from '../../css/theme';
 import axios from 'axios';
@@ -10,6 +9,8 @@ import Swal from 'sweetalert2';
 import useSrr from '../../utils/useSrr';
 import HowTo from './HowTo';
 import Loading from '../Loading';
+import mainPerson from '../../img/main/mainperson.png';
+import { BoxGrid, DescGrid, ImgGrid } from '../../css/IntroGrid';
 
 export default function Intro() {
   const navigate = useNavigate();
@@ -107,8 +108,8 @@ export default function Intro() {
   };
   return (
     <>
-      <Grid container spacing={2} style={{ paddingTop: '5rem' }}>
-        <Grid item xs={12} md={6} lg={6} desc>
+      <BoxGrid container columns={8} spacing={2}>
+        <DescGrid item xs={8} md={4} lg={3} desc>
           <SubTitle {...useSrr('down', 1, 0.2)}>찰칵!</SubTitle>
           <MainTitle blue {...useSrr('down', 1, 0.5)}>
             저 차는 뭐징?
@@ -150,7 +151,7 @@ export default function Intro() {
           >
             이미지 검색하기
           </ImageUploadButton>
-          <div style={{ textAlign: 'center', marginTop: '2rem' }}>
+          <div style={{ textAlign: 'center', marginTop: '1rem' }}>
             <Desc
               highlight
               onClick={handleOpen}
@@ -171,14 +172,25 @@ export default function Intro() {
               </DialogActions>
             </Dialog>
           </div>
+        </DescGrid>
+        <ImgGrid item xs={12} md={4} lg={5} img style={{ display: 'flex', alignItems: 'center' }}>
+          <MainImage src={mainPerson} />
+        </ImgGrid>
+        <Grid
+          xs={12}
+          style={{
+            order: 3,
+            display: 'flex',
+            alignItems: 'center',
+            marginTop: 'auto',
+            paddingLeft: '1rem',
+          }}
+        >
+          <ScrollDiv>
+            <span></span>더 알아보기
+          </ScrollDiv>
         </Grid>
-        <Grid item xs={12} md={6} lg={6} img style={{ display: 'flex', alignItems: 'center' }}>
-          <MainImage src={MainImg} />
-        </Grid>
-        <ScrollDiv>
-          <span></span>더 알아보기
-        </ScrollDiv>
-      </Grid>
+      </BoxGrid>
       <LoadingWrapper sent={sent}>
         <Loading />
       </LoadingWrapper>
@@ -228,11 +240,12 @@ const ScrollDiv = styled.div`
 
 const MainImage = styled.img`
   width: 100%;
-  max-width: 350px;
+  max-width: 500px;
   display: block;
-  margin: auto;
+  margin-left: 2rem;
   @media screen and (max-width: 480px) {
-    width: 50%;
+    width: 75%;
+    margin: auto;
   }
 `;
 

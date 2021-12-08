@@ -1,11 +1,10 @@
 import React from 'react';
 import styled from 'styled-components';
 import { SubTitle, MainDesc, Desc } from '../../css/mainStyles';
-import { blue } from '../../css/colors';
-import pic1 from '../../img/main/1.svg';
-import pic2 from '../../img/main/2.svg';
-import pic3 from '../../img/main/3.svg';
-import pic4 from '../../img/main/4.svg';
+import pic1 from '../../img/main/person1.png';
+import pic2 from '../../img/main/person2.png';
+import pic3 from '../../img/main/person3.png';
+import pic4 from '../../img/main/person4.png';
 import useSrr from '../../utils/useSrr';
 
 const introData = [
@@ -49,17 +48,15 @@ export default function Section0() {
       <SubTitle dark {...useSrr('down', 1, 0.2)}>
         차.알.못을 위한 자동차 검색 서비스, 왓카!
       </SubTitle>
-      <MainDesc dark {...useSrr('down', 1, 0.5)}>
+      <MainDesc dark {...useSrr('down', 1, 0.5)} top={0.5}>
         이런 사람들을 위해 만들었어요
       </MainDesc>
-      <PeopleIntro {...useSrr('up', 1, 1)}>
+      <PeopleIntro {...useSrr('up', 1, 0.7)}>
         {introData.map((item) => (
           <PersonIntro key={`intro-${item.id}`}>
             <div>check!</div>
             <img src={item.img} />
-            <Desc dark top={1}>
-              {item.desc}
-            </Desc>
+            <Desc dark>{item.desc}</Desc>
           </PersonIntro>
         ))}
       </PeopleIntro>
@@ -72,35 +69,42 @@ const SectionWrapper = styled.div`
   display: flex;
   flex-direction: column;
   padding-top: 5rem;
+  @media screen and (max-width: 480px) {
+    padding-top: 0;
+  }
 `;
 
 const PeopleIntro = styled.div`
-  display: flex;
-  justify-content: space-between;
-  margin-top: 3rem;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  margin-top: 2rem;
+  row-gap: 1.5rem;
   @media screen and (max-width: 480px) {
-    overflow-x: scroll;
+    grid-template-columns: 1fr 1fr;
   }
 `;
 
 const PersonIntro = styled.div`
   flex: 1 1 0;
-  padding: 1rem;
+  padding: 0 0.5rem;
   div {
     ${({ theme }) => theme.fontStyle.menu}
     color: ${({ theme }) => theme.colors.blueM};
     transform: rotate(-8deg);
   }
   img {
-    width: 90%;
+    width: 80%;
+  }
+  p {
+    padding-top: 1rem;
   }
   box-sizing: border-box;
   @media screen and (max-width: 480px) {
-    flex: 1 0 50%;
-    padding: 0 5px;
-    div {
-      font-size: 1rem;
-      margin-top: 1rem;
+    img {
+      width: 60%;
+    }
+    p {
+      padding-top: 0;
     }
   }
 `;
