@@ -10,6 +10,7 @@ class Gallary(db.Model):
     __tablename__ = "gallary"
     id = db.Column(db.Integer, primary_key=True, nullable=False, autoincrement=True)
     car_id = db.Column(db.Integer, db.ForeignKey("car.id"), nullable=False)
+    ai_result_id = db.Column(db.Integer, db.ForeignKey("ai_result.id"), nullable=False)
     similarity = db.Column(db.Float, nullable=True)
     car_url = db.Column(db.Text, nullable=True)
     nickname = db.Column(db.String(30), nullable=False)
@@ -17,9 +18,16 @@ class Gallary(db.Model):
     created_at = db.Column(db.DateTime, nullable=False, default=datetime.now)
 
     def __init__(
-        self, car_id: int, car_url: str, similarity: float, nickname: str, password: str
+        self,
+        car_id: int,
+        ai_result_id: int,
+        car_url: str,
+        similarity: float,
+        nickname: str,
+        password: str,
     ):
         self.car_id = car_id
+        self.ai_result_id = ai_result_id
         self.car_url = car_url
         self.similarity = similarity
         self.nickname = nickname
@@ -31,18 +39,17 @@ class Gallary(db.Model):
     def to_dict(self):
         return {
             "car_id": self.car_id,
+            "ai_result_id": self.ai_result_id,
             "similarity": self.similarity,
             "car_url": self.car_url,
             "nickname": self.nickname,
         }
 
     post_gallary = {
-        "car_id": fields.Integer(required=True, description="차량 고유 아이디", example=1),
-        "car_url": fields.String(
-            required=True,
-            description="박스가 그려진 차량 이미지 url",
-            example="https://aws.s3.car",
+        "ai_result_id": fields.Integer(
+            required=True, description="AI DB 고유 아이디", example=1
         ),
+        "car_id": fields.Integer(required=True, description="차량 고유 아이디", example=1),
         "similarity": fields.Float(
             required=True, description="차량 분석 유사도", example=0.99
         ),
@@ -61,10 +68,13 @@ class Gallary(db.Model):
         ),
     }
     response_model = {
-        "result_num": fields.Integer(
-            required=True, description="고유 아이디 일치 갤러리 게시물 개수", example=1
+        "gallary_id": fields.Integer(required=True, description="갤러리 아이디", example=1),
+        "ai_result_id": fields.Integer(
+            required=True, description="AI DB 고유 아이디", example=1
         ),
-        "car_id": fields.Integer(required=True, description="차량 고유 아이디", example=1),
+        "car_name": fields.String(
+            required=True, description="차량 이름", example="2021 벤츠"
+        ),
         "car_url": fields.String(
             required=True,
             description="차량 분석 이미지 링크",

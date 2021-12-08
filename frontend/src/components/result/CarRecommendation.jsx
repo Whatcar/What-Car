@@ -10,10 +10,10 @@ export default function CarRecommendation({ findMore }) {
         <MainTitle blue shadow>
           사진과 유사한 다른 차들이에요
         </MainTitle>
-        {findMore['less_car_1_detail'] && (
+        {findMore && (
           <Cars>
-            {[1, 2, 3, 4].map((item) => (
-              <Car key={`detail-${item}`} item={findMore[`less_car_${item}_detail`]}></Car>
+            {findMore.map((item) => (
+              <Car key={`detail-${item.id}`} item={item}></Car>
             ))}
           </Cars>
         )}

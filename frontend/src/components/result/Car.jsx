@@ -7,7 +7,7 @@ import { Button } from '@mui/material';
 export default function Car({ item }) {
   const navigate = useNavigate();
   const onButtonClick = (pageId) => {
-    navigate(`/result/${pageId}`);
+    navigate(`/search/detail/${pageId}`);
   };
   return (
     <CarCard>
