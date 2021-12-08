@@ -1,3 +1,4 @@
+from datetime import datetime
 from operator import le
 
 from db_connect import db
@@ -11,19 +12,18 @@ class Ai_Result(db.Model):
     car_id = db.Column(
         db.Integer,
         db.ForeignKey("car.id", ondelete="CASCADE", onupdate="CASCADE"),
-        primary_key=True,
         nullable=False,
     )
     gallary_id = db.Column(
         db.Integer,
         db.ForeignKey("gallary.id", ondelete="CASCADE", onupdate="CASCADE"),
-        primary_key=True,
         nullable=True,
+        default=None,
     )
     similarity = db.Column(db.Float, nullable=True)
     less_similar_cars = db.Column(db.String(255), nullable=True)
     most_similar_car_url = db.Column(db.Text, nullable=False)
-    created_at = db.Column(db.DateTime, nullable=False)
+    created_at = db.Column(db.DateTime, nullable=False, default=datetime.now)
 
     def to_dict(self):
         most_similar_car = (
