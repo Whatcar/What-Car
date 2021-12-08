@@ -51,7 +51,7 @@ export default function Result() {
   }, [id]);
   const disqusShortname = 'WhatCar';
   const disqusConfig = {
-    url: `${PATH}/result/${carId}`,
+    url: `${PATH}/search/detail/${carData.id}`,
     identifier: carData.name,
     title: carData.name,
   };

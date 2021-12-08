@@ -27,7 +27,7 @@ export default function SearchDetail() {
   const disqusShortname = 'WhatCar';
   const PATH = process.env.REACT_APP_FRONTEND_URL;
   const disqusConfig = {
-    url: `${PATH}/result/${carId}`,
+    url: `${PATH}/search/detail/${carId}`,
     identifier: carData.name,
     title: carData.name,
   };
