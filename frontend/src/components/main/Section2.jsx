@@ -1,9 +1,8 @@
 import { Button } from '@mui/material';
 import React from 'react';
-import { Desc, MainTitle, SubTitle } from '../../css/mainStyles';
+import { Desc, MainTitle } from '../../css/mainStyles';
 import { useNavigate } from 'react-router';
 import useSrr from '../../utils/useSrr';
-import { blue } from '../../css/colors';
 import { colors } from '../../css/theme';
 import styled from 'styled-components';
 import ChevronRightRoundedIcon from '@mui/icons-material/ChevronRightRounded';

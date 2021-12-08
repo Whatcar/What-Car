@@ -3,14 +3,14 @@ import React from 'react';
 import { Desc, MainTitle } from '../../css/mainStyles';
 import { colors } from '../../css/theme';
 import useSrr from '../../utils/useSrr';
-import pic1 from '../../img/main/1_1.svg';
+import person1 from '../../img/main/person1.png';
 import styled from 'styled-components';
 import ChevronRightRoundedIcon from '@mui/icons-material/ChevronRightRounded';
 
 export default function Section1({ swiper }) {
   return (
     <SectionWrapper>
-      <img src={pic1} {...useSrr('up', 1, 0.2)} alt="메인 이미지" />
+      <img src={person1} {...useSrr('up', 1, 0.2)} alt="메인 이미지" style={{ width: '6rem' }} />
       <MainTitle {...useSrr('up', 1, 0.5)} style={{ width: '80%' }}>
         <span style={{ color: colors.blueM }}>사진만으로</span> 자동차 이름을{' '}
         <span style={{ display: 'inline-block' }}>알 수는</span> 없을까요?
