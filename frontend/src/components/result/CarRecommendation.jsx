@@ -10,23 +10,25 @@ export default function CarRecommendation({ findMore }) {
         <MainTitle blue shadow>
           사진과 유사한 다른 차들이에요
         </MainTitle>
-        <SlideBox>
-          {findMore && (
-            <Cars>
-              {findMore.map((item) => (
-                <Car key={`detail-${item.id}`} item={item}></Car>
-              ))}
-            </Cars>
-          )}
-        </SlideBox>
+        <SlideBoxCase>
+          <SlideBox>
+            {findMore && (
+              <Cars>
+                {findMore.map((item) => (
+                  <Car key={`detail-${item.id}`} item={item}></Car>
+                ))}
+              </Cars>
+            )}
+          </SlideBox>
+        </SlideBoxCase>
       </MainLayout>
     </RecommendWrapper>
   );
 }
 
 const RecommendWrapper = styled.div`
-  padding: 5rem 0;
-  margin: 5rem 0;
+  padding: 3rem 0;
+  margin: 3rem 0;
   width: 100%;
 `;
 
@@ -40,8 +42,6 @@ const MainLayout = styled.div`
 `;
 
 const Cars = styled.div`
-  height: 300px;
-  /* width: 66%; */
   margin: 0 auto;
   @media screen and (max-width: 480px) {
     width: 85%;
@@ -49,12 +49,21 @@ const Cars = styled.div`
   display: flex;
   justify-content: space-around;
   align-items: center;
-  margin: 4rem auto;
+  margin: 1rem auto;
+  overflow: auto;
+`;
+
+const SlideBoxCase = styled.div`
+  height: 300px;
+  width: 100%;
+  position: relative;
 `;
 
 const SlideBox = styled.div`
   width: 100vw;
-  overflow: auto;
-  /* position: absolute; */
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
   display: flex;
 `;
