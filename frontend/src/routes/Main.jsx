@@ -31,7 +31,7 @@ export default function Main() {
       >
         <SwiperSlide style={{ display: 'flex', alignItems: 'center' }}>
           <MainLayout>
-            <Intro />
+            <Intro swiper={swiper} />
           </MainLayout>
         </SwiperSlide>
         <SwiperSlide

@@ -12,7 +12,7 @@ import Loading from '../Loading';
 import mainPerson from '../../img/main/mainperson.png';
 import { BoxGrid, DescGrid, ImgGrid } from '../../css/IntroGrid';
 
-export default function Intro() {
+export default function Intro({ swiper }) {
   const navigate = useNavigate();
   const [imgFile, setImgFile] = useState(null);
   const [imgBase64, setImgBase64] = useState(null);
@@ -67,7 +67,7 @@ export default function Intro() {
         .then((res) => {
           setSent(false);
           if (res.status === 200) {
-            navigate(`/result/${res.data.id}`, { state: res.data.car_id });
+            navigate(`/result/${res.data.id}`);
           } else if (res.status === 404) {
             Swal.fire({
               icon: 'error',
@@ -198,7 +198,7 @@ export default function Intro() {
             paddingLeft: '1rem',
           }}
         >
-          <ScrollDiv>
+          <ScrollDiv onClick={() => swiper.slideTo(1)}>
             <span></span>더 알아보기
           </ScrollDiv>
         </Grid>
@@ -230,6 +230,7 @@ export const ScrollDiv = styled.div`
   color: ${({ theme }) => theme.colors.blueM};
   margin: 2rem auto 0;
   text-align: center;
+  cursor: pointer;
   @media screen and (max-width: 480px) {
     margin: 1rem auto;
     padding-top: 0;

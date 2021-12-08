@@ -130,7 +130,7 @@ export default function Gallary() {
           if (imageRef.current) imageRef.current.style.height = `${Math.max.apply(0, imgStack)}px`;
         }
       }
-    }, 1000);
+    }, 200);
   }, [state.item]);
 
   return (
