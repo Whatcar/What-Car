@@ -42,13 +42,15 @@ export default function Gallary() {
             data: { gallary_id: id, password: password },
           })
           .then((res) => {
-            console.log(res);
+            num -= 1;
             if (res.status !== 200) {
               throw new Error(res.data);
             }
           })
           .catch((err) => {
-            Swal.showValidationMessage(`요청 실패: ${err}`);
+            Swal.showValidationMessage(
+              err.response.status === 409 ? '비밀번호가 달라요!' : '요청에 실패했어요!',
+            );
           });
       },
     }).then((result) => {
@@ -73,14 +75,12 @@ export default function Gallary() {
   };
 
   const fetchNew = async () => {
-    console.log('renewed', num);
     setState((prev) => ({ ...prev, isLoading: true }));
     axios
       .get(`${PATH}/api/gallary`, {
         params: { offset: num, limit: LIMITS },
       })
       .then((res) => {
-        console.log(res);
         if (res.status === 200) {
           if (res.data.result_num === 0) {
             return setLoadable(false);
@@ -92,10 +92,6 @@ export default function Gallary() {
       });
   };
 
-  useEffect(() => {
-    console.log(state.item);
-  }, [state.item]);
-
   const [_, setRef] = useInfinity(async (entry, observer) => {
     if (entry.isIntersecting && !state.isLoading) {
       observer.unobserve(entry.target);
@@ -105,7 +101,6 @@ export default function Gallary() {
   }, {});
 
   useEffect(() => {
-    console.log('initial');
     axios
       .get(`${PATH}/api/gallary`, {
         params: { offset: 0, limit: LIMITS },
@@ -117,7 +112,6 @@ export default function Gallary() {
   }, []);
 
   useEffect(() => {
-    console.log('useEffect');
     let imgStack = [0, 0, 0];
     let colWidth = 250;
     setTimeout(() => {
@@ -125,8 +119,11 @@ export default function Gallary() {
         let minIndex = imgStack.indexOf(Math.min.apply(0, imgStack));
         let x = colWidth * minIndex;
         let y = imgStack[minIndex];
-        imgStack[minIndex] += refs[i].current.children[0].height + 20;
-        refs[i].current.style.transform = `translateX(${x}px) translateY(${y}px)`;
+        if (refs[i].current) {
+          imgStack[minIndex] += refs[i].current.children[0].height + 20;
+          refs[i].current.style.transform = `translateX(${x}px) translateY(${y}px)`;
+        }
+
         if (i === refs.length - 1) {
           imageRef.current.style.height = `${Math.max.apply(0, imgStack)}px`;
         }
@@ -158,13 +155,13 @@ export default function Gallary() {
                 />
               </ItemTop>
               <ItemDetail>
-                <Desc style={{ color: 'white' }}>{item.title}</Desc>
+                <Desc style={{ color: 'white', fontSize: '0.7rem' }}>{item.car_name}</Desc>
                 <p style={{ marginBottom: '0.5rem' }}>{(item.similarity * 100).toFixed(2)}% 일치</p>
 
                 <Button
                   variant="outlined"
                   color="white"
-                  onClick={() => navigate(`/search/detail/${item.car_id}`)}
+                  onClick={() => navigate(`/result/${item.ai_result_id}`)}
                 >
                   차 보러가기
                 </Button>
@@ -175,7 +172,7 @@ export default function Gallary() {
       </GridWrapper>
       <MobileWrapper>
         {state.item.map((item, index) => (
-          <ItemWrapper mobile key={`mobile-${item.title}-${index}`}>
+          <ItemWrapper mobile key={`mobile-${item.car_name}-${index}`}>
             <img
               src={item['car_url']}
               loading="lazy"
@@ -196,7 +193,7 @@ export default function Gallary() {
                 <Button
                   variant="outlined"
                   color="white"
-                  onClick={() => alert('결과 페이지로 이동하기', item['car_id'])}
+                  onClick={() => navigate(`/result/${item.ai_result_id}`)}
                 >
                   차 보러가기
                 </Button>
