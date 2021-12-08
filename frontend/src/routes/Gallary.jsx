@@ -48,9 +48,11 @@ export default function Gallary() {
             }
           })
           .catch((err) => {
-            Swal.showValidationMessage(
-              err.response.status === 409 ? '비밀번호가 달라요!' : '요청에 실패했어요!',
-            );
+            if (err.response) {
+              Swal.showValidationMessage(
+                err.response.status === 409 ? '비밀번호가 달라요!' : '요청에 실패했어요!',
+              );
+            }
           });
       },
     }).then((result) => {

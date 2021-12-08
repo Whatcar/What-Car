@@ -43,7 +43,6 @@ export default function FeedbackButton({ id, carId, carUrl, similarity, setCarDa
           })
           .catch((err) => {
             if (err.response.data) {
-              console.log(err);
               Swal.showValidationMessage('업로드에 실패했습니다.');
             }
           });
