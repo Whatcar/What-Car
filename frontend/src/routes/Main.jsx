@@ -13,6 +13,8 @@ import pic2 from '../img/main/2_2.svg';
 import pic3 from '../img/main/3_1.svg';
 import { colors } from '../css/theme.js';
 
+const slideStyle = { width: '100%', display: 'flex', alignItems: 'center', position: 'relative' };
+
 export default function Main() {
   SwiperCore.use([Mousewheel, Pagination]);
   const [swiper, setSwiper] = useState();
@@ -28,16 +30,14 @@ export default function Main() {
         }}
         onSwiper={(swiper) => setSwiper(swiper)}
       >
-        <SwiperSlide style={{ display: 'flex', alignItems: 'center', marginBottom: 0 }}>
+        <SwiperSlide style={{ display: 'flex', alignItems: 'center' }}>
           <MainLayout>
             <Intro />
           </MainLayout>
         </SwiperSlide>
         <SwiperSlide
           style={{
-            display: 'flex',
-            alignItems: 'center',
-            marginBottom: 0,
+            ...slideStyle,
             backgroundColor: colors.blueBG,
           }}
         >
@@ -46,14 +46,12 @@ export default function Main() {
           </MainLayout>
         </SwiperSlide>
 
-        <SwiperSlide style={{ display: 'flex', alignItems: 'center', marginBottom: 0 }}>
+        <SwiperSlide style={slideStyle}>
           <MainLayout>
             <Section1 swiper={swiper} />
           </MainLayout>
         </SwiperSlide>
-        <SwiperSlide
-          style={{ display: 'flex', alignItems: 'center', marginBottom: 0, position: 'relative' }}
-        >
+        <SwiperSlide style={slideStyle}>
           <ImgWrapper src={pic2} />
           <MainLayout>
             <Section2 />
@@ -61,11 +59,8 @@ export default function Main() {
         </SwiperSlide>
         <SwiperSlide
           style={{
-            display: 'flex',
-            alignItems: 'center',
-            marginBottom: 0,
+            ...slideStyle,
             backgroundColor: colors.blueBG,
-            position: 'relative',
           }}
         >
           <MainLayout>
@@ -82,27 +77,12 @@ export default function Main() {
             alt="메인 서브 이미지"
           />
         </SwiperSlide>
-        <SwiperSlide
-          style={{ display: 'flex', alignItems: 'center', marginBottom: 0, position: 'relative' }}
-        >
+        <SwiperSlide style={slideStyle}>
           <MainLayout>
             <Section4 swiper={swiper} />
           </MainLayout>
         </SwiperSlide>
       </StyledSwiper>
-      {/* <Brands />
-      <ServiceIntro /> */}
-      {/* <div style={{ textAlign: 'center' }}>
-        <StyledButton
-          variant="outlined"
-          onClick={() => {
-            swiper.slideTo(0);
-            window.scrollTo(0, 0, 'smooth');
-          }}
-        >
-          위로 올라가기
-        </StyledButton>
-      </div> */}
     </MainWrapper>
   );
 }
@@ -137,5 +117,5 @@ const StyledButton = styled(Button)({
 
 const StyledSwiper = styled(Swiper)`
   height: 100vh;
-  width: 100%;
+  width: 100vw;
 `;
