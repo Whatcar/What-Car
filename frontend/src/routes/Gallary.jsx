@@ -189,8 +189,8 @@ export default function Gallary() {
                 />
               </ItemTop>
               <ItemDetail>
-                <Desc style={{ color: 'white' }}>{item.title}</Desc>
-                <p style={{ marginBottom: '0.5rem' }}>{item.similarity} 일치</p>
+                <Desc style={{ color: 'white', fontSize: '0.7rem' }}>{item.car_name}</Desc>
+                <p style={{ marginBottom: '0.5rem' }}>{(item.similarity * 100).toFixed(2)}% 일치</p>
 
                 <Button
                   variant="outlined"
@@ -213,7 +213,7 @@ export default function Gallary() {
           <div ref={setRef} style={{ width: '100%', height: '100px' }}></div>
         )
       ) : (
-        <div style={{ textAlign: 'center' }}>더이상 불러올 이미지가 없어요!</div>
+        <div style={{ textAlign: 'center' }}>더 이상 불러올 이미지가 없어요!</div>
       )}
     </Layout>
   );

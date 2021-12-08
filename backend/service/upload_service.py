@@ -44,11 +44,10 @@ def get_upload_result(data):
     print(result)
     # visualize car
     boxing_car = model.visualize(img, box_points)
-    cv2.imwrite("result.jpg", img)
+    img_to_jpg = Image.fromarray(img)
 
-    img2 = Image.open("result.jpg")
     in_mem_file = io.BytesIO()
-    img2.save(in_mem_file, format=img2.format)
+    img_to_jpg.save(in_mem_file, format="JPEG")
     in_mem_file.seek(0)
 
     rand = str(random.random())
@@ -60,12 +59,12 @@ def get_upload_result(data):
         Key="upload/" + str(now) + rand + str(secure_filename("result")),
         ContentType=".jpg",
     )
+
     img_url = f"https://{aws_s3['BUCKET_NAME']}.s3.ap-northeast-2.amazonaws.com/upload/{now}{rand}result"
     most_similar_car = str([result[0][0], result[0][1]])
     less_similar_cars = str(
         [(result[i][0], result[i][1]) for i in range(1, len(result))]
     )
-    print(most_similar_car, less_similar_cars, img_url)
 
     temp_data = Ai_Result(
         car_id=result[0][0],
@@ -81,9 +80,7 @@ def get_upload_result(data):
         db.session.rollback()
         abort(400, {"error": str(e)})
     id = Ai_Result.query.filter(Ai_Result.most_similar_car_url == img_url).first().id
-    print(id)
 
-    os.remove("result.jpg")
     return {"id": id, "car_id": result[0][0]}
 
 
