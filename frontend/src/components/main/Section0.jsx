@@ -56,9 +56,7 @@ export default function Section0() {
           <PersonIntro key={`intro-${item.id}`}>
             <div>check!</div>
             <img src={item.img} />
-            <Desc dark top={1}>
-              {item.desc}
-            </Desc>
+            <Desc dark>{item.desc}</Desc>
           </PersonIntro>
         ))}
       </PeopleIntro>
@@ -71,35 +69,42 @@ const SectionWrapper = styled.div`
   display: flex;
   flex-direction: column;
   padding-top: 5rem;
+  @media screen and (max-width: 480px) {
+    padding-top: 0;
+  }
 `;
 
 const PeopleIntro = styled.div`
-  display: flex;
-  justify-content: space-between;
-  margin-top: 3rem;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  margin-top: 2rem;
+  row-gap: 1rem;
   @media screen and (max-width: 480px) {
-    overflow-x: scroll;
+    grid-template-columns: 1fr 1fr;
   }
 `;
 
 const PersonIntro = styled.div`
   flex: 1 1 0;
-  padding: 1rem;
+  padding: 0 0.5rem;
   div {
     ${({ theme }) => theme.fontStyle.menu}
     color: ${({ theme }) => theme.colors.blueM};
     transform: rotate(-8deg);
   }
   img {
-    width: 90%;
+    width: 80%;
+  }
+  p {
+    padding-top: 1rem;
   }
   box-sizing: border-box;
   @media screen and (max-width: 480px) {
-    flex: 1 0 50%;
-    padding: 0 5px;
-    div {
-      font-size: 1rem;
-      margin-top: 1rem;
+    img {
+      width: 60%;
+    }
+    p {
+      padding-top: 0;
     }
   }
 `;
