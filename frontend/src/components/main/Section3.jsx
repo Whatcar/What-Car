@@ -14,13 +14,8 @@ export default function Section3() {
       <MainTitle {...useSrr('up', 1, 0.2)}>
         자동차 종류가{' '}
         <span style={{ color: colors.blueM, display: 'inline-block' }}> 너무 많아서 </span> 나에게
-        맞는 차를 어떻게 찾을지{' '}
-        <span style={{ color: colors.blueM }} blue>
-          {' '}
-          모르겠어요
-        </span>
+        맞는 차를 어떻게 찾을지 <span style={{ color: colors.blueM }}> 모르겠어요</span>
       </MainTitle>
-
       <Desc top={0.5} {...useSrr('up', 1, 0.5)}>
         용어도 다 알았겠다, 이제 검색만 하면 되는데 자동차가 많아도 너무 많아서 막막하기는
         마찬가지라면, <br /> 운명의 차 찾기를 통해서 나와 찰떡궁합인 차를 찾아보세요. <br />
