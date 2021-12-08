@@ -1,5 +1,4 @@
 import React from 'react';
-import link from '../../img/share/link.png';
 import { Button } from '@mui/material';
 import LinkRoundedIcon from '@mui/icons-material/LinkRounded';
 import Swal from 'sweetalert2';

@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import { Button } from '@mui/material';
 import Intro from '../components/main/Intro.jsx';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import SwiperCore, { Mousewheel, Pagination } from 'swiper';
@@ -120,10 +119,6 @@ const Gradient = styled.div`
     background: linear-gradient(to top, white 50%, rgba(255, 255, 255, 0));
   }
 `;
-
-const StyledButton = styled(Button)({
-  width: '300px',
-});
 
 const StyledSwiper = styled(Swiper)`
   height: 100vh;

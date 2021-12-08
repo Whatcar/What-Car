@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { LinearProgress, Button } from '@mui/material';
+import { Button } from '@mui/material';
 import { colors } from '../css/theme';
 import styled from 'styled-components';
 import questions from '../data/mbtiQuestions.js';

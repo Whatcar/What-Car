@@ -4,7 +4,6 @@ import styled from 'styled-components';
 import { useNavigate } from 'react-router';
 import { MainTitle } from '../css/mainStyles';
 import Layout from '../components/Layout';
-import { LinearProgress } from '@mui/material';
 import { colors } from '../css/theme';
 import ProgressBar from '../components/ProgressBar';
 
@@ -33,7 +32,7 @@ export default function WorldcupTest() {
       setWorldcupData(res.data);
       setDisplays([res.data[0], res.data[1]]);
     });
-  }, []);
+  }, [PATH]);
 
   const clickHandler = (item) => {
     setProgress((curr) => curr + 3.2);
