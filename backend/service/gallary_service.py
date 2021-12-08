@@ -11,21 +11,24 @@ def get_gallary_cars(off_set, limit_num):
     1. offset에서 limit만큼 차를 가져온다.
     """
     try:
-        data = Gallary.query.offset(off_set).limit(limit_num)
+        gallaries = Gallary.query.offset(off_set).limit(limit_num)
     except Exception as e:
         print(e)
         abort(404, "no data")
     result = list()
-    for d in data:
-        car_data = Car.query.filter_by(id=d.car_id).first()
+    for gallary_data in gallaries:
+        ai_data = Ai_Result.query.filter_by(gallary_id=d.id).first()
+        car_data = (
+            Car.query.with_entities(Car.name).filter_by(id=ai_data.car_id).first()
+        )
         result.append(
             {
-                "gallary_id": d.id,
-                "ai_result_id": d.ai_result_id,
+                "gallary_id": gallary_data.id,
+                "ai_result_id": ai_data.id,
                 "car_name": car_data.name,
-                "similarity": d.similarity,
-                "car_url": d.car_url,
-                "nickname": d.nickname,
+                "similarity": ai_data.similarity,
+                "car_url": ai_data.most_similar_car_url,
+                "nickname": gallary_data.nickname,
             }
         )
 
@@ -35,8 +38,6 @@ def get_gallary_cars(off_set, limit_num):
 def post_gallary_cars(info):
     try:
         ai_result_id = info["ai_result_id"]
-        car_id = info["car_id"]
-        similarity = info["similarity"]
         nickname = info["nickname"]
         pw = info["password"]
 
@@ -60,18 +61,16 @@ def post_gallary_cars(info):
         )
         # gallary db에 저장
         new_gallary = Gallary(
-            car_id=car_id,
-            ai_result_id=ai_result_id,
-            car_url=img_url,
-            similarity=similarity,
             nickname=nickname,
             password=pw,
         )
         db.session.add(new_gallary)
+        db.session.flush()
 
         # ai_result db에 업로드되었다고 수정
         ai_db.is_upload = True
         ai_db.most_similar_car_url = img_url
+        ai_db.gallary_id = new_gallary.id
         db.session.add(ai_db)
 
         db.session.commit()

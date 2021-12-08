@@ -15,17 +15,9 @@ class Gallary(db.Model):
 
     def __init__(
         self,
-        car_id: int,
-        ai_result_id: int,
-        car_url: str,
-        similarity: float,
         nickname: str,
         password: str,
     ):
-        self.car_id = car_id
-        self.ai_result_id = ai_result_id
-        self.car_url = car_url
-        self.similarity = similarity
         self.nickname = nickname
         self.password = bcrypt.generate_password_hash(password)
 
@@ -34,10 +26,6 @@ class Gallary(db.Model):
 
     def to_dict(self):
         return {
-            "car_id": self.car_id,
-            "ai_result_id": self.ai_result_id,
-            "similarity": self.similarity,
-            "car_url": self.car_url,
             "nickname": self.nickname,
         }
 
