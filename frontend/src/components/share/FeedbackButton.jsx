@@ -5,7 +5,7 @@ import Swal from 'sweetalert2';
 import axios from 'axios';
 import { colors } from '../../css/theme';
 
-export default function FeedbackButton({ carId, carUrl, similarity }) {
+export default function FeedbackButton({ id, carId, carUrl, similarity, setCarData }) {
   const PATH = process.env.REACT_APP_BACKEND_URL;
   const lastNames = '김이박최정강조윤장임';
   const handleClick = async () => {
@@ -28,6 +28,7 @@ export default function FeedbackButton({ carId, carUrl, similarity }) {
         }
         return axios
           .post(`${PATH}/api/gallary`, {
+            ai_result_id: id,
             car_id: carId,
             car_url: carUrl,
             similarity: similarity,
@@ -35,13 +36,15 @@ export default function FeedbackButton({ carId, carUrl, similarity }) {
             password: password,
           })
           .then((res) => {
-            console.log(res);
             if (res.status !== 201) {
               throw new Error(res.statusText);
             }
+            setCarData((prev) => ({ ...prev, isUpload: true }));
           })
           .catch((err) => {
-            Swal.showValidationMessage(`요청 실패: ${err}`);
+            if (err.response.data) {
+              Swal.showValidationMessage('업로드에 실패했습니다.');
+            }
           });
       },
     }).then((result) => {
