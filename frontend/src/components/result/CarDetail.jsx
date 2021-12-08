@@ -20,7 +20,7 @@ export default function CarDetail({ detail, colors }) {
           <Divider style={{ width: '100%', marginBottom: '1rem' }} />
           <ColorBox>
             {colors.map((color) => (
-              <Tooltip title={color.name} arrow>
+              <Tooltip key={`tooltip-color-${color.name}`} title={color.name} arrow>
                 <ColorCircle
                   key={`${detail.name}-${color.name}`}
                   art={color.name}
