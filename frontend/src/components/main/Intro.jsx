@@ -184,7 +184,13 @@ export default function Intro({ swiper }) {
             </Dialog>
           </div>
         </DescGrid>
-        <ImgGrid item xs={12} md={4} lg={5} style={{ display: 'flex', alignItems: 'center' }}>
+        <ImgGrid
+          item
+          xs={12}
+          md={4}
+          lg={5}
+          style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}
+        >
           <MainImage src={mainPerson} />
         </ImgGrid>
         <Grid
