@@ -26,13 +26,6 @@ class Ai_Result(db.Model):
     created_at = db.Column(db.DateTime, nullable=False, default=datetime.now)
 
     def to_dict(self):
-        most_similar_car = (
-            self.most_similar_car.replace("'", "").replace("[", "").replace("]", "")
-        )
-        most_similar_car = most_similar_car.split(", ")
-        most_similar_car = list(map(float, most_similar_car))
-        most_similar_car[0] = int(most_similar_car[0])
-
         re = "("
         re2 = ")"
         less_similar_cars = (
@@ -60,6 +53,5 @@ class Ai_Result(db.Model):
         ]
 
         return {
-            "most_similar_car": most_similar_car,
             "less_similar_cars": less_similar_cars,
         }
