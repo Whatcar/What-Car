@@ -1,9 +1,8 @@
 import { Button } from '@mui/material';
 import React from 'react';
-import { Desc, MainTitle, SubTitle } from '../../css/mainStyles';
+import { Desc, MainTitle } from '../../css/mainStyles';
 import { useNavigate } from 'react-router';
 import useSrr from '../../utils/useSrr';
-import { blue } from '../../css/colors';
 import { colors } from '../../css/theme';
 import styled from 'styled-components';
 import ChevronRightRoundedIcon from '@mui/icons-material/ChevronRightRounded';
@@ -17,7 +16,7 @@ export default function Section2() {
         <br />
         검색하기가 어려워요!
       </MainTitle>
-      <Desc {...useSrr('down', 1, 0.5)}>
+      <Desc {...useSrr('down', 1, 0.5)} top={0.5}>
         SUV, 세단, 해치백, FF, AWD... 어디선가 들어봤지만 무슨 뜻인지 알 수 없는 용어들로 인해
         검색이 어렵지는 않았나요? <br />
         왓카가 알려주는 설명을 보며 나에게 꼭 필요한 차를 검색해보세요!

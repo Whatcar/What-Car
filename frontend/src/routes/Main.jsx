@@ -11,7 +11,11 @@ import Section3 from '../components/main/Section3.jsx';
 import Section4 from '../components/main/Section4.jsx';
 import pic2 from '../img/main/2_2.svg';
 import pic3 from '../img/main/3_1.svg';
+import section2 from '../img/main/section2.png';
+import person3 from '../img/main/person3.png';
 import { colors } from '../css/theme.js';
+
+const slideStyle = { width: '100%', display: 'flex', alignItems: 'center', position: 'relative' };
 
 export default function Main() {
   SwiperCore.use([Mousewheel, Pagination]);
@@ -28,16 +32,14 @@ export default function Main() {
         }}
         onSwiper={(swiper) => setSwiper(swiper)}
       >
-        <SwiperSlide style={{ display: 'flex', alignItems: 'center', marginBottom: 0 }}>
+        <SwiperSlide style={{ display: 'flex', alignItems: 'center' }}>
           <MainLayout>
             <Intro />
           </MainLayout>
         </SwiperSlide>
         <SwiperSlide
           style={{
-            display: 'flex',
-            alignItems: 'center',
-            marginBottom: 0,
+            ...slideStyle,
             backgroundColor: colors.blueBG,
           }}
         >
@@ -46,63 +48,45 @@ export default function Main() {
           </MainLayout>
         </SwiperSlide>
 
-        <SwiperSlide style={{ display: 'flex', alignItems: 'center', marginBottom: 0 }}>
+        <SwiperSlide style={slideStyle}>
           <MainLayout>
             <Section1 swiper={swiper} />
           </MainLayout>
         </SwiperSlide>
-        <SwiperSlide
-          style={{ display: 'flex', alignItems: 'center', marginBottom: 0, position: 'relative' }}
-        >
-          <ImgWrapper src={pic2} />
+        <SwiperSlide style={slideStyle}>
+          <ImgWrapper src={section2} />
+          <Gradient />
           <MainLayout>
             <Section2 />
           </MainLayout>
         </SwiperSlide>
         <SwiperSlide
           style={{
-            display: 'flex',
-            alignItems: 'center',
-            marginBottom: 0,
+            ...slideStyle,
             backgroundColor: colors.blueBG,
-            position: 'relative',
           }}
         >
           <MainLayout>
             <Section3 />
           </MainLayout>
           <img
-            src={pic3}
+            src={person3}
             style={{
               position: 'absolute',
               bottom: 0,
               left: '50%',
               transform: 'translate(-50%, 0%)',
+              height: '20vh',
             }}
             alt="메인 서브 이미지"
           />
         </SwiperSlide>
-        <SwiperSlide
-          style={{ display: 'flex', alignItems: 'center', marginBottom: 0, position: 'relative' }}
-        >
+        <SwiperSlide style={slideStyle}>
           <MainLayout>
             <Section4 swiper={swiper} />
           </MainLayout>
         </SwiperSlide>
       </StyledSwiper>
-      {/* <Brands />
-      <ServiceIntro /> */}
-      {/* <div style={{ textAlign: 'center' }}>
-        <StyledButton
-          variant="outlined"
-          onClick={() => {
-            swiper.slideTo(0);
-            window.scrollTo(0, 0, 'smooth');
-          }}
-        >
-          위로 올라가기
-        </StyledButton>
-      </div> */}
     </MainWrapper>
   );
 }
@@ -124,10 +108,18 @@ const MainLayout = styled.div`
 
 const ImgWrapper = styled.img`
   height: 100%;
-  margin-right: 2rem;
+  width: 100vw;
+  object-fit: cover;
   position: absolute;
+`;
+
+const Gradient = styled.div`
+  height: 100%;
+  width: 100vw;
+  position: absolute;
+  background: linear-gradient(to left, white 50%, rgba(255, 255, 255, 0));
   @media screen and (max-width: 480px) {
-    display: none;
+    background: linear-gradient(to top, white 50%, rgba(255, 255, 255, 0));
   }
 `;
 
@@ -137,5 +129,5 @@ const StyledButton = styled(Button)({
 
 const StyledSwiper = styled(Swiper)`
   height: 100vh;
-  width: 100%;
+  width: 100vw;
 `;
