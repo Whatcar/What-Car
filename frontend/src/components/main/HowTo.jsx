@@ -11,15 +11,15 @@ export default function HowTo() {
     <Steps>
       <StepImgs>
         <StepImg>
-          <img src={Sub1} />
+          <img alt={'how-to-1'} src={Sub1} />
         </StepImg>
         <VerticalLine sample />
         <StepImg>
-          <img src={Sub2} />
+          <img alt={'how-to-2'} src={Sub2} />
         </StepImg>
         <VerticalLine />
         <StepImg>
-          <img src={Sub3} height="150px" />
+          <img alt={'how-to-3'} src={Sub3} height="150px" />
         </StepImg>
       </StepImgs>
       <HowToDesc>

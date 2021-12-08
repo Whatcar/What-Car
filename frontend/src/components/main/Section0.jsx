@@ -55,7 +55,7 @@ export default function Section0() {
         {introData.map((item) => (
           <PersonIntro key={`intro-${item.id}`}>
             <div>check!</div>
-            <img src={item.img} />
+            <img alt={`person-${item.id}`} src={item.img} />
             <Desc dark>{item.desc}</Desc>
           </PersonIntro>
         ))}

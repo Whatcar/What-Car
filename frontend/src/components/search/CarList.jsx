@@ -8,7 +8,11 @@ const CarList = ({ items }) => {
     if (!items.length) {
       return (
         <NoResultBox>
-          <img src={person3} style={{ height: '20vh', padding: '1rem 0' }} />
+          <img
+            alt={'search-not-found'}
+            src={person3}
+            style={{ height: '20vh', padding: '1rem 0' }}
+          />
           <p>앗! 조건에 맞는 검색 결과가 없어요</p>
         </NoResultBox>
       );

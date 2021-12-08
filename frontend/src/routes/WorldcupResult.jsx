@@ -29,7 +29,7 @@ export default function WorldcupResult() {
       setLoading(false);
     }, 1300);
     return () => clearTimeout(timer);
-  }, [carId]);
+  }, [carId, PATH]);
   return (
     <Layout>
       <MainTitle>당신의 차 이상형은</MainTitle>
