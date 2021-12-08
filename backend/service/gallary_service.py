@@ -11,21 +11,24 @@ def get_gallary_cars(off_set, limit_num):
     1. offset에서 limit만큼 차를 가져온다.
     """
     try:
-        data = Gallary.query.offset(off_set).limit(limit_num)
+        gallaries = Gallary.query.offset(off_set).limit(limit_num)
     except Exception as e:
         print(e)
         abort(404, "no data")
     result = list()
-    for d in data:
-        car_data = Car.query.filter_by(id=d.car_id).first()
+    for gallary_data in gallaries:
+        ai_data = Ai_Result.query.filter_by(gallary_id=gallary_data.id).first()
+        car_data = (
+            Car.query.with_entities(Car.name).filter_by(id=ai_data.car_id).first()
+        )
         result.append(
             {
-                "gallary_id": d.id,
-                "ai_result_id": d.ai_result_id,
+                "gallary_id": gallary_data.id,
+                "ai_result_id": ai_data.id,
                 "car_name": car_data.name,
-                "similarity": d.similarity,
-                "car_url": d.car_url,
-                "nickname": d.nickname,
+                "similarity": ai_data.similarity,
+                "car_url": ai_data.most_similar_car_url,
+                "nickname": gallary_data.nickname,
             }
         )
 
@@ -35,10 +38,16 @@ def get_gallary_cars(off_set, limit_num):
 def post_gallary_cars(info):
     try:
         ai_result_id = info["ai_result_id"]
-        car_id = info["car_id"]
-        similarity = info["similarity"]
         nickname = info["nickname"]
         pw = info["password"]
+
+        # gallary db에 저장
+        new_gallary = Gallary(
+            nickname=nickname,
+            password=pw,
+        )
+        db.session.add(new_gallary)
+        db.session.flush()
 
         # s3 bucket 영구저장
         s3 = s3_resource()
@@ -58,21 +67,12 @@ def post_gallary_cars(info):
         img_url = (
             f"https://{aws_s3['BUCKET_NAME']}.s3.ap-northeast-2.amazonaws.com/{new_key}"
         )
-        # gallary db에 저장
-        new_gallary = Gallary(
-            car_id=car_id,
-            ai_result_id=ai_result_id,
-            car_url=img_url,
-            similarity=similarity,
-            nickname=nickname,
-            password=pw,
-        )
-        db.session.add(new_gallary)
 
         # ai_result db에 업로드되었다고 수정
-        ai_db.is_upload = True
-        ai_db.most_similar_car_url = img_url
-        db.session.add(ai_db)
+        # ai_db객체를 수정하면 null값이 default로 되어있으면 직접 수정이 불가능
+        db.session.query(Ai_Result).filter_by(id=ai_result_id).update(
+            {"most_similar_car_url": img_url, "gallary_id": new_gallary.id}
+        )
 
         db.session.commit()
 

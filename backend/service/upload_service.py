@@ -68,7 +68,8 @@ def get_upload_result(data):
     print(most_similar_car, less_similar_cars, img_url)
 
     temp_data = Ai_Result(
-        most_similar_car=most_similar_car,
+        car_id=result[0][0],
+        similarity=result[0][1],
         less_similar_cars=less_similar_cars,
         most_similar_car_url=img_url,
         created_at=now,
@@ -115,12 +116,11 @@ def get_ai_cars_detail(id):
     if response.status_code == 200:
         content = Ai_Result.to_dict(data)
 
-        most = content["most_similar_car"]
         less = content["less_similar_cars"]
-        most_similar_car = Car.query.filter(Car.id == most[0]).first()
+        most_similar_car = Car.query.filter(Car.id == data.car_id).first()
         most_similar_car_content = Car.to_dict(most_similar_car)
         most_similar_car_color = CarColor.query.filter(
-            CarColor.car_id == most[0]
+            CarColor.car_id == data.car_id
         ).first()
         less_similar_car_content_list = []
         most_similar_car_color_content = CarColor.to_dict(most_similar_car_color)
@@ -131,11 +131,14 @@ def get_ai_cars_detail(id):
             less_similar_car_content["similarity"] = less[i][1]
             less_similar_car_content_list.append(less_similar_car_content)
 
+        is_upload = False
+        if data.gallary_id:
+            is_upload = True
         result = {
             "ai_result_id": id,
             "most_car": {
-                "similarity": most[1],
-                "is_upload": data.is_upload,
+                "similarity": data.similarity,
+                "is_upload": is_upload,
                 "most_car_url": data.most_similar_car_url,
                 "most_car_detail": most_similar_car_content,
                 "most_car_color": most_similar_car_color_content,
