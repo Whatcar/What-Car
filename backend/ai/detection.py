@@ -1,7 +1,4 @@
-import os
-
 import cv2 as cv
-import matplotlib.pyplot as plt
 import tensorflow as tf
 
 from ai.utils import load_model_detection
@@ -36,8 +33,8 @@ class Detection:
                 result["detection_boxes"][0][idx]
             ):
                 y_min, x_min, y_max, x_max = result["detection_boxes"][0][idx]
-                break
-        return (y_min, x_min, y_max, x_max)
+                return (y_min, x_min, y_max, x_max)
+        return None
 
     def predict(self, img):
 
