@@ -20,7 +20,6 @@ export default function MBTIresult() {
   const data = mbtiDesc[type];
   const { state } = useLocation();
   const setBrand = useSetRecoilState(brand);
-  console.log(state);
 
   const onClickButton = () => {
     resetSessionStorage();

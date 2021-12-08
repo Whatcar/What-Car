@@ -22,7 +22,6 @@ export default function WorldcupResult() {
   useEffect(() => {
     setLoading(true);
     axios.get(`${PATH}/api/worldcup/result`, { params: { id: carId } }).then((res) => {
-      console.log(res.data);
       setResult(res.data[0]);
       setRank(res.data[1].slice(0, 3));
     });
