@@ -20,7 +20,6 @@ export default function Result() {
   const [lessCar, setLessCar] = useState([]);
   const [notFound, setNotFound] = useState(false);
 
-  console.log(carData.colors);
   useEffect(() => {
     axios
       .get(`${PATH}/api/upload`, { params: { id: id } })

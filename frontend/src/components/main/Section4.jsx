@@ -6,7 +6,6 @@ import useSrr from '../../utils/useSrr';
 import { colors } from '../../css/theme';
 import styled, { keyframes } from 'styled-components';
 import ChevronRightRoundedIcon from '@mui/icons-material/ChevronRightRounded';
-import ArrowUpwardRoundedIcon from '@mui/icons-material/ArrowUpwardRounded';
 
 export default function Section4({ swiper }) {
   const navigate = useNavigate();

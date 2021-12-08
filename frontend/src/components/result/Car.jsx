@@ -11,7 +11,6 @@ export default function Car({ item }) {
   };
   return (
     <CarCard>
-      <Percentage>{(item.similarity * 100).toFixed(2)}%</Percentage>
       <img alt={`car-${item.name}`} src={item.photolink} height="50%" />
       <p style={{ fontFamily: 'SBAggroM' }}>{item.name}</p>
       <Desc>{item.price}</Desc>
@@ -53,16 +52,4 @@ const CarCard = styled.div`
   button {
     display: none;
   }
-`;
-
-const Percentage = styled.div`
-  position: absolute;
-  width: 50px;
-  height: 50px;
-  top: 10px;
-  left: 10px;
-  border-radius: 50%;
-  border: 1px solid black;
-  line-height: 50px;
-  font-size: 0.8rem;
 `;
