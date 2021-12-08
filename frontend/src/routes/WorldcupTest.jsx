@@ -67,7 +67,6 @@ export default function WorldcupTest() {
             <ImgWrapper
               key={`worldcup-${d.car_id}`}
               onClick={() => {
-                console.log(d);
                 clickHandler(d);
               }}
             >
