@@ -109,7 +109,7 @@ export default function Intro() {
   return (
     <>
       <BoxGrid container columns={8} spacing={2}>
-        <DescGrid item xs={8} md={4} lg={3} desc>
+        <DescGrid item xs={8} md={4} lg={3}>
           <SubTitle {...useSrr('down', 1, 0.2)}>찰칵!</SubTitle>
           <MainTitle blue {...useSrr('down', 1, 0.5)}>
             저 차는 뭐징?
@@ -173,10 +173,11 @@ export default function Intro() {
             </Dialog>
           </div>
         </DescGrid>
-        <ImgGrid item xs={12} md={4} lg={5} img style={{ display: 'flex', alignItems: 'center' }}>
+        <ImgGrid item xs={12} md={4} lg={5} style={{ display: 'flex', alignItems: 'center' }}>
           <MainImage src={mainPerson} />
         </ImgGrid>
         <Grid
+          item
           xs={12}
           style={{
             order: 3,

@@ -13,7 +13,7 @@ export default function CarDetail({ detail, colors }) {
   };
 
   return (
-    <InfoBox>
+    <InfoBox key={`car-detail-${detail.name}`}>
       {isColor() && (
         <div style={{ width: '100%' }}>
           <p>색상</p>
