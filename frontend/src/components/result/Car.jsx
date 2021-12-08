@@ -26,6 +26,7 @@ const CarCard = styled.div`
   height: 240px;
   position: relative;
   margin: 5px;
+  margin-bottom: 1.5rem;
   padding: 1rem;
   box-sizing: border-box;
   border-radius: 10px;
