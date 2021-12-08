@@ -3,7 +3,6 @@ import ShareButton from '../components/share/ShareButton';
 import CarDetail from '../components/result/CarDetail';
 import styled from 'styled-components';
 import { useParams } from 'react-router';
-import CarRecommendation from '../components/result/CarRecommendation';
 import Disqus from 'disqus-react';
 import Layout from '../components/Layout';
 

@@ -6,7 +6,6 @@ import axios from 'axios';
 import { useParams } from 'react-router';
 import CarRecommendation from '../components/result/CarRecommendation';
 import Disqus from 'disqus-react';
-import { useLocation } from 'react-router';
 import Layout from '../components/Layout';
 import FeedbackButton from '../components/share/FeedbackButton';
 import { Desc, MainTitle } from '../css/mainStyles';
@@ -16,8 +15,6 @@ export default function Result() {
   const PATH = process.env.REACT_APP_BACKEND_URL;
 
   const params = useParams();
-  const { state } = useLocation();
-  const carId = state;
   const id = params.id;
   const [carData, setCarData] = useState({});
   const [lessCar, setLessCar] = useState([]);
@@ -48,7 +45,7 @@ export default function Result() {
       .catch((err) => {
         if (err.response.status === 404) setNotFound(true);
       });
-  }, [id]);
+  }, [id, PATH]);
   const disqusShortname = 'WhatCar';
   const disqusConfig = {
     url: `${PATH}/search/detail/${carData.id}`,
@@ -65,7 +62,7 @@ export default function Result() {
         </MainTitle>
         <ImageWrapper>
           <div>
-            <img src={carData['most_car_url']} />
+            <img alt={'most-car-img'} src={carData['most_car_url']} />
           </div>
           <div>
             <img

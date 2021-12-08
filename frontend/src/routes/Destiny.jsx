@@ -1,7 +1,7 @@
 import React from 'react';
 import Layout from '../components/Layout';
 import styled from 'styled-components';
-import { MainDesc, SubTitle, Desc } from '../css/mainStyles';
+import { SubTitle, Desc } from '../css/mainStyles';
 import worldcup from '../img/mbti/worldcup.png';
 import carbti from '../img/mbti/carbti.png';
 import { useNavigate } from 'react-router';

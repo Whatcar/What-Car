@@ -6,7 +6,7 @@ const ProgressBar = ({ progress }) => {
   return (
     <>
       <ProgressCar progress={progress}>
-        <img src={carIcon} />
+        <img alt={'progress-car'} src={carIcon} />
       </ProgressCar>
       <LinearProgress variant="determinate" color="primary" value={progress} />
     </>

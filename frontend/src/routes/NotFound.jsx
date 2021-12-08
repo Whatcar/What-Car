@@ -12,7 +12,7 @@ export default function NotFound({ moreInfo }) {
   return (
     <Layout>
       <NotFoundWrapper>
-        <img src={notFoundImg} width="70%" />
+        <img alt={'not-found'} src={notFoundImg} width="70%" />
         <MainTitle top={2}>아무 것도 찾을 수 없어요!</MainTitle>
         <Desc>{moreInfo || '주소를 다시 확인해주세요!'}</Desc>
         <Button
