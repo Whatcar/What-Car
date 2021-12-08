@@ -14,10 +14,13 @@ export default function Section4({ swiper }) {
     <SectionWrapper>
       <MainTitle {...useSrr('down', 1, 0.2)}>
         다른 사람들은
-        <span style={{ color: colors.blueM }}> 어떤 차에 관심 있는지 </span>
+        <span style={{ color: colors.blueM, display: 'inline-block' }}>
+          {' '}
+          어떤 차에 관심 있는지{' '}
+        </span>
         궁금해요!
       </MainTitle>
-      <Desc {...useSrr('down', 1, 0.5)}>
+      <Desc {...useSrr('down', 1, 0.5)} top={0.5}>
         사람들은 길을 가다 어떤 차에 관심을 가질까요?
         <br />
         갤러리에서 다른 사람들이 검색한 차를 보고, 내가 검색한 차량도 공유해보세요!
@@ -55,4 +58,9 @@ export default function Section4({ swiper }) {
   );
 }
 
-const SectionWrapper = styled.div``;
+const SectionWrapper = styled.div`
+  width: 80%;
+  @media screen and (max-width: 480px) {
+    width: 100%;
+  }
+`;
