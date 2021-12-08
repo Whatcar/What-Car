@@ -68,14 +68,6 @@ export default function Intro({ swiper }) {
           setSent(false);
           if (res.status === 200) {
             navigate(`/result/${res.data.id}`);
-          } else if (res.status === 404) {
-            Swal.fire({
-              icon: 'error',
-              title: '자동차를 찾을 수 없어요!',
-              text: '가이드라인에 맞추어 다시 업로드해주세요!',
-              confirmButtonText: '넵!',
-              confirmButtonColor: colors.blueM,
-            });
           } else {
             Swal.fire({
               icon: 'error',
@@ -88,13 +80,22 @@ export default function Intro({ swiper }) {
         })
         .catch((err) => {
           setSent(false);
-          Swal.fire({
-            icon: 'error',
-            title: '서버에 문제가 있나봐요!',
-            text: '잠시 후에 다시 시도해주세요!',
-            confirmButtonText: '넵!',
-            confirmButtonColor: colors.blueM,
-          });
+          if (err.response.status === 409) {
+            Swal.fire({
+              icon: 'error',
+              title: '자동차를 찾을 수 없어요!',
+              text: '가이드라인에 맞추어 다시 업로드해주세요!',
+              confirmButtonText: '넵!',
+              confirmButtonColor: colors.blueM,
+            });
+          } else {
+            Swal.fire({
+              icon: 'error',
+              title: '다시 한 번 시도해주세요!',
+              confirmButtonText: '넵!',
+              confirmButtonColor: colors.blueM,
+            });
+          }
         });
     } else {
       Swal.fire({
