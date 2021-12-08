@@ -62,7 +62,7 @@ const InfoBox = styled.div`
   align-items: flex-start;
   text-align: left;
   row-gap: 3rem;
-  margin-bottom: 5rem;
+  margin-bottom: 2rem;
   p {
     ${({ theme }) => theme.fontStyle.subTitle}
   }
@@ -71,15 +71,14 @@ const InfoBox = styled.div`
 const ColorBox = styled.div`
   display: flex;
   flex-wrap: wrap;
+  column-gap: 0.5rem;
+  row-gap: 0.5rem;
 `;
 
 const ColorCircle = styled.img`
   width: 2rem;
   height: 2rem;
   border-radius: 1rem;
-  & + img {
-    margin-left: 0.5rem;
-  }
 `;
 
 const Bold = styled.span`
