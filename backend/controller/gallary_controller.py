@@ -14,7 +14,12 @@ delete_gallary = gallary.model("delete", Gallary.delete_gallary)
 nested_model = gallary.model("cars", Gallary.response_model)
 response_data = gallary.model(
     "result",
-    {"cars": fields.List(fields.Nested(nested_model))},
+    {
+        "cars": fields.List(fields.Nested(nested_model)),
+        "result_num": fields.Integer(
+            required=True, description="불러온 차량의 개수", example=1
+        ),
+    },
 )
 
 

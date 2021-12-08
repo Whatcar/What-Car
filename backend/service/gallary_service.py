@@ -34,9 +34,8 @@ def get_gallary_cars(off_set, limit_num):
 
 def post_gallary_cars(info):
     try:
-        ai_db_id = info["ai_db_id"]
+        ai_result_id = info["ai_result_id"]
         car_id = info["car_id"]
-        car_url = info["car_url"]
         similarity = info["similarity"]
         nickname = info["nickname"]
         pw = info["password"]
@@ -44,7 +43,7 @@ def post_gallary_cars(info):
         # s3 bucket 영구저장
         s3 = s3_resource()
 
-        ai_db = Ai_Result.query.filter_by(id=ai_db_id).first()
+        ai_db = Ai_Result.query.filter_by(id=ai_result_id).first()
 
         # 파일 복사
         copy_key = "/".join(ai_db.most_similar_car_url.split("/")[3:])
@@ -62,7 +61,7 @@ def post_gallary_cars(info):
         # gallary db에 저장
         new_gallary = Gallary(
             car_id=car_id,
-            ai_result_id=ai_db_id,
+            ai_result_id=ai_result_id,
             car_url=img_url,
             similarity=similarity,
             nickname=nickname,
