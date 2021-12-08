@@ -1,14 +1,18 @@
 import styled from 'styled-components';
 import { Grid } from '@mui/material';
 import CarHover from './CarHover';
-import person from '../../img/main/3.svg';
+import person3 from '../../img/main/person3.png';
 
 const CarList = ({ items }) => {
   const carItems = () => {
     if (!items.length) {
       return (
         <NoResultBox>
-          <img src={person} />
+          <img
+            alt={'search-not-found'}
+            src={person3}
+            style={{ height: '20vh', padding: '1rem 0' }}
+          />
           <p>앗! 조건에 맞는 검색 결과가 없어요</p>
         </NoResultBox>
       );

@@ -1,7 +1,6 @@
 import React from 'react';
 import { Helmet } from 'react-helmet';
 import { Button } from '@mui/material';
-import { colors } from '../../css/theme';
 import kakaoLogo from '../../img/share/kakaotalk.svg';
 import { kakaoShare } from '../../utils/kakaoShare';
 
@@ -14,7 +13,7 @@ export default function KakaoShare({ title, description, imgUrl, link, buttonTit
       </Helmet>
       <Button
         variant="contained"
-        startIcon={<img src={kakaoLogo} width="20px" />}
+        startIcon={<img alt={'kakao-logo'} src={kakaoLogo} width="20px" />}
         color="secondary"
         sx={{ padding: '15px', width: '100%', lineHeight: '1rem' }}
         onClick={() => kakaoShare(title, description, imgUrl, link, buttonTitle)}
