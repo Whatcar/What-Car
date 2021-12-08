@@ -13,7 +13,7 @@ export default function Section4({ swiper }) {
   return (
     <SectionWrapper>
       <MainTitle {...useSrr('down', 1, 0.2)}>
-        다른 사람들은
+        다른 사람들은{' '}
         <span style={{ color: colors.blueM, display: 'inline-block' }}>
           {' '}
           어떤 차에 관심 있는지{' '}
