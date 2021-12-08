@@ -42,7 +42,7 @@ export default function Intro({ swiper }) {
     if (imgFile) {
       if (
         !['jpg', 'png', 'jpeg'].includes(
-          imgFile[0].name.split('.')[imgFile[0].name.split('.').length - 1],
+          imgFile[0].name.toLowerCase().split('.')[imgFile[0].name.split('.').length - 1],
         )
       ) {
         setImgFile(null);

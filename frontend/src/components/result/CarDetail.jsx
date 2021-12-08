@@ -70,13 +70,16 @@ const InfoBox = styled.div`
 
 const ColorBox = styled.div`
   display: flex;
-  column-gap: 0.5rem;
+  flex-wrap: wrap;
 `;
 
 const ColorCircle = styled.img`
   width: 2rem;
   height: 2rem;
   border-radius: 1rem;
+  & + div {
+    padding-left: 0.5rem;
+  }
 `;
 
 const Bold = styled.span`

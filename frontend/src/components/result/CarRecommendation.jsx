@@ -10,13 +10,15 @@ export default function CarRecommendation({ findMore }) {
         <MainTitle blue shadow>
           사진과 유사한 다른 차들이에요
         </MainTitle>
-        {findMore && (
-          <Cars>
-            {findMore.map((item) => (
-              <Car key={`detail-${item.id}`} item={item}></Car>
-            ))}
-          </Cars>
-        )}
+        <SlideBox>
+          {findMore && (
+            <Cars>
+              {findMore.map((item) => (
+                <Car key={`detail-${item.id}`} item={item}></Car>
+              ))}
+            </Cars>
+          )}
+        </SlideBox>
       </MainLayout>
     </RecommendWrapper>
   );
@@ -29,17 +31,17 @@ const RecommendWrapper = styled.div`
 `;
 
 const MainLayout = styled.div`
-  width: 66%;
+  /* width: 66%; */
   margin: auto;
 
   @media screen and (max-width: 480px) {
-    width: 85%;
+    /* width: 85%; */
   }
 `;
 
 const Cars = styled.div`
   height: 300px;
-  width: 66%;
+  /* width: 66%; */
   margin: 0 auto;
   @media screen and (max-width: 480px) {
     width: 85%;
@@ -48,4 +50,11 @@ const Cars = styled.div`
   justify-content: space-around;
   align-items: center;
   margin: 4rem auto;
+`;
+
+const SlideBox = styled.div`
+  width: 100vw;
+  overflow: auto;
+  /* position: absolute; */
+  display: flex;
 `;

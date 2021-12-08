@@ -36,20 +36,27 @@ const CarCard = styled.div`
   justify-content: space-around;
   font-size: 1rem;
   line-height: 1rem;
-  &:hover {
-    width: 240px;
-    height: 290px;
-    font-size: 1.2rem;
-    line-height: 1.2rem;
-    margin: 6px;
-    padding: 1.2rem;
-    border-radius: 12px;
-    button {
-      display: block;
+  @media screen and (min-width: 481px) {
+    &:hover {
+      width: 240px;
+      height: 290px;
+      font-size: 1.2rem;
+      line-height: 1.2rem;
+      margin: 6px;
+      padding: 1.2rem;
+      border-radius: 12px;
+      button {
+        display: block;
+      }
     }
   }
   transition: all 0.3s ease-in-out;
   button {
     display: none;
+  }
+  @media screen and (max-width: 480px) {
+    button {
+      display: block;
+    }
   }
 `;
