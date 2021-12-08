@@ -7,7 +7,6 @@ import carbti3 from '../../img/mbti/carbti3.png';
 import carbti4 from '../../img/mbti/carbti4.png';
 
 export default function Questions({ item, progress, answer, setAnswer }) {
-  console.log(progress, answer, item);
   const handleClick = (num) => {
     setAnswer({ ...answer, [progress]: num });
   };

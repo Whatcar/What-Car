@@ -65,7 +65,6 @@ export default function Intro() {
           },
         })
         .then((res) => {
-          console.log(res);
           setSent(false);
           if (res.status === 200) {
             navigate(`/result/${res.data.id}`, { state: res.data.car_id });

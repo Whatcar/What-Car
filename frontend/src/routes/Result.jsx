@@ -9,7 +9,7 @@ import Disqus from 'disqus-react';
 import { useLocation } from 'react-router';
 import Layout from '../components/Layout';
 import FeedbackButton from '../components/share/FeedbackButton';
-import { MainTitle } from '../css/mainStyles';
+import { Desc, MainTitle } from '../css/mainStyles';
 import NotFound from './NotFound';
 
 export default function Result() {
@@ -20,7 +20,8 @@ export default function Result() {
   const carId = state;
   const id = params.id;
   const [carData, setCarData] = useState({});
-  const [lessCar, setLessCar] = useState({});
+  const [lessCar, setLessCar] = useState([]);
+  const [colors, setColors] = useState([]);
   const [notFound, setNotFound] = useState(false);
   useEffect(() => {
     axios
@@ -30,11 +31,15 @@ export default function Result() {
           ...res.data['most_car']['most_car_detail'],
           similarity: res.data['most_car']['similarity'],
           most_car_url: res.data['most_car']['most_car_url'],
+          isUpload: res.data['most_car']['is_upload'],
+          colors: res.data['most_car']['most_car_color'],
         });
         setLessCar(res.data['less_cars']);
+        const carNames = res.data.most_car.most_car_color;
+
+        setColors(carNames);
       })
       .catch((err) => {
-        console.log(err.response.data);
         if (err.response.status === 404) setNotFound(true);
       });
   }, [id]);
@@ -80,11 +85,21 @@ export default function Result() {
           buttonText="다시 검색하기"
           linkTo="/"
           additionalButton={
-            <FeedbackButton
-              carId={carData.id}
-              carUrl={carData.most_car_url}
-              similarity={carData.similarity}
-            />
+            carData.isUpload === false && (
+              <>
+                <FeedbackButton
+                  id={id}
+                  carId={carData.id}
+                  carUrl={carData.most_car_url}
+                  similarity={carData.similarity}
+                  setCarData={setCarData}
+                />
+                <Desc highlight center top={1}>
+                  *현재 페이지는 24시간이 지나면 접속할 수 없습니다. 기록을 남기고 싶으면 왓카
+                  갤러리에 사진을 공유하세요!
+                </Desc>
+              </>
+            )
           }
         />
         {lessCar && <CarRecommendation findMore={lessCar} />}
