@@ -112,12 +112,13 @@ def get_ai_cars_detail(id):
     if response.status_code == 200:
         content = Ai_Result.to_dict(data)
 
-        less = content["less_similar_cars"]
         most_similar_car = Car.query.filter(Car.id == data.car_id).first()
         most_similar_car_content = Car.to_dict(most_similar_car)
         most_similar_car_color = CarColor.query.filter(
             CarColor.car_id == data.car_id
         ).first()
+
+        less = content["less_similar_cars"]
         less_similar_car_content_list = []
         most_similar_car_color_content = CarColor.to_dict(most_similar_car_color)
 
@@ -130,6 +131,7 @@ def get_ai_cars_detail(id):
         is_upload = False
         if data.gallary_id:
             is_upload = True
+
         result = {
             "ai_result_id": id,
             "most_car": {
