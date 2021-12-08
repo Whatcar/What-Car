@@ -1,4 +1,4 @@
-from models import Car, CarColor, Gallary
+from models import Ai_Result, Car, CarColor, Gallary
 from werkzeug.exceptions import abort
 
 
@@ -29,10 +29,19 @@ def pagination(query_list, num):
         query_list = query_list[range_start:query_data_num]
     else:
         query_list = query_list[range_start : per_page * num]
+    result = list()
+    result.append({"result_num": query_data_num})
+    for car in query_list:
+        gallary_data = Gallary.query.filter(Gallary.id == car.gallary_id).first()
+        result.append(
+            {
+                "car_id": car.car_id,
+                "similarity": car.similarity,
+                "car_url": car.most_similar_car_url,
+                "nickname": gallary_data.nickname,
+            }
+        )
 
-    car_list = [Gallary.to_dict(car) for car in query_list]
-
-    result = {"result_num": query_data_num, "gallary_content": car_list}
     return result
 
 
@@ -46,11 +55,12 @@ def get_detail(id):
 
 
 def get_same_id_gallary_img(id, num):
-    print(id, type(id), num, type(num))
 
-    same_id_gallary = Gallary.query.filter(Gallary.car_id == id)
+    same_id_gallary = Ai_Result.query.filter(
+        Ai_Result.car_id == id, Ai_Result.gallary_id != None
+    )
+
     car_name = Car.query.filter(Car.id == int(id)).first().name
-    print(car_name)
 
     gallary_contents = pagination(same_id_gallary, num)
 
