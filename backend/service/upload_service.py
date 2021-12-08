@@ -40,11 +40,10 @@ def get_upload_result(data):
         car_id = label.label_dict[label_id]
         result.append((car_id, val))
     label_id = predict_value[0][0]
-    print(label.label_dict[label_id], label_id, predict_value[0][1])
-    print(result)
+
     # visualize car
     boxing_car = model.visualize(img, box_points)
-    img_to_jpg = Image.fromarray(img)
+    img_to_jpg = Image.fromarray(cv2.cvtColor(boxing_car, cv2.COLOR_BGR2RGB))
 
     in_mem_file = io.BytesIO()
     img_to_jpg.save(in_mem_file, format="JPEG")
@@ -143,15 +142,3 @@ def get_ai_cars_detail(id):
             "less_cars": less_similar_car_content_list,
         }
     return result
-
-
-# def get_same_id_gallery_img(id, num):
-#     # data = Ai_Result.query.filter(Ai_Result.id == id).first()
-
-#     # content = Ai_Result.to_dict(data)
-#     # most = content["most_similar_car"]
-#     same_id_gallery = Gallery.query.filter(Gallery.car_id == id)
-#     # same_id_gallery2 = [Gallery.to_dict(content) for content in same_id_gallery]
-#     gallery_contents = pagination(same_id_gallery, num)
-#     # print(same_id_gallery2)
-#     return gallery_contents
