@@ -189,7 +189,7 @@ export default function Gallary() {
                 />
               </ItemTop>
               <ItemDetail>
-                <Desc style={{ color: 'white' }}>{item.title}</Desc>
+                <Desc style={{ color: 'white', fontSize: '0.7rem' }}>{item.car_name}</Desc>
                 <p style={{ marginBottom: '0.5rem' }}>{(item.similarity * 100).toFixed(2)}% 일치</p>
 
                 <Button
