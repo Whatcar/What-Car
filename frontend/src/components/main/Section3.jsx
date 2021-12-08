@@ -13,7 +13,7 @@ export default function Section3() {
   return (
     <SectionWrapper>
       <MainTitle {...useSrr('up', 1, 0.2)}>
-        자동차 종류가
+        자동차 종류가{' '}
         <span style={{ color: colors.blueM, display: 'inline-block' }}> 너무 많아서 </span> 나에게
         맞는 차를 어떻게 찾을지{' '}
         <span style={{ color: colors.blueM }} blue>
