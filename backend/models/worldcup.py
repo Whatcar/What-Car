@@ -7,7 +7,12 @@ from flask_restx import fields
 class WorldCup(db.Model):
     __tablename__ = "world_cup"
     car_id = db.Column(
-        db.Integer, db.ForeignKey("car.id"), primary_key=True, nullable=False
+        db.Integer,
+        db.ForeignKey("car.id",ondelete="CASCADE",
+        onupdate="CASCADE"),
+        primary_key=True,
+        nullable=False,
+        
     )
     photolink = db.Column(db.Text, nullable=False)
     count = db.Column(db.Integer, nullable=False)

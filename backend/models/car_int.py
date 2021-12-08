@@ -17,7 +17,10 @@ from flask_restx import fields
 class CarInt(db.Model):
     __tablename__ = "car_int"
     car_id = db.Column(
-        db.Integer, db.ForeignKey("car.id"), primary_key=True, nullable=False
+        db.Integer,
+        db.ForeignKey("car.id", ondelete="CASCADE", onupdate="CASCADE"),
+        primary_key=True,
+        nullable=False,
     )
     price_int_low = db.Column(db.BigInteger, nullable=True)
     price_int_high = db.Column(db.BigInteger, nullable=True)
