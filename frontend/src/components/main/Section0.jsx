@@ -1,11 +1,10 @@
 import React from 'react';
 import styled from 'styled-components';
 import { SubTitle, MainDesc, Desc } from '../../css/mainStyles';
-import { blue } from '../../css/colors';
-import pic1 from '../../img/main/1.svg';
-import pic2 from '../../img/main/2.svg';
-import pic3 from '../../img/main/3.svg';
-import pic4 from '../../img/main/4.svg';
+import pic1 from '../../img/main/person1.png';
+import pic2 from '../../img/main/person2.png';
+import pic3 from '../../img/main/person3.png';
+import pic4 from '../../img/main/person4.png';
 import useSrr from '../../utils/useSrr';
 
 const introData = [
