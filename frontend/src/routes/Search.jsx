@@ -97,16 +97,20 @@ const Search = () => {
         </Title>
         <Desc>
           원하는 자동차의 사양을 선택해주세요.{' '}
-          <span>아무것도 선택하지 않는 경우 ‘전체'가 적용</span>됩니다.{' '}
+          <span>아무것도 선택하지 않는 경우 ‘전체'가 적용</span>됩니다.
+          <br />
           <QuestionIcon style={iconStyle} />
-          아이콘을 클릭하면 해당 용어에 대한 설명을 볼 수 있습니다.
-          <br /> 버튼은 그림을 클릭하면 바로 조건 선택이 가능하며,{' '}
+          아이콘 위에 커서를 올리면 해당 용어에 대한 설명을 볼 수 있습니다. 모바일의 경우{' '}
           <QuestionIcon style={iconStyle} />
-          아이콘이 있는 경우 이름을 클릭하면 설명을 볼 수 있습니다.
+          아이콘을 길게 터치해주세요.
         </Desc>
         <Divider style={{ width: '100%' }} />
         <SelectBox />
         <SearchButtons setConditions={setConditions} setCurrPage={setCurrPage} />
+        <TotalNum>
+          총 <span style={{ fontSize: 16 }}>{dataLength}</span> 건의 검색 결과가 있습니다
+        </TotalNum>
+        <Divider sx={{ width: '100%' }} />
         <Box sx={{ width: '100%', display: 'flex', flexDirection: 'column' }}>
           <Box
             sx={{
@@ -123,9 +127,6 @@ const Search = () => {
                 <Tab key={item} label={item} {...a11yProps(idx)} />
               ))}
             </Tabs>
-            <TotalNum>
-              총 <span style={{ fontSize: 16 }}>{dataLength}</span> 건
-            </TotalNum>
           </Box>
           {isLoading && <Loading />}
           {!isLoading &&
@@ -162,22 +163,28 @@ const ContentBox = styled.div`
 const Title = styled.p`
   ${({ theme }) => theme.fontStyle.mainTitle}
   margin-bottom: 1rem;
+  text-align: center;
   span {
     color: ${({ theme }) => theme.colors.blueM};
   }
 `;
 
 const Desc = styled.p`
-  ${({ theme }) => theme.fontStyle.desc}
+  ${({ theme }) => theme.fontStyle.body}
   margin-bottom: 1.2rem;
+  text-align: center;
   span {
     color: ${({ theme }) => theme.colors.blueM};
+    display: inline-block;
   }
 `;
 
 const TotalNum = styled.span`
+  align-self: flex-start;
+  margin-bottom: 0.5rem;
   font-size: ${({ theme }) => theme.fontSize.S};
   span {
     font-size: ${({ theme }) => theme.fontSize.M};
+    color: ${({ theme }) => theme.colors.blueM};
   }
 `;

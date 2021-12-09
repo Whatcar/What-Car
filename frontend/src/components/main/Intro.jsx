@@ -265,7 +265,7 @@ const MainImage = styled.img`
   display: block;
   margin-left: 2rem;
   @media screen and (max-width: 480px) {
-    width: auto;
+    width: 80%;
     margin: auto;
   }
 `;

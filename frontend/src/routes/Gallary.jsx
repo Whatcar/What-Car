@@ -135,7 +135,7 @@ export default function Gallary() {
 
   return (
     <Layout>
-      <MainTitle style={{ textAlign: 'center' }}>갤러리</MainTitle>
+      <MainTitle style={{ textAlign: 'center', marginBottom: '1rem' }}>갤러리</MainTitle>
       <Desc center>
         다른 유저들이 올린 차량을 볼 수 있는 페이지예요! 이미지로 자동차를 검색하고 함께
         공유해보세요.
