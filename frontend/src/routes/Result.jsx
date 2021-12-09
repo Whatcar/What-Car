@@ -10,6 +10,7 @@ import Layout from '../components/Layout';
 import FeedbackButton from '../components/share/FeedbackButton';
 import { Desc, MainTitle } from '../css/mainStyles';
 import NotFound from './NotFound';
+import GalleryShare from '../components/share/GalleryShare';
 
 export default function Result() {
   const PATH = process.env.REACT_APP_BACKEND_URL;
@@ -105,6 +106,7 @@ export default function Result() {
           }
         />
         {lessCar && <CarRecommendation findMore={lessCar} />}
+        <GalleryShare />
         <Disqus.DiscussionEmbed shortname={disqusShortname} config={disqusConfig} />
       </ResultWrapper>
     </Layout>
