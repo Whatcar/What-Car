@@ -8,12 +8,11 @@ import CarRecommendation from '../components/result/CarRecommendation';
 import Disqus from 'disqus-react';
 import Layout from '../components/Layout';
 import FeedbackButton from '../components/share/FeedbackButton';
-import { Desc, MainTitle } from '../css/mainStyles';
+import { MainTitle } from '../css/mainStyles';
 import NotFound from './NotFound';
 
 export default function Result() {
   const PATH = process.env.REACT_APP_BACKEND_URL;
-
   const params = useParams();
   const id = params.id;
   const [carData, setCarData] = useState({});
@@ -87,21 +86,16 @@ export default function Result() {
           buttonText="다시 검색하기"
           linkTo="/"
           additionalButton={
-            carData.isUpload === false && (
-              <>
-                <FeedbackButton
-                  id={id}
-                  carId={carData.id}
-                  carUrl={carData.most_car_url}
-                  similarity={carData.similarity}
-                  setCarData={setCarData}
-                />
-                <Desc highlight center top={1}>
-                  *현재 페이지는 24시간이 지나면 접속할 수 없습니다. 기록을 남기고 싶으면 왓카
-                  갤러리에 사진을 공유하세요!
-                </Desc>
-              </>
-            )
+            <>
+              <FeedbackButton
+                id={id}
+                carId={carData.id}
+                carUrl={carData.most_car_url}
+                similarity={carData.similarity}
+                setCarData={setCarData}
+                isUpload={carData.isUpload}
+              />
+            </>
           }
         />
         {lessCar && <CarRecommendation findMore={lessCar} />}

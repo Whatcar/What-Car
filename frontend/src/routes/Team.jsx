@@ -33,7 +33,12 @@ export default function Team() {
             part="백엔드 데이터분석"
             intro="안녕하십시오! 변화와 실패를 두려워하지 않는 백엔드 개발자로 진화 중인 김민지입니다."
           />
-          <Member image={yeonju} name="김재현" part="프론트엔드" intro="안녕하세유" />
+          <Member
+            image={yeonju}
+            name="김재현"
+            part="프론트엔드"
+            intro="부족하지만 열심히 하겠습니다!"
+          />
 
           <Member
             image={yeonju}
