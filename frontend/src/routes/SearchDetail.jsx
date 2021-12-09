@@ -5,6 +5,7 @@ import styled from 'styled-components';
 import { useParams } from 'react-router';
 import Disqus from 'disqus-react';
 import Layout from '../components/Layout';
+import GalleryShare from '../components/share/GalleryShare';
 
 import getSearchDetail from '../apis/getSearchDetail';
 import { MainTitle } from '../css/mainStyles';
@@ -55,6 +56,7 @@ export default function SearchDetail() {
           buttonText="목록으로 돌아가기"
           linkTo="/search"
         />
+        <GalleryShare />
         <Disqus.DiscussionEmbed shortname={disqusShortname} config={disqusConfig} />
       </ResultWrapper>
     </Layout>
