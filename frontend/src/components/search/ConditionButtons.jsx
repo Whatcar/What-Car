@@ -130,7 +130,7 @@ const ConditionButtons = ({ condition }) => {
             style={{ display: 'none' }}
           />
         </ButtonLabel>
-        <NameLabel item={item} htmlFor={`${item}-desc`}>
+        <NameLabel item={item} htmlFor={item}>
           <span>{item}</span>
           {description && (
             <DescButton
@@ -197,13 +197,11 @@ const ButtonLabel = styled.label`
   display: flex;
   justify-content: center;
   align-items: center;
-  /* line-height: 1.25rem; */
   cursor: pointer;
 `;
 
 const NameLabel = styled.label`
   box-sizing: border-box;
-  /* padding-bottom: 0.5rem; */
   width: 100%;
   padding-top: 0.25rem;
   display: flex;
@@ -212,7 +210,6 @@ const NameLabel = styled.label`
   cursor: pointer;
 
   span {
-    /* line-height: 1.25rem; */
     + label {
       width: 14px;
       height: 14px;
