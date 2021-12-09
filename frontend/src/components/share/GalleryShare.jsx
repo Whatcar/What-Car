@@ -7,6 +7,7 @@ import axios from 'axios';
 import { useParams } from 'react-router';
 import getDetailGallery from '../../apis/getDetailGallery ';
 import getSearchDetail from '../../apis/getSearchDetail';
+import styled from 'styled-components';
 
 export default function GalleryShare() {
   const params = useParams();
@@ -25,7 +26,7 @@ export default function GalleryShare() {
   }, [carId, num]);
 
   const settings = {
-    dots: false,
+    dots: true,
     infinite: true,
     speed: 500,
     slidesToShow: 3,
@@ -59,6 +60,10 @@ export default function GalleryShare() {
     </div>
   );
 }
+
+const SlideBox = styled.div``;
+
+const SlideImg = styled.img``;
 
 const cssstyle = `
 .container {
