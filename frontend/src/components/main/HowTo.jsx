@@ -46,7 +46,7 @@ export default function HowTo() {
           <HowToTitle>step 2. 업로드 하기</HowToTitle>
           <HowToDetail>
             사진을 업로드 해주세요.
-            <br /> 파일 형식은 png, jpg만 가능하며, 이미지 크기는 1mb 이하여야 합니다.
+            <br /> 파일 형식은 png, jpg만 가능하며, 이미지 크기는 3MB 이하여야 합니다.
           </HowToDetail>
         </HowToStep>
         {/* <VerticalLine no /> */}
