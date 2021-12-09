@@ -1,4 +1,4 @@
-import { useState, Fragment } from 'react';
+import { Fragment } from 'react';
 import styled from 'styled-components';
 import { ReactComponent as QuestionIcon } from '../../img/search/desc.svg';
 import { colors } from '../../css/theme';

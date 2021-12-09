@@ -1,15 +1,13 @@
 import React from 'react';
 import styled from 'styled-components';
-import { MainTitle } from '../../css/mainStyles';
+import { SubTitle } from '../../css/mainStyles';
 import Car from './Car';
 
 export default function CarRecommendation({ findMore }) {
   return (
     <RecommendWrapper>
       <MainLayout>
-        <MainTitle blue shadow>
-          사진과 유사한 다른 차들이에요
-        </MainTitle>
+        <SubTitle>사진과 유사한 다른 차들이에요</SubTitle>
         <SlideBoxCase>
           <SlideBox>
             {findMore && (
@@ -32,12 +30,7 @@ const RecommendWrapper = styled.div`
 `;
 
 const MainLayout = styled.div`
-  /* width: 66%; */
   margin: auto;
-
-  @media screen and (max-width: 480px) {
-    /* width: 85%; */
-  }
 `;
 
 const Cars = styled.div`
