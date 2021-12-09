@@ -60,7 +60,7 @@ def get_upload_result(data):
     )
 
     img_url = f"https://{aws_s3['BUCKET_NAME']}.s3.ap-northeast-2.amazonaws.com/upload/{now}{rand}result"
-    most_similar_car = str([result[0][0], result[0][1]])
+
     less_similar_cars = str(
         [(result[i][0], result[i][1]) for i in range(1, len(result))]
     )
