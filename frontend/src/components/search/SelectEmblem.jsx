@@ -17,14 +17,11 @@ const SelectEmblem = () => {
     return range === label;
   };
 
-  const handleClickRange = useCallback(
-    (e) => {
-      const newRange = e.target.innerText;
-      setRange(newRange);
-      setValues([]);
-    },
-    [range],
-  );
+  const handleClickRange = (e) => {
+    const newRange = e.target.innerText;
+    setRange(newRange);
+    setValues([]);
+  };
 
   const emblemList = getEmblem(range).map((emblem) => {
     const name = emblem[0];
