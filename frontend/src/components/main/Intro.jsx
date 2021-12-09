@@ -24,7 +24,7 @@ export default function Intro({ swiper }) {
 
   const handleChangeFile = (event) => {
     setImgFile(event.target.files);
-    if (event.target.files) {
+    if (event.target.files.length) {
       let reader = new FileReader();
       reader.readAsDataURL(event.target.files[0]);
       reader.onloadend = () => {
