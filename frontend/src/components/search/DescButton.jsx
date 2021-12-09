@@ -5,7 +5,7 @@ import { colors } from '../../css/theme';
 import MyTooltip from '../../css/MyTooltip';
 
 const DescButton = ({ idx, item, description, checked }) => {
-  const [open, setOpen] = useState(false);
+  // const [open, setOpen] = useState(false);
 
   const place = (idx) => {
     if (idx === undefined) return 'top-end';
@@ -15,8 +15,8 @@ const DescButton = ({ idx, item, description, checked }) => {
   };
 
   const handleTooltipOpen = (e) => {
-    e.stopPropagation();
-    setOpen((curr) => !curr);
+    // e.stopPropagation();
+    // setOpen((curr) => !curr);
   };
 
   return (
@@ -24,10 +24,8 @@ const DescButton = ({ idx, item, description, checked }) => {
       PopperProps={{
         disablePortal: true,
       }}
-      open={open}
+      // open={open}
       placement={place(idx)}
-      disableFocusListener
-      disableTouchListener
       title={
         <Fragment>
           <TooltipContent description={description} />
@@ -58,6 +56,7 @@ const Label = styled.label`
   display: flex;
   justify-content: center;
   align-items: center;
+  cursor: pointer;
 `;
 
 const TooltipContent = ({ description }) => {
