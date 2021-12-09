@@ -143,11 +143,7 @@ export default function Gallary() {
       <GridWrapper ref={imageRef}>
         {state.item.map((item, index) => (
           <ItemWrapper ref={refs[index]} key={`${item.title}-${index}`}>
-            <img
-              src={item.car_url}
-              loading="lazy"
-              style={{ width: '100%', position: 'relative' }}
-            />
+            <img src={item.car_url} loading="lazy" style={{}} />
             <ItemDesc>
               <ItemTop>
                 <div>{item.nickname}</div>
@@ -175,11 +171,7 @@ export default function Gallary() {
       <MobileWrapper>
         {state.item.map((item, index) => (
           <ItemWrapper mobile key={`mobile-${item.car_name}-${index}`}>
-            <img
-              src={item['car_url']}
-              loading="lazy"
-              style={{ width: '100%', position: 'relative' }}
-            />
+            <img src={item['car_url']} loading="lazy" />
             <ItemDesc>
               <ItemTop>
                 <div>{item.nickname}</div>
@@ -244,6 +236,12 @@ const ItemWrapper = styled.div`
   width: ${(props) => (props.mobile ? '100%' : '230px')};
   box-sizing: content-box;
   border-radius: 1rem;
+  img {
+    min-height: 10rem;
+    object-fit: cover;
+    width: 100%;
+    position: relative;
+  }
 `;
 
 const ItemDesc = styled.div`
