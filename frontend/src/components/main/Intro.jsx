@@ -11,6 +11,7 @@ import HowTo from './HowTo';
 import Loading from '../Loading';
 import mainPerson from '../../img/main/mainperson.png';
 import { BoxGrid, DescGrid, ImgGrid } from '../../css/IntroGrid';
+import imageCompression from 'browser-image-compression';
 
 export default function Intro({ swiper }) {
   const navigate = useNavigate();
@@ -22,8 +23,25 @@ export default function Intro({ swiper }) {
   const [sent, setSent] = useState(false);
   const PATH = process.env.REACT_APP_BACKEND_URL;
 
-  const handleChangeFile = (event) => {
-    setImgFile(event.target.files);
+  const compressImage = async (image) => {
+    try {
+      const options = {
+        maxSizeMB: 1,
+        maxWidthOrHeight: 1024,
+      };
+      return await imageCompression(image, options);
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
+  const handleChangeFile = async (event) => {
+    const files = event.target.files;
+    if (files && files[0]) {
+      const compressedImage = await compressImage(files[0]);
+      console.log('압축 완료!');
+      setImgFile(compressedImage);
+    }
     if (event.target.files.length) {
       let reader = new FileReader();
       reader.readAsDataURL(event.target.files[0]);
@@ -40,9 +58,10 @@ export default function Intro({ swiper }) {
   const handleUploadImage = async () => {
     // TODO: 파일 크기 체크하기
     if (imgFile) {
+      console.log(imgFile.size);
       if (
         !['jpg', 'png', 'jpeg'].includes(
-          imgFile[0].name.toLowerCase().split('.')[imgFile[0].name.split('.').length - 1],
+          imgFile.name.toLowerCase().split('.')[imgFile.name.split('.').length - 1],
         )
       ) {
         setImgFile(null);
@@ -57,7 +76,7 @@ export default function Intro({ swiper }) {
       }
       setSent(true);
       const formData = new FormData();
-      formData.append('file', imgFile[0]);
+      formData.append('file', imgFile);
       axios
         .post(`${PATH}/api/upload`, formData, {
           headers: {

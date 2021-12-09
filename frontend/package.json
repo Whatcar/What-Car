@@ -13,6 +13,7 @@
     "@testing-library/react": "^11.1.0",
     "@testing-library/user-event": "^12.1.10",
     "axios": "^0.24.0",
+    "browser-image-compression": "^1.0.17",
     "chart.js": "^3.6.0",
     "disqus-react": "^1.1.2",
     "dotenv": "^10.0.0",
