@@ -33,9 +33,11 @@ def pagination(query_list, num):
     result.append({"result_num": query_data_num})
     for car in query_list:
         gallary_data = Gallary.query.filter(Gallary.id == car.gallary_id).first()
+       
         result.append(
             {
                 "car_id": car.car_id,
+                "ai_result_id": car.id,
                 "similarity": car.similarity,
                 "car_url": car.most_similar_car_url,
                 "nickname": gallary_data.nickname,
