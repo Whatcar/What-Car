@@ -5,8 +5,6 @@ import { colors } from '../../css/theme';
 import MyTooltip from '../../css/MyTooltip';
 
 const DescButton = ({ idx, item, description, checked }) => {
-  // const [open, setOpen] = useState(false);
-
   const place = (idx) => {
     if (idx === undefined) return 'top-end';
     if (idx % 3 === 0) return 'bottom-start';
@@ -14,17 +12,11 @@ const DescButton = ({ idx, item, description, checked }) => {
     if (idx % 3 === 2) return 'bottom-end';
   };
 
-  const handleTooltipOpen = (e) => {
-    // e.stopPropagation();
-    // setOpen((curr) => !curr);
-  };
-
   return (
     <MyTooltip
       PopperProps={{
         disablePortal: true,
       }}
-      // open={open}
       placement={place(idx)}
       title={
         <Fragment>
@@ -32,14 +24,9 @@ const DescButton = ({ idx, item, description, checked }) => {
         </Fragment>
       }
     >
-      <Label htmlFor={`${item}-desc`} onClick={(e) => e.stopPropagation()}>
+      <Label htmlFor={`${item}-desc`}>
         <QuestionIcon fill={checked ? colors.blueM : colors.black500} />
-        <input
-          style={{ display: 'none' }}
-          id={`${item}-desc`}
-          type="checkbox"
-          onClick={handleTooltipOpen}
-        />
+        <input style={{ display: 'none' }} id={`${item}-desc`} type="checkbox" />
       </Label>
     </MyTooltip>
   );
