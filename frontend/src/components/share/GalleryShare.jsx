@@ -3,15 +3,11 @@ import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import { SubTitle } from '../../css/mainStyles';
-import axios from 'axios';
-import { useParams } from 'react-router';
-import getDetailGallery from '../../apis/getDetailGallery ';
-import getSearchDetail from '../../apis/getSearchDetail';
+import getDetailGallery from '../../apis/getDetailGallery';
 import styled from 'styled-components';
+import gallery from '../../img/notfound/gallery.png';
 
-export default function GalleryShare() {
-  const params = useParams();
-  const carId = params.id;
+export default function GalleryShare({ carId }) {
   const num = 1;
   const [resultNum, setResultNum] = useState();
   const [detailGalleryUrl, setDetailGalleryUrl] = useState([]);
@@ -22,23 +18,20 @@ export default function GalleryShare() {
       setResultNum(resultNum);
       setDetailGalleryUrl(detailGalleryUrl);
     };
-    getDetailGalleryInfo(carId, num);
+    if (carId) getDetailGalleryInfo(carId, num);
   }, [carId, num]);
 
   const settings = {
     dots: true,
     infinite: true,
-    speed: 500,
-    slidesToShow: 3,
+    centerMode: true,
+    slidesToShow: 1,
     slidesToScroll: 1,
+    variableWidth: true,
   };
 
-  console.log(detailGalleryUrl);
-
-  const urlList = detailGalleryUrl.map((url) => (
-    <div>
-      <img src={url} />
-    </div>
+  const urlList = detailGalleryUrl.map((url, idx) => (
+    <SlideImg key={`gallery-sample-${carId}-${idx}`} src={url} num={resultNum} />
   ));
 
   return (
@@ -46,7 +39,7 @@ export default function GalleryShare() {
       <link
         rel="stylesheet"
         type="text/css"
-        charset="UTF-8"
+        charSet="UTF-8"
         href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick.min.css"
       />
       <link
@@ -56,19 +49,29 @@ export default function GalleryShare() {
       />
       <style>{cssstyle}</style>
       <SubTitle> 다른 사람들이 공유한 검색 결과에요 </SubTitle>
-      <Slider {...settings}>{urlList}</Slider>
+      <Slider {...settings}>
+        {urlList}
+        {resultNum < 2 && <SlideImg src={gallery} />}
+      </Slider>
     </div>
   );
 }
 
-const SlideBox = styled.div``;
-
-const SlideImg = styled.img``;
+const SlideImg = styled.img`
+  height: 200px;
+  width: 100%;
+  object-fit: cover;
+  padding: 0.5rem 2%;
+  box-sizing: border-box;
+  @media screen and (max-width: 480px) {
+    height: 100px;
+  }
+`;
 
 const cssstyle = `
 .container {
-  margin: 0 auto;
-  padding: 40px 40px 40px 40px;
+  margin: 3rem auto;
+  padding-bottom: 21px;
   width: 100%;
   
 }
