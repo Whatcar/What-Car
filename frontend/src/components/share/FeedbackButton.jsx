@@ -4,11 +4,14 @@ import ChevronRightRoundedIcon from '@mui/icons-material/ChevronRightRounded';
 import Swal from 'sweetalert2';
 import axios from 'axios';
 import { colors } from '../../css/theme';
+import { useNavigate } from 'react-router';
+import { Desc } from '../../css/mainStyles';
 
-export default function FeedbackButton({ id, carId, carUrl, similarity, setCarData }) {
+export default function FeedbackButton({ id, carId, carUrl, similarity, setCarData, isUpload }) {
   const PATH = process.env.REACT_APP_BACKEND_URL;
   const lastNames = '김이박최정강조윤장임';
-  const handleClick = async () => {
+  const navigate = useNavigate();
+  const handleUpload = async () => {
     Swal.fire({
       title: '업로드를 위해 아래를 채워주세요!',
       html: `<input type="text" id="nickname" class="swal2-input" placeholder="닉네임" value="${
@@ -67,14 +70,30 @@ export default function FeedbackButton({ id, carId, carUrl, similarity, setCarDa
       }
     });
   };
-  return (
+  const handleGallary = () => navigate('/gallary');
+  return isUpload ? (
     <Button
       variant="outlined"
       startIcon={<ChevronRightRoundedIcon />}
       sx={{ padding: '15px', width: '100%', lineHeight: '1rem' }}
-      onClick={handleClick}
+      onClick={handleGallary}
     >
-      왓카 갤러리에 올리기
+      갤러리로 이동하기
     </Button>
+  ) : (
+    <>
+      <Button
+        variant="outlined"
+        startIcon={<ChevronRightRoundedIcon />}
+        sx={{ padding: '15px', width: '100%', lineHeight: '1rem' }}
+        onClick={handleUpload}
+      >
+        왓카 갤러리에 올리기
+      </Button>
+      <Desc highlight center top={1}>
+        *현재 페이지는 24시간이 지나면 접속할 수 없습니다. 기록을 남기고 싶으면 왓카 갤러리에 사진을
+        공유하세요!
+      </Desc>
+    </>
   );
 }
