@@ -26,7 +26,7 @@ from flask_restx import fields
 
 # 차 정보
 class Car(db.Model):
-    __tablename__ = "CAR"
+    __tablename__ = "car"
     id = db.Column(db.Integer, primary_key=True, nullable=False, autoincrement=True)
     name = db.Column(db.String(50), nullable=False)
     carisyou_url = db.Column(db.Text, nullable=True)
@@ -91,7 +91,17 @@ class Car(db.Model):
             "car_grade": self.car_grade,
         }
 
-    car_model = {
+    def to_dict_upload(self):
+        return {
+            "id": self.id,
+            "name": self.name,
+            "photolink": self.aws_url,
+            "price": self.price,
+            "car_grade": self.car_grade,
+            "similarity": 0,
+        }
+
+    response_model = {
         "id": fields.Integer(description="차량 고유 아이디"),
         "name": fields.String(description="모델명"),
         "photolink": fields.String(description="이미지"),
@@ -114,12 +124,38 @@ class Car(db.Model):
         "fuel_efficiency_rating": fields.String(description="연비등급"),
     }
 
-    car_model_part = {
-        "id": fields.String(required=True, description="차량 고유 아이디"),
+    response_model_part = {
+        "id": fields.Integer(required=True, description="차량 고유 아이디"),
         "name": fields.String(required=True, description="차량 모델명"),
         "photolink": fields.String(required=True, description="차량 이미지 링크"),
         "price": fields.String(required=True, description="차량 가격"),
         "car_grade": fields.String(required=True, description="차급"),
+    }
+
+    response_model_upload = {
+        "most_car_db_id": fields.Integer(description="차량 임시 db 고유 아이디"),
+        "most_car_url" : fields.String(description="박스 표시된 이미지 url"),
+        "similarity": fields.Float(description="유사도"),
+        "id": fields.Integer(description="차량 고유 아이디"),
+        "name": fields.String(description="모델명"),
+        "photolink": fields.String(description="이미지"),
+        "brand": fields.String(description="브랜드"),
+        "imported_domestic": fields.String(description="수입/국산"),
+        "price": fields.String(description="가격"),
+        "fuel_efficiency": fields.String(description="연비"),
+        "fuel": fields.String(description="연료"),
+        "car_grade": fields.String(description="차급"),
+        "appearance": fields.String(description="외형"),
+        "grade_name": fields.String(description="등급명"),
+        "on_sale": fields.String(description="판매여부"),
+        "release_date": fields.String(description="출시일"),
+        "discontinued_date": fields.String(description="단종일"),
+        "ride_capacity": fields.String(description="승차정원"),
+        "top_speed": fields.String(description="최고속도"),
+        "displacement": fields.String(description="배기량"),
+        "engine_type": fields.String(description="엔진형식"),
+        "drive_method": fields.String(description="구동방식"),
+        "fuel_efficiency_rating": fields.String(description="연비등급"),
     }
 
     # worldcups = db.relationship("Worldcup", backref="car", lazy=True)

@@ -3,18 +3,22 @@ import axios from 'axios';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router';
 import { MainTitle } from '../css/mainStyles';
-import { blue } from '../css/colors';
 import Layout from '../components/Layout';
+import { colors } from '../css/theme';
+import ProgressBar from '../components/ProgressBar';
 
 export default function WorldcupTest() {
+  const PATH = process.env.REACT_APP_BACKEND_URL;
+
   const navigate = useNavigate();
   const [worldcupData, setWorldcupData] = useState([]);
   const [displays, setDisplays] = useState([]);
   const [winners, setWinners] = useState([]);
   const [gameNum, setGameNum] = useState(32);
+  const [progress, setProgress] = useState(0);
   const sendAndGoToResult = (worldcupResult) => {
     axios
-      .patch('http://localhost:5000/api/worldcup/result', null, {
+      .patch(`${PATH}/api/worldcup/result`, null, {
         params: {
           id: worldcupResult,
         },
@@ -24,13 +28,14 @@ export default function WorldcupTest() {
       });
   };
   useEffect(() => {
-    axios.get('http://localhost:5000/api/select/worldcup').then((res) => {
+    axios.get(`${PATH}/api/select/random/cars`).then((res) => {
       setWorldcupData(res.data);
       setDisplays([res.data[0], res.data[1]]);
     });
-  }, []);
+  }, [PATH]);
 
   const clickHandler = (item) => {
+    setProgress((curr) => curr + 3.2);
     if (worldcupData.length <= 2) {
       if (winners.length === 0) {
         sendAndGoToResult(item.car_id);
@@ -50,17 +55,17 @@ export default function WorldcupTest() {
 
   return (
     <Layout>
+      <ProgressBar progress={progress} />
+      <MainTitle style={{ margin: '0.5rem 0', color: colors.blueM }}>
+        {gameNum}
+        {gameNum >= 4 && '강'}전
+      </MainTitle>
       <WorldcupWrapper>
-        <MainTitle>
-          {gameNum}
-          {gameNum >= 4 && '강'}전
-        </MainTitle>
         <Images>
           {displays.map((d) => (
             <ImgWrapper
               key={`worldcup-${d.car_id}`}
               onClick={() => {
-                console.log(d);
                 clickHandler(d);
               }}
             >
@@ -84,25 +89,31 @@ const WorldcupWrapper = styled.div`
 
 const Images = styled.div`
   display: flex;
-  margin-top: 3rem;
+  column-gap: 1rem;
+  width: 100%;
   @media screen and (max-width: 480px) {
     flex-direction: column;
+    row-gap: 1rem;
   }
 `;
 
 const ImgWrapper = styled.div`
-  flex: 1 1 0;
-  margin: 1rem;
+  width: 50%;
+  padding: 2rem;
+  border: 2px solid ${({ theme }) => theme.colors.black300};
+  border-radius: 15px;
+  cursor: pointer;
+  transition: all 0.5s ease;
+  @media screen and (max-width: 480px) {
+    width: 100%;
+    min-height: 100px;
+    box-sizing: border-box;
+  }
 
   img {
-    border: 2px solid rgba(0, 0, 0, 0.2);
     width: 100%;
-    border-radius: 15px;
-    cursor: pointer;
-    transition: all 0.5s ease;
-
-    &:hover {
-      box-shadow: 0 0 2rem rgba(0, 0, 0, 0.2);
-    }
+  }
+  &:hover {
+    box-shadow: 0 0 1rem rgba(0, 0, 0, 0.2);
   }
 `;

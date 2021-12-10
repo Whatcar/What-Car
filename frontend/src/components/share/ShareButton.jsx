@@ -1,25 +1,37 @@
-import styled from 'styled-components';
 import React from 'react';
-import KakaoShareButton from '../share/KakaoShareButton';
 import LinkShareButton from '../share/LinkShareButton';
 import RestartButton from '../share/RestartButton';
+import { Grid } from '@mui/material';
+import KakaoShare from './KakaoShare';
 
-export default function ShareButton(props) {
+export default function ShareButton({
+  title,
+  description,
+  imgUrl,
+  buttonTitle,
+  linkTo,
+  additionalButton,
+  buttonText,
+}) {
   return (
-    <div style={{ textAlign: 'center' }}>
-      <ShareBtn>
-        <KakaoShareButton></KakaoShareButton>
-        <LinkShareButton></LinkShareButton>
-      </ShareBtn>
-      <RestartButton url={props.url}></RestartButton>
-    </div>
+    <Grid container spacing={2} sx={{ width: ['100%', '50%'], margin: 'auto' }}>
+      <Grid item xs={6}>
+        <KakaoShare
+          title={title}
+          description={description}
+          imgUrl={imgUrl}
+          buttonTitle={buttonTitle}
+        />
+      </Grid>
+      <Grid item xs={6}>
+        <LinkShareButton />
+      </Grid>
+      <Grid item xs={12}>
+        <RestartButton linkTo={linkTo} buttonText={buttonText} />
+      </Grid>
+      <Grid item xs={12}>
+        {additionalButton}
+      </Grid>
+    </Grid>
   );
 }
-
-const ShareBtn = styled.div`
-  display: flex;
-  justify-content: space-between;
-  width: 180px;
-  padding-bottom: 5px;
-  margin: auto;
-`;

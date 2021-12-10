@@ -87,6 +87,14 @@ const ConditionButtons = ({ condition }) => {
               onClick={handleClick}
               style={{ display: 'none' }}
             />
+            {description && (
+              <DescButton
+                idx={idx}
+                item={item}
+                description={description}
+                checked={values.includes(item)}
+              />
+            )}
           </ButtonLabel>
         </ButtonBox>
       );
@@ -122,7 +130,7 @@ const ConditionButtons = ({ condition }) => {
             style={{ display: 'none' }}
           />
         </ButtonLabel>
-        <NameLabel item={item} htmlFor={`${item}-desc`}>
+        <NameLabel item={item} htmlFor={item}>
           <span>{item}</span>
           {description && (
             <DescButton
@@ -137,8 +145,12 @@ const ConditionButtons = ({ condition }) => {
     );
   });
 
+  const isOpen = (condition) => {
+    return condition === 'grade' || condition === 'shape' ? true : false;
+  };
+
   return (
-    <MyAccordion key={condition}>
+    <MyAccordion key={condition} defaultExpanded={isOpen(condition)}>
       <MyAccordionSummary aria-controls="panel1a-content" id="panel1a-header">
         <span>{categoryDesc[condition].title}</span>
         <span>{categoryDesc[condition].comment}</span>
@@ -146,7 +158,7 @@ const ConditionButtons = ({ condition }) => {
           <DescButton item={condition} description={categoryDesc[condition]} />
         )}
       </MyAccordionSummary>
-      <AccordionDetails>
+      <AccordionDetails style={{ padding: '8px 16px' }}>
         <Box>
           <ButtonLineBox num={condition === 'fuel' ? 3 : 2} />
           {buttonList}
@@ -163,7 +175,7 @@ const Box = styled.div`
   grid-template-columns: repeat(3, 1fr);
   grid-auto-rows: 1fr;
   width: 100%;
-  height: 185px;
+  height: 150px;
   position: relative;
 `;
 
@@ -182,23 +194,22 @@ const ButtonBox = styled.div`
 
 const ButtonLabel = styled.label`
   width: 100%;
-  height: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
-  line-height: 1.25rem;
+  cursor: pointer;
 `;
 
 const NameLabel = styled.label`
   box-sizing: border-box;
-  padding-bottom: 12px;
   width: 100%;
+  padding-top: 0.25rem;
   display: flex;
   justify-content: center;
   align-items: center;
+  cursor: pointer;
 
   span {
-    line-height: 1.25rem;
     + label {
       width: 14px;
       height: 14px;

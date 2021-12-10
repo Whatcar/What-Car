@@ -6,70 +6,106 @@ import axios from 'axios';
 import { useParams } from 'react-router';
 import CarRecommendation from '../components/result/CarRecommendation';
 import Disqus from 'disqus-react';
-import { useLocation } from 'react-router';
-import Feedback from '../components/result/Feedback';
 import Layout from '../components/Layout';
-
-const mockData = [
-  {
-    carImg: 'https://whatcar.s3.ap-northeast-2.amazonaws.com/photo/4038.jpg',
-    carName: '2022 제네시스 GV60 준중형',
-    carPrice: '5,990~6,975만원',
-    details: '3842',
-  },
-  {
-    carImg: 'https://whatcar.s3.ap-northeast-2.amazonaws.com/photo/4085.jpg',
-    carName: '2022 폭스바겐 티록',
-    carPrice: '3,244~3,835만원',
-    details: '3885',
-  },
-  {
-    carImg: 'https://whatcar.s3.ap-northeast-2.amazonaws.com/photo/4081.jpg',
-    carName: '2022 BMW X3(3세대)',
-    carPrice: '6,440~9,370만원',
-    details: '3881',
-  },
-  {
-    carImg: 'https://whatcar.s3.ap-northeast-2.amazonaws.com/photo/4082.jpg',
-    carName: '2022 BMW X4(2세대)',
-    carPrice: '6,670~9,620만원',
-    details: '3882',
-  },
-];
+import FeedbackButton from '../components/share/FeedbackButton';
+import { MainTitle } from '../css/mainStyles';
+import NotFound from './NotFound';
+import GalleryShare from '../components/share/GalleryShare';
 
 export default function Result() {
+  const PATH = process.env.REACT_APP_BACKEND_URL;
   const params = useParams();
-  const { state } = useLocation();
-  const carId = params.id;
+  const id = params.id;
   const [carData, setCarData] = useState({});
-  const [isFeedback, setIsFeedback] = useState(false);
+  const [lessCar, setLessCar] = useState([]);
+  const [notFound, setNotFound] = useState(false);
+
   useEffect(() => {
     axios
-      .get('http://localhost:5000/api/detail', { params: { id: carId } })
-      .then((res) => setCarData(res.data));
-  }, [carId]);
-
-  console.log(state);
-
+      .get(`${PATH}/api/upload`, { params: { id: id } })
+      .then((res) => {
+        const names = res.data['most_car']['most_car_color'].color_name;
+        const urls = res.data['most_car']['most_car_color'].color_url;
+        const carColor = names.map((name, idx) => {
+          return {
+            name,
+            url: urls[idx],
+          };
+        });
+        setCarData({
+          ...res.data['most_car']['most_car_detail'],
+          similarity: res.data['most_car']['similarity'],
+          most_car_url: res.data['most_car']['most_car_url'],
+          isUpload: res.data['most_car']['is_upload'],
+          colors: carColor,
+        });
+        setLessCar(res.data['less_cars']);
+      })
+      .catch((err) => {
+        if (err.response.status === 404) setNotFound(true);
+      });
+  }, [id, PATH]);
   const disqusShortname = 'WhatCar';
   const disqusConfig = {
-    url: `http://localhost:3000/result/${carId}`,
+    url: `${PATH}/search/detail/${carData.id}`,
     identifier: carData.name,
     title: carData.name,
   };
 
-  return (
+  return !notFound ? (
     <Layout>
       <ResultWrapper>
-        <CarDetail detail={carData} />
-        <ShareButton url="result" />
-        {!isFeedback && <Feedback setIsFeedback={setIsFeedback} />}
-        {state && <CarRecommendation findMore={mockData} />}
-        <DisqusFrame showMore={state ? true : false}>
-          <Disqus.DiscussionEmbed shortname={disqusShortname} config={disqusConfig} />
-        </DisqusFrame>
+        <MainTitle>
+          <Blue>{(carData.similarity * 100).toFixed(0)}%</Blue>의 확률로
+          <br />이 차는 <Blue>{carData.name}</Blue>입니다!
+        </MainTitle>
+        <ImageWrapper>
+          <div>
+            <img alt={'most-car-img'} src={carData['most_car_url']} />
+          </div>
+          <div>
+            <img
+              src={
+                carData.photolink ||
+                'https://cdn.pixabay.com/photo/2019/02/28/04/54/car-4025379_960_720.png'
+              }
+              width="70%"
+              loading="lazy"
+              alt="자동차 이미지"
+            />
+          </div>
+        </ImageWrapper>
+
+        <CarDetail detail={carData} colors={carData.colors} />
+        <ShareButton
+          title={`이 차는 ${(carData.similarity * 100).toFixed(0)}%의 확률로 ${
+            carData.name
+          }입니다.`}
+          description="차를 자세히 보고 싶으신가요?"
+          imgUrl={carData.most_car_url}
+          buttonTitle="🚘 차 보러 가기 🚘"
+          buttonText="다시 검색하기"
+          linkTo="/"
+          additionalButton={
+            <>
+              <FeedbackButton
+                id={id}
+                carId={carData.id}
+                carUrl={carData.most_car_url}
+                similarity={carData.similarity}
+                setCarData={setCarData}
+                isUpload={carData.isUpload}
+              />
+            </>
+          }
+        />
+        {lessCar && <CarRecommendation findMore={lessCar} />}
+        {/* <GalleryShare carId={carData.id} /> */}
+        <Disqus.DiscussionEmbed shortname={disqusShortname} config={disqusConfig} />
       </ResultWrapper>
     </Layout>
+  ) : (
+    <NotFound moreInfo="해당 url이 만료되었습니다." />
   );
 }
 
@@ -77,6 +113,19 @@ const ResultWrapper = styled.div`
   text-align: center;
 `;
 
-const DisqusFrame = styled.div`
-  margin: ${(props) => (props.showMore ? '55rem 0 5rem' : '5rem 0 5rem')};
+const ImageWrapper = styled.div`
+  display: flex;
+  margin: 1rem auto;
+  width: 100%;
+  div {
+    flex: 1 0 0;
+    margin: auto;
+    img {
+      width: 100%;
+    }
+  }
+`;
+
+const Blue = styled.span`
+  color: ${({ theme }) => theme.colors.blueM};
 `;

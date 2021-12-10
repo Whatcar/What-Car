@@ -1,8 +1,7 @@
 import React from 'react';
-import link from '../../img/share/link.png';
-import styled from 'styled-components';
-import { blue, black } from '../../css/colors';
 import { Button } from '@mui/material';
+import LinkRoundedIcon from '@mui/icons-material/LinkRounded';
+import Swal from 'sweetalert2';
 
 function LinkShareButton() {
   const onLinkClick = () => {
@@ -14,17 +13,23 @@ function LinkShareButton() {
     textarea.select();
     document.execCommand('copy');
     document.body.removeChild(textarea);
-    alert('URL이 복사되었습니다.');
+    Swal.fire({
+      icon: 'success',
+      title: 'URL이 복사되었습니다.',
+    });
   };
   return (
-    <LinkButton className="linkShareButton" variant="contained" onClick={onLinkClick} color="white">
-      <img className="link" src={link} height="32px" width="32px"></img>
-    </LinkButton>
+    <Button
+      className="linkShareButton"
+      variant="contained"
+      onClick={onLinkClick}
+      color="white"
+      startIcon={<LinkRoundedIcon sx={{ transform: 'rotate(-45deg)', width: '20px' }} />}
+      sx={{ padding: '15px', width: '100%', lineHeight: '1rem', height: '100%' }}
+    >
+      링크 복사하기
+    </Button>
   );
 }
-
-const LinkButton = styled(Button)({
-  width: '40px',
-});
 
 export default LinkShareButton;

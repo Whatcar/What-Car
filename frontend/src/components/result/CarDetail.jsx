@@ -1,61 +1,92 @@
 import React from 'react';
-import { MainTitle } from '../../css/mainStyles';
 import styled from 'styled-components';
-import { blue } from '../../css/colors';
+import { Divider, Grid, Tooltip } from '@mui/material';
 
-export default function CarDetail({ detail }) {
+export default function CarDetail({ detail, colors }) {
+  const isColor = () => {
+    if (colors) {
+      if (colors.length && colors[0].name) {
+        return true;
+      }
+    }
+    return false;
+  };
+
   return (
-    <>
-      <MainTitle>
-        이 차는 <BlueText>{detail.name}</BlueText>입니다!
-      </MainTitle>
-      <CarInfo>
-        <img
-          src={
-            detail.photolink ||
-            'https://cdn.pixabay.com/photo/2019/02/28/04/54/car-4025379_960_720.png'
-          }
-          width="50%"
-          loading="lazy"
-          alt="자동차 이미지"
-        />
-        <CarSpec>
+    <InfoBox key={`car-detail-${detail.name}`}>
+      {isColor() && (
+        <div style={{ width: '100%' }}>
+          <p>색상</p>
+          <Divider style={{ width: '100%', marginBottom: '1rem' }} />
+          <ColorBox>
+            {colors.map((color) => (
+              <Tooltip
+                key={`tooltip-${detail.id}-${detail.name}-color-${color.name}`}
+                title={color.name}
+                arrow
+              >
+                <ColorCircle
+                  key={`${detail.name}-${color.name}`}
+                  art={color.name}
+                  src={color.url}
+                />
+              </Tooltip>
+            ))}
+          </ColorBox>
+        </div>
+      )}
+
+      <div>
+        <p>상세 스펙</p>
+        <Divider style={{ width: '100%', marginBottom: '1rem' }} />
+        <Grid container columns={8} rowSpacing={2}>
           {displayOrder
             .filter((item) => !item.cond.includes(detail[item.eng]))
             .map((item) => (
-              <div key={`${item.eng}-detail`}>
-                <span>{item.kor}</span>
+              <Grid item key={`${item.eng}-detail`} xs={8} sm={4} lg={2}>
+                <Bold>{item.kor}</Bold>
+                <Light>&nbsp;&nbsp;|&nbsp;&nbsp;</Light>
                 {detail[item.eng]}
-              </div>
+              </Grid>
             ))}
-        </CarSpec>
-      </CarInfo>
-    </>
+        </Grid>
+      </div>
+    </InfoBox>
   );
 }
 
-const BlueText = styled.span`
-  color: ${blue.main};
-`;
-
-const CarInfo = styled.div`
+const InfoBox = styled.div`
   width: 100%;
   display: flex;
-  justify-content: center;
-  margin: 3rem 0;
+  flex-direction: column;
+  align-items: flex-start;
+  text-align: left;
+  row-gap: 3rem;
+  margin-bottom: 2rem;
+  p {
+    ${({ theme }) => theme.fontStyle.subTitle}
+  }
 `;
 
-const CarSpec = styled.div`
+const ColorBox = styled.div`
   display: flex;
-  flex-direction: column;
-  justify-content: space-around;
-  text-align: left;
-  flex-grow: 1;
-  margin-left: 1rem;
-  span {
-    font-family: 'SBAggroM';
-    margin-right: 1rem;
-  }
+  flex-wrap: wrap;
+  column-gap: 0.5rem;
+  row-gap: 0.5rem;
+`;
+
+const ColorCircle = styled.img`
+  width: 2rem;
+  height: 2rem;
+  border-radius: 1rem;
+`;
+
+const Bold = styled.span`
+  font-family: 'SBAggroM';
+`;
+
+const Light = styled.span`
+  color: ${({ theme }) => theme.colors.black300};
 `;
 
 const displayOrder = [

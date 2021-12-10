@@ -1,4 +1,3 @@
-import { useEffect, useCallback } from 'react';
 import styled from 'styled-components';
 import getEmblem from '../../utils/getEmblem';
 import { setCheckedValuesArray } from '../../utils/searchCondition';
@@ -17,17 +16,11 @@ const SelectEmblem = () => {
     return range === label;
   };
 
-  useEffect(() => {
+  const handleClickRange = (e) => {
+    const newRange = e.target.innerText;
+    setRange(newRange);
     setValues([]);
-  }, [setValues, range]);
-
-  const handleClickRange = useCallback(
-    (e) => {
-      const newRange = e.target.innerText;
-      setRange(newRange);
-    },
-    [setRange],
-  );
+  };
 
   const emblemList = getEmblem(range).map((emblem) => {
     const name = emblem[0];
