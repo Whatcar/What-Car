@@ -39,7 +39,6 @@ export default function Intro({ swiper }) {
     const files = event.target.files;
     if (files && files[0]) {
       const compressedImage = await compressImage(files[0]);
-      console.log('압축 완료!');
       setImgFile(compressedImage);
     }
     if (event.target.files.length) {
@@ -56,9 +55,7 @@ export default function Intro({ swiper }) {
   };
 
   const handleUploadImage = async () => {
-    // TODO: 파일 크기 체크하기
     if (imgFile) {
-      console.log(imgFile.size);
       if (
         !['jpg', 'png', 'jpeg'].includes(
           imgFile.name.toLowerCase().split('.')[imgFile.name.split('.').length - 1],

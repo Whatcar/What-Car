@@ -10,6 +10,7 @@ import Section3 from '../components/main/Section3.jsx';
 import Section4 from '../components/main/Section4.jsx';
 import section2 from '../img/main/section2.png';
 import person3 from '../img/main/person3.png';
+import gallaryBG from '../img/main/gallaryBG.png';
 import { colors } from '../css/theme.js';
 
 const slideStyle = { width: '100%', display: 'flex', alignItems: 'center', position: 'relative' };
@@ -79,6 +80,8 @@ export default function Main() {
           />
         </SwiperSlide>
         <SwiperSlide style={slideStyle}>
+          <ImgWrapper src={gallaryBG} />
+          <Gradient right />
           <MainLayout>
             <Section4 swiper={swiper} />
           </MainLayout>
@@ -114,7 +117,10 @@ const Gradient = styled.div`
   height: 100%;
   width: 100vw;
   position: absolute;
-  background: linear-gradient(to left, white 50%, rgba(255, 255, 255, 0));
+  background: ${(props) =>
+    props.right
+      ? 'linear-Gradient(to right, white 40%, rgba(255,255,255, 0))'
+      : 'linear-gradient(to left, white 50%, rgba(255, 255, 255, 0))'};
   @media screen and (max-width: 480px) {
     background: linear-gradient(to top, white 50%, rgba(255, 255, 255, 0));
   }
