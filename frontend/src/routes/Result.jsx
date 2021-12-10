@@ -100,7 +100,7 @@ export default function Result() {
           }
         />
         {lessCar && <CarRecommendation findMore={lessCar} />}
-        <GalleryShare carId={carData.id} />
+        {/* <GalleryShare carId={carData.id} /> */}
         <Disqus.DiscussionEmbed shortname={disqusShortname} config={disqusConfig} />
       </ResultWrapper>
     </Layout>
