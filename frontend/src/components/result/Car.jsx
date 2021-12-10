@@ -3,23 +3,18 @@ import styled from 'styled-components';
 import { useNavigate } from 'react-router';
 import { Desc } from '../../css/mainStyles';
 import { Button } from '@mui/material';
-import { blue } from '../../css/colors';
 
 export default function Car({ item }) {
   const navigate = useNavigate();
   const onButtonClick = (pageId) => {
-    navigate(`/result/${pageId}`);
+    navigate(`/search/detail/${pageId}`);
   };
   return (
     <CarCard>
-      <img src={item.carImg} height="50%" />
-      <p style={{ fontFamily: 'SBAggroM' }}>{item.carName}</p>
-      <Desc>{item.carPrice}</Desc>
-      <Button
-        variant="contained"
-        sx={{ backgroundColor: blue.main, color: 'white' }}
-        onClick={() => onButtonClick(item.details)}
-      >
+      <img alt={`car-${item.name}`} src={item.photolink} height="50%" />
+      <p style={{ fontFamily: 'SBAggroM' }}>{item.name}</p>
+      <Desc>{item.price}</Desc>
+      <Button variant="outlined" onClick={() => onButtonClick(item.id)}>
         자세히 보기
       </Button>
     </CarCard>
@@ -29,7 +24,9 @@ export default function Car({ item }) {
 const CarCard = styled.div`
   width: 200px;
   height: 240px;
+  position: relative;
   margin: 5px;
+  margin-bottom: 1.5rem;
   padding: 1rem;
   box-sizing: border-box;
   border-radius: 10px;
@@ -40,20 +37,27 @@ const CarCard = styled.div`
   justify-content: space-around;
   font-size: 1rem;
   line-height: 1rem;
-  &:hover {
-    width: 240px;
-    height: 290px;
-    font-size: 1.2rem;
-    line-height: 1.2rem;
-    margin: 6px;
-    padding: 1.2rem;
-    border-radius: 12px;
-    button {
-      display: block;
+  @media screen and (min-width: 481px) {
+    &:hover {
+      width: 240px;
+      height: 290px;
+      font-size: 1.2rem;
+      line-height: 1.2rem;
+      margin: 6px;
+      padding: 1.2rem;
+      border-radius: 12px;
+      button {
+        display: block;
+      }
     }
   }
   transition: all 0.3s ease-in-out;
   button {
     display: none;
+  }
+  @media screen and (max-width: 480px) {
+    button {
+      display: block;
+    }
   }
 `;

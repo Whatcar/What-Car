@@ -21,29 +21,6 @@ const getSessionItemToNum = (keyName, initial) => {
   return items;
 };
 
-const getConditions = () => {
-  const conditionsString = ['name', 'range'];
-  const conditionsArr = ['brand', 'grade', 'shape', 'method', 'fuel'];
-  const conditionsNumArr = ['displacement', 'fuelEfficiency'];
-  const conditions = {};
-
-  conditionsString.forEach((keyName) => {
-    conditions[keyName] = getSessionItem(keyName, '');
-  });
-
-  conditionsArr.forEach((keyName) => {
-    conditions[keyName] = getSessionItemArray(keyName, '');
-  });
-
-  conditionsNumArr.forEach((keyName) => {
-    conditions[keyName] = getSessionItemToNum(keyName, '0,5');
-  });
-
-  conditions.cost = getSessionItemToNum('cost', '0,9');
-
-  return conditions;
-};
-
 export const range = atom({
   key: 'range',
   default: getSessionItem('range', '전체'),
@@ -92,9 +69,4 @@ export const fuelEfficiency = atom({
 export const name = atom({
   key: 'name',
   default: getSessionItem('name', ''),
-});
-
-export const conditions = atom({
-  key: 'conditions',
-  default: getConditions(),
 });

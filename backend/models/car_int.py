@@ -13,16 +13,17 @@ from db_connect import db
 from flask_restx import fields
 
 
-# 차 정보
-class Car_Int(db.Model):
-    __tablename__ = "CAR_INT"
+# 차 숫자 정보
+class CarInt(db.Model):
+    __tablename__ = "car_int"
     car_id = db.Column(
-        db.Integer, db.ForeignKey("CAR.id"), primary_key=True, nullable=False
+        db.Integer,
+        db.ForeignKey("car.id", ondelete="CASCADE", onupdate="CASCADE"),
+        primary_key=True,
+        nullable=False,
     )
     price_int_low = db.Column(db.BigInteger, nullable=True)
     price_int_high = db.Column(db.BigInteger, nullable=True)
     displacement_int = db.Column(db.BigInteger, nullable=True)
     fuel_efficiency_int_low = db.Column(db.Float, nullable=True)
     fuel_efficiency_int_high = db.Column(db.Float, nullable=True)
-
-    # worldcups = db.relationship("Worldcup", backref="car", lazy=True)

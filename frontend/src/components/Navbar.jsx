@@ -8,14 +8,13 @@ import { Link } from 'react-router-dom';
 import Logo from '../img/nav/logo.svg';
 import { resetSessionStorage } from '../utils/searchCondition';
 import MenuRoundedIcon from '@mui/icons-material/MenuRounded';
-import { blue } from '../css/colors';
 import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
 import conditionSelector from '../recoil/selector';
-import { useRecoilState } from 'recoil';
+import { useSetRecoilState } from 'recoil';
 
 const navInfo = [
   { id: 0, links: ['/'], link: '/', title: '사진 속 차 찾기' },
-  { id: 1, links: ['/search'], link: '/search', title: '자동차 검색' },
+  { id: 1, links: ['/search'], link: '/search', title: '조건별 차 찾기' },
   { id: 2, links: ['/destiny', '/worldcup', '/mbti'], link: '/destiny', title: '운명의 차 찾기' },
   { id: 3, links: ['/gallary'], link: '/gallary', title: '갤러리' },
   { id: 4, links: ['/team'], link: '/team', title: '팀 소개' },
@@ -23,7 +22,7 @@ const navInfo = [
 
 export default function Navbar() {
   const [sidebar, setSidebar] = useState(null);
-  const [state, setState] = useRecoilState(conditionSelector);
+  const setState = useSetRecoilState(conditionSelector);
   const showSidebar = () => {
     sidebar === null ? setSidebar(true) : sidebar === false ? setSidebar(true) : setSidebar(false);
   };
@@ -46,7 +45,7 @@ export default function Navbar() {
             <Grid item xs={10} md={8} lg={8}>
               <InnerDiv>
                 <Link to="/">
-                  <img src={Logo} />
+                  <img alt={'nav-logo'} src={Logo} />
                 </Link>
                 <Menus>
                   {navInfo.map((item) => (
@@ -135,7 +134,7 @@ const NavDiv = styled.div`
   width: 100%;
   position: absolute;
   top: 0;
-  background-color: ${blue.main};
+  background-color: ${({ theme }) => theme.colors.blueM};
 `;
 
 const StyledGrid = styled(Grid)`
@@ -225,7 +224,7 @@ const SideWave = styled.img`
 `;
 
 const NavMenu = styled.div`
-  background-color: ${blue.main};
+  background-color: ${({ theme }) => theme.colors.blueM};
   width: 200px;
   display: flex;
   flex-direction: column;

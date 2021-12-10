@@ -7,14 +7,14 @@ import { blue } from '../css/colors';
 import { useNavigate } from 'react-router';
 import Layout from '../components/Layout';
 
-export default function NotFound() {
+export default function NotFound({ moreInfo }) {
   const navigate = useNavigate();
   return (
     <Layout>
       <NotFoundWrapper>
-        <img src={notFoundImg} width="70%" />
+        <img alt={'not-found'} src={notFoundImg} width="70%" />
         <MainTitle top={2}>아무 것도 찾을 수 없어요!</MainTitle>
-        <Desc>주소를 다시 확인해주세요!</Desc>
+        <Desc>{moreInfo || '주소를 다시 확인해주세요!'}</Desc>
         <Button
           variant="contained"
           sx={{ backgroundColor: blue.main }}

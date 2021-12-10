@@ -1,28 +1,15 @@
-import { useState, Fragment } from 'react';
+import { Fragment } from 'react';
 import styled from 'styled-components';
 import { ReactComponent as QuestionIcon } from '../../img/search/desc.svg';
 import { colors } from '../../css/theme';
 import MyTooltip from '../../css/MyTooltip';
-import ClickAwayListener from '@mui/base/ClickAwayListener';
 
 const DescButton = ({ idx, item, description, checked }) => {
-  const [open, setOpen] = useState(false);
-
   const place = (idx) => {
-    if (idx === undefined) return 'bottom-end';
-    if (idx % 3 === 0) return 'top-start';
-    if (idx % 3 === 1) return 'top';
-    if (idx % 3 === 2) return 'top-end';
-  };
-
-  const handleTooltipClose = (e) => {
-    e.stopPropagation();
-    setOpen(false);
-  };
-
-  const handleTooltipOpen = (e) => {
-    e.stopPropagation();
-    setOpen((curr) => !curr);
+    if (idx === undefined) return 'top-end';
+    if (idx % 3 === 0) return 'bottom-start';
+    if (idx % 3 === 1) return 'bottom';
+    if (idx % 3 === 2) return 'bottom-end';
   };
 
   return (
@@ -30,24 +17,16 @@ const DescButton = ({ idx, item, description, checked }) => {
       PopperProps={{
         disablePortal: true,
       }}
-      open={open}
       placement={place(idx)}
-      disableFocusListener
-      disableTouchListener
       title={
         <Fragment>
           <TooltipContent description={description} />
         </Fragment>
       }
     >
-      <Label htmlFor={`${item}-desc`} onClick={(e) => e.stopPropagation()}>
+      <Label htmlFor={`${item}-desc`}>
         <QuestionIcon fill={checked ? colors.blueM : colors.black500} />
-        <input
-          style={{ display: 'none' }}
-          id={`${item}-desc`}
-          type="checkbox"
-          onClick={handleTooltipOpen}
-        />
+        <input style={{ display: 'none' }} id={`${item}-desc`} type="checkbox" />
       </Label>
     </MyTooltip>
   );
@@ -64,10 +43,10 @@ const Label = styled.label`
   display: flex;
   justify-content: center;
   align-items: center;
+  cursor: pointer;
 `;
 
 const TooltipContent = ({ description }) => {
-  console.log(description);
   const desc = description.desc;
   const good = description.good;
   const bad = description.bad;
@@ -75,8 +54,18 @@ const TooltipContent = ({ description }) => {
   return (
     <TextBox>
       <p>{desc && desc}</p>
-      {good && <p>장점 : {good}</p>}
-      {bad && <p>단점 : {bad}</p>}
+      {good && (
+        <Box>
+          <p>장점 : </p>
+          <p>{good}</p>
+        </Box>
+      )}
+      {bad && (
+        <Box>
+          <p>단점 : </p>
+          <p>{bad}</p>
+        </Box>
+      )}
     </TextBox>
   );
 };
@@ -85,4 +74,11 @@ const TextBox = styled.div`
   display: flex;
   flex-direction: column;
   text-align: start;
+  color: ${({ theme }) => theme.colors.blueM};
+`;
+
+const Box = styled.div`
+  display: grid;
+  grid-template-columns: auto auto;
+  justify-content: flex-start;
 `;

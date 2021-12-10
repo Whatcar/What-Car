@@ -1,14 +1,16 @@
 from flask import request
 from flask_restx import Namespace, Resource
-from models.car import Car
-from service.detail_service import get_detail
+from models import Car, Gallary
+from service import get_detail, get_same_id_gallary_img
 
 detail = Namespace("detail", path="/api")
 
 result = detail.model(
     "detail_result",
-    Car.car_model,
+    Car.response_model,
 )
+
+gallary_result = detail.model("detail_gallary_result", Gallary.response_model)
 
 
 @detail.doc(params={"id": "차량의 고유 아이디"})
@@ -22,3 +24,18 @@ class Detail(Resource):
         car_content = get_detail(id)
 
         return car_content, 200
+
+
+@detail.route("/detail/gallary")
+class detail_Gallary(Resource):
+    @detail.doc(params={"id": "차량의 고유 아이디", "num": "페이지 번호"})
+    @detail.response(200, "Success", gallary_result)
+    @detail.response(404, "페이지 범위를 초과했습니다.")
+    def get(self):
+        """해당 자동차 분석 결과의 가장 유사 차량과 동일한 차량 갤러리 상세 정보를 가져옵니다."""
+        
+        id = request.args.get("id")
+        num = request.args.get("num", type=int, default=1)
+        same_gallary_content = get_same_id_gallary_img(id, num)
+
+        return same_gallary_content

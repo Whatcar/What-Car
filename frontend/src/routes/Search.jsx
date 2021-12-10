@@ -1,14 +1,23 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import { Button, Tabs, Tab, Box, Pagination } from '@mui/material';
+import { Tabs, Tab, Box, Pagination, Divider } from '@mui/material';
 import SelectBox from '../components/search/SelectBox';
-import { getSearchCarList } from '../apis/seachAPI';
+import { getSearchCarList } from '../apis/searchAPI';
 import CarList from '../components/search/CarList';
-import { useRecoilState } from 'recoil';
-import conditionSelector from '../recoil/selector';
 import { getConditions } from '../utils/searchCondition';
 import Layout from '../components/Layout';
+import SearchButtons from '../components/search/SearchButtons';
+import { ReactComponent as QuestionIcon } from '../img/search/desc.svg';
+import { colors } from '../css/theme';
+import Loading from '../components/Loading';
+
+const filterList = ['최신순', '낮은 가격순', '높은 연비순'];
+
+const iconStyle = {
+  fill: colors.black500,
+  paddingRight: '4px',
+};
 
 const TabPanel = (props) => {
   const { children, value, index, ...other } = props;
@@ -40,26 +49,30 @@ const a11yProps = (index) => {
 };
 
 const Search = () => {
-  const [currPage, setCurrPage] = useState('1');
+  const [currPage, setCurrPage] = useState(1);
   const [items, setItems] = useState(null);
   const [filter, setFilter] = useState(0);
   const [dataLength, setDataLength] = useState(0);
-  const [recoilStates, setRecoilStates] = useRecoilState(conditionSelector);
   const [conditions, setConditions] = useState(getConditions());
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
-    const filterList = { 0: '출시일순', 1: '가격순', 2: '연비순' };
-    console.log('SEARCH CONDITIONS', conditions);
-    getSearchCarList(conditions, currPage, filterList[filter])
-      .then(({ data }) => {
-        const total = data[0].result_num;
-        const cars = data[1];
+    const getCarlist = async () => {
+      const filterList = { 0: '출시일순', 1: '가격순', 2: '연비순' };
+      setIsLoading(true);
+      try {
+        const carlist = await getSearchCarList(conditions, currPage, filterList[filter]);
+        const total = carlist.data[0].result_num;
+        const cars = carlist.data[1];
         setDataLength(total);
         setItems(cars);
-      })
-      .catch((error) => {
-        console.log('ERROR CHECK!', error);
-      });
+        setIsLoading(false);
+      } catch (error) {
+        setIsLoading(false);
+      }
+    };
+
+    getCarlist();
   }, [filter, currPage, conditions]);
 
   const pageCount = (dataLength) => {
@@ -67,44 +80,37 @@ const Search = () => {
     return pages;
   };
 
-  const handleSearchClick = (e) => {
-    console.log('ORIGIN CONDITIONS:', recoilStates);
-    const searchConditions = Object.keys(recoilStates);
-    searchConditions.forEach((con) => sessionStorage.setItem(con, recoilStates[con]));
-    setConditions(getConditions());
-  };
-
-  const handleResetClick = () => {
-    setRecoilStates();
-  };
-
-  const handleFilterChange = (event, newFilter) => {
+  const handleFilterChange = (e, newFilter) => {
     setFilter(newFilter);
+    setCurrPage(1);
   };
 
-  const handlePageChange = (_, page) => {
+  const handlePageChange = (e, page) => {
     setCurrPage(page);
   };
 
   return (
     <Layout>
       <ContentBox>
-        <Title>어떤 차가 궁금하신가요?</Title>
+        <Title>
+          <span>어떤 차</span>가 궁금하신가요?
+        </Title>
+        <Desc>
+          원하는 자동차의 사양을 선택해주세요.{' '}
+          <span>아무것도 선택하지 않는 경우 ‘전체'가 적용</span>됩니다.
+          <br />
+          <QuestionIcon style={iconStyle} />
+          아이콘 위에 커서를 올리면 해당 용어에 대한 설명을 볼 수 있습니다. 모바일의 경우{' '}
+          <QuestionIcon style={iconStyle} />
+          아이콘을 길게 터치해주세요.
+        </Desc>
+        <Divider style={{ width: '100%' }} />
         <SelectBox />
-        <ButtonBox>
-          <Button
-            style={{ gridColumn: '2/ 3' }}
-            sx={buttonStyle}
-            variant="contained"
-            disableElevation
-            onClick={handleSearchClick}
-          >
-            조건 검색
-          </Button>
-          <Button sx={buttonStyle} variant="outlined" onClick={handleResetClick}>
-            초기화
-          </Button>
-        </ButtonBox>
+        <SearchButtons setConditions={setConditions} setCurrPage={setCurrPage} />
+        <TotalNum>
+          총 <span style={{ fontSize: 16 }}>{dataLength}</span> 건의 검색 결과가 있습니다
+        </TotalNum>
+        <Divider sx={{ width: '100%' }} />
         <Box sx={{ width: '100%', display: 'flex', flexDirection: 'column' }}>
           <Box
             sx={{
@@ -117,32 +123,29 @@ const Search = () => {
             }}
           >
             <Tabs value={filter} onChange={handleFilterChange} aria-label="basic tabs example">
-              <Tab label="최신순" {...a11yProps(0)} />
-              <Tab label="낮은 가격순" {...a11yProps(1)} />
-              <Tab label="높은 연비순" {...a11yProps(2)} />
+              {filterList.map((item, idx) => (
+                <Tab key={item} label={item} {...a11yProps(idx)} />
+              ))}
             </Tabs>
-            <TotalNum>
-              총 <span style={{ fontSize: 16 }}>{dataLength}</span> 건
-            </TotalNum>
           </Box>
-          <TabPanel value={filter} index={0}>
-            <CarList items={items} />
-          </TabPanel>
-          <TabPanel value={filter} index={1}>
-            <CarList items={items} />
-          </TabPanel>
-          <TabPanel value={filter} index={2}>
-            <CarList items={items} />
-          </TabPanel>
-          <Pagination
-            sx={{ alignSelf: 'center' }}
-            boundaryCount={1}
-            siblingCount={2}
-            color="primary"
-            count={pageCount(dataLength)}
-            shape="rounded"
-            onChange={handlePageChange}
-          />
+          {isLoading && <Loading />}
+          {!isLoading &&
+            items &&
+            filterList.map((item, idx) => (
+              <TabPanel key={`tap-pannel-${item}`} value={filter} index={idx}>
+                <CarList items={items} />
+              </TabPanel>
+            ))}
+          {!!dataLength && (
+            <Pagination
+              sx={{ alignSelf: 'center' }}
+              color="primary"
+              count={pageCount(dataLength)}
+              shape="rounded"
+              onChange={handlePageChange}
+              page={currPage}
+            />
+          )}
         </Box>
       </ContentBox>
     </Layout>
@@ -158,28 +161,30 @@ const ContentBox = styled.div`
 `;
 
 const Title = styled.p`
-  ${({ theme }) => theme.fontStyle.subTitle}
-  margin-bottom: 1.5rem;
-`;
-
-const buttonStyle = {
-  width: '100%',
-  fontSize: '1rem',
-};
-
-const TotalNum = styled.span`
-  font-size: ${({ theme }) => theme.fontSize.S};
+  ${({ theme }) => theme.fontStyle.mainTitle}
+  margin-bottom: 1rem;
+  text-align: center;
   span {
-    font-size: ${({ theme }) => theme.fontSize.M};
+    color: ${({ theme }) => theme.colors.blueM};
   }
 `;
 
-const ButtonBox = styled.div`
-  width: 100%;
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  column-gap: 1rem;
-  @media screen and (max-width: 900px) {
-    display: flex;
+const Desc = styled.p`
+  ${({ theme }) => theme.fontStyle.body}
+  margin-bottom: 1.2rem;
+  text-align: center;
+  span {
+    color: ${({ theme }) => theme.colors.blueM};
+    display: inline-block;
+  }
+`;
+
+const TotalNum = styled.span`
+  align-self: flex-start;
+  margin-bottom: 0.5rem;
+  font-size: ${({ theme }) => theme.fontSize.S};
+  span {
+    font-size: ${({ theme }) => theme.fontSize.M};
+    color: ${({ theme }) => theme.colors.blueM};
   }
 `;

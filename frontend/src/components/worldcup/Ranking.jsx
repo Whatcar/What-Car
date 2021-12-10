@@ -1,35 +1,32 @@
-import React, { useState } from 'react';
 import styled from 'styled-components';
-import { blue } from '../../css/colors';
-import { SubTitle } from '../../css/mainStyles';
+import { MainDesc } from '../../css/mainStyles';
 import { useNavigate } from 'react-router';
 
 export default function Ranking({ ranking }) {
   const navigate = useNavigate();
   const handleClick = (carId) => {
-    navigate(`/result/${carId}`);
+    navigate(`/search/detail/${carId}`);
   };
-  console.log(ranking);
   return (
     <RankingWrapper>
       {ranking.map((item) => (
         <RankingStacks key={`${item.name}-car`}>
-          <RankingStack
-            onClick={() => handleClick(item.car_id)}
-            heightRatio={item.rank === 1 ? 1 : item.rank === 2 ? 2 / 3 : 1 / 2}
-          >
-            <SubTitle>
-              {item.rank}등 ({item.rate}%)
-            </SubTitle>
-            <br />
-            {item.name}
-          </RankingStack>
           <img
             src={item.photolink}
             onClick={() => handleClick(item.car_id)}
             alt="차량 사진"
             style={{ width: '90%' }}
           />
+          <RankingStack
+            onClick={() => handleClick(item.car_id)}
+            heightRatio={item.rank === 1 ? 1 : item.rank === 2 ? 2 / 3 : 1 / 2}
+          >
+            <MainDesc>
+              {item.rank}등 ({item.rate}%)
+            </MainDesc>
+            <br />
+            {item.name}
+          </RankingStack>
         </RankingStacks>
       ))}
     </RankingWrapper>
@@ -52,6 +49,7 @@ const RankingStacks = styled.div`
   margin: 1rem;
   display: flex;
   flex-direction: column-reverse;
+  align-items: center;
   img {
     cursor: pointer;
   }
@@ -61,11 +59,12 @@ const RankingStacks = styled.div`
 `;
 
 const RankingStack = styled.div`
+  width: 100%;
   height: ${(props) => `${props.heightRatio * 300}px`};
   transition: all 0.5s ease;
   border-top-left-radius: 15px;
   border-top-right-radius: 15px;
-  background-color: ${blue.main};
+  background-color: ${({ theme }) => theme.colors.blueM};
   text-align: center;
   color: white;
   padding-top: 2rem;
@@ -73,7 +72,7 @@ const RankingStack = styled.div`
   cursor: pointer;
   overflow-y: scroll;
   &:hover {
-    background-color: ${blue.dark};
+    background-color: ${({ theme }) => theme.colors.blueD};
   }
   @media screen and (max-width: 480px) {
     padding-top: 1rem;

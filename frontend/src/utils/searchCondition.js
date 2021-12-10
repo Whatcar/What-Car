@@ -50,36 +50,32 @@ export const getConditions = () => {
   const conditions = {};
 
   conditionsName.forEach((keyName) => {
-    if (['cost', 'displacement', 'fuelEfficiency'].includes(keyName)) {
-      const condition = sessionStorage.getItem(keyName);
+    if (['displacement', 'fuelEfficiency'].includes(keyName)) {
+      const condition = sessionStorage.getItem(keyName) ? sessionStorage.getItem(keyName) : '0,5';
+      conditions[keyName] = parseCondition(keyName, condition);
+    } else if (keyName === 'cost') {
+      const condition = sessionStorage.getItem(keyName) ? sessionStorage.getItem(keyName) : '0,5';
       conditions[keyName] = parseCondition(keyName, condition);
     } else if (keyName === 'method') {
       const condition = sessionStorage.getItem(keyName);
       const conditionLength = condition ? condition.split(',') : [];
-      console.log(conditionLength);
-      if (condition !== '' && conditionLength.length < 6) {
-        console.log('method pass', condition);
+      if (condition && conditionLength.length < 6) {
         conditions[keyName] = condition;
       } else {
-        console.log('method 전체', condition);
         conditions[keyName] = '전체';
       }
     } else if (keyName === 'fuel') {
       const condition = sessionStorage.getItem(keyName);
-      const conditionLength = condition.split(',');
-      console.log(conditionLength);
-      if (condition !== '' && conditionLength.length < 9) {
-        console.log('fuel pass', conditionLength);
+      const conditionLength = condition ? condition.split(',') : [];
+      if (condition && conditionLength.length < 9) {
         conditions[keyName] = condition;
       } else {
-        console.log('fuel 전체', condition);
         conditions[keyName] = '전체';
       }
     } else {
-      conditions[keyName] = sessionStorage.getItem(keyName);
+      conditions[keyName] = sessionStorage.getItem(keyName) ? sessionStorage.getItem(keyName) : '';
     }
   });
-  console.log('parse2', conditions);
   return conditions;
 };
 

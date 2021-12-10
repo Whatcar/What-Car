@@ -2,15 +2,17 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router';
 import axios from 'axios';
 import { MainTitle, SubTitle } from '../css/mainStyles';
-import { blue } from '../css/colors';
 import Ranking from '../components/worldcup/Ranking';
 import { Skeleton, Button } from '@mui/material';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router';
 import ShareButton from '../components/share/ShareButton';
 import Layout from '../components/Layout';
+import { colors } from '../css/theme';
 
 export default function WorldcupResult() {
+  const PATH = process.env.REACT_APP_BACKEND_URL;
+
   const params = useParams();
   const carId = params.id;
   const [result, setResult] = useState({});
@@ -19,65 +21,62 @@ export default function WorldcupResult() {
   const navigate = useNavigate();
   useEffect(() => {
     setLoading(true);
-    axios
-      .get('http://localhost:5000/api/worldcup/result', { params: { id: carId } })
-      .then((res) => {
-        console.log(res.data);
-        setResult(res.data[0]);
-        setRank(res.data[1].slice(0, 3));
-      });
+    axios.get(`${PATH}/api/worldcup/result`, { params: { id: carId } }).then((res) => {
+      setResult(res.data[0]);
+      setRank(res.data[1].slice(0, 3));
+    });
     const timer = setTimeout(() => {
       setLoading(false);
     }, 1300);
     return () => clearTimeout(timer);
-  }, [carId]);
+  }, [carId, PATH]);
   return (
     <Layout>
       <MainTitle>당신의 차 이상형은</MainTitle>
       {!loading ? (
-        <MainTitle style={{ color: blue.main }}>{result.name}</MainTitle>
+        <MainTitle>
+          <span style={{ color: colors.blueM }}>{result.name}</span> 입니다!
+        </MainTitle>
       ) : (
         <Skeleton variant="text" width="50%" height="4rem" />
       )}
-
-      <MainTitle>입니다!</MainTitle>
-      <Button variant="contained" size="large" onClick={() => navigate(`/result/${result.car_id}`)}>
+      <Button
+        variant="contained"
+        size="large"
+        onClick={() => navigate(`/search/detail/${result.car_id}`)}
+      >
         자세히 보러 가기
       </Button>
-      <ImgDiv>
+      <ResultWrapper>
         {!loading ? (
-          <img
-            src={result.photolink}
-            width="60%"
-            alt="결과 이미지"
-            style={{ position: 'absolute', right: 0, bottom: 0 }}
-          />
+          <img src={result.photolink} width="70%" alt="결과 이미지" />
         ) : (
           <Skeleton variant="rectangular" width="40%" height="16rem" />
         )}
-      </ImgDiv>
-      {!loading ? (
-        <SubTitle center>이 차는 전체의 {result.rate}%가 선택했어요!</SubTitle>
-      ) : (
-        <Skeleton height="4rem" width="50%" />
-      )}
-      <SubTitle top="6" center>
-        이상형 월드컵 랭킹
-      </SubTitle>
-      {!loading ? <Ranking ranking={rank} /> : <Skeleton width="100%" height="30rem" />}
-      <ShareButton url="worldcup" />
+        <div style={{ position: 'relative' }}>
+          {!loading ? (
+            <SubTitle center>
+              멋진 취향을 가지셨네요!
+              <br />이 차는 전체의 <span style={{ color: colors.blueM }}>{result.rate}%</span>가
+              선택했어요
+            </SubTitle>
+          ) : (
+            <Skeleton height="4rem" width="50%" />
+          )}
+          {!loading ? <Ranking ranking={rank} /> : <Skeleton width="100%" height="30rem" />}
+          <ShareButton
+            title={`당신의 차 이상형은?`}
+            description={`${result.name}입니다!`}
+            imgUrl={result.photolink}
+            buttonTitle="🚘 결과 자세히 보러가기 🚘"
+            linkTo="/worldcup/test"
+          />
+        </div>
+      </ResultWrapper>
     </Layout>
   );
 }
 
-const ImgDiv = styled.div`
-  position: relative;
-  width: 100%;
-  height: 40vh;
-  @media screen and (max-width: 480px) {
-    height: 30vh;
-    img {
-      width: 100%;
-    }
-  }
+const ResultWrapper = styled.div`
+  text-align: center;
 `;

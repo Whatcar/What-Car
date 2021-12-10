@@ -7,6 +7,7 @@ app = create_app()
 app.app_context().push()
 from werkzeug.exceptions import abort
 
+# import color_label
 from app import db
 from models.__init__ import *
 
@@ -65,7 +66,7 @@ with open("car_spec_real_final.csv", "r", encoding="UTF-8") as f:
     for row in reader:
 
         print(num)
-        car_int = Car_Int(
+        car_int = CarInt(
             car_id=num,
             price_int_low=int(row["price_int_low"]),
             price_int_high=int(row["price_int_high"]),
@@ -81,6 +82,33 @@ with open("car_spec_real_final.csv", "r", encoding="UTF-8") as f:
             db.session.rollback()
             abort(400, {"error": str(e)})
         num += 1
+
+num = 1
+with open("db_color_sort.csv", "r", encoding="UTF-8") as f:
+    reader = csv.DictReader(f)
+    for i in range(1, 3903):
+        # if not i in color_label.label_num:
+        #     car_int = CarColor(car_id=i, color_name="", color_url="")
+        #     db.session.add(car_int)
+        try:
+            db.session.commit()
+        except Exception as e:
+            db.session.rollback()
+            abort(400, {"error": str(e)})
+
+    for row in reader:
+
+        print(num)
+        car_int = CarInt(
+            car_id=row["num"], color_name=row["color_name"], color_url=row["color_url"]
+        )
+
+        db.session.add(car_int)
+        try:
+            db.session.commit()
+        except Exception as e:
+            db.session.rollback()
+            abort(400, {"error": str(e)})
 
 
 with open("mbti.csv", "r", encoding="UTF-8") as f:
