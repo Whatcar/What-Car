@@ -36,7 +36,7 @@ export default function Team() {
             image={minji}
             name="김민지"
             part="백엔드 데이터분석"
-            intro="안녕하십시오! 변화와 실패를 두려워하지 않는 백엔드 개발자로 진화 중인 김민지입니다."
+            intro="실패와 변화를 두려워하지 않는 개발자로 진화 중입니다."
           />
           <Member
             image={jaehyun}

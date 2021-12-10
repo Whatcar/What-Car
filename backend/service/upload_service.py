@@ -7,8 +7,7 @@ import time
 import cv2
 import numpy as np
 import requests
-
-# from ai import detection, label, model
+from ai import detection, label, model
 from config import aws_s3
 from models import Ai_Result, Car, CarColor, db
 from PIL import Image
@@ -73,11 +72,13 @@ def get_upload_result(data):
         created_at=now,
     )
     db.session.add(temp_data)
+
     try:
         db.session.commit()
     except Exception as e:
         db.session.rollback()
         abort(400, {"error": str(e)})
+
     id = Ai_Result.query.filter(Ai_Result.most_similar_car_url == img_url).first().id
 
     return {"id": id, "car_id": result[0][0]}
@@ -106,6 +107,7 @@ def get_ai_cars_detail(id):
         except Exception as e:
             db.session.rollback()
             abort(400, {"error": str(e)})
+
         abort(404, "해당 url이 만료되었습니다.")
 
     # 이미지가 있으면
