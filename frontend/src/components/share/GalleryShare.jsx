@@ -6,17 +6,20 @@ import { SubTitle } from '../../css/mainStyles';
 import getDetailGallery from '../../apis/getDetailGallery';
 import styled from 'styled-components';
 import gallery from '../../img/notfound/gallery.png';
+import { useNavigate } from 'react-router';
 
 export default function GalleryShare({ carId }) {
   const num = 1;
   const [resultNum, setResultNum] = useState();
   const [detailGalleryUrl, setDetailGalleryUrl] = useState([]);
+  const [galleryId, setGalleryId] = useState();
 
   useEffect(() => {
     const getDetailGalleryInfo = async (carId, num) => {
-      const { resultNum, detailGalleryUrl } = await getDetailGallery(carId, num);
+      const { resultNum, detailGalleryUrl, galleryId } = await getDetailGallery(carId, num);
       setResultNum(resultNum);
       setDetailGalleryUrl(detailGalleryUrl);
+      setGalleryId(galleryId);
     };
     if (carId) getDetailGalleryInfo(carId, num);
   }, [carId, num]);
@@ -30,8 +33,17 @@ export default function GalleryShare({ carId }) {
     variableWidth: true,
   };
 
+  const navigate = useNavigate();
+
   const urlList = detailGalleryUrl.map((url, idx) => (
-    <SlideImg key={`gallery-sample-${carId}-${idx}`} src={url} num={resultNum} />
+    <SlideImg
+      key={`gallery-sample-${carId}-${idx}`}
+      src={url}
+      num={resultNum}
+      onClick={() => {
+        navigate(`/result/${galleryId[idx]}`);
+      }}
+    />
   ));
 
   return (
@@ -66,6 +78,7 @@ const SlideImg = styled.img`
   @media screen and (max-width: 480px) {
     height: 100px;
   }
+  cursor: pointer;
 `;
 
 const cssstyle = `
