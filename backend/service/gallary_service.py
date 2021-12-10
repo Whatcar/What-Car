@@ -12,7 +12,18 @@ def get_gallary_cars(off_set, limit_num):
     """
     try:
         gallaries = (
-            Gallary.query.order_by(Gallary.created_at.desc())
+            db.session.query(Gallary, Ai_Result, Car)
+            .with_entities(
+                Gallary.id,
+                Gallary.nickname,
+                Ai_Result.id,
+                Ai_Result.similarity,
+                Ai_Result.most_similar_car_url,
+                Car.name,
+            )
+            .filter(Gallary.id == Ai_Result.gallary_id)
+            .filter(Ai_Result.car_id == Car.id)
+            .order_by(Gallary.created_at.desc())
             .offset(off_set)
             .limit(limit_num)
         )
@@ -21,17 +32,13 @@ def get_gallary_cars(off_set, limit_num):
         abort(404, "no data")
     result = list()
     for gallary_data in gallaries:
-        ai_data = Ai_Result.query.filter_by(gallary_id=gallary_data.id).first()
-        car_data = (
-            Car.query.with_entities(Car.name).filter_by(id=ai_data.car_id).first()
-        )
         result.append(
             {
                 "gallary_id": gallary_data.id,
-                "ai_result_id": ai_data.id,
-                "car_name": car_data.name,
-                "similarity": ai_data.similarity,
-                "car_url": ai_data.most_similar_car_url,
+                "ai_result_id": gallary_data.id,
+                "car_name": gallary_data.name,
+                "similarity": gallary_data.similarity,
+                "car_url": gallary_data.most_similar_car_url,
                 "nickname": gallary_data.nickname,
             }
         )
