@@ -161,17 +161,22 @@ def get_search_results(
             fuel_query += f"{fuel1}|"
         fuel_query = fuel_query[:-1]
 
+    # 이름
+    name_query = ""
+    names = name.split(" ")
+    for search_name in names:
+        name_query += f"(?=.*{search_name})"
+
+    query_all = query_all[:-4]
+
     # 기본 정렬
     if not sort_criteria:
         sort_criteria = "출시일순"
-    # 이름
-    search = "%{}%".format(name)
-    query_all = query_all[:-4]
 
     default_query = (
         Car.query.outerjoin(CarInt, Car.id == CarInt.car_id)
         .filter(text(query_all))
-        .filter(Car.name.like(search))
+        .filter(Car.name.op("regexp")(rf"{name_query}"))
         .filter(Car.fuel.op("regexp")(rf"{fuel_query}"))
     )
     # 출시일순 최신
@@ -184,7 +189,6 @@ def get_search_results(
     if sort_criteria == "가격순":
         query_all_list = default_query.order_by(CarInt.price_int_low.asc())
 
-    print("쿼리 출력", query_all)
     cars = pagination(query_all_list, num)
 
     return cars

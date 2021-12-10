@@ -33,6 +33,7 @@ class detail_Gallary(Resource):
     @detail.response(404, "페이지 범위를 초과했습니다.")
     def get(self):
         """해당 자동차 분석 결과의 가장 유사 차량과 동일한 차량 갤러리 상세 정보를 가져옵니다."""
+        
         id = request.args.get("id")
         num = request.args.get("num", type=int, default=1)
         same_gallary_content = get_same_id_gallary_img(id, num)
