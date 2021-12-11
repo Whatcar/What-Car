@@ -126,3 +126,6 @@ https://tfhub.dev/tensorflow/centernet/hourglass_512x512/1
 
 Resnet-152  
 https://github.com/foamliu/Car-Recognition
+
+Data processing repo  
+https://kdt-gitlab.elice.io/002-part3-cnn/team4/car_data
