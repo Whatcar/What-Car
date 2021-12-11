@@ -1,7 +1,6 @@
 from config import aws_s3
-from db_connect import db
 from flask import abort
-from models import Ai_Result, Car, Gallary
+from models import Ai_Result, Car, Gallary, db
 from s3_connection import s3_resource
 from werkzeug.exceptions import HTTPException
 
@@ -14,7 +13,7 @@ def get_gallary_cars(off_set, limit_num):
         gallaries = (
             db.session.query(Gallary, Ai_Result, Car)
             .with_entities(
-                Gallary.id,
+                Gallary.id.label("gallary_id"),
                 Gallary.nickname,
                 Ai_Result.id,
                 Ai_Result.similarity,
@@ -27,6 +26,7 @@ def get_gallary_cars(off_set, limit_num):
             .offset(off_set)
             .limit(limit_num)
         )
+        db.session.close()
     except Exception as e:
         print(e)
         abort(404, "no data")
@@ -34,7 +34,7 @@ def get_gallary_cars(off_set, limit_num):
     for gallary_data in gallaries:
         result.append(
             {
-                "gallary_id": gallary_data.id,
+                "gallary_id": gallary_data.gallary_id,
                 "ai_result_id": gallary_data.id,
                 "car_name": gallary_data.name,
                 "similarity": gallary_data.similarity,
@@ -102,6 +102,7 @@ def delete_gallary_cars(info):
         if del_gallary.is_password_correct(pw):
             db.session.delete(del_gallary)
             db.session.commit()
+            db.session.close()
             return "Deleted"
         else:
             abort(409)

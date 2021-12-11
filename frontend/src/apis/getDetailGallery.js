@@ -2,9 +2,9 @@ import axios from 'axios';
 
 const PATH = process.env.REACT_APP_BACKEND_URL;
 
-const getDetailGallery = async (carId, page_num) => {
+const getDetailGallery = async (carId, page_num, ai_result_id) => {
   const response = await axios.get(`${PATH}/api/detail/gallary`, {
-    params: { id: carId, num: page_num },
+    params: { id: carId, num: page_num, ai_result_id: ai_result_id },
   });
   try {
     const resultNum = response.data.gallery_contents[0].result_num;

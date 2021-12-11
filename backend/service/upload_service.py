@@ -1,6 +1,5 @@
 import datetime
 import io
-import os
 import random
 import time
 
@@ -27,7 +26,6 @@ def get_upload_result(data):
     # detection car
     box_points = detection.predict(img)
     if box_points is None:
-        print("상위 5개중에 차가 없습니다! 어떻게 할까요")
         return abort(409, "차가 존재하지 않습니다.")
 
     # predict car
@@ -80,7 +78,7 @@ def get_upload_result(data):
         abort(400, {"error": str(e)})
 
     id = Ai_Result.query.filter(Ai_Result.most_similar_car_url == img_url).first().id
-
+    db.session.close()
     return {"id": id, "car_id": result[0][0]}
 
 
@@ -145,4 +143,5 @@ def get_ai_cars_detail(id):
             },
             "less_cars": less_similar_car_content_list,
         }
+    db.session.close()
     return result
