@@ -27,8 +27,6 @@ def create_app():
     Migrate().init_app(app, db)
 
     bcrypt.init_app(app)
-    # AI model
-    # from ai import detection, model
 
     return app
 
