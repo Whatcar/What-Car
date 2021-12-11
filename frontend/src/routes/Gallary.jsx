@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useMemo, useRef } from 'react';
 import Layout from '../components/Layout';
 import { MainTitle, Desc } from '../css/mainStyles';
-import { Button, ImageListItemBar } from '@mui/material';
+import { Button } from '@mui/material';
 import styled from 'styled-components';
 import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
 import useInfinity from '../utils/useInfinity';
