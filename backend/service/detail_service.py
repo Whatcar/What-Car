@@ -5,7 +5,6 @@ from werkzeug.exceptions import abort
 def pagination(query_list, num):
 
     query_data_num = query_list.count()
-    print(query_data_num)
     per_page = 9
     range_start = per_page * (num - 1)
     total_page = query_data_num // per_page
