@@ -98,7 +98,7 @@ def get_ai_cars_detail(id):
         response = requests.get(url)
 
     # 만료되면
-    if response.status_code == 403:
+    if response.status_code == 403 or response.status_code == 404:
         # 해당 db에서도 삭제
         db.session.delete(data)
         try:
