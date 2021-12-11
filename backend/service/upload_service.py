@@ -6,7 +6,8 @@ import time
 import cv2
 import numpy as np
 import requests
-from ai import detection, label, model
+
+# from ai import detection, label, model
 from config import aws_s3
 from models import Ai_Result, Car, CarColor, db
 from PIL import Image
@@ -56,7 +57,7 @@ def get_upload_result(data):
         ContentType=".jpg",
     )
 
-    img_url = f"https://{aws_s3['BUCKET_NAME']}.s3.ap-northeast-2.amazonaws.com/upload/{now}{rand}result"
+    img_url = f"https://{aws_s3['BUCKET_NAME']}.s3.{aws_s3['REGION']}.amazonaws.com/upload/{now}{rand}result"
 
     less_similar_cars = str(
         [(result[i][0], result[i][1]) for i in range(1, len(result))]
@@ -78,7 +79,7 @@ def get_upload_result(data):
         abort(400, {"error": str(e)})
 
     id = Ai_Result.query.filter(Ai_Result.most_similar_car_url == img_url).first().id
-    db.session.close()
+
     return {"id": id, "car_id": result[0][0]}
 
 
@@ -144,4 +145,5 @@ def get_ai_cars_detail(id):
             "less_cars": less_similar_car_content_list,
         }
     db.session.close()
+
     return result

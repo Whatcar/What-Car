@@ -10,9 +10,15 @@ class MbtiResult(db.Model):
     count = db.Column(db.Integer, nullable=False)
 
     response_model = {
-        "type": fields.String(required=True, description="Mbti 타입"),
-        "count": fields.Integer(required=True, description="총 테스트 중 해당 타입 횟수"),
-        "rate": fields.Integer(required=True, description="총 테스트 중 해당 타입 결과 비율"),
-        "rank": fields.Integer(required=True, description="순위"),
-        "is_result": fields.String(required=True, description="현재 테스트 결과 여부"),
+        "type": fields.String(required=True, description="Mbti 타입", example="INFP"),
+        "count": fields.Integer(
+            required=True, description="총 테스트 중 해당 타입 횟수", example=17
+        ),
+        "rate": fields.Integer(
+            required=True, description="총 테스트 중 해당 타입 결과 비율", example=26.15
+        ),
+        "rank": fields.Integer(required=True, description="순위", example=1),
+        "is_result": fields.String(
+            required=True, description="현재 테스트 결과 여부", example="false"
+        ),
     }
