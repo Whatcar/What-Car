@@ -1,7 +1,6 @@
 import styled from 'styled-components';
 import getEmblem from '../../utils/getEmblem';
 import { setCheckedValuesArray } from '../../utils/searchCondition';
-import { desc } from '../../css/fonts';
 import { AccordionDetails } from '@mui/material';
 import { useRecoilState } from 'recoil';
 import * as atom from '../../recoil/atom';
@@ -101,7 +100,7 @@ const Img = styled.img`
 `;
 
 const Name = styled.p`
-  ${desc}
+  ${({ theme }) => theme.fontStyle.desc}
   text-align: center;
 `;
 

@@ -2,7 +2,7 @@ import React from 'react';
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
 import { Pie } from 'react-chartjs-2';
 import mbtiDesc from '../../data/mbtiCar';
-import { blue } from '../../css/colors';
+import { colors } from '../../css/theme';
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
@@ -10,7 +10,7 @@ export default function PieChart({ mbti, special }) {
   const dataLabels = mbti.map((item) => mbtiDesc[item.type].brand);
   const specialIndex = dataLabels.findIndex((item) => item === mbtiDesc[special].brand);
   const colorChart = Array.from({ length: 12 }, (v, i) => '#EEE');
-  colorChart.splice(specialIndex, 1, blue.main);
+  colorChart.splice(specialIndex, 1, colors.blueM);
 
   const data = {
     labels: dataLabels,
