@@ -50,5 +50,5 @@ def get_mbti_result(mbti):
             result["is_result"] = False
 
         mbti_result.append(result)
-
+    db.session.close()
     return mbti_result
