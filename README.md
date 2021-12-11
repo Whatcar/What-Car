@@ -1,8 +1,9 @@
 # 왓카
+
 - **차알못**(차에 대해 잘 알지 못하는 사람들)이 원하는 차를 쉽고 빠르게 찾을 수 있는 서비스를 제공
 
-
 ## 기술 스택
+
 <div align="center">
 <img alt="Javascript" src ="https://img.shields.io/badge/Javascript-F7DF1E.svg?&style=for-the-badge&logo=Javascript&logoColor=black"/>
 <img alt="React" src ="https://img.shields.io/badge/React-61DAFB.svg?&style=for-the-badge&logo=React&logoColor=black"/>
@@ -21,7 +22,6 @@
 </div>
 
 ## 1. 프로젝트 소개
-
 
 ### 목표
 
@@ -42,7 +42,7 @@
 
 **→ 사진만 찍어서 올리면 쉽게 차 모델을 알 수 있는 서비스는 없을까?**
 
- :raising_hand:**왓카의 페르소나, 이머선(29세, 개발자)씨의 고민**
+:raising_hand:**왓카의 페르소나, 이머선(29세, 개발자)씨의 고민**
 
 - 이제 막 취업한 사회초년생
 - 회사가 **제주도**라서 최근 거주지를 이사했다
@@ -53,9 +53,7 @@
 - 최근 길가다 마음에 드는 디자인의 자동차를 발견했는데, 검색 방법을 몰라 포기했다
 - 다나오는 사이트에서 자동차를 검색해보려 했지만, 조건이 너무 많고 용어가 어렵다
 
-
 **→ 이머선씨와 같은 차.알.못을 위한 자동차 검색 서비스, 🚙 왓카 탄생!**
-
 
 ## 2. 프로젝트 목표
 
@@ -67,61 +65,80 @@
 - 공유 기능을 통해 주변인들에게 사용자가 관심있는 차량을 알려주고, 서비스를 홍보할 수 있다.
 - 사용자들이 업로드한 사진을 모아놓아 커뮤니티의 기능을 수행할 수 있다.
 
-
 ## 3. 프로젝트 기능 설명
 
-
 ### 메인 페이지
+
 ![ezgif.com-gif-maker-8](/uploads/cbb9a15513554398e45e38d3a6f06a92/ezgif.com-gif-maker-8.gif)
 
 ### 이미지 검색 결과 페이지
+
 ![ezgif.com-gif-maker-9](/uploads/323056f57a6a09290d9520467b861d64/ezgif.com-gif-maker-9.gif)
 
 ### 검색 페이지
+
 ![ezgif.com-gif-maker-7](/uploads/422d59bd1e47d62bfe04d35601e8d9e2/ezgif.com-gif-maker-7.gif)
 
 ### 차량 상세 페이지
+
 ![ezgif.com-gif-maker-11](/uploads/b3e1abd919b5c5e6619df71006f0dc96/ezgif.com-gif-maker-11.gif)
 
 ### 갤러리
+
 ![1231232123136](/uploads/836e178fc3b0b024fca721afb2313c6c/1231232123136.gif)
 
-
 ### 팀 소개 페이지
+
 <img src="/uploads/cb8e23f4aaba42dff41d121086d4ce2e/스크린샷_2021-12-09_오후_11.13.00.png" width="70%" height="70%" />
 
 ## 4. 프로젝트 구성도
+
 <img src="/uploads/9242a215bffffc449ad4a43314ec3c0a/image.png" width="70%" height="70%"/>
 
-  - [와이어프레임](https://www.figma.com/file/WeTyad4D651hQcpD041Ppg/%EB%A8%B8%EC%84%A0%EB%9F%AC%EB%8B%9D29?node-id=2%3A4)
-  - [스토리보드](https://docs.google.com/presentation/d/1QKu6nnS17Fxv6M02sVy1flslcMH5x7v0x_Y80Cj5mv4/edit#slide=id.p)
+- [와이어프레임](https://www.figma.com/file/WeTyad4D651hQcpD041Ppg/%EB%A8%B8%EC%84%A0%EB%9F%AC%EB%8B%9D29?node-id=2%3A4)
+- [스토리보드](https://docs.google.com/presentation/d/1QKu6nnS17Fxv6M02sVy1flslcMH5x7v0x_Y80Cj5mv4/edit#slide=id.p)
 
 ## 5. 프로젝트 팀원 역할 분담
-| 이름 | 역할 |
-| ------ | ------ |
-|  백승욱   |  팀장, 백엔드, 인공지능   |
-|  이정규   |  백엔드, 인공지능   |
-|  김민지   |  백엔드   |
-|  최연주   |  프론트엔드, 인공지능   |
-|  김나현   |  프론트엔드, 서기   |
-|  김재현   |  프론트엔드   |
+
+| 이름   | 역할                   |
+| ------ | ---------------------- |
+| 백승욱 | 팀장, 백엔드, 인공지능 |
+| 이정규 | 백엔드, 인공지능       |
+| 김민지 | 백엔드                 |
+| 최연주 | 프론트엔드, 인공지능   |
+| 김나현 | 프론트엔드, 서기       |
+| 김재현 | 프론트엔드             |
 
 **멤버별 responsibility**
 
-| 이름 | 역할 | 담당 부분 |
-| --- | --- | --- |
-| 김나현 | 프론트엔드, 서기 | 1. UI/UX 디자인 및 개발<br>2. 검색/검색 결과 페이지 구현<br>3. 스크럼 작성 및 이슈 관리 |
-| 김민지 | 백엔드 | 1. DB 설계 및 관리<br>2. Web Crawling 및  전처리<br>3. AWS S3 연동 및 관리<br>4. API  설계 및 구현<br>5. API 문서화 |
-| 김재현 | 프론트엔드 | 1. 카카오 및 URL 공유 기능 개발<br>2. Disqus 기능개발|
-| 백승욱 | 👑팀장, 인공지능, 백엔드 | 1. Web Crawling<br>2. 데이터 전처리<br>3. 이미지 Segmentation 따는 것 구현<br>4. MVC구조 조정 |
-| 이정규 | 인공지능, 백엔드 | 1. 인공지능 모델 설계<br>2. 데이터 전처리<br>3. 인공지능 연동<br>4. 서버 배포 |
-| 최연주 | 프론트엔드, 인공지능 | 1. 메인 페이지 구현<br>2. 네비게이션 바(반응형) 구현<br>3. 결과 페이지 레이아웃 구현<br>4. MBTI/이상형 월드컵/404/갤러리/팀 소개 페이지 구현 |
+| 이름   | 역할                     | 담당 부분                                                                                                                                    |
+| ------ | ------------------------ | -------------------------------------------------------------------------------------------------------------------------------------------- |
+| 김나현 | 프론트엔드, 서기         | 1. UI/UX 디자인 및 개발<br>2. 검색/검색 결과 페이지 구현<br>3. 스크럼 작성 및 이슈 관리                                                      |
+| 김민지 | 백엔드                   | 1. DB 설계 및 관리<br>2. Web Crawling 및 전처리<br>3. AWS S3 연동 및 관리<br>4. API 설계 및 구현<br>5. API 문서화                            |
+| 김재현 | 프론트엔드               | 1. 카카오 및 URL 공유 기능 개발<br>2. Disqus 기능개발                                                                                        |
+| 백승욱 | 👑팀장, 인공지능, 백엔드 | 1. Web Crawling<br>2. 데이터 전처리<br>3. 이미지 Segmentation 따는 것 구현<br>4. MVC구조 조정                                                |
+| 이정규 | 인공지능, 백엔드         | 1. 인공지능 모델 설계<br>2. 데이터 전처리<br>3. 인공지능 연동<br>4. 서버 배포                                                                |
+| 최연주 | 프론트엔드, 인공지능     | 1. 메인 페이지 구현<br>2. 네비게이션 바(반응형) 구현<br>3. 결과 페이지 레이아웃 구현<br>4. MBTI/이상형 월드컵/404/갤러리/팀 소개 페이지 구현 |
 
+## 6. 실행 방법
 
-## 6. 버전
-  - 1.0.0
+프론트엔드
+
+```
+cd frontend
+
+# .env.example 파일 참고 후 .env 파일에 환경변수 설정 필요
+
+yarn 또는 yarn install
+yarn start
+```
+
+## 7. 버전
+
+- 1.0.0
 
 ## Reference
+
 Centernet  
 https://tfhub.dev/tensorflow/centernet/hourglass_512x512/1
 
