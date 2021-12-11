@@ -8,20 +8,24 @@ import styled from 'styled-components';
 import gallery from '../../img/notfound/gallery.png';
 import { useNavigate } from 'react-router';
 
-export default function GalleryShare({ carId }) {
+export default function GalleryShare({ carId, aiResultId }) {
   const num = 1;
   const [resultNum, setResultNum] = useState();
   const [detailGalleryUrl, setDetailGalleryUrl] = useState([]);
   const [galleryId, setGalleryId] = useState();
 
   useEffect(() => {
-    const getDetailGalleryInfo = async (carId, num) => {
-      const { resultNum, detailGalleryUrl, galleryId } = await getDetailGallery(carId, num);
+    const getDetailGalleryInfo = async (carId, num, aiResultId) => {
+      const { resultNum, detailGalleryUrl, galleryId } = await getDetailGallery(
+        carId,
+        num,
+        aiResultId,
+      );
       setResultNum(resultNum);
       setDetailGalleryUrl(detailGalleryUrl);
       setGalleryId(galleryId);
     };
-    if (carId) getDetailGalleryInfo(carId, num);
+    if (carId) getDetailGalleryInfo(carId, num, aiResultId);
   }, [carId, num]);
 
   const settings = {

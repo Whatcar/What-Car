@@ -56,7 +56,7 @@ export default function SearchDetail() {
           buttonText="목록으로 돌아가기"
           linkTo="/search"
         />
-        {/* <GalleryShare carId={carId} /> */}
+        <GalleryShare carId={carId} aiResultId={null} />
         <Disqus.DiscussionEmbed shortname={disqusShortname} config={disqusConfig} />
       </ResultWrapper>
     </Layout>
