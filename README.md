@@ -2,49 +2,59 @@
 - **차알못**(차에 대해 잘 알지 못하는 사람들)이 원하는 차를 쉽고 빠르게 찾을 수 있는 서비스를 제공
 
 
-## 프로젝트 구성 안내
-
+## 기술 스택
+<div align="center">
+<img alt="Javascript" src ="https://img.shields.io/badge/Javascript-F7DF1E.svg?&style=for-the-badge&logo=Javascript&logoColor=black"/>
+<img alt="React" src ="https://img.shields.io/badge/React-61DAFB.svg?&style=for-the-badge&logo=React&logoColor=black"/>
+<img alt="styled-components" src ="https://img.shields.io/badge/styled--components-DB7093.svg?&style=for-the-badge&logo=styled-components&logoColor=black"/>
+<img alt="Python" src ="https://img.shields.io/badge/Python-3776AB.svg?&style=for-the-badge&logo=Python&logoColor=white"/>
+<img alt="Flask" src ="https://img.shields.io/badge/Flask-000000.svg?&style=for-the-badge&logo=Flask&logoColor=white"/>
+<img alt="Amazon AWS" src ="https://img.shields.io/badge/Amazon AWS-232F3E.svg?&style=for-the-badge&logo=Amazon AWS&logoColor=white"/>
+<img alt="MariaDB" src ="https://img.shields.io/badge/Maria DB-1F305F.svg?&style=for-the-badge&logo=MariaDB&logoColor=white"/>
+<img alt="Amazon S3" src ="https://img.shields.io/badge/Amazon S3-569A31.svg?&style=for-the-badge&logo=Amazon S3&logoColor=white"/>
+<img alt="Tensorflow" src ="https://img.shields.io/badge/Tensorflow-FF6F00.svg?&style=for-the-badge&logo=Tensorflow&logoColor=white"/>
+<img alt="Keras" src ="https://img.shields.io/badge/Keras-D00000.svg?&style=for-the-badge&logo=Keras&logoColor=white"/>
+<img alt="OpenCV" src ="https://img.shields.io/badge/OpenCV-5C3EE8.svg?&style=for-the-badge&logo=OpenCV&logoColor=white"/>
+<img alt="NGINX" src ="https://img.shields.io/badge/NGINX-009639.svg?&style=for-the-badge&logo=NGINX&logoColor=white"/>
+<img alt="Gunicorn" src ="https://img.shields.io/badge/Gunicorn-499848.svg?&style=for-the-badge&logo=Gunicorn&logoColor=white"/>
+</div>
 
 ## 1. 프로젝트 소개
 
 
-### 기획의도
-- 차종 인식과 관련된 연구와 논문은 많지만, 관련 서비스를 제공하는 서비스는 없다. 자동차 전문가가 아닌 일반인이 사진 속 차량의 이름을 알려면 커뮤니티에 글을 올려 물어보는 방법 밖에 없다
-  **-> 사진만 찍어서 올리면 쉽게 차 모델을 알 수 있는 서비스는 없을까?**
-- 왓카의 페르소나 **이머선**(29세, 개발자)
-  - 이제 막 취업한 사회초년생
-  - 회사가 제주도라서 최근 거주지를 이사했다
-  - 차.알.못이지만 최근 면허를 땄다
-  - 출퇴근을 위해 차를 구매할 예정이다
-  - 길을 다니며 마음의 드는 디자인의 자동차를 발견하면 사진을 찍어 놓는다
-  - sns에 사진 올리는 것을 좋아하기 때문에 이왕이면 디자인이 멋진 차량을 구매하고 싶다
-  - 최근 길가다 마음에 드는 디자인의 자동차를 발견했는데, 검색 방법을 몰라 포기했다
-  - 다나오는 사이트에서 자동차를 검색해보려 했지만, 조건이 너무 많고 용어가 어렵다
+## 🎯 목표
 
-### 기술 스택
-- Frontend
-  - React
-  - MUI
-  - Axios
-  - Recoil
-  - Styled-components
-- Backend
-  - Flask
-  - MySQL
-  - AWS RDS
-  - AWS S3
-  - Flask-RESTX
-- AI
-  - TensorFlow
-  - Keras
-  - CenterNet
-  - OpenCV
-  - Resnet-152
-- 배포
-  - Nginx
-  - Gunicorn
-  - Azure
-  - Docker
+**차에 대해 잘 알지 못하는 사람들**이 **원하는 차**를 **쉽고 빠르게** 찾을 수 있는 서비스를 제공한다.
+
+- 사용자가 가지고 있는 이미지를 이용해 차를 찾을 수 있다.
+- 차량의 상세 스펙을 보여주며, 댓글 기능으로 해당 차량에 대한 리뷰를 쓸 수 있다.
+- 기능을 조건으로 선택해 차를 찾을 수 있다.
+- 간단한 게임을 통해 사용자가 어떤 이미지의 자동차를 선호하는지 알 수 있다.
+- 간단한 게임을 통해 사용자의 이미지와 맞는 자동차 브랜드를 알 수 있다.
+- 공유 기능을 통해 주변인들에게 사용자가 관심있는 차량을 알려주고, 서비스를 홍보할 수 있다.
+
+## 🧐 기획 의도
+
+### **이 차 뭔가요?**
+
+**차종 인식**과 관련된 연구와 논문은 많다. 그러나, 관련 서비스를 제공하는 사이트는 없다. 차 전문가가 아닌 이상 일반인이 사진 속 차량의 이름을 알려면 커뮤니티에 글을 올려 물어보는 방법 밖에 없다.
+
+**→ 사진만 찍어서 올리면 쉽게 차 모델을 알 수 있는 서비스는 없을까?**
+
+🧑🏻‍💻 **왓카의 페르소나, 이머선(29세, 개발자)씨의 고민**
+
+- 이제 막 취업한 사회초년생
+- 회사가 **제주도**라서 최근 거주지를 이사했다
+- **차.알.못**이지만 최근 면허를 땄다
+- 출퇴근을 위해 **차를 구매할 예정**이다
+- 길을 다니며 마음의 드는 디자인의 자동차를 발견하면 사진을 찍어 놓는다
+- sns에 사진 올리는 것을 좋아하기 때문에 이왕이면 **디자인이 멋진 차량**을 구매하고 싶다
+- 최근 길가다 마음에 드는 디자인의 자동차를 발견했는데, 검색 방법을 몰라 포기했다
+- 다나오는 사이트에서 자동차를 검색해보려 했지만, 조건이 너무 많고 용어가 어렵다
+
+
+**→ 이머선씨와 같은 차.알.못을 위한 자동차 검색 서비스, 🚙 왓카 탄생!**
+
 
 ## 2. 프로젝트 목표
 
@@ -60,57 +70,28 @@
 ## 3. 프로젝트 기능 설명
 
 
-**메인 페이지**
+### 메인 페이지
+![ezgif.com-gif-maker-8](/uploads/cbb9a15513554398e45e38d3a6f06a92/ezgif.com-gif-maker-8.gif)
 
-사용자가 사진을 올리면 분석하여 차종을 알려주는 페이지
+### 이미지 검색 결과 페이지
+![ezgif.com-gif-maker-9](/uploads/323056f57a6a09290d9520467b861d64/ezgif.com-gif-maker-9.gif)
 
-- 프로젝트 전반적인 소개
-- 이미지 업로드 기능
-- 이미지를 분석하여 해당 차종에 대한 상세페이지로 이동
+### 검색 페이지
+![ezgif.com-gif-maker-7](/uploads/422d59bd1e47d62bfe04d35601e8d9e2/ezgif.com-gif-maker-7.gif)
 
-**검색 페이지**
+### 차량 상세 페이지
+![ezgif.com-gif-maker-11](/uploads/b3e1abd919b5c5e6619df71006f0dc96/ezgif.com-gif-maker-11.gif)
 
-찾고 싶은 차량을 검색할 수 있는 페이지
+### 갤러리
+![1231232123136](/uploads/836e178fc3b0b024fca721afb2313c6c/1231232123136.gif)
 
-- 정렬 기능(최신순, 낮은 가격순, 높은 연비순)
-- 필터 기능(브랜드, 가격, 외형, 모델명 등)
-- 페이지네이션을 통해 한 페이지 당 24개의 차량을 간단하게 조회
-- 상세보기 버튼을 누르면 해당 차량의 상세 페이지로 이동
 
-**이미지 검색 결과 페이지**
-
-- 매칭된 결과를 보여주는 페이지
-- 해당 차량과 유사한 4개의 차량 추가 제시 및 추천(이미지로 검색 시)
-- 유저들이 해당 차량에 대한 의견 남기는 댓글 기능
-- 이미지 검색 결과에 대한 피드백을 남길 수 있는 기능
-
-**차량 상세 페이지**
-
-- 차량에 대한 상세 정보 제공
-
-**운명의 차 찾기**
-
-- 차량과 관련된 질의응답을 통해 MBTI 성향을 파악하여 알려주는 기능
-  - 총 9번의 질의 응답을 진행
-  - 결과 계산 후 MBTI와 잘 맞는 브랜드를 도출
-  - MBTI 분포를 차트로 시각화
-  - 카카오톡 공유하기 기능을 제공
-- 이상형 월드컵 페이지
-  - 브랜드 로고를 가린 채로 자신이 선호하는 차량 선택
-  - 결과 페이지에서 1등 차량 상세 정보 제공 및 카카오톡 공유하기 기능 제공
-  - 얼마나 많은 사람들이 해당 차량 선택했는지에 대한 통계를 제공
-
-**갤러리**
-
-- 유저들이 업로드한 이미지를 전시하는 기능
-- 차량 검색 결과, 유사도, 차량 이름 제공
-
-**팀 소개 페이지**
-
-- 미모지를 활용한 팀원들의 간단한 한마디와 역할 소개
-
+### 팀 소개 페이지
+<img src="/uploads/cb8e23f4aaba42dff41d121086d4ce2e/스크린샷_2021-12-09_오후_11.13.00.png" width="70%" height="70%" />
 
 ## 4. 프로젝트 구성도
+<img src="/uploads/9242a215bffffc449ad4a43314ec3c0a/image.png" width="70%" height="70%"/>
+
   - [와이어프레임](https://www.figma.com/file/WeTyad4D651hQcpD041Ppg/%EB%A8%B8%EC%84%A0%EB%9F%AC%EB%8B%9D29?node-id=2%3A4)
   - [스토리보드](https://docs.google.com/presentation/d/1QKu6nnS17Fxv6M02sVy1flslcMH5x7v0x_Y80Cj5mv4/edit#slide=id.p)
 
@@ -126,49 +107,22 @@
 
 **멤버별 responsibility**
 
-1. 프론트엔드 담당
-
-- 김나현
-  - 서비스의 전반적인 레이아웃 개발
-  - UI/UX 디자인 및 개발
-  - 검색 페이지 구현
-  - 스크럼 작성 및 이슈 관리
-- 김재현
-  - 카카오 및 URL 공유 기능 개발
-  - Disqus 임베딩
-- 최연주
-  - 메인 페이지 구현
-  - 네비게이션 바(반응형) 구현
-  - 결과 페이지 레이아웃 구현
-  - MBTI/이상형 월드컵/404/팀페이지 구현
-  - 데이터 전처리
-
-2. 백엔드 담당
-
-- 김민지
-  - DB 설계, 모델 구현 및 관리
-  - DB에 들어갈 데이터 크롤링(수집), 처리 및 차량 이미지 데이터 관리(AWS S3)
-  - 검색 API, 페이지네이션 구현
-  - 자동차 상세정보 조회 API 구현
-  - MBTI, 이상형 월드컵 순위 기능 API 구현
-  - 메인페이지 사진 업로드시 S3와 연동 구현
-  - 메인 페이지 기능 API 구현
-  - Swagger을 통한 API 문서화
-  - 배포
-- 백승욱
-  - 웹 크롤링
-  - 데이터 전처리
-  - 이미지 segmentation 따는 것 구현
-  - MVC 구조 조정
-
- 3. 인공지능 담당 
-- 이정규
-  - 인공지능 모델 설계
-  - 데이터 전처리
+| 이름 | 역할 | 담당 부분 |
+| --- | --- | --- |
+| 김나현 | 프론트엔드, 서기 | 1. UI/UX 디자인 및 개발<br>2. 검색/검색 결과 페이지 구현<br>3. 스크럼 작성 및 이슈 관리 |
+| 김민지 | 백엔드 | 1. DB 설계 및 관리<br>2. Web Crawling 및  전처리<br>3. AWS S3 연동 및 관리<br>4. API  설계 및 구현<br>5. API 문서화 |
+| 김재현 | 프론트엔드 | 1. 카카오 및 URL 공유 기능 개발<br>2. Disqus 기능개발|
+| 백승욱 | 👑팀장, 인공지능, 백엔드 | 1. Web Crawling<br>2. 데이터 전처리<br>3. 이미지 Segmentation 따는 것 구현<br>4. MVC구조 조정 |
+| 이정규 | 인공지능, 백엔드 | 1. 인공지능 모델 설계<br>2. 데이터 전처리<br>3. 인공지능 연동<br>4. 서버 배포 |
+| 최연주 | 프론트엔드, 인공지능 | 1. 메인 페이지 구현<br>2. 네비게이션 바(반응형) 구현<br>3. 결과 페이지 레이아웃 구현<br>4. MBTI/이상형 월드컵/404/갤러리/팀 소개 페이지 구현 |
 
 
 ## 6. 버전
   - 1.0.0
 
-## 7. FAQ
-  - 추후 추가 예정
+## Reference
+Centernet  
+https://tfhub.dev/tensorflow/centernet/hourglass_512x512/1
+
+Resnet-152  
+https://github.com/foamliu/Car-Recognition
