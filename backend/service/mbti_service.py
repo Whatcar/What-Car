@@ -51,4 +51,5 @@ def get_mbti_result(mbti):
 
         mbti_result.append(result)
     db.session.close()
+
     return mbti_result
