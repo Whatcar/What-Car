@@ -1,13 +1,12 @@
 import datetime
 import io
-import os
 import random
 import time
 
 import cv2
 import numpy as np
 import requests
-# from ai import detection, label, model
+from ai import detection, label, model
 from config import aws_s3
 from models import Ai_Result, Car, CarColor, db
 from PIL import Image
@@ -27,7 +26,6 @@ def get_upload_result(data):
     # detection car
     box_points = detection.predict(img)
     if box_points is None:
-        print("상위 5개중에 차가 없습니다! 어떻게 할까요")
         return abort(409, "차가 존재하지 않습니다.")
 
     # predict car
