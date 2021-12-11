@@ -119,7 +119,7 @@ const Gradient = styled.div`
   position: absolute;
   background: ${(props) =>
     props.right
-      ? 'linear-Gradient(to right, white 40%, rgba(255,255,255, 0))'
+      ? 'linear-Gradient(to right,white 40%,rgba(255,255,255,0.8), rgba(255,255,255,0))'
       : 'linear-gradient(to left, white 50%, rgba(255, 255, 255, 0))'};
   @media screen and (max-width: 480px) {
     background: linear-gradient(to top, white 50%, rgba(255, 255, 255, 0));
