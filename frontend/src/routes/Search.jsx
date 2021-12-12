@@ -11,6 +11,7 @@ import SearchButtons from '../components/search/SearchButtons';
 import { ReactComponent as QuestionIcon } from '../img/search/desc.svg';
 import { colors } from '../css/theme';
 import Loading from '../components/Loading';
+import CustomHelmet from '../components/share/CustomHelmet';
 
 const filterList = ['최신순', '낮은 가격순', '높은 연비순'];
 
@@ -91,6 +92,7 @@ const Search = () => {
 
   return (
     <Layout>
+      <CustomHelmet title="자동차 검색하기 | 왓카" description="조건으로 자동차를 검색해봐요!" />
       <ContentBox>
         <Title>
           <span>어떤 차</span>가 궁금하신가요?
