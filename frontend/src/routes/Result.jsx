@@ -66,7 +66,13 @@ export default function Result() {
         </MainTitle>
         <ImageWrapper>
           <div>
-            <img alt={'most-car-img'} src={carData['most_car_url']} />
+            <img
+              alt={'most-car-img'}
+              src={
+                carData['most_car_url'] ||
+                'https://cdn.pixabay.com/photo/2019/02/28/04/54/car-4025379_960_720.png'
+              }
+            />
           </div>
           <div>
             <img
