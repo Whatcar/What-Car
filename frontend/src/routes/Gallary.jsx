@@ -10,6 +10,7 @@ import axios from 'axios';
 import Loading from '../components/Loading';
 import { colors } from '../css/theme';
 import { useNavigate } from 'react-router';
+import CustomHelmet from '../components/share/CustomHelmet';
 
 export default function Gallary() {
   const [state, setState] = useState({ item: [], isLoading: false });
@@ -135,6 +136,7 @@ export default function Gallary() {
 
   return (
     <Layout>
+      <CustomHelmet title="갤러리 | 왓카" description="다른 사람들이 올린 차량 사진을 확인해요!" />
       <MainTitle style={{ textAlign: 'center', marginBottom: '1rem' }}>갤러리</MainTitle>
       <Desc center>
         다른 유저들이 올린 차량을 볼 수 있는 페이지예요! 이미지로 자동차를 검색하고 함께
