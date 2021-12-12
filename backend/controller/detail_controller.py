@@ -59,8 +59,7 @@ class detail_gallary(Resource):
 
         id = request.args.get("id")
         ai_result_id = request.args.get("ai_result_id")
-        num = request.args.get("num", type=int, default=1)
 
-        same_gallary_content = get_same_id_gallary_img(id, ai_result_id, num)
+        same_gallary_content = get_same_id_gallary_img(id, ai_result_id)
 
         return same_gallary_content
