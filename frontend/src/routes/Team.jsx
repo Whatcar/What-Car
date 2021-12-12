@@ -10,10 +10,12 @@ import seungwook from '../img/team/seungwook.jpg';
 import Member from '../components/team/member';
 import TeamImg from '../img/team/teamImg.png';
 import Layout from '../components/Layout';
+import CustomHelmet from '../components/share/CustomHelmet';
 
 export default function Team() {
   return (
     <Layout>
+      <CustomHelmet title="팀 소개 | 왓카" description="머선러닝29 팀을 소개합니다!" />
       <TeamWrapper>
         <MainTitle>머선러닝29</MainTitle>
         <TeamIntro>

@@ -10,6 +10,7 @@ import axios from 'axios';
 import Swal from 'sweetalert2';
 import Layout from '../components/Layout.jsx';
 import ProgressBar from '../components/ProgressBar';
+import CustomHelmet from '../components/share/CustomHelmet';
 
 export default function MBTItest() {
   const navigate = useNavigate();
@@ -55,6 +56,7 @@ export default function MBTItest() {
 
   return (
     <Layout>
+      <CustomHelmet title="운명의 차 찾기 | 왓카" />
       <ProgressBar progress={((progress + 1) * 100) / 9} />
       <Questions
         item={questions[progress]}

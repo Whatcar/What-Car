@@ -9,6 +9,7 @@ import { useNavigate } from 'react-router';
 import ShareButton from '../components/share/ShareButton';
 import Layout from '../components/Layout';
 import { colors } from '../css/theme';
+import CustomHelmet from '../components/share/CustomHelmet';
 
 export default function WorldcupResult() {
   const PATH = process.env.REACT_APP_BACKEND_URL;
@@ -32,6 +33,10 @@ export default function WorldcupResult() {
   }, [carId, PATH]);
   return (
     <Layout>
+      <CustomHelmet
+        title="운명의 차 찾기 결과 | 왓카"
+        description={`당신의 차 이상형은 ${result.name}입니다!`}
+      />
       <MainTitle>당신의 차 이상형은</MainTitle>
       {!loading ? (
         <MainTitle>
