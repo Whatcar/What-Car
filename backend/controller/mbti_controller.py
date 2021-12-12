@@ -5,6 +5,7 @@ from service import get_mbti_result
 
 mbti = Namespace("mbti", path="/api")
 
+# /mbti/result PATCH Response Body
 result = mbti.model(
     "mbti_result",
     MbtiResult.response_model,

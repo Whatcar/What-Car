@@ -47,6 +47,7 @@ class Gallary(db.Model):
             required=True, description="패스워드", example="1q2w3e4r!"
         ),
     }
+
     response_model = {
         "gallary_id": fields.Integer(required=True, description="갤러리 아이디", example=1),
         "car_name": fields.String(
@@ -59,6 +60,27 @@ class Gallary(db.Model):
         ),
         "similarity": fields.Float(
             required=True, description="차량 분석 유사도", example=0.99
+        ),
+        "nickname": fields.String(
+            required=True, description="업로드한 사용자의 닉네임", example="왓카"
+        ),
+    }
+
+    detail_gallery = {
+        "result_num": fields.Integer(
+            required=True, description="불러온 차량의 개수", example=1
+        ),
+        "car_id": fields.Integer(required=True, description="차량 고유 아이디", example=1),
+        "ai_result_id": fields.Integer(
+            required=True, description="AI DB 고유 아이디", example=1
+        ),
+        "similarity": fields.Float(
+            required=True, description="차량 분석 유사도", example=0.99
+        ),
+        "car_url": fields.String(
+            required=True,
+            description="차량 분석 이미지 링크",
+            example="https://aws.s3.car",
         ),
         "nickname": fields.String(
             required=True, description="업로드한 사용자의 닉네임", example="왓카"
