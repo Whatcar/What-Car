@@ -163,9 +163,10 @@ def get_search_results(
 
     # 이름
     name_query = ""
-    names = name.split(" ")
-    for search_name in names:
-        name_query += f"(?=.*{search_name})"
+    if name:
+        names = name.split(" ")
+        for search_name in names:
+            name_query += f"(?=.*{search_name})"
 
     query_all = query_all[:-4]
 
@@ -191,4 +192,5 @@ def get_search_results(
 
     cars = pagination(query_all_list, num)
     db.session.close()
+
     return cars

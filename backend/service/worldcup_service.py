@@ -19,6 +19,7 @@ def get_random_cars():
     for num in nums:
         select_id_list.append(car_list[num])
     db.session.close()
+
     return select_id_list
 
 
@@ -36,6 +37,7 @@ def modify_worldcup_result(car_id):
         db.session.rollback()
         abort(400, {"error": str(e)})
     db.session.close()
+
     return {"result": "success"}
 
 
@@ -84,5 +86,7 @@ def get_worldcup_result(car_id):
     worldcup_list = []
     worldcup_list = [car for car in worldcup_result if car["is_result"] == True]
     worldcup_list.append([car for car in worldcup_result if car["rank"] <= 3])
+
     db.session.close()
+
     return worldcup_list
