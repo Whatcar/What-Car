@@ -1,11 +1,10 @@
-from models import Ai_Result, Car, CarColor, Gallary
+from models import Ai_Result, Car, CarColor, Gallary, db
 from werkzeug.exceptions import abort
 
 
 def pagination(query_list, num):
 
     query_data_num = query_list.count()
-    print(query_data_num)
     per_page = 9
     range_start = per_page * (num - 1)
     total_page = query_data_num // per_page
@@ -33,7 +32,7 @@ def pagination(query_list, num):
     result.append({"result_num": query_data_num})
     for car in query_list:
         gallary_data = Gallary.query.filter(Gallary.id == car.gallary_id).first()
-       
+
         result.append(
             {
                 "car_id": car.car_id,
@@ -56,14 +55,17 @@ def get_detail(id):
     return car_content, car_color
 
 
-def get_same_id_gallary_img(id, num):
+def get_same_id_gallary_img(id, ai_result_id, num):
 
     same_id_gallary = Ai_Result.query.filter(
-        Ai_Result.car_id == id, Ai_Result.gallary_id != None
+        Ai_Result.car_id == id,
+        Ai_Result.gallary_id != None,
+        Ai_Result.id != ai_result_id,
     )
 
     car_name = Car.query.filter(Car.id == int(id)).first().name
 
     gallary_contents = pagination(same_id_gallary, num)
+    db.session.close()
 
     return {"car_name": car_name, "gallery_contents": gallary_contents}

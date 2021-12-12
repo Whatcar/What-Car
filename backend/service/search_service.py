@@ -1,6 +1,6 @@
 import re
 
-from models import Car, CarInt
+from models import Car, CarInt, db
 from sqlalchemy.sql import text
 from werkzeug.exceptions import abort
 
@@ -163,9 +163,10 @@ def get_search_results(
 
     # 이름
     name_query = ""
-    names = name.split(" ")
-    for search_name in names:
-        name_query += f"(?=.*{search_name})"
+    if name:
+        names = name.split(" ")
+        for search_name in names:
+            name_query += f"(?=.*{search_name})"
 
     query_all = query_all[:-4]
 
@@ -190,5 +191,6 @@ def get_search_results(
         query_all_list = default_query.order_by(CarInt.price_int_low.asc())
 
     cars = pagination(query_all_list, num)
+    db.session.close()
 
     return cars

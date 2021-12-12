@@ -1,13 +1,13 @@
 import datetime
 import io
-import os
 import random
 import time
 
 import cv2
 import numpy as np
 import requests
-from ai import detection, label, model
+
+# from ai import detection, label, model
 from config import aws_s3
 from models import Ai_Result, Car, CarColor, db
 from PIL import Image
@@ -27,7 +27,6 @@ def get_upload_result(data):
     # detection car
     box_points = detection.predict(img)
     if box_points is None:
-        print("상위 5개중에 차가 없습니다! 어떻게 할까요")
         return abort(409, "차가 존재하지 않습니다.")
 
     # predict car
@@ -58,7 +57,7 @@ def get_upload_result(data):
         ContentType=".jpg",
     )
 
-    img_url = f"https://{aws_s3['BUCKET_NAME']}.s3.ap-northeast-2.amazonaws.com/upload/{now}{rand}result"
+    img_url = f"https://{aws_s3['BUCKET_NAME']}.s3.{aws_s3['REGION']}.amazonaws.com/upload/{now}{rand}result"
 
     less_similar_cars = str(
         [(result[i][0], result[i][1]) for i in range(1, len(result))]
@@ -99,7 +98,7 @@ def get_ai_cars_detail(id):
         response = requests.get(url)
 
     # 만료되면
-    if response.status_code == 403:
+    if response.status_code == 403 or response.status_code == 404:
         # 해당 db에서도 삭제
         db.session.delete(data)
         try:
@@ -145,4 +144,6 @@ def get_ai_cars_detail(id):
             },
             "less_cars": less_similar_car_content_list,
         }
+    db.session.close()
+
     return result
