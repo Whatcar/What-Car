@@ -12,6 +12,7 @@ import section2 from '../img/main/section2.png';
 import person3 from '../img/main/person3.png';
 import gallaryBG from '../img/main/gallaryBG.png';
 import { colors } from '../css/theme.js';
+import CustomHelmet from '../components/share/CustomHelmet.jsx';
 
 const slideStyle = { width: '100%', display: 'flex', alignItems: 'center', position: 'relative' };
 
@@ -20,6 +21,7 @@ export default function Main() {
   const [swiper, setSwiper] = useState();
   return (
     <MainWrapper>
+      <CustomHelmet title="왓카 | WhatCar" description="차가 궁금하다면, 왓카!" />
       <StyledSwiper
         direction={'vertical'}
         slidesPerView={1}
