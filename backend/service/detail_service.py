@@ -52,18 +52,20 @@ def get_detail(id):
 
     car_content = Car.to_dict(car)
     car_color = CarColor.to_dict(car_color)
-    db.session.close()
     return car_content, car_color
 
 
-def get_same_id_gallary_img(id, num):
+def get_same_id_gallary_img(id, ai_result_id, num):
 
     same_id_gallary = Ai_Result.query.filter(
-        Ai_Result.car_id == id, Ai_Result.gallary_id != None
+        Ai_Result.car_id == id,
+        Ai_Result.gallary_id != None,
+        Ai_Result.id != ai_result_id,
     )
 
     car_name = Car.query.filter(Car.id == int(id)).first().name
 
     gallary_contents = pagination(same_id_gallary, num)
     db.session.close()
+
     return {"car_name": car_name, "gallery_contents": gallary_contents}

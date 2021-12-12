@@ -1,14 +1,24 @@
 import config
 from flask import request
-from flask_restx import Namespace, Resource
+from flask_restx import Namespace, Resource, fields
 from models import Car
 from service import get_search_results
 
 search = Namespace("search", path="/api")
 
-result = search.model(
-    "serach_result",
+# /search Response Body
+search_nested_model = search.model(
+    "nested_search_result",
     Car.response_model_part,
+)
+search_model = search.model(
+    "search_result",
+    {
+        "result_num": fields.Integer(
+            required=True, description="불러온 차량의 개수", example=1
+        ),
+        "search_contents": fields.List(fields.Nested(search_nested_model)),
+    },
 )
 
 
@@ -29,7 +39,7 @@ result = search.model(
 )
 @search.route("/search")
 class Search(Resource):
-    @search.response(200, "Success", result)
+    @search.response(200, "Success", search_model)
     @search.response(404, "페이지 범위를 초과했습니다.")
     def get(self):
         """검색 결과를 가져옵니다."""

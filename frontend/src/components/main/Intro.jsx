@@ -136,8 +136,8 @@ export default function Intro({ swiper }) {
             왓카가 해당 차량의 정보를 알려드립니다.
           </Desc>
           <Description>
-            *결과 링크를 제공하기 위해 업로드된 이미지는 왓카 서버에 24시간 동안 저장됩니다. 24시간
-            후에는 관련 데이터가 모두 삭제되니 걱정하지 마세요!
+            *결과 링크를 제공하기 위해 업로드된 이미지는 일시적으로 왓카 서버에 저장됩니다. 2~3일
+            이내로 관련 데이터가 모두 삭제되니 걱정하지 마세요!
           </Description>
 
           <InputDiv style={{ display: 'flex' }}>
