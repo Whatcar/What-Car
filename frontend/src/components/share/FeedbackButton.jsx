@@ -91,7 +91,7 @@ export default function FeedbackButton({ id, carId, carUrl, similarity, setCarDa
         왓카 갤러리에 올리기
       </Button>
       <Desc highlight center top={1}>
-        *현재 페이지는 24시간이 지나면 접속할 수 없습니다. 기록을 남기고 싶으면 왓카 갤러리에 사진을
+        *현재 페이지는 2~3일이 지나면 접속할 수 없습니다. 기록을 남기고 싶으면 왓카 갤러리에 사진을
         공유하세요!
       </Desc>
     </>

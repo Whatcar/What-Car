@@ -11,6 +11,7 @@ import PieChart from '../components/MBTI/PieChart';
 import Layout from '../components/Layout';
 import { useSetRecoilState } from 'recoil';
 import { brand } from '../recoil/atom';
+import CustomHelmet from '../components/share/CustomHelmet';
 
 export default function MBTIresult() {
   // TODO: 결과 상세 제작
@@ -29,6 +30,10 @@ export default function MBTIresult() {
   };
   return (
     <Layout>
+      <CustomHelmet
+        title="운명의 차 찾기 결과"
+        description={`당신과 찰떡인 브랜드는 ${data.brand}입니다!`}
+      />
       <MainTitle>당신과 찰떡인 자동차 브랜드는</MainTitle>
       <MainTitle>
         <Highlight>
