@@ -170,19 +170,12 @@
 
 프론트엔드
 
-1. 디렉토리 이동
-
 ```
 cd frontend
-```
 
-2. 환경변수 설정  
-   `env.example`을 참고해 .env 파일을 생성해주세요
+# .env.example 파일 참고 후 .env 파일에 환경변수 설정 필요
 
-3. 라이브러리 설치 및 실행
-
-```
-yarn install
+yarn 또는 yarn install
 yarn start
 ```
 
