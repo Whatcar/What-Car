@@ -37,7 +37,7 @@ const parseCondition = (keyName, condition) => {
   const end = label[endIdx];
   if (keyName === 'cost' && startIdx === 0 && endIdx === 9) {
     return '전체~';
-  } else if (startIdx === 0 && endIdx === 5) {
+  } else if (keyName !== 'cost' && startIdx === 0 && endIdx === 5) {
     return '전체~';
   }
   return `${start}~${end}`;
