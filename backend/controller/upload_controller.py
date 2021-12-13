@@ -72,6 +72,8 @@ class Upload(Resource):
     @upload.expect(parser)
     @upload.response(200, "Success", post_upload_model)
     @upload.response(404, "파일이 존재하지 않습니다.")
+    @upload.response(409, "차가 존재하지 않습니다.")
+    @upload.response(403, "현재 데이터가 존재하지 않습니다. 추후에 추가예정입니다.")
     def post(self):
         """차량 사진을 올리면 해당 자동차 분석 결과의 고유한 DB id값을 가져옵니다."""
         data = request.files["file"]
