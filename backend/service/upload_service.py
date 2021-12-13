@@ -6,8 +6,7 @@ import time
 import cv2
 import numpy as np
 import requests
-
-# from ai import detection, label, model
+from ai import detection, label, model
 from config import aws_s3
 from models import Ai_Result, Car, CarColor, db
 from PIL import Image
@@ -31,6 +30,9 @@ def get_upload_result(data):
 
     # predict car
     predict_value = model.predict(img, box_points)
+    # 현재 데이터가 없는 차량들이라면 예외처리
+    if label.label_dict[predict_value[0][0]] == 1:
+        abort(403, "현재 데이터가 존재하지 않습니다. 추후에 추가예정입니다.")
 
     # similiar cars
     result = []
