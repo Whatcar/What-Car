@@ -104,6 +104,14 @@ export default function Intro({ swiper }) {
               confirmButtonText: '넵!',
               confirmButtonColor: colors.blueM,
             });
+          } else if (err.response.status === 403) {
+            Swal.fire({
+              icon: 'error',
+              title: '일치하는 차량을 찾을 수 없어요!',
+              text: '추후에 데이터를 더 보강하도록 하겠습니다.',
+              confirmButtonText: '알겠어요!',
+              confirmButtonColor: colors.blueM,
+            });
           } else {
             Swal.fire({
               icon: 'error',
