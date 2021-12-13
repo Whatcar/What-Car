@@ -29,7 +29,7 @@ const parseCondition = (keyName, condition) => {
   const end = label[endIdx];
   if (keyName === 'cost' && startIdx === 0 && endIdx === 9) {
     return '전체~';
-  } else if (startIdx === 0 && endIdx === 5) {
+  } else if (keyName !== 'cost' && startIdx === 0 && endIdx === 5) {
     return '전체~';
   }
   return `${start}~${end}`;
@@ -54,7 +54,7 @@ export const getConditions = () => {
       const condition = sessionStorage.getItem(keyName) ? sessionStorage.getItem(keyName) : '0,5';
       conditions[keyName] = parseCondition(keyName, condition);
     } else if (keyName === 'cost') {
-      const condition = sessionStorage.getItem(keyName) ? sessionStorage.getItem(keyName) : '0,5';
+      const condition = sessionStorage.getItem(keyName) ? sessionStorage.getItem(keyName) : '0,9';
       conditions[keyName] = parseCondition(keyName, condition);
     } else if (keyName === 'method') {
       const condition = sessionStorage.getItem(keyName);
