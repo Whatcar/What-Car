@@ -36,7 +36,7 @@ export default function GalleryShare({ carId, aiResultId }) {
     slidesToScroll: 1,
     variableWidth: true,
   };
-  console.log(resultNum);
+
   const navigate = useNavigate();
 
   const urlList = detailGalleryUrl.map((url, idx) => (
