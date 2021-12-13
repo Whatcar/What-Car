@@ -14,7 +14,7 @@ const getDetailGallery = async (carId, page_num, ai_result_id) => {
     }
     const galleryId = [];
     for (let i = 1; i <= resultNum; i++) {
-      galleryId.push(response.data.gallery_contents[i].ai_result_id);
+      galleryId.push(response.data.gallery_contents[i].ai_gallary_contents_id);
     }
     return { resultNum, detailGalleryUrl, galleryId };
   } catch (error) {
