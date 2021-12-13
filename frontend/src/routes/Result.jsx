@@ -11,6 +11,7 @@ import FeedbackButton from '../components/share/FeedbackButton';
 import { MainTitle } from '../css/mainStyles';
 import NotFound from './NotFound';
 import GalleryShare from '../components/share/GalleryShare';
+import CustomHelmet from '../components/share/CustomHelmet';
 
 export default function Result() {
   const PATH = process.env.REACT_APP_BACKEND_URL;
@@ -54,6 +55,10 @@ export default function Result() {
 
   return !notFound ? (
     <Layout>
+      <CustomHelmet
+        title="이미지 검색 결과 | 왓카"
+        description={`이 차는 ${carData.name}인 것 같아요!`}
+      />
       <ResultWrapper>
         <MainTitle>
           <Blue>{(carData.similarity * 100).toFixed(0)}%</Blue>의 확률로
@@ -61,7 +66,13 @@ export default function Result() {
         </MainTitle>
         <ImageWrapper>
           <div>
-            <img alt={'most-car-img'} src={carData['most_car_url']} />
+            <img
+              alt={'most-car-img'}
+              src={
+                carData['most_car_url'] ||
+                'https://cdn.pixabay.com/photo/2019/02/28/04/54/car-4025379_960_720.png'
+              }
+            />
           </div>
           <div>
             <img

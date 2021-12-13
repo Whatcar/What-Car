@@ -6,6 +6,7 @@ import { MainTitle } from '../css/mainStyles';
 import Layout from '../components/Layout';
 import { colors } from '../css/theme';
 import ProgressBar from '../components/ProgressBar';
+import CustomHelmet from '../components/share/CustomHelmet';
 
 export default function WorldcupTest() {
   const PATH = process.env.REACT_APP_BACKEND_URL;
@@ -55,6 +56,7 @@ export default function WorldcupTest() {
 
   return (
     <Layout>
+      <CustomHelmet title="운명의 차 찾기 | 왓카" />
       <ProgressBar progress={progress} />
       <MainTitle style={{ margin: '0.5rem 0', color: colors.blueM }}>
         {gameNum}

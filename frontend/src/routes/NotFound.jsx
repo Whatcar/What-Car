@@ -6,11 +6,13 @@ import { Button } from '@mui/material';
 import { useNavigate } from 'react-router';
 import Layout from '../components/Layout';
 import { colors } from '../css/theme';
+import CustomHelmet from '../components/share/CustomHelmet';
 
 export default function NotFound({ moreInfo }) {
   const navigate = useNavigate();
   return (
     <Layout>
+      <CustomHelmet title="페이지를 찾을 수 없어요!" description="URL을 다시 한 번 확인해주세요!" />
       <NotFoundWrapper>
         <img alt={'not-found'} src={notFoundImg} width="70%" />
         <MainTitle top={2}>아무 것도 찾을 수 없어요!</MainTitle>

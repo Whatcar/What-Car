@@ -5,11 +5,16 @@ import { SubTitle, Desc } from '../css/mainStyles';
 import worldcup from '../img/mbti/worldcup.png';
 import carbti from '../img/mbti/carbti.png';
 import { useNavigate } from 'react-router';
+import CustomHelmet from '../components/share/CustomHelmet';
 
 export default function Destiny() {
   const navigate = useNavigate();
   return (
     <Layout>
+      <CustomHelmet
+        title="운명의 차 찾기 | 왓카"
+        description="나와 운명인 차를 테스트로 찾아봐요!"
+      />
       <Box>
         <Title>
           <span>운명의 차</span> 찾기

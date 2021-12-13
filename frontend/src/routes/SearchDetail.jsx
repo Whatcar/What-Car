@@ -9,6 +9,7 @@ import GalleryShare from '../components/share/GalleryShare';
 
 import getSearchDetail from '../apis/getSearchDetail';
 import { MainTitle } from '../css/mainStyles';
+import CustomHelmet from '../components/share/CustomHelmet';
 
 export default function SearchDetail() {
   const params = useParams();
@@ -34,6 +35,10 @@ export default function SearchDetail() {
 
   return (
     <Layout>
+      <CustomHelmet
+        title="자동차 상세 정보 | 왓카"
+        description={`${carData.name}의 상세 정보입니다!`}
+      />
       <ResultWrapper>
         <MainTitle>
           이 차는 <Blue>{carData.name}</Blue>입니다!
