@@ -67,8 +67,13 @@ export default function GalleryShare({ carId, aiResultId }) {
       <SubTitle> 다른 사람들이 공유한 검색 결과에요 </SubTitle>
       <Slider {...settings}>
         {urlList}
-        {resultNum < 2 && <SlideImg src={gallery} />}
+        {resultNum === 1 && <SlideImg src={gallery} />}
       </Slider>
+      {resultNum < 1 && (
+        <Noimg>
+          <img src={gallery} />
+        </Noimg>
+      )}
     </div>
   );
 }
@@ -83,6 +88,16 @@ const SlideImg = styled.img`
     height: 100px;
   }
   cursor: pointer;
+`;
+
+const Noimg = styled.div`
+  img {
+    height: 200px;
+    box-sizing: border-box;
+    @media screen and (max-width: 480px) {
+      height: 100px;
+    }
+  }
 `;
 
 const cssstyle = `
