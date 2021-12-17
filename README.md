@@ -69,31 +69,36 @@
 
 ### 메인 페이지
 
-![ezgif.com-gif-maker-8](/uploads/cbb9a15513554398e45e38d3a6f06a92/ezgif.com-gif-maker-8.gif)
+![ezgif com-gif-maker-8](https://user-images.githubusercontent.com/22341452/146490803-cabdeaa2-9817-4de0-a1dd-0cc69906ddcd.gif)
 
 ### 이미지 검색 결과 페이지
+![ezgif com-gif-maker-9](https://user-images.githubusercontent.com/22341452/146490829-6cf5c8d2-e5ad-488b-8c59-272b19f92603.gif)
 
-![ezgif.com-gif-maker-9](/uploads/323056f57a6a09290d9520467b861d64/ezgif.com-gif-maker-9.gif)
+
 
 ### 검색 페이지
 
-![ezgif.com-gif-maker-7](/uploads/422d59bd1e47d62bfe04d35601e8d9e2/ezgif.com-gif-maker-7.gif)
+![ezgif com-gif-maker-7](https://user-images.githubusercontent.com/22341452/146490838-027cc66c-4922-4d77-9d02-c463bdb98ea9.gif)
+
 
 ### 차량 상세 페이지
 
-![ezgif.com-gif-maker-11](/uploads/b3e1abd919b5c5e6619df71006f0dc96/ezgif.com-gif-maker-11.gif)
+![ezgif com-gif-maker-11](https://user-images.githubusercontent.com/22341452/146490843-44f3ff04-89f0-4b96-a00a-182d28edbb01.gif)
+
 
 ### 갤러리
 
-![1231232123136](/uploads/836e178fc3b0b024fca721afb2313c6c/1231232123136.gif)
+![1231232123136](https://user-images.githubusercontent.com/22341452/146490861-f6617536-5413-4d35-bdcf-d026fbbdc3a2.gif)
+
+
 
 ### 팀 소개 페이지
 
-<img src="/uploads/cb8e23f4aaba42dff41d121086d4ce2e/스크린샷_2021-12-09_오후_11.13.00.png" width="70%" height="70%" />
+<img src="https://user-images.githubusercontent.com/22341452/146490981-d6f4a508-ac53-4b96-8b7d-7797f34e684e.png" width="70%" height="70%" />
 
 ## 4. 프로젝트 구성도
 
-<img src="/uploads/9242a215bffffc449ad4a43314ec3c0a/image.png" width="70%" height="70%"/>
+<img src="https://user-images.githubusercontent.com/22341452/146490886-83f1c724-cdb3-4926-9619-176b11644a60.png" width="70%" height="70%"/>
 
 - [와이어프레임](https://www.figma.com/file/WeTyad4D651hQcpD041Ppg/%EB%A8%B8%EC%84%A0%EB%9F%AC%EB%8B%9D29?node-id=2%3A4)
 - [스토리보드](https://docs.google.com/presentation/d/1QKu6nnS17Fxv6M02sVy1flslcMH5x7v0x_Y80Cj5mv4/edit#slide=id.p)
@@ -122,6 +127,7 @@ yarn 또는 yarn install
 yarn start
 ```
 - Backend
+
 [model download (Resnet-152)](https://drive.google.com/file/d/1ZlLxbpcS6PVyUBEmbgjjGqfOukfIN-25/view?usp=sharing)
 ```
 pip3 install -r requirements.txt
