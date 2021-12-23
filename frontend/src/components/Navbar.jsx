@@ -16,7 +16,7 @@ const navInfo = [
   { id: 0, links: ['/'], link: '/', title: '사진 속 차 찾기' },
   { id: 1, links: ['/search'], link: '/search', title: '조건별 차 찾기' },
   { id: 2, links: ['/destiny', '/worldcup', '/mbti'], link: '/destiny', title: '운명의 차 찾기' },
-  { id: 3, links: ['/gallary'], link: '/gallary', title: '갤러리' },
+  { id: 3, links: ['/gallery'], link: '/gallery', title: '갤러리' },
   { id: 4, links: ['/team'], link: '/team', title: '팀 소개' },
 ];
 

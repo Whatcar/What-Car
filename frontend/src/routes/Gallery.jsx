@@ -12,7 +12,7 @@ import { colors } from '../css/theme';
 import { useNavigate } from 'react-router';
 import CustomHelmet from '../components/share/CustomHelmet';
 
-export default function Gallary() {
+export default function Gallery() {
   const [state, setState] = useState({ item: [], isLoading: false });
   const [loadable, setLoadable] = useState(true);
   let num = 0;

@@ -20,7 +20,7 @@ import MBTIresult from './routes/MBTIresult.jsx';
 import { RecoilRoot } from 'recoil';
 import WorldcupResult from './routes/WorldcupResult.jsx';
 import Destiny from './routes/Destiny.jsx';
-import Gallary from './routes/Gallary.jsx';
+import Gallery from './routes/Gallery.jsx';
 import SearchDetail from './routes/SearchDetail';
 
 function App() {
@@ -44,7 +44,7 @@ function App() {
                 <Route path="/worldcup/test" element={<WorldcupTest />} />
                 <Route path="/worldcup/result/:id" element={<WorldcupResult />} />
                 <Route path="/team" element={<Team />} />
-                <Route path="/gallary" element={<Gallary />} />
+                <Route path="/gallery" element={<Gallery />} />
                 <Route path="/*" element={<NotFound />} />
               </Routes>
             </BrowserRouter>

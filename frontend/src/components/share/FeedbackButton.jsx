@@ -70,13 +70,13 @@ export default function FeedbackButton({ id, carId, carUrl, similarity, setCarDa
       }
     });
   };
-  const handleGallary = () => navigate('/gallary');
+  const handleGallery = () => navigate('/gallery');
   return isUpload ? (
     <Button
       variant="outlined"
       startIcon={<ChevronRightRoundedIcon />}
       sx={{ padding: '15px', width: '100%', lineHeight: '1rem' }}
-      onClick={handleGallary}
+      onClick={handleGallery}
     >
       갤러리로 이동하기
     </Button>

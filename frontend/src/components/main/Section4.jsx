@@ -25,7 +25,7 @@ export default function Section4({ swiper }) {
         variant="outlined"
         startIcon={<ChevronRightRoundedIcon />}
         sx={{ padding: '10px 3rem', marginTop: '1rem' }}
-        onClick={() => navigate('/gallary')}
+        onClick={() => navigate('/gallery')}
         {...useSrr('down', 1, 1)}
       >
         갤러리 보러 가기

@@ -10,7 +10,7 @@ import Section3 from '../components/main/Section3.jsx';
 import Section4 from '../components/main/Section4.jsx';
 import section2 from '../img/main/section2.png';
 import person3 from '../img/main/person3.png';
-import gallaryBG from '../img/main/gallaryBG.png';
+import galleryBG from '../img/main/gallaryBG.png';
 import { colors } from '../css/theme.js';
 import CustomHelmet from '../components/share/CustomHelmet.jsx';
 
@@ -82,7 +82,7 @@ export default function Main() {
           />
         </SwiperSlide>
         <SwiperSlide style={slideStyle}>
-          <ImgWrapper src={gallaryBG} />
+          <ImgWrapper src={galleryBG} />
           <Gradient right />
           <MainLayout>
             <Section4 swiper={swiper} />

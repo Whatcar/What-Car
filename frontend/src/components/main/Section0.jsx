@@ -36,7 +36,7 @@ const introData = [
     id: 4,
     img: pic4,
     moreDesc: '더 자세한 설명은 여기에',
-    linkTo: '/gallary',
+    linkTo: '/gallery',
     buttonText: '다른 사람들이 올린 차 사진 보러 가기',
     desc: '다른 사람들은 어떤 차를 좋아하는지 궁금해요!',
   },
