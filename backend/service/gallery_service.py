@@ -67,19 +67,14 @@ def post_gallery_cars(info):
 
         # 파일 복사
         copy_key = "/".join(ai_db.most_similar_car_url.split("/")[3:])
-        copy_image = {"Bucket": "whatcar", "Key": copy_key}
+        copy_image = {"Bucket": aws_s3["BUCKET_NAME"], "Key": copy_key}
         src_folder = "upload"
         dst_folder = "gallary"
         new_key = copy_key.replace(src_folder, dst_folder)
-        s3_bucket = s3.Bucket("whatcar")
+        s3_bucket = s3.Bucket(aws_s3["BUCKET_NAME"])
         new_obj = s3_bucket.Object(new_key)
         new_obj.copy(copy_image)
-
-        img_url = (
-            f"https://{aws_s3['BUCKET_NAME']}.s3.ap-northeast-2.amazonaws.com/{new_key}"
-        )
-        print(img_url)
-
+        img_url = f"https://{aws_s3['BUCKET_NAME']}.s3.{aws_s3['REGION']}.amazonaws.com/{new_key}"
         # ai_result db에 업로드되었다고 수정
         # ai_db객체를 수정하면 null값이 default로 되어있으면 직접 수정이 불가능
         db.session.query(Ai_Result).filter_by(id=ai_result_id).update(
