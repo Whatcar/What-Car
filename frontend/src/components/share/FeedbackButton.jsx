@@ -30,7 +30,7 @@ export default function FeedbackButton({ id, carId, carUrl, similarity, setCarDa
           Swal.showValidationMessage(`닉네임과 비밀번호를 입력해주세요!`);
         }
         return axios
-          .post(`${PATH}/api/gallary`, {
+          .post(`${PATH}/api/gallery`, {
             ai_result_id: id,
             car_id: carId,
             car_url: carUrl,

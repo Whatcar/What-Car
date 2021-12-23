@@ -3,7 +3,7 @@ import axios from 'axios';
 const PATH = process.env.REACT_APP_BACKEND_URL;
 
 const getDetailGallery = async (carId, page_num, ai_result_id) => {
-  const response = await axios.get(`${PATH}/api/detail/gallary`, {
+  const response = await axios.get(`${PATH}/api/detail/gallery`, {
     params: { id: carId, num: page_num, ai_result_id: ai_result_id },
   });
   try {
@@ -14,7 +14,7 @@ const getDetailGallery = async (carId, page_num, ai_result_id) => {
     }
     const galleryId = [];
     for (let i = 1; i <= resultNum; i++) {
-      galleryId.push(response.data.gallery_contents[i].ai_gallary_contents_id);
+      galleryId.push(response.data.gallery_contents[i].ai_gallery_contents_id);
     }
     return { resultNum, detailGalleryUrl, galleryId };
   } catch (error) {

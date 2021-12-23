@@ -39,8 +39,8 @@ export default function Gallery() {
           Swal.showValidationMessage(`비밀번호를 입력해주세요!`);
         }
         return axios
-          .delete(`${PATH}/api/gallary`, {
-            data: { gallary_id: id, password: password },
+          .delete(`${PATH}/api/gallery`, {
+            data: { gallery_id: id, password: password },
           })
           .then((res) => {
             num -= 1;
@@ -80,7 +80,7 @@ export default function Gallery() {
   const fetchNew = async () => {
     setState((prev) => ({ ...prev, isLoading: true }));
     axios
-      .get(`${PATH}/api/gallary`, {
+      .get(`${PATH}/api/gallery`, {
         params: { offset: num, limit: LIMITS },
       })
       .then((res) => {
@@ -105,7 +105,7 @@ export default function Gallery() {
 
   useEffect(() => {
     axios
-      .get(`${PATH}/api/gallary`, {
+      .get(`${PATH}/api/gallery`, {
         params: { offset: 0, limit: LIMITS },
       })
       .then((res) => {
@@ -151,7 +151,7 @@ export default function Gallery() {
                 <div>{item.nickname}</div>
                 <CloseRoundedIcon
                   sx={{ cursor: 'pointer' }}
-                  onClick={() => handleDelete(index, item.gallary_id)}
+                  onClick={() => handleDelete(index, item.gallery_id)}
                 />
               </ItemTop>
               <ItemDetail>
@@ -179,7 +179,7 @@ export default function Gallery() {
                 <div>{item.nickname}</div>
                 <CloseRoundedIcon
                   sx={{ cursor: 'pointer' }}
-                  onClick={() => handleDelete(index, item.gallary_id)}
+                  onClick={() => handleDelete(index, item.gallery_id)}
                 />
               </ItemTop>
               <ItemDetail>
