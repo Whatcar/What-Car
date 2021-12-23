@@ -6,7 +6,8 @@ import time
 import cv2
 import numpy as np
 import requests
-from ai import detection, label, model
+
+# from ai import detection, label, model
 from config import aws_s3
 from models import Ai_Result, Car, CarColor, db
 from PIL import Image
@@ -132,7 +133,7 @@ def get_ai_cars_detail(id):
             less_similar_car_content_list.append(less_similar_car_content)
 
         is_upload = False
-        if data.gallary_id:
+        if data.gallery_id:
             is_upload = True
 
         result = {

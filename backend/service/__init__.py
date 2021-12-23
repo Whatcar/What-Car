@@ -1,8 +1,8 @@
-from service.detail_service import get_detail, get_same_id_gallary_img
-from service.gallary_service import (
-    delete_gallary_cars,
-    get_gallary_cars,
-    post_gallary_cars,
+from service.detail_service import get_detail, get_same_id_gallery_img
+from service.gallery_service import (
+    delete_gallery_cars,
+    get_gallery_cars,
+    post_gallery_cars,
 )
 from service.mbti_service import get_mbti_result
 from service.search_service import get_search_results, pagination

@@ -1,4 +1,4 @@
-from models import Ai_Result, Car, CarColor, Gallary, db
+from models import Ai_Result, Car, CarColor, Gallery, db
 from werkzeug.exceptions import abort
 
 
@@ -11,13 +11,13 @@ def get_detail(id):
     return car_content, car_color
 
 
-def get_same_id_gallary_img(id, ai_result_id):
+def get_same_id_gallery_img(id, ai_result_id):
     limit_num = 9
 
-    same_id_gallary = (
+    same_id_gallery = (
         Ai_Result.query.filter(
             Ai_Result.car_id == id,
-            Ai_Result.gallary_id != None,
+            Ai_Result.gallery_id != None,
             Ai_Result.id != ai_result_id,
         )
         .order_by(Ai_Result.created_at.desc())
@@ -26,22 +26,22 @@ def get_same_id_gallary_img(id, ai_result_id):
 
     car_name = Car.query.filter(Car.id == int(id)).first().name
 
-    gallary_contents = list()
-    gallary_contents.append({"result_num": same_id_gallary.count()})
+    gallery_contents = list()
+    gallery_contents.append({"result_num": same_id_gallery.count()})
 
-    for car in same_id_gallary:
-        gallary_data = Gallary.query.filter(Gallary.id == car.gallary_id).first()
+    for car in same_id_gallery:
+        gallery_data = Gallery.query.filter(Gallery.id == car.gallery_id).first()
 
-        gallary_contents.append(
+        gallery_contents.append(
             {
                 "car_id": car.car_id,
-                "ai_gallary_contents_id": car.id,
+                "ai_gallery_contents_id": car.id,
                 "similarity": car.similarity,
                 "car_url": car.most_similar_car_url,
-                "nickname": gallary_data.nickname,
+                "nickname": gallery_data.nickname,
             }
         )
 
     db.session.close()
 
-    return {"car_name": car_name, "gallery_contents": gallary_contents}
+    return {"car_name": car_name, "gallery_contents": gallery_contents}

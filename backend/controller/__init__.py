@@ -1,5 +1,5 @@
 from controller.detail_controller import detail
-from controller.gallary_controller import gallary
+from controller.gallery_controller import gallery
 from controller.mbti_controller import mbti
 from controller.search_controller import search
 from controller.upload_controller import upload
