@@ -5,7 +5,7 @@ from flask_restx import Api
 
 import config
 from bcrypt_generator import bcrypt
-from controller import detail, gallary, mbti, search, upload, worldcup
+from controller import detail, gallery, mbti, search, upload, worldcup
 from db_connect import db
 
 
@@ -17,7 +17,7 @@ def create_app():
     api.add_namespace(upload)
     api.add_namespace(mbti)
     api.add_namespace(worldcup)
-    api.add_namespace(gallary)
+    api.add_namespace(gallery)
 
     CORS(app)
 

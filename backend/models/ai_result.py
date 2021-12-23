@@ -12,9 +12,9 @@ class Ai_Result(db.Model):
         db.ForeignKey("car.id", ondelete="CASCADE", onupdate="CASCADE"),
         nullable=False,
     )
-    gallary_id = db.Column(
+    gallery_id = db.Column(
         db.Integer,
-        db.ForeignKey("gallary.id", ondelete="CASCADE", onupdate="CASCADE"),
+        db.ForeignKey("gallery.id", ondelete="CASCADE", onupdate="CASCADE"),
         nullable=True,
         default=None,
     )

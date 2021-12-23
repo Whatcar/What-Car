@@ -132,7 +132,7 @@ def get_ai_cars_detail(id):
             less_similar_car_content_list.append(less_similar_car_content)
 
         is_upload = False
-        if data.gallary_id:
+        if data.gallery_id:
             is_upload = True
 
         result = {

@@ -6,8 +6,8 @@ from flask_restx import fields
 
 
 # 갤러리
-class Gallary(db.Model):
-    __tablename__ = "gallary"
+class Gallery(db.Model):
+    __tablename__ = "gallery"
     id = db.Column(db.Integer, primary_key=True, nullable=False, autoincrement=True)
     nickname = db.Column(db.String(30), nullable=False)
     password = db.Column(db.String(255), nullable=False)
@@ -29,7 +29,7 @@ class Gallary(db.Model):
             "nickname": self.nickname,
         }
 
-    post_gallary = {
+    post_gallery = {
         "ai_result_id": fields.Integer(
             required=True, description="AI DB 고유 아이디", example=1
         ),
@@ -41,15 +41,15 @@ class Gallary(db.Model):
         ),
     }
 
-    delete_gallary = {
-        "gallary_id": fields.Integer(required=True, description="갤러리 아이디", example=1),
+    delete_gallery = {
+        "gallery_id": fields.Integer(required=True, description="갤러리 아이디", example=1),
         "password": fields.String(
             required=True, description="패스워드", example="1q2w3e4r!"
         ),
     }
 
     response_model = {
-        "gallary_id": fields.Integer(required=True, description="갤러리 아이디", example=1),
+        "gallery_id": fields.Integer(required=True, description="갤러리 아이디", example=1),
         "car_name": fields.String(
             required=True, description="차량 이름", example="2021 벤츠"
         ),

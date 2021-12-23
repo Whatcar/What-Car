@@ -30,7 +30,7 @@ export default function FeedbackButton({ id, carId, carUrl, similarity, setCarDa
           Swal.showValidationMessage(`닉네임과 비밀번호를 입력해주세요!`);
         }
         return axios
-          .post(`${PATH}/api/gallary`, {
+          .post(`${PATH}/api/gallery`, {
             ai_result_id: id,
             car_id: carId,
             car_url: carUrl,
@@ -70,13 +70,13 @@ export default function FeedbackButton({ id, carId, carUrl, similarity, setCarDa
       }
     });
   };
-  const handleGallary = () => navigate('/gallary');
+  const handleGallery = () => navigate('/gallery');
   return isUpload ? (
     <Button
       variant="outlined"
       startIcon={<ChevronRightRoundedIcon />}
       sx={{ padding: '15px', width: '100%', lineHeight: '1rem' }}
-      onClick={handleGallary}
+      onClick={handleGallery}
     >
       갤러리로 이동하기
     </Button>
